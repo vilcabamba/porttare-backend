@@ -1,5 +1,7 @@
 # porttare-backend
 
+[![CircleCI](https://circleci.com/gh/noggalito/porttare-backend.svg?style=svg)](https://circleci.com/gh/noggalito/porttare-backend)
+
 ## setting up
 
 ### requirements
