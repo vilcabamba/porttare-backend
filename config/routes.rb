@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root to: redirect("/apipie")
   apipie
   namespace :api, defaults: { format: :json } do
+    resources :locations, only: :create
     namespace :auth do
       mount_devise_token_auth_for(
         "User",
