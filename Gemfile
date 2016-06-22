@@ -23,7 +23,7 @@ group :api do
 end
 
 gem 'omniauth', '~> 1.3'
-gem 'devise_token_auth', github: 'lynndylanhurley/devise_token_auth'
+gem 'devise_token_auth', '~> 0.1'
 gem 'omniauth-facebook', '~> 3.0'
 gem 'rack-cors', '~> 0.4', require: 'rack/cors'
 
@@ -34,10 +34,10 @@ gem 'rack-cors', '~> 0.4', require: 'rack/cors'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  gem 'pry-rails'
   gem 'rspec-rails', '~> 3.4'
   gem 'factory_girl_rails', '~> 4.7'
+  gem 'database_cleaner'
 end
 
 group :development do
