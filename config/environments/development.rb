@@ -45,30 +45,4 @@ Rails.application.configure do
     host: Rails.application.secrets.host,
     port: Rails.application.secrets.port
   }
-
-  config.middleware.use Rack::Cors,
-                        debug: true,
-                        logger: (-> { Rails.logger }) do
-    allow do
-      origins "*"
-      resource "*",
-        headers: :any,
-        expose: [
-          "access-token",
-          "expiry",
-          "token-type",
-          "uid",
-          "client"
-        ],
-        methods: [
-          :get,
-          :put,
-          :post,
-          :head,
-          :patch,
-          :delete,
-          :options
-        ]
-    end
-  end
 end
