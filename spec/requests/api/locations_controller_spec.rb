@@ -49,6 +49,47 @@ RSpec.describe Api::LocationsController,
   end
 
   describe "says if the location changed" do
+    let!(:old_location) {
+      create :user_location,
+             user: user,
+             lat: "-4.7911345",
+             lon: "73.4311424"
+    }
 
+    describe "close location" do
+      before {
+        post_with_headers(
+          "/api/locations",
+          {
+            lat: "-4.7941345",
+            lon: "73.4341424"
+          }
+        )
+      }
+
+      subject {
+        JSON.parse(response.body)["meta"]["new_location"]
+      }
+
+      it { is_expected.to be_falsey }
+    end
+
+    describe "far location" do
+      before {
+        post_with_headers(
+          "/api/locations",
+          {
+            lat: "-4.7981345",
+            lon: "73.4381424"
+          }
+        )
+      }
+
+      subject {
+        JSON.parse(response.body)["meta"]["new_location"]
+      }
+
+      it { is_expected.to be_truthy }
+    end
   end
 end

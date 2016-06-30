@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: porttare-backend_production
-  username: porttare-backend
-  password: <%= ENV['PORTTARE-BACKEND_DATABASE_PASSWORD'] %>
+  database: porttare-backend_development
