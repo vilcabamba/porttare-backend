@@ -5,5 +5,6 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User # after devise
 
   has_many :locations,
+           -> { order(id: :desc) },
            class_name: "UserLocation"
 end
