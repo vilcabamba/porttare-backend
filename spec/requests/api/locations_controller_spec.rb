@@ -48,6 +48,34 @@ RSpec.describe Api::LocationsController,
     end
   end
 
+  describe "sorts last location as first" do
+    let!(:old_location) {
+      create :user_location,
+             user: user,
+             lat: 4
+    }
+    let!(:new_location) {
+      create :user_location,
+             user: user,
+             lat: 5
+    }
+
+    before {
+      post_with_headers(
+        "/api/locations",
+        attributes_for(:user_location)
+      )
+    }
+
+    subject {
+      JSON.parse(response.body)["previous_locations"].first
+    }
+
+    it "first location is last" do
+      expect(subject["lat"]).to eq(new_location.lat)
+    end
+  end
+
   describe "says if the location changed" do
     let!(:old_location) {
       create :user_location,
