@@ -44,7 +44,7 @@ module Api
         prev = @previous_locations.first.send(attribute).to_f
         actual = location.send(attribute).to_f
         diff = (prev - actual).abs
-        diff.round(2) >= 0.01
+        diff.round(2) >= 0.01 # if any lat/lon diff is greater
       end
     end
   end
