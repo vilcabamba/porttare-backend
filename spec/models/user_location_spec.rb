@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: user_locations
+#
+#  id         :integer          not null, primary key
+#  lat        :string           not null
+#  lon        :string           not null
+#  user_id    :integer          not null
+#  created_at :datetime         not null
+#
+
 require 'rails_helper'
 
 RSpec.describe UserLocation,
