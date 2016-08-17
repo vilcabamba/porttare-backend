@@ -5,6 +5,8 @@ module Api
         name "Provider::ClientsController"
         short "provider clients endpoint"
       end
+      
+      before_action :authenticate_api_auth_user!
 
       api :POST,
           "/provider/clients",
