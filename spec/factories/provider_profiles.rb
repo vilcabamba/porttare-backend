@@ -30,22 +30,22 @@ FactoryGirl.define do
   factory :provider_profile do
     user
 
-    ruc                    { Forgery('russian_tax').person_inn }
-    email                  { Forgery('internet').email_address }
-    telefono               { Forgery('address').phone }
-    razon_social           { Forgery('name').company_name }
-    banco_nombre           { Forgery('address').street_name }
-    actividad_economica    { Forgery('name').industry }
-    representante_legal    { Forgery('name').full_name }
-    banco_numero_cuenta    { Forgery('russian_tax').account_number }
-    fecha_inicio_actividad { Forgery('date').date }
-    banco_identificacion   { Forgery('russian_tax').legal_inn }
-    website                { Forgery('internet').domain_name }
-    facebook_handle        { Forgery('internet').user_name }
-    twitter_handle         { Forgery('internet').user_name }
-    instagram_handle       { Forgery('internet').user_name }
-    youtube_handle         { Forgery('internet').user_name }
-    mejor_articulo         { Forgery('lorem_ipsum').paragraphs }
+    ruc                    { Faker::Code.npi }
+    email                  { Faker::Internet.email }
+    telefono               { Faker::PhoneNumber.phone_number }
+    razon_social           { Faker::Company.name }
+    banco_nombre           { Faker::Team.name }
+    actividad_economica    { Faker::Company.profession }
+    representante_legal    { Faker::Name.name }
+    banco_numero_cuenta    { Faker::Company.ein }
+    fecha_inicio_actividad { Faker::Date.backward }
+    banco_identificacion   { Faker::Company.duns_number }
+    website                { Faker::Internet.url }
+    facebook_handle        { Faker::Internet.user_name }
+    twitter_handle         { Faker::Internet.user_name }
+    instagram_handle       { Faker::Internet.user_name }
+    youtube_handle         { Faker::Internet.user_name }
+    mejor_articulo         { Faker::Hipster.paragraphs.join "\n" }
     formas_de_pago         { ProviderProfile::FORMAS_DE_PAGO.sample(1) }
     tipo_contribuyente {
       [
