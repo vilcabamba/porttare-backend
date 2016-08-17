@@ -17,11 +17,20 @@
 #
 
 class ProviderItem < ActiveRecord::Base
+  UNIDADES_MEDIDA = [
+    "volumen",
+    "unidades",
+    "peso",
+    "longitud"
+  ].freeze
+
   belongs_to :provider_profile
 
   validates :titulo,
             presence: true
-  monetize :precio_cents
-  validates :precio_cents,
-            numericality: { greater_than_or_equal_to: 0 }
+  validates :precio,
+            numericality: { greater_than: 0 }
+
+  monetize :precio_cents,
+           numericality: false
 end
