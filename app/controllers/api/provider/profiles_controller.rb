@@ -48,24 +48,7 @@ module Api
 
       def provider_profile_params
         params.permit(
-          :ruc,
-          :razon_social,
-          :actividad_economica,
-          :tipo_contribuyente,
-          :representante_legal,
-          :telefono,
-          :email,
-          :fecha_inicio_actividad,
-          :banco_nombre,
-          :banco_numero_cuenta,
-          :banco_identificacion,
-          :website,
-          :facebook_handle,
-          :twitter_handle,
-          :instagram_handle,
-          :youtube_handle,
-          :mejor_articulo,
-          formas_de_pago: []
+          *policy(ProviderProfile).permitted_attributes
         )
       end
     end

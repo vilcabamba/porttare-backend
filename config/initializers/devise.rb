@@ -5,4 +5,7 @@ Devise.setup do |config|
   # middleware b/c rails-api does not include it.
   # See: http://stackoverflow.com/q/19600905/806956
   config.navigational_formats = ["*/*", :html, :json]
+
+  # 'new' email regexp devise 4.1 onwards
+  config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
 end
