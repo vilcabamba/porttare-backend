@@ -18,11 +18,11 @@ ActiveRecord::Schema.define(version: 20160817213958) do
 
   create_table "provider_clients", force: :cascade do |t|
     t.integer  "provider_profile_id"
-    t.text     "notes"
+    t.text     "notas"
     t.string   "ruc"
-    t.string   "name"
-    t.string   "address"
-    t.string   "phone"
+    t.string   "nombres"
+    t.string   "direccion"
+    t.string   "telefono"
     t.string   "email"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false

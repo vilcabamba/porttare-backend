@@ -11,11 +11,11 @@ module Api
       api :POST,
           "/provider/clients",
           "Create a provider client"
-      param :notes, String
+      param :notas, String
       param :ruc, String, required: true
-      param :name, String, required: true
-      param :address, String, required: true
-      param :phone, String, required: true
+      param :nombres, String, required: true
+      param :direccion, String, required: true
+      param :telefono, String, required: true
       param :email, String, required: true
       def create
         authorize ProviderClient

@@ -4,11 +4,11 @@
 #
 #  id                  :integer          not null, primary key
 #  provider_profile_id :integer
-#  notes               :text
+#  notas               :text
 #  ruc                 :string
-#  name                :string
-#  address             :string
-#  phone               :string
+#  nombres             :string
+#  direccion           :string
+#  telefono            :string
 #  email               :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
@@ -21,12 +21,9 @@ class ProviderClient < ActiveRecord::Base
   #validations
   validates :provider_profile_id,
             :ruc,
-            :name,
-            :address,
-            :phone,
+            :nombres,
+            :direccion,
+            :telefono,
             :email,
             presence: true
-
-  validates :ruc, uniqueness: true
-
 end

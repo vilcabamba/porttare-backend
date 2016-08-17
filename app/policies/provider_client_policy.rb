@@ -6,11 +6,11 @@ class ProviderClientPolicy < ApplicationPolicy
 
   def permitted_attributes
     [
-      :notes,
+      :notas,
       :ruc,
-      :name,
-      :address,
-      :phone,
+      :nombres,
+      :direccion,
+      :telefono,
       :email
     ]
   end
