@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Api::User::ProviderProfilesController,
+RSpec.describe Api::Provider::ProfilesController,
                type: :request do
   let(:user) { create :user }
   before { login_as user }
@@ -11,7 +11,7 @@ RSpec.describe Api::User::ProviderProfilesController,
       attributes_for(:provider_profile).except(:ruc)
     }
     before {
-      post_with_headers("/api/user/provider_profile", invalid_attributes)
+      post_with_headers("/api/provider/profile", invalid_attributes)
     }
 
     it {
@@ -26,7 +26,7 @@ RSpec.describe Api::User::ProviderProfilesController,
   describe "creates valid provider profile for user" do
     before do
       post_with_headers(
-        "/api/user/provider_profile",
+        "/api/provider/profile",
         attributes_for(:provider_profile)
       )
     end

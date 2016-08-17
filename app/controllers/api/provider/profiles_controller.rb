@@ -1,8 +1,13 @@
 module Api
-  module User
-    class ProviderProfilesController < BaseController
+  module Provider
+    class ProfilesController < BaseController
+      resource_description do
+        name "Provider::ProfilesController"
+        short "apply for a provider profile"
+      end
+
       api :POST,
-          "/user/provider_profile",
+          "/provider/profile",
           "Submit a provider profile application. Response includes the errors if any."
       param :ruc, String, required: true
       param :razon_social, String, required: true
