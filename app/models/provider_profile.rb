@@ -34,6 +34,7 @@ class ProviderProfile < ActiveRecord::Base
 
   belongs_to :user
   has_many :provider_items
+  has_many :provider_clients
 
   validates :ruc,
             :razon_social,
