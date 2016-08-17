@@ -24,12 +24,16 @@ class ProviderItem < ActiveRecord::Base
     "longitud"
   ].freeze
 
+  enum unidad_medida: UNIDADES_MEDIDA
+
   belongs_to :provider_profile
 
   validates :titulo,
             presence: true
   validates :precio,
             numericality: { greater_than: 0 }
+  validates :unidad_medida,
+            inclusion: { in: UNIDADES_MEDIDA }
 
   monetize :precio_cents,
            numericality: false

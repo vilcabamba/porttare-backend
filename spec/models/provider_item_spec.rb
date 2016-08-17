@@ -24,4 +24,15 @@ RSpec.describe ProviderItem,
     subject { build :provider_item }
     it { is_expected.to be_valid }
   end
+
+  describe "validates unidades de medida" do
+    describe "invalid" do
+      subject { build :provider_item }
+      it {
+        expect {
+          subject.unidad_medida = "invalid"
+        }.to raise_error(ArgumentError)
+      }
+    end
+  end
 end
