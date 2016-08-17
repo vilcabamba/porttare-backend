@@ -46,7 +46,7 @@ FactoryGirl.define do
     instagram_handle       { Forgery('internet').user_name }
     youtube_handle         { Forgery('internet').user_name }
     mejor_articulo         { Forgery('lorem_ipsum').paragraphs }
-    formas_de_pago         { ProviderProfile::FORMAS_DE_PAGO.sample }
+    formas_de_pago         { ProviderProfile::FORMAS_DE_PAGO.sample(1) }
     tipo_contribuyente {
       [
         "Personal natural"

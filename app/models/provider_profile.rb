@@ -44,4 +44,14 @@ class ProviderProfile < ActiveRecord::Base
             :banco_identificacion,
             presence: true
   validates :ruc, uniqueness: true
+  validate :validate_formas_de_pago
+
+  private
+
+  def validate_formas_de_pago
+    all_valid = formas_de_pago.all? do |forma_de_pago|
+      FORMAS_DE_PAGO.include?(forma_de_pago)
+    end
+    errors.add(:formas_de_pago, :invalid) unless all_valid
+  end
 end

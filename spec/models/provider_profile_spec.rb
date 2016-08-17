@@ -39,11 +39,17 @@ RSpec.describe ProviderProfile,
     subject { build :provider_profile }
 
     describe "valid" do
-      pending
+      before {
+        subject.formas_de_pago = ProviderProfile::FORMAS_DE_PAGO.sample(2)
+      }
+      it { is_expected.to be_valid }
     end
 
     describe "invalid" do
-      pending
+      before {
+        subject.formas_de_pago << "invalid"
+      }
+      it { is_expected.to_not be_valid }
     end
   end
 end

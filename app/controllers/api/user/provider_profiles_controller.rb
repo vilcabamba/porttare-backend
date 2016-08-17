@@ -64,7 +64,7 @@ module Api
           :instagram_handle,
           :youtube_handle,
           :mejor_articulo,
-          :forma_de_pago
+          formas_de_pago: []
         )
       end
     end
