@@ -6,15 +6,20 @@ RSpec.describe Api::User::ProviderProfilesController,
   before { login_as user }
 
   describe "doesn't create provider profile for user" do
-    before do
-      post_with_headers(
-        "/api/user/provider_profile",
-        { invalid: :attributes }
-      )
-    end
+    let(:invalid_attributes) {
+      # without a required attribute
+      attributes_for(:provider_profile).except(:ruc)
+    }
+    before {
+      post_with_headers("/api/user/provider_profile", invalid_attributes)
+    }
 
     it {
       expect(user.reload.provider_profile).to be_nil
+    }
+    it {
+      json_response = JSON.parse(response.body)
+      expect(json_response["errors"]["ruc"]).to be_present
     }
   end
 
@@ -22,7 +27,7 @@ RSpec.describe Api::User::ProviderProfilesController,
     before do
       post_with_headers(
         "/api/user/provider_profile",
-        attributes_for(:provider_profile) # TODO: define
+        attributes_for(:provider_profile)
       )
     end
 
