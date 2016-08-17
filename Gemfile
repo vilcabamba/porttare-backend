@@ -41,6 +41,7 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.7'
   gem 'database_cleaner'
   gem 'forgery', '~> 0.6'
+  gem 'rspec_junit_formatter', '~> 0.2'
 end
 
 group :development do
