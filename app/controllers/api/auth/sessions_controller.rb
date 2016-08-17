@@ -16,6 +16,20 @@ module Api
         description "authenticate using email and password"
         param :email, String, required: true
         param :password, String, required: true
+        example %q{{
+  "data": {
+      "id":1,
+      "provider":"email",
+      "uid":"user-1@noggalito.com",
+      "name":null,
+      "nickname":null,
+      "image":null,
+      "email":"user-1@noggalito.com",
+      "info":null,
+      "credentials":null,
+      "provider_profile_id":1
+  }
+}}
       end
 
       doc_for :sign_out do
