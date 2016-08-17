@@ -1,5 +1,7 @@
 ---
 es:
+  pundit:
+    not_authorized: No estás autorizado para hacer esto
   activerecord:
     errors:
       messages:

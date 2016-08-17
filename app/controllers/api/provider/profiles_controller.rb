@@ -30,7 +30,8 @@ module Api
             String,
             desc: "an array of options. options must be within: #{ProviderProfile::FORMAS_DE_PAGO.join(", ")}"
       def create
-        if allowed_to_apply? && apply_as_provider!
+        authorize ProviderProfile
+        if apply_as_provider!
           render nothing: true, status: :created
         else
           render :create_error, status: :unprocessable_entity
@@ -38,11 +39,6 @@ module Api
       end
 
       private
-
-      def allowed_to_apply?
-        # if the user doesn't have a provider profile already
-        current_api_auth_user.provider_profile.nil?
-      end
 
       def apply_as_provider!
         @provider_profile = ProviderProfile.new(provider_profile_params)

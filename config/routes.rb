@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :locations, only: :create
 
     namespace :provider do
-      resource :profile, only: :create # perhaps controller should be ProviderProfile
+      resource :profile, only: :create
       resources :items, only: :create
     end
 

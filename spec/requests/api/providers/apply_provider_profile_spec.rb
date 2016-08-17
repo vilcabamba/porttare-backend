@@ -36,4 +36,23 @@ RSpec.describe Api::Provider::ProfilesController,
       expect(provider_profile.user).to eq(user)
     }
   end
+
+  describe "already provider" do
+    let(:user) { create :user, :provider }
+
+    before do
+      expect {
+        post_with_headers(
+          "/api/provider/profile",
+          attributes_for(:provider_profile)
+        )
+      }.to_not change(ProviderProfile, :count)
+    end
+
+    it "gets halt and response by pundit" do
+      expect(
+        JSON.parse(response.body)
+      ).to have_key("error")
+    end
+  end
 end
