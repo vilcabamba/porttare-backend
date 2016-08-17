@@ -11,10 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160621130717) do
+ActiveRecord::Schema.define(version: 20160816230212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "provider_profiles", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "ruc"
+    t.string   "razon_social"
+    t.string   "actividad_economica"
+    t.string   "tipo_contribuyente"
+    t.string   "representante_legal"
+    t.string   "telefono"
+    t.string   "email"
+    t.date     "fecha_inicio_actividad"
+    t.string   "banco_nombre"
+    t.string   "banco_numero_cuenta"
+    t.string   "banco_identificacion"
+    t.string   "website"
+    t.string   "facebook_handle"
+    t.string   "twitter_handle"
+    t.string   "instagram_handle"
+    t.string   "youtube_handle"
+    t.text     "mejor_articulo"
+    t.text     "formas_de_pago",         default: [],              array: true
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "provider_profiles", ["user_id"], name: "index_provider_profiles_on_user_id", using: :btree
 
   create_table "user_locations", force: :cascade do |t|
     t.string   "lat",        null: false
@@ -52,5 +78,6 @@ ActiveRecord::Schema.define(version: 20160621130717) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
 
+  add_foreign_key "provider_profiles", "users"
   add_foreign_key "user_locations", "users"
 end
