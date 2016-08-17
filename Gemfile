@@ -27,6 +27,7 @@ gem 'devise_token_auth', '~> 0.1'
 gem 'omniauth-facebook', '~> 3.0'
 gem 'rack-cors', '~> 0.4', require: 'rack/cors'
 gem 'pundit', '~> 1.1'
+gem 'money-rails', '~> 1.6'
 gem 'airbrake', '~> 4.3'
 
 # Use Unicorn as the app server
@@ -40,7 +41,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.4'
   gem 'factory_girl_rails', '~> 4.7'
   gem 'database_cleaner'
-  gem 'forgery', '~> 0.6'
+  gem 'faker', '~> 1.6'
   gem 'rspec_junit_formatter', '~> 0.2'
 end
 

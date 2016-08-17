@@ -33,6 +33,7 @@ class ProviderProfile < ActiveRecord::Base
   ].freeze
 
   belongs_to :user
+  has_many :provider_items
 
   validates :ruc,
             :razon_social,
