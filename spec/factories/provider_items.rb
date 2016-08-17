@@ -7,7 +7,8 @@
 #  titulo              :string           not null
 #  descripcion         :text
 #  unidad_medida       :integer
-#  precio              :money            not null
+#  precio_cents        :integer          default(0), not null
+#  precio_currency     :string           default("USD"), not null
 #  volumen             :string
 #  peso                :string
 #  imagen              :string
