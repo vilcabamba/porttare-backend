@@ -22,7 +22,7 @@ FactoryGirl.define do
 
     titulo        { Faker::Commerce.product_name }
     descripcion   { Faker::Company.catch_phrase }
-    unidad_medida { 1 }
+    unidad_medida { ProviderItem::UNIDADES_MEDIDA.sample }
     precio        { Faker::Commerce.price }
     volumen       { Faker::Number.number(3) }
     peso          { "#{Faker::Number.number(3)} kg" }
