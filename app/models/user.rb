@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
           :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   include DeviseTokenAuth::Concerns::User # after devise
+  include Serializable
 
   has_one :provider_profile
   has_many :locations,

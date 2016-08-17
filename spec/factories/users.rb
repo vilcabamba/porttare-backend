@@ -30,5 +30,11 @@ FactoryGirl.define do
     sequence(:email) { |n| "user-#{n}@noggalito.com" }
     sequence(:password) { |n| "user-password-#{n}" }
     password_confirmation { password }
+
+    trait :provider do
+      after :create do |user|
+        create :provider_profile, user: user
+      end
+    end
   end
 end
