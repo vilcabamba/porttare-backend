@@ -6,6 +6,8 @@ module Api
         short "apply for a provider profile"
       end
 
+      before_action :authenticate_api_auth_user!
+
       api :POST,
           "/provider/profile",
           "Submit a provider profile application. Response includes the errors if any."
@@ -35,7 +37,7 @@ module Api
           render nothing: true, status: :created
         else
           @errors = @provider_profile.errors
-          render "api/shared/create_error",
+          render "api/shared/resource_error",
                  status: :unprocessable_entity
         end
       end

@@ -16,7 +16,7 @@ RSpec.describe Api::Provider::ItemsController,
     }
   end
 
-  describe "as provider" do
+  describe "create as provider" do
     let(:provider) { create :user, :provider }
     before { login_as provider }
     let(:attributes) { attributes_for :provider_item }
@@ -57,6 +57,11 @@ RSpec.describe Api::Provider::ItemsController,
         expect(
           provider_item.titulo
         ).to eq(attributes[:titulo])
+      }
+
+      it {
+        json = JSON.parse(response.body)
+        expect(json).to have_key("provider_item")
       }
     end
   end

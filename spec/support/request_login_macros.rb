@@ -8,16 +8,26 @@ module RequestLoginMacros
   end
 
   def post_with_headers(path, parameters = {})
-    post(
-      path,
-      parameters,
-      response.headers.slice(
-        "access-token",
-        "token-type",
-        "client",
-        "expiry",
-        "uid"
-      )
+    post(path, parameters, response_headers)
+  end
+
+  def get_with_headers(path)
+    get(path, response_headers)
+  end
+
+  def put_with_headers(path, parameters = {})
+    put(path, parameters, response_headers)
+  end
+
+  private
+
+  def response_headers
+    response.headers.slice(
+      "access-token",
+      "token-type",
+      "client",
+      "expiry",
+      "uid"
     )
   end
 end
