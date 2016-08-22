@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   apipie
   namespace :api, defaults: { format: :json } do
     resources :locations, only: :create
+    resources :products, only: :index
 
     namespace :provider do
       resource :profile, only: :create

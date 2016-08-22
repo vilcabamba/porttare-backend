@@ -31,7 +31,7 @@ module Api
   ]
 }}
       def index
-        @provider_items = policy_scope(ProviderItem)
+        @provider_items = provider_scope
       end
 
       def_param_group :provider_items do
@@ -88,9 +88,13 @@ module Api
       private
 
       def find_provider_item
-        @provider_item = policy_scope(
-          ProviderItem
-        ).find(params[:id])
+        @provider_item = provider_scope.find(params[:id])
+      end
+
+      def provider_scope
+        ProviderItemPolicy::ProviderScope.new(
+          pundit_user, ProviderItem
+        ).resolve
       end
 
       def provider_item_params
