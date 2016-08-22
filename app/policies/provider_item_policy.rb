@@ -1,10 +1,17 @@
 class ProviderItemPolicy < ApplicationPolicy
-  class Scope < Scope
+  class ProviderScope < Scope
     def resolve
       scope.where(
         provider_profile_id: user.provider_profile.id
       )
     end
+  end
+
+  class PublicScope < Scope
+    # TODO: define public scope
+    # probably something like filter out
+    # deleted ones ?
+    # def resolve; scope.all; end
   end
 
   def index?

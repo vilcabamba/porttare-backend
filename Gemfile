@@ -28,6 +28,7 @@ gem 'omniauth-facebook', '~> 3.0'
 gem 'rack-cors', '~> 0.4', require: 'rack/cors'
 gem 'pundit', '~> 1.1'
 gem 'money-rails', '~> 1.6'
+gem 'kaminari', '~> 0.17'
 gem 'airbrake', '~> 4.3'
 
 # Use Unicorn as the app server
