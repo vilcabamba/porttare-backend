@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :locations, only: :create
     resources :products, only: :index
+    resources :categories, only: :index
 
     namespace :provider do
       resource :profile, only: :create

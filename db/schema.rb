@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160817213958) do
+ActiveRecord::Schema.define(version: 20160824132215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "provider_categories", force: :cascade do |t|
+    t.string   "titulo",      null: false
+    t.string   "imagen"
+    t.text     "descripcion"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "provider_clients", force: :cascade do |t|
     t.integer  "provider_profile_id"
@@ -69,8 +77,10 @@ ActiveRecord::Schema.define(version: 20160817213958) do
     t.text     "formas_de_pago",         default: [],              array: true
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "provider_category_id"
   end
 
+  add_index "provider_profiles", ["provider_category_id"], name: "index_provider_profiles_on_provider_category_id", using: :btree
   add_index "provider_profiles", ["user_id"], name: "index_provider_profiles_on_user_id", using: :btree
 
   create_table "user_locations", force: :cascade do |t|
@@ -111,6 +121,7 @@ ActiveRecord::Schema.define(version: 20160817213958) do
 
   add_foreign_key "provider_clients", "provider_profiles"
   add_foreign_key "provider_items", "provider_profiles"
+  add_foreign_key "provider_profiles", "provider_categories"
   add_foreign_key "provider_profiles", "users"
   add_foreign_key "user_locations", "users"
 end

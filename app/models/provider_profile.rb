@@ -24,6 +24,7 @@
 #  formas_de_pago         :text             default([]), is an Array
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  provider_category_id   :integer
 #
 
 class ProviderProfile < ActiveRecord::Base
@@ -33,6 +34,7 @@ class ProviderProfile < ActiveRecord::Base
   ].freeze
 
   belongs_to :user
+  belongs_to :provider_category
   has_many :provider_items
   has_many :provider_clients
 

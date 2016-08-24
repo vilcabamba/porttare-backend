@@ -24,6 +24,7 @@
 #  formas_de_pago         :text             default([]), is an Array
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  provider_category_id   :integer
 #
 
 FactoryGirl.define do
