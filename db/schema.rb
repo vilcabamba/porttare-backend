@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 20160824132215) do
     t.datetime "updated_at",  null: false
   end
 
+  add_index "provider_categories", ["titulo"], name: "index_provider_categories_on_titulo", unique: true, using: :btree
+
   create_table "provider_clients", force: :cascade do |t|
     t.integer  "provider_profile_id"
     t.text     "notas"

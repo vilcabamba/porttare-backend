@@ -7,5 +7,9 @@ class CreateProviderCategories < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    add_index :provider_categories,
+              :titulo,
+              unique: true
   end
 end
