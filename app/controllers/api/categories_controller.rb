@@ -5,7 +5,7 @@ module Api
     respond_to :json
 
     def index
-      @categories = public_scope.all
+      @categories = public_scope.order(:titulo)
     end
 
     private
