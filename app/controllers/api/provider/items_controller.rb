@@ -31,6 +31,7 @@ module Api
   ]
 }}
       def index
+        authorize ProviderItem
         @provider_items = provider_scope
       end
 

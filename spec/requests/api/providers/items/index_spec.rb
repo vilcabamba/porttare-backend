@@ -2,6 +2,17 @@ require "rails_helper"
 
 RSpec.describe Api::Provider::ItemsController,
                type: :request do
+  describe "as non-provider" do
+    let(:user) { create :user }
+    before {
+      login_as user
+      get_with_headers "/api/provider/items"
+    }
+    it "says I'm not authorised" do
+      expect(response.status).to eq(401)
+    end
+  end
+
   describe "as provider" do
     let(:provider) { create :user, :provider }
     before { login_as provider }
