@@ -14,4 +14,5 @@ class ProviderCategory < ActiveRecord::Base
   validates :titulo,
             presence: true,
             uniqueness: true
+  has_many :provider_profiles
 end
