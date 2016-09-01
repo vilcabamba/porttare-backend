@@ -50,6 +50,8 @@ class ProviderProfile < ActiveRecord::Base
   validates :ruc, uniqueness: true
   validate :validate_formas_de_pago
 
+  before_create :auto_assign_category!
+
   private
 
   def validate_formas_de_pago
@@ -57,5 +59,12 @@ class ProviderProfile < ActiveRecord::Base
       FORMAS_DE_PAGO.include?(forma_de_pago)
     end
     errors.add(:formas_de_pago, :invalid) unless all_valid
+  end
+
+  def auto_assign_category!
+    # TODO
+    # remove me once we can assign
+    # provider categories
+    self.provider_category = ProviderCategory.all.sample
   end
 end
