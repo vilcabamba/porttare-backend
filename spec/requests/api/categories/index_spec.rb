@@ -7,16 +7,16 @@ RSpec.describe Api::CategoriesController,
 
   describe "lists categories" do
     before do
+      category
       get_with_headers "/api/categories"
     end
 
-    let!(:category) {
+    let(:category) {
       create :provider_category,
              titulo: "Alimentos preparados"
     }
 
     it "should include category" do
-      binding.pry
       expect(
         response.body
       ).to include("Alimentos preparados")

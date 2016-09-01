@@ -12,6 +12,10 @@
 
 require 'rails_helper'
 
-RSpec.describe ProviderCategory, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe ProviderCategory,
+               type: :model do
+  describe "factory" do
+    subject { build :provider_category }
+    it { is_expected.to be_valid }
+  end
 end
