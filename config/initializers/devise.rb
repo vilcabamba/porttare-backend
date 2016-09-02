@@ -8,4 +8,6 @@ Devise.setup do |config|
 
   # 'new' email regexp devise 4.1 onwards
   config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+
+  config.scoped_views = true
 end

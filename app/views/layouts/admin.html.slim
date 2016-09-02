@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    title porttare
+    = stylesheet_link_tag "admin",
+                          "data-turbolinks-track" => true
+    = javascript_include_tag "admin",
+                             "data-turbolinks-track" => true
+    = csrf_meta_tags
+
+  body
+    = render "layouts/flashes"
+    = yield
