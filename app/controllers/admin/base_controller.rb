@@ -3,6 +3,8 @@ module Admin
     before_action :authenticate_admin!
     before_action :ensure_is_admin!
 
+    layout "admin"
+
     alias_method :pundit_user, :current_admin
 
     # help airbrake identify current user
