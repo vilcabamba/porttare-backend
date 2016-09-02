@@ -1,5 +1,12 @@
 ---
 es:
+  devise:
+    failure:
+      already_authenticated: Ya iniciaste sesión
+      admin:
+        not_found_in_database: Usuario no encontrado
+        invalid: Usuario o contraseña incorrectos
+        unauthenticated: Por favor inicia sesión
   pundit:
     not_authorized: No estás autorizado para hacer esto
   activerecord:
