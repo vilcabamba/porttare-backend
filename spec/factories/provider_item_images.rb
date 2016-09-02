@@ -14,7 +14,7 @@ FactoryGirl.define do
     provider_item
 
     imagen {
-      File.open(Rails.root.join("spec/support/placeholder.png"))
+      File.open(Rails.root.join("spec/fixtures/placeholder.png"))
     }
   end
 end

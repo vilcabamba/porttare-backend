@@ -27,5 +27,12 @@ FactoryGirl.define do
     volumen       { Faker::Number.number(3) }
     peso          { "#{Faker::Number.number(3)} kg" }
     observaciones { Faker::Hipster.paragraphs.join "\n" }
+
+    trait :with_imagen do
+      after(:create) do |provider_item|
+        create :provider_item_image,
+               provider_item: provider_item
+      end
+    end
   end
 end

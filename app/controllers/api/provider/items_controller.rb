@@ -23,10 +23,15 @@ module Api
       "precio_cents":4079,
       "volumen":"798",
       "peso":"986 kg",
-      "imagen":"https://robohash.org/aliquamdelenitiquisquam.png?size=50x50\u0026set=set1",
       "observaciones":"Marfa 90's xoxo shoreditch. Selvage butcher trust fund. Pickled polaroid echo hammock.\nKickstarter stumptown gastropub. Ramps chambray letterpress. Etsy ramps sustainable selfies tousled.\nPhoto booth loko chambray art party chillwave umami street tilde. Truffaut hammock knausgaard. Cronut messenger bag banh mi bushwick.",
       "created_at":"2016-08-17T17:21:04.569-05:00",
-      "updated_at":"2016-08-17T17:21:04.569-05:00"
+      "updated_at":"2016-08-17T17:21:04.569-05:00",
+      "imagenes":[
+        {
+          "id":1,
+          "imagen_url":"https://robohash.org/aliquamdelenitiquisquam.png?size=50x50\u0026set=set1"
+        }
+      ]
     }
   ]
 }}
