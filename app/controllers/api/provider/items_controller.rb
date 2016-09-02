@@ -35,7 +35,7 @@ module Api
         @provider_items = provider_scope
       end
 
-      def_param_group :provider_items do
+      def_param_group :provider_item do
         param :titulo, String, required: true
         param :descripcion, String
         param :precio, Float, required: true
@@ -51,7 +51,7 @@ module Api
       api :POST,
           "/provider/items",
           "Create a provider item"
-      param_group :provider_items
+      param_group :provider_item
       def create
         authorize ProviderItem
         @provider_item =
@@ -74,10 +74,10 @@ module Api
             Integer,
             required: true,
             desc: "Provider item's id"
-      param_group :provider_items
+      param_group :provider_item
       def update
         authorize @provider_item
-        if @provider_item.update_attributes provider_item_params
+        if @provider_item.update_attributes(provider_item_params)
           render :item, status: :accepted
         else
           @errors = @provider_item.errors

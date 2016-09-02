@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   module Serializable
     extend ActiveSupport::Concern
 
+    # called by devise after login, etc
     def token_validation_response
       super.merge(mandatory_associations)
     end

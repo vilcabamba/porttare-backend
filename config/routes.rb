@@ -1,13 +1,25 @@
 Rails.application.routes.draw do
   root to: redirect("/apipie")
   apipie
+  devise_for :admins,
+             path: "admin",
+             class_name: "User",
+             skip: [
+               :registrations
+             ]
+  namespace :admin do
+    resources :users, only: :index
+    root "users#index"
+  end
   namespace :api, defaults: { format: :json } do
     resources :locations, only: :create
     resources :products, only: :index
+    resources :categories, only: :index
 
     namespace :provider do
       resource :profile, only: :create
-      resources :clients, only: :create
+      resources :clients,
+                only: [:index, :create, :update]
       resources :items,
                 only: [:index, :create, :update]
     end
