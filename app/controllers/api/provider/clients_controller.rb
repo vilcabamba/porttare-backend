@@ -7,6 +7,7 @@ module Api
       end
 
       before_action :authenticate_api_auth_user!
+      before_action :find_provider_client, only: :update
 
       api :GET,
           "/provider/clients",
@@ -26,18 +27,22 @@ module Api
 }}
       def index
         authorize ProviderClient
-        @provider_clients = policy_scope(ProviderClient)
+        @provider_clients = provider_scope
+      end
+
+      def_param_group :provider_client do
+        param :notas, String
+        param :ruc, String, required: true
+        param :nombres, String, required: true
+        param :direccion, String, required: true
+        param :telefono, String, required: true
+        param :email, String, required: true
       end
 
       api :POST,
           "/provider/clients",
           "Create a provider client"
-      param :notas, String
-      param :ruc, String, required: true
-      param :nombres, String, required: true
-      param :direccion, String, required: true
-      param :telefono, String, required: true
-      param :email, String, required: true
+      param_group :provider_client
       def create
         authorize ProviderClient
         @provider_client =
@@ -53,12 +58,39 @@ module Api
         end
       end
 
+      api :PUT,
+          "/provider/clients/:id",
+          "Update a provider's client"
+      param :id,
+            Integer,
+            required: true,
+            desc: "Provider client's id"
+      param_group :provider_client
+      def update
+        authorize @provider_client
+        if @provider_client.update_attributes(provider_client_params)
+          render :client, status: :accepted
+        else
+          @errors = @provider_client.errors
+          render "api/shared/resource_error",
+                 status: :unprocessable_entity
+        end
+      end
+
       private
 
       def provider_client_params
         params.permit(
           *policy(ProviderClient).permitted_attributes
         )
+      end
+
+      def find_provider_client
+        @provider_client = provider_scope.find(params[:id])
+      end
+
+      def provider_scope
+        policy_scope(ProviderClient)
       end
     end
   end
