@@ -11,7 +11,6 @@
 #  precio_currency     :string           default("USD"), not null
 #  volumen             :string
 #  peso                :string
-#  imagen              :string
 #  observaciones       :text
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null

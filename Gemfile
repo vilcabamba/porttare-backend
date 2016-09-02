@@ -12,6 +12,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'slim', '~> 3.0'
+gem 'carrierwave', '~> 0.11'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -59,4 +60,5 @@ end
 
 group :heroku do
   gem 'rails_12factor'
+  gem 'cloudinary', '~> 1.2'
 end

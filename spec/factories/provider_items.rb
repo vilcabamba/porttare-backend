@@ -11,7 +11,6 @@
 #  precio_currency     :string           default("USD"), not null
 #  volumen             :string
 #  peso                :string
-#  imagen              :string
 #  observaciones       :text
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
@@ -27,7 +26,6 @@ FactoryGirl.define do
     precio        { Faker::Commerce.price }
     volumen       { Faker::Number.number(3) }
     peso          { "#{Faker::Number.number(3)} kg" }
-    imagen        { Faker::Avatar.image(nil, "50x50") }
     observaciones { Faker::Hipster.paragraphs.join "\n" }
   end
 end

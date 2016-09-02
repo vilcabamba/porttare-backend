@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160824132215) do
+ActiveRecord::Schema.define(version: 20160902204326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,15 @@ ActiveRecord::Schema.define(version: 20160824132215) do
 
   add_index "provider_clients", ["provider_profile_id"], name: "index_provider_clients_on_provider_profile_id", using: :btree
 
+  create_table "provider_item_images", force: :cascade do |t|
+    t.integer  "provider_item_id", null: false
+    t.string   "imagen",           null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "provider_item_images", ["provider_item_id"], name: "index_provider_item_images_on_provider_item_id", using: :btree
+
   create_table "provider_items", force: :cascade do |t|
     t.integer  "provider_profile_id"
     t.string   "titulo",                              null: false
@@ -49,7 +58,6 @@ ActiveRecord::Schema.define(version: 20160824132215) do
     t.string   "precio_currency",     default: "USD", null: false
     t.string   "volumen"
     t.string   "peso"
-    t.string   "imagen"
     t.text     "observaciones"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
@@ -122,6 +130,7 @@ ActiveRecord::Schema.define(version: 20160824132215) do
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
 
   add_foreign_key "provider_clients", "provider_profiles"
+  add_foreign_key "provider_item_images", "provider_items"
   add_foreign_key "provider_items", "provider_profiles"
   add_foreign_key "provider_profiles", "provider_categories"
   add_foreign_key "provider_profiles", "users"
