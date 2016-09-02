@@ -8,6 +8,27 @@ module Api
 
       before_action :authenticate_api_auth_user!
 
+      api :GET,
+          "/provider/clients",
+          "Lists provider's clients"
+      example %q{{
+  "provider_clients":[
+    {
+      "id":1,
+      "notas":"jerarquía analizada Diverso",
+      "ruc":"961770900-7",
+      "nombres":"Urías S.A.",
+      "direccion":"Subida Clemente Zapata, 9 Esc. 773",
+      "telefono":"972 299 498",
+      "email":"karelle@luettgenlueilwitz.name"
+    }
+  ]
+}}
+      def index
+        authorize ProviderClient
+        @provider_clients = policy_scope(ProviderClient)
+      end
+
       api :POST,
           "/provider/clients",
           "Create a provider client"
@@ -24,7 +45,7 @@ module Api
             .provider_profile
             .provider_clients.new(provider_client_params)
         if @provider_client.save
-          render nothing: true, status: :created
+          render :client, status: :created
         else
           @errors = @provider_client.errors
           render "api/shared/resource_error",

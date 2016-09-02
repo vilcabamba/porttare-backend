@@ -8,7 +8,8 @@ Rails.application.routes.draw do
 
     namespace :provider do
       resource :profile, only: :create
-      resources :clients, only: :create
+      resources :clients,
+                only: [:index, :create, :update]
       resources :items,
                 only: [:index, :create, :update]
     end
