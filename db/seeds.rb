@@ -12,5 +12,8 @@
 ].each do |category_name|
   ProviderCategory.where(
     titulo: category_name
-  ).first_or_create
+  ).first_or_create do |category|
+    attrs = FactoryGirl.attributes_for :provider_category
+    category.attributes = attrs.merge titulo: category_name
+  end
 end
