@@ -7,8 +7,15 @@ json.extract!(
   :precio_cents,
   :volumen,
   :peso,
-  :imagen,
   :observaciones,
   :created_at,
   :updated_at
 )
+
+json.imagenes do
+  json.array!(
+    provider_item.imagenes,
+    partial: "item_imagen",
+    as: :provider_item_image
+  )
+end

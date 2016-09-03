@@ -34,8 +34,12 @@ class ProviderItemPolicy < ApplicationPolicy
       :precio,
       :volumen,
       :peso,
-      :imagen,
-      :observaciones
+      :observaciones,
+      imagenes_attributes: [
+        :id,
+        :imagen,
+        :_destroy
+      ]
     ]
   end
 
