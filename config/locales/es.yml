@@ -1,5 +1,7 @@
 ---
 es:
+  api:
+    something_went_wrong: "Ups, algo salió mal. Por favor vuelve a intentarlo"
   devise:
     failure:
       already_authenticated: Ya iniciaste sesión

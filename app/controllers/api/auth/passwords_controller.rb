@@ -2,6 +2,7 @@ module Api
   module Auth
     class PasswordsController < DeviseTokenAuth::PasswordsController
       extend BaseDoc
+      include Api::BaseController::ExceptionRescuable
       include BaseController::JsonRequestsForgeryBypass
 
       resource_description do

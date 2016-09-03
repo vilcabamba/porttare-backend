@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
                   with: :user_not_authorized
     end
 
-    private
+    protected
 
     def user_not_authorized
       flash[:alert] = I18n.t("pundit.not_authorized")
