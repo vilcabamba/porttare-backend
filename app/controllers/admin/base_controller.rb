@@ -14,11 +14,15 @@ module Admin
 
     protected
 
+    def t(key)
+      I18n.t(key)
+    end
+
     def ensure_is_admin!
       redirect_to(
         root_path,
         error: I18n.t("pundit.not_authorized")
-      ) unless true # current_admin.admin? TODO
+      ) unless current_admin.admin?
     end
   end
 end
