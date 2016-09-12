@@ -6,7 +6,8 @@ module Api
 
     api :GET,
         "/products",
-        "public products"
+        "public products",
+        deprecated: true
     desc "Up to #{Kaminari.config.default_per_page} products per page. Supports pagination"
     param :page, Integer
     example %q{{
