@@ -32,5 +32,12 @@ RSpec.describe Api::CategoriesController,
         response.body
       ).to include(provider_profile.razon_social)
     end
+
+    it "doesn't include full provider info" do
+      json = JSON.parse response.body
+      expect(
+        json["category"]["providers"].first
+      ).to_not have_key("offices")
+    end
   end
 end
