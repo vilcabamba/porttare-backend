@@ -30,8 +30,17 @@ module Api
       param :youtube_handle, String
       param :mejor_articulo, String
       param :forma_de_pago,
-            String,
+            Array,
+            in: ProviderProfile::FORMAS_DE_PAGO,
             desc: "an array of options. options must be within: #{ProviderProfile::FORMAS_DE_PAGO.join(", ")}"
+      param :offices_attributes,
+            Hash,
+            desc: "provider's offices (branches)" do
+        param :direccion,
+              String,
+              required: true,
+              desc: "Branches without `direccion` will be ignored"
+      end
       def create
         authorize ProviderProfile
         if apply_as_provider?

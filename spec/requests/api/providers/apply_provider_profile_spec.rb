@@ -55,4 +55,33 @@ RSpec.describe Api::Provider::ProfilesController,
       ).to have_key("error")
     end
   end
+
+  describe "persists provider branches" do
+    let(:direccion) { Faker::Address.street_address }
+
+    let(:attributes) {
+      attributes_for(:provider_profile).merge(
+        offices_attributes: [
+          { direccion: direccion }
+        ]
+      )
+    }
+
+    before do
+      expect {
+        post_with_headers(
+          "/api/provider/profile",
+          attributes
+        )
+      }.to change{ ProviderOffice.count }.by(1)
+    end
+
+    it {
+      provider_office = ProviderOffice.last
+      expect(provider_office.direccion).to eq(direccion)
+      expect(
+        provider_office.provider_profile
+      ).to eq(user.provider_profile)
+    }
+  end
 end

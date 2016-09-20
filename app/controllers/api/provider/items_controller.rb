@@ -47,11 +47,23 @@ module Api
         param :precio, Float, required: true
         param :volumen, String
         param :peso, String
-        param :imagen, File
+        param :imagenes_attributes,
+              Hash,
+              desc: "item images" do
+          param :id,
+                Integer,
+                desc: "unique id for each image. Commonly used to update or destroy an image"
+          param :imagen,
+                File,
+                required: true
+          param :_destroy,
+                TrueClass,
+                desc: "to destroy the image with the given id"
+        end
         param :observaciones, String
         param :unidad_medida,
-              String,
-              "one of the following: #{ProviderItem::UNIDADES_MEDIDA.join(", ")}"
+              ProviderItem::UNIDADES_MEDIDA,
+              "a string with one of the following: #{ProviderItem::UNIDADES_MEDIDA.join(", ")}"
       end
 
       api :POST,

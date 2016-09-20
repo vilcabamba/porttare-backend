@@ -24,7 +24,10 @@ class ProviderProfilePolicy < ApplicationPolicy
       :youtube_handle,
       :mejor_articulo,
       :nombre_establecimiento,
-      formas_de_pago: []
+      formas_de_pago: [],
+      offices_attributes: [
+        :direccion
+      ]
     ]
   end
 end
