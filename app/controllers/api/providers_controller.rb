@@ -8,12 +8,10 @@ module Api
         "/categories/:category_id/providers",
         "Category information with a list of providers"
     example %q{{
-  "category":{
-    "id":2,
-    "titulo":"Alimentos preparados",
-    "imagen":"https://robohash.org/veniameanostrum.png?size=400x600\u0026set=set1",
-    "descripcion":"Carry mustache twee brooklyn.",
-  },
+  "id":2,
+  "titulo":"Alimentos preparados",
+  "imagen":"https://robohash.org/veniameanostrum.png?size=400x600\u0026set=set1",
+  "descripcion":"Carry mustache twee brooklyn.",
   "providers":[
     {
       "id":2,
