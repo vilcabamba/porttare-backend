@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160919155136) do
+ActiveRecord::Schema.define(version: 20160920123532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,19 @@ ActiveRecord::Schema.define(version: 20160919155136) do
   add_index "provider_items", ["deleted_at"], name: "index_provider_items_on_deleted_at", using: :btree
   add_index "provider_items", ["provider_profile_id"], name: "index_provider_items_on_provider_profile_id", using: :btree
 
+  create_table "provider_offices", force: :cascade do |t|
+    t.integer  "provider_profile_id",                 null: false
+    t.boolean  "enabled",             default: false
+    t.string   "direccion",                           null: false
+    t.string   "ciudad"
+    t.string   "horario"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "provider_offices", ["enabled"], name: "index_provider_offices_on_enabled", using: :btree
+  add_index "provider_offices", ["provider_profile_id"], name: "index_provider_offices_on_provider_profile_id", using: :btree
+
   create_table "provider_profiles", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "ruc"
@@ -90,6 +103,7 @@ ActiveRecord::Schema.define(version: 20160919155136) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "provider_category_id"
+    t.string   "nombre_establecimiento",              null: false
   end
 
   add_index "provider_profiles", ["provider_category_id"], name: "index_provider_profiles_on_provider_category_id", using: :btree
@@ -136,6 +150,7 @@ ActiveRecord::Schema.define(version: 20160919155136) do
   add_foreign_key "provider_clients", "provider_profiles"
   add_foreign_key "provider_item_images", "provider_items"
   add_foreign_key "provider_items", "provider_profiles"
+  add_foreign_key "provider_offices", "provider_profiles"
   add_foreign_key "provider_profiles", "provider_categories"
   add_foreign_key "provider_profiles", "users"
   add_foreign_key "user_locations", "users"

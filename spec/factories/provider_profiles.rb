@@ -25,6 +25,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  provider_category_id   :integer
+#  nombre_establecimiento :string           not null
 #
 
 FactoryGirl.define do
@@ -34,6 +35,7 @@ FactoryGirl.define do
     ruc                    { Faker::Code.npi }
     email                  { Faker::Internet.email }
     telefono               { Faker::PhoneNumber.phone_number }
+    nombre_establecimiento { Faker::Company.name }
     razon_social           { Faker::Company.name }
     banco_nombre           { Faker::Team.name }
     actividad_economica    { Faker::Company.profession }

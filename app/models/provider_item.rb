@@ -14,6 +14,7 @@
 #  observaciones       :text
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  deleted_at          :datetime
 #
 
 class ProviderItem < ActiveRecord::Base
@@ -45,7 +46,8 @@ class ProviderItem < ActiveRecord::Base
   begin :relationships
     belongs_to :provider_profile
     has_many :imagenes,
-             class_name: 'ProviderItemImage'
+             class_name: 'ProviderItemImage',
+             dependent: :destroy
 
     accepts_nested_attributes_for(
       :imagenes,
@@ -56,7 +58,7 @@ class ProviderItem < ActiveRecord::Base
 
   begin :methods
     # performs a soft-delete
-    def destroy
+    def soft_destroy
       update_attribute(:deleted_at, Time.now)
     end
   end

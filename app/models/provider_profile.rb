@@ -25,6 +25,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  provider_category_id   :integer
+#  nombre_establecimiento :string           not null
 #
 
 class ProviderProfile < ActiveRecord::Base
@@ -33,24 +34,39 @@ class ProviderProfile < ActiveRecord::Base
     "tarjeta_credito"
   ].freeze
 
-  belongs_to :user
-  belongs_to :provider_category
-  has_many :provider_items
-  has_many :provider_clients
+  begin :relationships
+    belongs_to :user
+    belongs_to :provider_category
+    has_many :provider_items
+    has_many :provider_clients
+    has_many :offices,
+             class_name: 'ProviderOffice',
+             dependent: :destroy # as it's nested
 
-  validates :ruc,
-            :razon_social,
-            :actividad_economica,
-            :telefono,
-            :email,
-            :banco_nombre,
-            :banco_numero_cuenta,
-            :banco_identificacion,
-            presence: true
-  validates :ruc, uniqueness: true
-  validate :validate_formas_de_pago
+    accepts_nested_attributes_for(
+      :offices,
+      reject_if: proc { |attrs| attrs['direccion'].blank? }
+    )
+  end
 
-  before_create :auto_assign_category!
+  begin :validations
+    validates :ruc,
+              :email,
+              :telefono,
+              :banco_nombre,
+              :razon_social,
+              :actividad_economica,
+              :banco_numero_cuenta,
+              :banco_identificacion,
+              :nombre_establecimiento,
+              presence: true
+    validates :ruc, uniqueness: true
+    validate :validate_formas_de_pago
+  end
+
+  begin :callbacks
+    before_create :auto_assign_category!
+  end
 
   private
 

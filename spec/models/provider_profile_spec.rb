@@ -25,6 +25,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  provider_category_id   :integer
+#  nombre_establecimiento :string           not null
 #
 
 require 'rails_helper'
