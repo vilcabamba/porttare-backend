@@ -13,13 +13,13 @@ module Api
     "titulo":"Alimentos preparados",
     "imagen":"https://robohash.org/veniameanostrum.png?size=400x600\u0026set=set1",
     "descripcion":"Carry mustache twee brooklyn.",
-  },
-  "providers":[
-    {
-      "id":2,
-      "razon_social":"Perea S.L."
-    }
-  ]
+    "providers":[
+      {
+        "id":2,
+        "razon_social":"Perea S.L."
+      }
+    ]
+  }
 }}
     param :category_id, Integer, required: true
     def index
