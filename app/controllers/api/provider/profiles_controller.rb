@@ -22,6 +22,7 @@ module Api
       param :banco_nombre, String, required: true
       param :banco_numero_cuenta, String, required: true
       param :banco_identificacion, String, required: true
+      param :nombre_establecimiento, String, required: true
       param :website, String
       param :facebook_handle, String
       param :twitter_handle, String

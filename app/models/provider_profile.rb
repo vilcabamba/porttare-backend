@@ -39,13 +39,14 @@ class ProviderProfile < ActiveRecord::Base
   has_many :provider_clients
 
   validates :ruc,
+            :email,
+            :telefono,
+            :banco_nombre,
             :razon_social,
             :actividad_economica,
-            :telefono,
-            :email,
-            :banco_nombre,
             :banco_numero_cuenta,
             :banco_identificacion,
+            :nombre_establecimiento,
             presence: true
   validates :ruc, uniqueness: true
   validate :validate_formas_de_pago
