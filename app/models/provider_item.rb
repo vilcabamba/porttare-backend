@@ -14,6 +14,7 @@
 #  observaciones       :text
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  deleted_at          :datetime
 #
 
 class ProviderItem < ActiveRecord::Base
@@ -56,7 +57,7 @@ class ProviderItem < ActiveRecord::Base
 
   begin :methods
     # performs a soft-delete
-    def destroy
+    def soft_destroy
       update_attribute(:deleted_at, Time.now)
     end
   end

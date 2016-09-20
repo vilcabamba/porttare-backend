@@ -31,7 +31,7 @@ RSpec.describe Api::Provider::ItemsController,
 
   describe "can't delete a deleted item" do
     before do
-      item.destroy
+      item.soft_destroy
     end
 
     it "raises exception" do

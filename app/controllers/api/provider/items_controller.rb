@@ -102,7 +102,7 @@ module Api
             desc: "Provider item's id"
       def destroy
         authorize @provider_item
-        @provider_item.destroy
+        @provider_item.soft_destroy
         head :no_content
       end
 
