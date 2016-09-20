@@ -9,7 +9,7 @@ json.extract!(
 json.providers do
   json.array!(
     category.provider_profiles,
-    partial: "api/categories/provider_profile",
+    partial: "provider_profile",
     as: :provider_profile
   )
 end
