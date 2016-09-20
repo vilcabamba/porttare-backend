@@ -1,5 +1,8 @@
 json.extract!(
   provider_office,
-  :id
+  :id,
+  :direccion,
+  :ciudad,
+  :horario,
+  :enabled
 )
-# TODO

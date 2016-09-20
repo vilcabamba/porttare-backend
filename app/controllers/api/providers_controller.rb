@@ -16,7 +16,18 @@ module Api
     "providers":[
       {
         "id":2,
-        "razon_social":"Perea S.L."
+        "nombre_establecimiento":"Perea S.L.",
+        "telefono":"946 381 185",
+        "email":"titus.wiegand@walker.org",
+        "offices":[
+          {
+            "id":2,
+            "direccion":"Barrio Emilia 9",
+            "ciudad":"Gecho",
+            "horario":"10:00 AM - 7:00 PM",
+            "enabled":false
+          }
+        ]
       }
     ]
   }

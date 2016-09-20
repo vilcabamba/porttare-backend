@@ -1,6 +1,10 @@
+# full provider profile
+
 json.extract!(
   provider_profile,
   :id,
+  :telefono,
+  :email,
   :nombre_establecimiento
 )
 

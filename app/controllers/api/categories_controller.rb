@@ -17,7 +17,7 @@ module Api
       "providers":[
         {
           "id":2,
-          "razon_social":"Perea S.L."
+          "nombre_establecimiento":"Perea S.L."
         }
       ]
     }

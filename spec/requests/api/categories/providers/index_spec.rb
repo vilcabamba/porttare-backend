@@ -11,10 +11,15 @@ RSpec.describe Api::ProvidersController,
       create :provider_profile,
              provider_category: category
     }
+    let(:provider_office) {
+      create :provider_office,
+             provider_profile: provider_profile
+    }
 
     before do
       category
       provider_profile
+      provider_office
       get_with_headers "/api/categories/#{category.id}/providers"
     end
 
@@ -34,7 +39,6 @@ RSpec.describe Api::ProvidersController,
     end
 
     it "includes complete info for provider profile" do
-      # TODO
       expect(
         provider_from_response["offices"].first
       ).to have_key("horario")
