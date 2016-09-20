@@ -30,7 +30,14 @@ RSpec.describe Api::CategoriesController,
     it "includes provider inside category" do
       expect(
         response.body
-      ).to include(provider_profile.razon_social)
+      ).to include(provider_profile.nombre_establecimiento)
+    end
+
+    it "doesn't include full provider info" do
+      json = JSON.parse response.body
+      expect(
+        json["categories"].first["providers"].first
+      ).to_not have_key("offices")
     end
   end
 end

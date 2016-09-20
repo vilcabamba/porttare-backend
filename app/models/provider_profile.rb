@@ -40,8 +40,7 @@ class ProviderProfile < ActiveRecord::Base
     has_many :provider_items
     has_many :provider_clients
     has_many :offices,
-             class_name: 'ProviderOffice',
-             dependent: :destroy # as it's nested
+             class_name: 'ProviderOffice'
 
     accepts_nested_attributes_for(
       :offices,
