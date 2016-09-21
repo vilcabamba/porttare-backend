@@ -2,12 +2,13 @@ module Api
   module Provider
     class ClientsController < BaseController
       resource_description do
-        name "Provider::ClientsController"
-        short "provider clients endpoint"
+        name "Provider::Clients"
+        short "provider's clients"
       end
 
       before_action :authenticate_api_auth_user!
-      before_action :find_provider_client, only: :update
+      before_action :find_provider_client,
+                    only: [:update, :destroy]
 
       api :GET,
           "/provider/clients",
@@ -75,6 +76,20 @@ module Api
           render "api/shared/resource_error",
                  status: :unprocessable_entity
         end
+      end
+
+      api :DELETE,
+          "/provider/clients/:id",
+          "Delete a provider's client"
+      desc "a soft delete is performed"
+      param :id,
+            Integer,
+            required: true,
+            desc: "Provider client's id"
+      def destroy
+        authorize @provider_client
+        @provider_client.soft_destroy
+        head :no_content
       end
 
       private

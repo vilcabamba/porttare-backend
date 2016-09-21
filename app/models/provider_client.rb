@@ -12,18 +12,23 @@
 #  email               :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  deleted_at          :datetime
 #
 
 class ProviderClient < ActiveRecord::Base
-  #relationships
-  belongs_to :provider_profile
+  include SoftDestroyable
 
-  #validations
-  validates :provider_profile_id,
-            :ruc,
-            :nombres,
-            :direccion,
-            :telefono,
-            :email,
-            presence: true
+  begin :relationships
+    belongs_to :provider_profile
+  end
+
+  begin :validations
+    validates :provider_profile_id,
+              :ruc,
+              :nombres,
+              :direccion,
+              :telefono,
+              :email,
+              presence: true
+  end
 end

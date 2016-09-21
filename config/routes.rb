@@ -12,9 +12,13 @@ Rails.application.routes.draw do
     namespace :provider do
       resource :profile, only: :create
       resources :clients,
-                only: [:index, :create, :update]
+                only: [:index, :create, :update, :destroy]
       resources :items,
                 only: [:index, :create, :update, :destroy]
+    end
+
+    namespace :courier do
+      resource :profile, only: :create
     end
 
     namespace :auth do
