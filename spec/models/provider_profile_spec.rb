@@ -14,18 +14,18 @@
 #  fecha_inicio_actividad :date
 #  banco_nombre           :string
 #  banco_numero_cuenta    :string
-#  banco_identificacion   :string
 #  website                :string
 #  facebook_handle        :string
 #  twitter_handle         :string
 #  instagram_handle       :string
 #  youtube_handle         :string
-#  mejor_articulo         :text
 #  formas_de_pago         :text             default([]), is an Array
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  provider_category_id   :integer
 #  nombre_establecimiento :string           not null
+#  logotipo               :string
+#  banco_tipo_cuenta      :integer
 #
 
 require 'rails_helper'

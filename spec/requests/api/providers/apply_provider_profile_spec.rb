@@ -35,6 +35,9 @@ RSpec.describe Api::Provider::ProfilesController,
       provider_profile = ProviderProfile.last
       expect(provider_profile.user).to eq(user)
     }
+    it {
+      expect(response.status).to eq(201)
+    }
   end
 
   describe "already provider" do
@@ -62,7 +65,7 @@ RSpec.describe Api::Provider::ProfilesController,
     let(:attributes) {
       attributes_for(:provider_profile).merge(
         offices_attributes: [
-          { direccion: direccion }
+          { direccion: direccion, horario: "09:00-18:00" }
         ]
       )
     }

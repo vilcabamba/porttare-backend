@@ -14,18 +14,18 @@
 #  fecha_inicio_actividad :date
 #  banco_nombre           :string
 #  banco_numero_cuenta    :string
-#  banco_identificacion   :string
 #  website                :string
 #  facebook_handle        :string
 #  twitter_handle         :string
 #  instagram_handle       :string
 #  youtube_handle         :string
-#  mejor_articulo         :text
 #  formas_de_pago         :text             default([]), is an Array
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  provider_category_id   :integer
 #  nombre_establecimiento :string           not null
+#  logotipo               :string
+#  banco_tipo_cuenta      :integer
 #
 
 FactoryGirl.define do
@@ -42,14 +42,13 @@ FactoryGirl.define do
     representante_legal    { Faker::Name.name }
     banco_numero_cuenta    { Faker::Company.ein }
     fecha_inicio_actividad { Faker::Date.backward }
-    banco_identificacion   { Faker::Company.duns_number }
     website                { Faker::Internet.url }
     facebook_handle        { Faker::Internet.user_name }
     twitter_handle         { Faker::Internet.user_name }
     instagram_handle       { Faker::Internet.user_name }
     youtube_handle         { Faker::Internet.user_name }
-    mejor_articulo         { Faker::Hipster.paragraphs.join "\n" }
     formas_de_pago         { ProviderProfile::FORMAS_DE_PAGO.sample(1) }
+    banco_tipo_cuenta      { ProviderProfile::BANCO_TIPOS_CUENTA.sample }
     tipo_contribuyente {
       [
         "Personal natural"

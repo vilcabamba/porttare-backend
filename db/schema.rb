@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160920204602) do
+ActiveRecord::Schema.define(version: 20160922013351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,18 +110,18 @@ ActiveRecord::Schema.define(version: 20160920204602) do
     t.date     "fecha_inicio_actividad"
     t.string   "banco_nombre"
     t.string   "banco_numero_cuenta"
-    t.string   "banco_identificacion"
     t.string   "website"
     t.string   "facebook_handle"
     t.string   "twitter_handle"
     t.string   "instagram_handle"
     t.string   "youtube_handle"
-    t.text     "mejor_articulo"
     t.text     "formas_de_pago",         default: [],              array: true
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "provider_category_id"
     t.string   "nombre_establecimiento",              null: false
+    t.string   "logotipo"
+    t.integer  "banco_tipo_cuenta"
   end
 
   add_index "provider_profiles", ["provider_category_id"], name: "index_provider_profiles_on_provider_category_id", using: :btree
