@@ -1,3 +1,5 @@
+require "porttare_backend/places"
+
 module Api
   module Provider
     class ProfilesController < BaseController
@@ -40,6 +42,12 @@ module Api
         param :horario,
               String,
               required: true
+        param :telefono,
+              String,
+              required: true,
+              desc: "un teléfono por sucursal"
+        param :ciudad,
+              PorttareBackend::Places.all
       end
       param :facebook_handle, String
       param :twitter_handle, String
@@ -70,6 +78,7 @@ module Api
       "direccion":"Extramuros Jorge Yáñez 2",
       "ciudad":"Ávila",
       "horario":"09:00-18:00",
+      "telefono":"948075420",
       "enabled":false
     }]
   }

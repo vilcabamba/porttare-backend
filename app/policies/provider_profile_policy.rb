@@ -26,8 +26,10 @@ class ProviderProfilePolicy < ApplicationPolicy
       :nombre_establecimiento,
       formas_de_pago: [],
       offices_attributes: [
-        :direccion,
-        :horario
+        :ciudad,
+        :horario,
+        :telefono,
+        :direccion
       ]
     ]
   end
