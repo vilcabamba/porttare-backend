@@ -1,4 +1,4 @@
-json.categories do
+json.provider_categories do
   json.array!(
     @categories,
     partial: "category",
