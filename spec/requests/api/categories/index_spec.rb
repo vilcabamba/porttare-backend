@@ -7,18 +7,18 @@ RSpec.describe Api::CategoriesController,
 
   describe "lists categories and providers" do
     before do
-      category
+      provider_category
       provider_profile
       get_with_headers "/api/categories"
     end
 
-    let(:category) {
+    let(:provider_category) {
       create :provider_category,
              titulo: "Alimentos preparados"
     }
     let(:provider_profile) {
       create :provider_profile,
-             provider_category: category
+             provider_category: provider_category
     }
 
     it "should include category" do
@@ -35,8 +35,9 @@ RSpec.describe Api::CategoriesController,
 
     it "doesn't include full provider info" do
       json = JSON.parse response.body
+      response_category = json["provider_categories"].first
       expect(
-        json["categories"].first["providers"].first
+        response_category["provider_profiles"].first
       ).to_not have_key("offices")
     end
   end

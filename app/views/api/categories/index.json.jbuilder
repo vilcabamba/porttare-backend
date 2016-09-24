@@ -1,7 +1,7 @@
 json.provider_categories do
   json.array!(
-    @categories,
-    partial: "category",
-    as: :category
+    @provider_categories,
+    partial: "provider_category",
+    as: :provider_category
   )
 end

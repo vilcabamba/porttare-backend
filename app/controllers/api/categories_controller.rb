@@ -12,24 +12,40 @@ module Api
         "/categories",
         "List provider categories including a simple list of their providers"
     example %q{{
-  "categories":[
+  "provider_categories":[
     {
-      "id":2,
+      "id":1,
       "titulo":"Alimentos preparados",
-      "imagen":"https://robohash.org/veniameanostrum.png?size=400x600&set=set1",
-      "descripcion":"Carry mustache twee brooklyn.",
-      "providers":[
+      "imagen":"https://robohash.org/admaioresvoluptatem.png?size=400x600&set=set1",
+      "descripcion":"Cold-pressed you probably haven't heard of them quinoa blue bottle.",
+      "provider_profiles":[
         {
-          "id":2,
-          "nombre_establecimiento":"Perea S.L."
+          "id":1,
+          "ruc":"8358050460",
+          "razon_social":"Garay, Lucio y Tovar Asociados",
+          "nombre_establecimiento":"Salcido, Mejía y Olivas Asociados",
+          "actividad_economica":"agriculturist",
+          "representante_legal":"Rebeca Mateo Borrego",
+          "telefono":"976911452",
+          "email":"marcos@tromp.info",
+          "website":"http://price.io/helga",
+          "formas_de_pago":["efectivo"],
+          "logotipo_url":null,
+          "facebook_handle":"heather",
+          "twitter_handle":"clay_mann",
+          "instagram_handle":"jamel",
+          "youtube_handle":"haan.gibson"
         }
       ]
     }
   ]
 }}
     def index
-      @categories = public_scope.order(:titulo)
-                                .includes(:provider_profiles)
+      @provider_categories = public_scope.order(
+        :titulo
+      ).includes(
+        :provider_profiles
+      )
     end
 
     private
