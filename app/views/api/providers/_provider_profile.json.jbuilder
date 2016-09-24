@@ -18,11 +18,3 @@ json.extract!(
   :instagram_handle,
   :youtube_handle
 )
-
-json.offices do
-  json.array!(
-    provider_profile.offices,
-    partial: "api/providers/provider_office",
-    as: :provider_office
-  )
-end

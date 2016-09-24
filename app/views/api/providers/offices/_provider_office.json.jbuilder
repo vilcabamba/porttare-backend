@@ -4,6 +4,5 @@ json.extract!(
   :direccion,
   :ciudad,
   :horario,
-  :telefono,
-  :enabled
+  :telefono
 )

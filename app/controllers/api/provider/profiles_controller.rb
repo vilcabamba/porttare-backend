@@ -73,7 +73,7 @@ module Api
     "banco_nombre":"Principado de Asturias crows",
     "banco_numero_cuenta":"90-5771199",
     "banco_tipo_cuenta":"Crédito",
-    "offices":[{
+    "provider_offices":[{
       "id":1,
       "direccion":"Extramuros Jorge Yáñez 2",
       "ciudad":"Ávila",
