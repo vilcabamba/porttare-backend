@@ -13,6 +13,11 @@ RSpec.describe Api::ProvidersController,
     }
     let(:provider_office) {
       create :provider_office,
+             :enabled,
+             provider_profile: provider_profile
+    }
+    let(:disabled_provider_office) {
+      create :provider_office,
              provider_profile: provider_profile
     }
 
@@ -28,10 +33,14 @@ RSpec.describe Api::ProvidersController,
     }
 
     let(:provider_from_response) {
-      providers = json["category"]["providers"]
+      providers = json["provider_category"]["provider_profiles"]
       provider = providers.detect do |provider|
         provider["id"] == provider_profile.id
       end
+    }
+
+    let(:office_from_response) {
+      provider_from_response["provider_offices"].first
     }
 
     it "should include provider profile" do
@@ -40,8 +49,21 @@ RSpec.describe Api::ProvidersController,
 
     it "includes complete info for provider profile" do
       expect(
-        provider_from_response["offices"].first
+        office_from_response
       ).to have_key("horario")
+    end
+
+    it "doesn't include private office attributes" do
+      expect(
+        office_from_response
+      ).to_not have_key("enabled")
+    end
+
+    it "doesn't include disabled offices" do
+      disabled_office = json["provider_category"]["provider_profiles"].detect do |provider|
+        provider["id"] == disabled_provider_office.id
+      end
+      expect(disabled_office).to_not be_present
     end
   end
 end
