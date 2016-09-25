@@ -47,7 +47,6 @@ RSpec.describe Api::ProvidersController,
     }
 
     it "should include provider products" do
-      binding.pry
       item_from_response = provider_items_from_response.detect do |i|
         i["id"] == provider_item.id
       end

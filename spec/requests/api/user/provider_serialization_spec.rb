@@ -28,7 +28,7 @@ RSpec.describe Api::Provider,
       it {
         login_as user
 
-        response_office = response_provider_profile["offices"].first
+        response_office = response_provider_profile["provider_offices"].first
         expect(
           response_office["direccion"]
         ).to eq(provider_office.direccion)

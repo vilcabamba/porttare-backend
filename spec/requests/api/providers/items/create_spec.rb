@@ -49,7 +49,7 @@ RSpec.describe Api::Provider::ItemsController,
         }.to change { ProviderItem.count }.by(1)
       end
 
-      it {
+      it "creates a provider_item and assigns attributes" do
         provider_item = ProviderItem.last
         expect(
           provider_item.provider_profile
@@ -57,12 +57,15 @@ RSpec.describe Api::Provider::ItemsController,
         expect(
           provider_item.titulo
         ).to eq(attributes[:titulo])
-      }
+      end
 
-      it {
+      it "response serialization" do
         json = JSON.parse(response.body)
         expect(json).to have_key("provider_item")
-      }
+        expect(
+          json["provider_item"]
+        ).to have_key("created_at")
+      end
     end
   end
 end
