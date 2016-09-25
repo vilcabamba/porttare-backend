@@ -5,7 +5,7 @@ RSpec.describe Api::ProvidersController,
   let(:user) { create :user }
   before { login_as user }
 
-  describe "provider information with your products" do
+  describe "show a provider's public profile including their items for offer" do
     let(:category) { create :provider_category }
     let(:other_provider_item) { create :provider_item }
 
