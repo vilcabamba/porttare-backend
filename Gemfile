@@ -58,6 +58,11 @@ group :development do
   gem 'spring'
   gem 'letter_opener'
   gem 'annotate', '~> 2.7'
+  gem 'simplecov', '~> 0.12'
+end
+
+group :test do
+  gem 'codeclimate-test-reporter', '~> 0.6', require: nil
 end
 
 group :heroku do
