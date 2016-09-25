@@ -1,8 +1,10 @@
 module Api
   class ProvidersController < BaseController
-    before_action :authenticate_api_auth_user!
-
     respond_to :json
+
+    before_action :authenticate_api_auth_user!
+    before_action :find_provider_category,
+                  only: [:index, :show]
 
     resource_description do
       short "providers from a category"
@@ -12,40 +14,110 @@ module Api
         "/categories/:category_id/providers",
         "List of providers that belong to a category"
     desc "includes full provider info"
+    param :category_id, Integer, required: true
     example %q{{
-  "category":{
-    "id":2,
-    "titulo":"Alimentos preparados",
-    "imagen":"https://robohash.org/veniameanostrum.png?size=400x600&set=set1",
-    "descripcion":"Carry mustache twee brooklyn.",
-    "providers":[
+  "provider_category":{
+    "id":1,
+    "titulo":"Tools",
+    "imagen":"https://robohash.org/sapientesuntdelectus.png?size=400x600&set=set1",
+    "descripcion":"Bushwick pug tote bag sriracha forage pinterest retro direct trade yr.",
+    "provider_profiles":[
       {
-        "id":2,
-        "nombre_establecimiento":"Perea S.L.",
-        "telefono":"946 381 185",
-        "email":"titus.wiegand@walker.org",
-        "offices":[
+        "id":1,
+        "ruc":"3696402456",
+        "razon_social":"Mendoza,
+         Molina y Moreno Asociados",
+        "nombre_establecimiento":"Almonte y Peralta",
+        "actividad_economica":"advocate",
+        "representante_legal":"Lorena Montenegro Cisneros",
+        "telefono":"979-520-588",
+        "email":"lora@andersonullrich.org",
+        "website":"http://stamm.co/domenica.mante",
+        "formas_de_pago":["efectivo"],
+        "logotipo_url":null,
+        "facebook_handle":"emilie",
+        "twitter_handle":"billie",
+        "instagram_handle":"nellie.douglas",
+        "youtube_handle":"dennis",
+        "provider_offices":[
           {
-            "id":2,
-            "direccion":"Barrio Emilia 9",
-            "ciudad":"Gecho",
-            "horario":"10:00 AM - 7:00 PM",
-            "enabled":false
+            "id":1,
+            "direccion":"Caserio Marilu,
+             6 Puerta 639",
+            "ciudad":"Torrejón de Ardoz",
+            "horario":"10:00 AM - 7:00 PM"
           }
         ]
       }
     ]
   }
 }}
-    param :category_id, Integer, required: true
     def index
-      @category = public_scope.find(params[:category_id])
+    end
+
+    api :GET,
+        "/categories/:category_id/providers/:id",
+        "Show a provider with their products for offer"
+    desc "includes full products info"
+    param :category_id,
+          Integer,
+          required: true,
+          desc: "category the provider belongs to"
+    param :id,
+          Integer,
+          required: true,
+          desc: "id of provider profile to display"
+    example %q{{
+  "provider_profile":{
+    "id":1,
+    "ruc":"4633376839",
+    "razon_social":"Cortez S.A.",
+    "nombre_establecimiento":"Casillas S.L.",
+    "actividad_economica":"designer",
+    "representante_legal":"Sancho Nevárez Peralta",
+    "telefono":"989-439-488",
+    "email":"brianne@huel.io",
+    "website":"http://torphartmann.biz/giles_little",
+    "formas_de_pago":["efectivo"],
+    "logotipo_url":null,
+    "facebook_handle":"gaetano_damore",
+    "twitter_handle":"grace_zulauf",
+    "instagram_handle":"reva_hermann",
+    "youtube_handle":"dewitt_rodriguez",
+    "provider_offices":[{
+      "id":1,
+      "direccion":"Municipio Guadalupe 84 Puerta 392",
+      "ciudad":"Fuenlabrada",
+      "horario":"10:00 AM - 7:00 PM"}],
+      "provider_items":[{
+        "id":1,
+        "titulo":"Small Copper Bag",
+        "descripcion":"contingencia valor añadido Organizado",
+        "unidad_medida":"longitud",
+        "precio_cents":3068,
+        "volumen":"319",
+        "peso":"911 kg",
+        "observaciones":"Neutra cred schlitz vice try-hard. Twee deep v beard poutine. Actually listicle vinyl.\nGastropub locavore tacos mustache occupy typewriter church-key pour-over. Tacos bitters pour-over master pinterest. Synth yr yolo chillwave fanny pack freegan. Salvia selvage kitsch literally fanny pack.\nMaster cardigan fanny pack. Fanny pack venmo locavore brunch lomo leggings. Craft beer franzen 3 wolf moon.",
+        "imagenes":[{
+          "id":1,
+          "imagen_url":"https://robohash.org/entesuntdelectus.png?size=400x600&set=set1"
+        }]
+      }]
+    }]
+  }
+}
+    def show
+      @provider_profile = @provider_category.provider_profiles.find(params[:id])
     end
 
     private
 
-    def public_scope
+    def provider_category_scope
       policy_scope(ProviderCategory)
+    end
+
+    def find_provider_category
+      @provider_category = provider_category_scope.find(params[:category_id])
     end
   end
 end

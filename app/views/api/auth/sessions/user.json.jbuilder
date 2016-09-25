@@ -28,6 +28,16 @@ json.data do
         "api/providers/private_provider_profile",
         provider_profile: @resource.provider_profile
       )
+
+      ##
+      # all enabled & disabled offices
+      json.provider_offices do
+        json.array!(
+          @resource.provider_profile.offices,
+          partial: "api/providers/offices/provider_office",
+          as: :provider_office
+        )
+      end
     end
   end
 

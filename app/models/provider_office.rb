@@ -24,4 +24,6 @@ class ProviderOffice < ActiveRecord::Base
             presence: true
   validates :ciudad,
             inclusion: { in: PorttareBackend::Places.all }
+
+  scope :enabled, -> { where(enabled: true) }
 end
