@@ -7,25 +7,29 @@ RSpec.describe Api::ProvidersController,
 
   describe "provider information with your products" do
     let(:category) { create :provider_category }
+    let(:other_provider_item) { create :provider_item }
 
     let(:provider_profile){
       create :provider_profile,
              provider_category: category
     }
 
-    let(:provider_product) {
+    let(:provider_item) {
       create :provider_item,
+             :with_imagen,
              provider_profile: provider_profile
     }
 
     let(:provider_office) {
       create :provider_office,
+             :enabled,
              provider_profile: provider_profile
     }
 
     before do
       provider_profile
-      provider_product
+      provider_item
+      other_provider_item
       provider_office
       get_with_headers "/api/categories/#{category.id}/providers/#{provider_profile.id}"
     end
@@ -35,38 +39,50 @@ RSpec.describe Api::ProvidersController,
     }
 
     let(:provider_from_response) {
-      providers = json["provider"]
+      providers = json["provider_profile"]
     }
 
-    let(:products_from_response) {
-      products = provider_from_response["products"]
-    }
-
-    let(:other_provider_product) {
-      create :provider_item
+    let(:provider_items_from_response) {
+      provider_from_response["provider_items"]
     }
 
     it "should include provider products" do
-      expect(products_from_response).to be_present
+      binding.pry
+      item_from_response = provider_items_from_response.detect do |i|
+        i["id"] == provider_item.id
+      end
+      expect(item_from_response).to be_present
     end
 
     it "response doesn't include other's products" do
-      others_products = products_from_response.detect do |item|
-        item["id"] == other_provider_product.id
+      other_item = provider_items_from_response.detect do |item|
+        item["id"] == other_provider_item.id
       end
-      expect(others_products).to_not be_present
+      expect(other_item).to_not be_present
     end
 
-    it "includes info for provider offices" do
+    it "includes full provider profile" do
       expect(
-        provider_from_response["offices"].first
+        provider_from_response["provider_offices"].first
       ).to have_key("horario")
     end
 
-    it "doesn't include full provider info" do
+    it "doesn't include provider profile private attributes" do
       expect(
         provider_from_response
       ).to_not have_key("banco_identificacion")
+    end
+
+    it "doesn't include provider office private attributes" do
+      expect(
+        provider_from_response["provider_offices"].first
+      ).to_not have_key("enabled")
+    end
+
+    it "doesn't include provider item private attributes" do
+      expect(
+        provider_from_response["provider_items"].first
+      ).to_not have_key("created_at")
     end
   end
 end

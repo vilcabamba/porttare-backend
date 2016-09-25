@@ -12,11 +12,14 @@ RSpec.describe Api::ProvidersController,
              provider_category: category
     }
     let(:provider_office) {
+      # visible in api
       create :provider_office,
              :enabled,
              provider_profile: provider_profile
     }
     let(:disabled_provider_office) {
+      # not visible as it's not enabled
+      # by default
       create :provider_office,
              provider_profile: provider_profile
     }

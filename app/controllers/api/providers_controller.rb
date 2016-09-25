@@ -57,49 +57,57 @@ module Api
 
     api :GET,
         "/categories/:category_id/providers/:id",
-        "Provider information"
+        "Show a provider with their products for offer"
     desc "includes full products info"
+    param :category_id,
+          Integer,
+          required: true,
+          desc: "category the provider belongs to"
+    param :id,
+          Integer,
+          required: true,
+          desc: "id of provider profile to display"
     example %q{{
-  "provider":{
-    "id":2,
-    "nombre_establecimiento":"Perea S.L.",
-    "telefono":"946 381 185",
-    "email":"titus.wiegand@walker.org",
-    "offices":[
-      {
-        "id":2,
-        "direccion":"Barrio Emilia 9",
-        "ciudad":"Gecho",
-        "horario":"10:00 AM - 7:00 PM",
-        "enabled":false
-      }
-    ]
-    "products":[
-      {
+  "provider_profile":{
+    "id":1,
+    "ruc":"4633376839",
+    "razon_social":"Cortez S.A.",
+    "nombre_establecimiento":"Casillas S.L.",
+    "actividad_economica":"designer",
+    "representante_legal":"Sancho Nevárez Peralta",
+    "telefono":"989-439-488",
+    "email":"brianne@huel.io",
+    "website":"http://torphartmann.biz/giles_little",
+    "formas_de_pago":["efectivo"],
+    "logotipo_url":null,
+    "facebook_handle":"gaetano_damore",
+    "twitter_handle":"grace_zulauf",
+    "instagram_handle":"reva_hermann",
+    "youtube_handle":"dewitt_rodriguez",
+    "provider_offices":[{
+      "id":1,
+      "direccion":"Municipio Guadalupe 84 Puerta 392",
+      "ciudad":"Fuenlabrada",
+      "horario":"10:00 AM - 7:00 PM"}],
+      "provider_items":[{
         "id":1,
-        "titulo":"Rustic Silk Pants",
-        "descripcion":"data-warehouse 4th generación Orígenes",
-        "unidad_medida":"volumen",
-        "precio_cents":4079,
-        "volumen":"798",
-        "peso":"986 kg",
-        "observaciones":"Marfa 90's xoxo shoreditch. Selvage butcher trust fund. Pickled polaroid echo hammock.\nKickstarter stumptown gastropub",
-        "created_at":"2016-08-17T17:21:04.569-05:00",
-        "updated_at":"2016-08-17T17:21:04.569-05:00",
-        "imagenes":[
-          {
-            "id":1,
-            "imagen_url":"https://robohash.org/aliquamdelenitiquisquam.png?size=50x50\u0026set=set1"
-          }
-        ]
-      }
-    ]
+        "titulo":"Small Copper Bag",
+        "descripcion":"contingencia valor añadido Organizado",
+        "unidad_medida":"longitud",
+        "precio_cents":3068,
+        "volumen":"319",
+        "peso":"911 kg",
+        "observaciones":"Neutra cred schlitz vice try-hard. Twee deep v beard poutine. Actually listicle vinyl.\nGastropub locavore tacos mustache occupy typewriter church-key pour-over. Tacos bitters pour-over master pinterest. Synth yr yolo chillwave fanny pack freegan. Salvia selvage kitsch literally fanny pack.\nMaster cardigan fanny pack. Fanny pack venmo locavore brunch lomo leggings. Craft beer franzen 3 wolf moon.",
+        "imagenes":[{
+          "id":1,
+          "imagen_url":"https://robohash.org/entesuntdelectus.png?size=400x600&set=set1"
+        }]
+      }]
+    }]
   }
-}}
-    param :category_id, Integer, required: true
-    param :id, Integer, required: true
+}
     def show
-      @provider = @category.provider_profiles.find(params[:id])
+      @provider_profile = @provider_category.provider_profiles.find(params[:id])
     end
 
     private
