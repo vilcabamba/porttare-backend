@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160924142801) do
+ActiveRecord::Schema.define(version: 20160926212841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,32 @@ ActiveRecord::Schema.define(version: 20160924142801) do
   end
 
   add_index "courier_profiles", ["user_id"], name: "index_courier_profiles_on_user_id", using: :btree
+
+  create_table "customer_order_items", force: :cascade do |t|
+    t.integer  "customer_order_id",                             null: false
+    t.integer  "provider_item_id",                              null: false
+    t.integer  "provider_item_precio_cents",    default: 0,     null: false
+    t.string   "provider_item_precio_currency", default: "USD", null: false
+    t.integer  "cantidad",                      default: 1,     null: false
+    t.text     "observaciones"
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+  end
+
+  add_index "customer_order_items", ["customer_order_id"], name: "index_customer_order_items_on_customer_order_id", using: :btree
+  add_index "customer_order_items", ["provider_item_id"], name: "index_customer_order_items_on_provider_item_id", using: :btree
+
+  create_table "customer_orders", force: :cascade do |t|
+    t.integer  "status",                  default: 0,     null: false
+    t.integer  "subtotal_items_cents",    default: 0,     null: false
+    t.string   "subtotal_items_currency", default: "USD", null: false
+    t.integer  "customer_profile_id"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+  end
+
+  add_index "customer_orders", ["customer_profile_id"], name: "index_customer_orders_on_customer_profile_id", using: :btree
+  add_index "customer_orders", ["status"], name: "index_customer_orders_on_status", using: :btree
 
   create_table "customer_profiles", force: :cascade do |t|
     t.integer  "user_id",    null: false
@@ -175,6 +201,9 @@ ActiveRecord::Schema.define(version: 20160924142801) do
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
 
   add_foreign_key "courier_profiles", "users"
+  add_foreign_key "customer_order_items", "customer_orders"
+  add_foreign_key "customer_order_items", "provider_items"
+  add_foreign_key "customer_orders", "customer_profiles"
   add_foreign_key "customer_profiles", "users"
   add_foreign_key "provider_clients", "provider_profiles"
   add_foreign_key "provider_item_images", "provider_items"
