@@ -13,8 +13,8 @@
 
 class CustomerOrder < ActiveRecord::Base
   STATUSES = [
-    :in_progress,
-    :submitted
+    "in_progress",
+    "submitted"
   ].freeze
 
   enum status: STATUSES

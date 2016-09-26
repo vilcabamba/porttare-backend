@@ -9,6 +9,12 @@ Rails.application.routes.draw do
       resources :providers, only: [:index, :show]
     end
 
+    namespace :customer do
+      resource :cart,
+               controller: :cart,
+               only: [:create]
+    end
+
     namespace :provider do
       resource :profile, only: :create
       resources :clients,

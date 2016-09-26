@@ -18,7 +18,7 @@ FactoryGirl.define do
     customer_order
     provider_item
 
-    cantidad      1
+    cantidad      { 1.upto(10).to_a.sample }
     observaciones { Faker::Hipster.paragraphs.join "\n" }
   end
 end

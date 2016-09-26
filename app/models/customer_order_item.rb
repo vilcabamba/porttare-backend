@@ -16,4 +16,7 @@
 class CustomerOrderItem < ActiveRecord::Base
   belongs_to :customer_order
   belongs_to :provider_item
+
+  validates :cantidad,
+            numericality: { greater_than: 0 }
 end
