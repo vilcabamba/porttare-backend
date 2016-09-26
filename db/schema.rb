@@ -32,6 +32,14 @@ ActiveRecord::Schema.define(version: 20160924142801) do
 
   add_index "courier_profiles", ["user_id"], name: "index_courier_profiles_on_user_id", using: :btree
 
+  create_table "customer_profiles", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "customer_profiles", ["user_id"], name: "index_customer_profiles_on_user_id", using: :btree
+
   create_table "provider_categories", force: :cascade do |t|
     t.string   "titulo",      null: false
     t.string   "imagen"
@@ -167,6 +175,7 @@ ActiveRecord::Schema.define(version: 20160924142801) do
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
 
   add_foreign_key "courier_profiles", "users"
+  add_foreign_key "customer_profiles", "users"
   add_foreign_key "provider_clients", "provider_profiles"
   add_foreign_key "provider_item_images", "provider_items"
   add_foreign_key "provider_items", "provider_profiles"
