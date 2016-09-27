@@ -121,6 +121,10 @@ RSpec.describe CustomerOrderItem,
         ##
         # HACK added so that order_items is always fresh.
         # see CustomerOrderItem#cache_subtotal_items!
+        # CustomerOrderItem.to_s
+        # def to_s
+        #   "#{cantidad}x #{provider_item.descripcion} (#{provider_item.precio}): #{subtotal}"
+        # end
         # puts "older: #{older_order_item}"
         # puts "new: #{customer_order_item}"
         # puts "total: #{customer_order.subtotal_items}"

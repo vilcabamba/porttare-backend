@@ -44,4 +44,57 @@ RSpec.describe CustomerOrder,
       is_expected.to_not include(customer_order_submitted)
     }
   end
+
+  describe "#submit - upon submission" do
+    let(:customer_order) { create :customer_order }
+    let(:customer_order_item) {
+      create :customer_order_item,
+             customer_order: customer_order
+    }
+
+    describe "caches #subtotal_items" do
+      before do
+        customer_order_item
+        customer_order.submit!
+      end
+
+      it {
+        expect(
+          customer_order[:subtotal_items_cents]
+        ).to be_present
+
+        expect(
+          customer_order.subtotal_items
+        ).to eq(customer_order_item.subtotal)
+      }
+    end
+
+    describe "caches order_items #provider_item_precio" do
+      let(:provider_item) {
+        customer_order_item.provider_item
+      }
+      let(:old_price) {
+        provider_item.precio
+      }
+
+      before do
+        old_price
+        customer_order.submit!
+        # update price
+        provider_item.update!(
+          precio: provider_item.precio + Money.from_amount(1.99, "USD")
+        )
+      end
+
+      it {
+        expect(
+          customer_order_item.reload[:provider_item_precio_cents]
+        ).to be_present
+
+        expect(
+          customer_order_item.provider_item_precio
+        ).to eq(old_price)
+      }
+    end
+  end
 end
