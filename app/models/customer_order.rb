@@ -40,10 +40,23 @@ class CustomerOrder < ActiveRecord::Base
 
   ##
   # caches subtotal_items
+  # and caches each order_item's provider_item_precio
+  # @see #cache_subtotal_items!
   def update_subtotal_items!
-    order_items.collect do |order_item|
+    subtotal = order_items.collect do |order_item|
       order_item.cache_provider_item_precio!
-      order_item.cantidad * order_item.provider_item_precio
-    end
+      order_item.subtotal
+    end.sum
+    update_attribute(:subtotal_items, subtotal)
+  end
+
+  ##
+  # caches subtotal_items
+  # @see #update_subtotal_items!
+  def cache_subtotal_items!
+    update_attribute(
+      :subtotal_items,
+      order_items.collect(&:subtotal).sum
+    )
   end
 end

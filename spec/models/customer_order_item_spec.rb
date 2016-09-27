@@ -81,4 +81,23 @@ RSpec.describe CustomerOrderItem,
       }
     end
   end
+
+  describe "updates customer_order #subtotal_items" do
+    let(:customer_order) {
+      customer_order_item.customer_order
+    }
+
+    describe "upon creation" do
+      let(:customer_order_item) {
+        create :customer_order_item
+      }
+
+      it {
+        subtotal = customer_order_item.cantidad * customer_order_item.provider_item_precio
+        expect(
+          customer_order.subtotal_items
+        ).to eq(subtotal)
+      }
+    end
+  end
 end
