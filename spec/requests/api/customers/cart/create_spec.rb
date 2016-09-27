@@ -7,6 +7,9 @@ RSpec.describe Api::Customer::CartController,
 
   describe "adds an item to the cart" do
     let(:provider_item) { create :provider_item }
+    let(:posted_attributes) {
+      attributes_for(:customer_order_item)
+    }
 
     before do
       provider_item
@@ -14,11 +17,17 @@ RSpec.describe Api::Customer::CartController,
       expect {
         post_with_headers(
           "/api/customer/cart",
-          attributes_for(:customer_order_item).merge(
+          posted_attributes.merge(
             provider_item_id: provider_item.id
           )
         )
       }.to change { CustomerOrder.count }.by(1)
+    end
+
+    it "customer_profile gets automatically created" do
+      customer_profile = user.reload.customer_profile
+      expect(customer_profile).to be_present
+      expect(customer_profile).to be_persisted
     end
 
     it "should create right order_item" do
@@ -35,7 +44,7 @@ RSpec.describe Api::Customer::CartController,
 
       expect(
         order_items.first.cantidad
-      ).to eq(cantidad)
+      ).to eq(posted_attributes[:cantidad])
     end
 
     it "should render whole order" do

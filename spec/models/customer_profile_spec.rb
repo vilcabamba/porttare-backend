@@ -17,15 +17,6 @@ RSpec.describe CustomerProfile,
     it { is_expected.to be_valid }
   end
 
-  describe "customer_profile gets automatically created for users" do
-    let(:user) { create :user }
-    subject { user.customer_profile }
-    it {
-      is_expected.to be_present
-      is_expected.to be_persisted
-    }
-  end
-
   describe "#current_order" do
     let(:customer_profile) { create :customer_profile }
 
