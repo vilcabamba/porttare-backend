@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160926212841) do
+ActiveRecord::Schema.define(version: 20160926235832) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20160926212841) do
   create_table "customer_order_items", force: :cascade do |t|
     t.integer  "customer_order_id",                             null: false
     t.integer  "provider_item_id",                              null: false
-    t.integer  "provider_item_precio_cents",    default: 0,     null: false
+    t.integer  "provider_item_precio_cents"
     t.string   "provider_item_precio_currency", default: "USD", null: false
     t.integer  "cantidad",                      default: 1,     null: false
     t.text     "observaciones"
