@@ -54,6 +54,10 @@ class CustomerOrder < ActiveRecord::Base
   # caches subtotal_items
   # @see #update_subtotal_items!
   def cache_subtotal_items!
+    # HACK: force reloading order_items so they're fresh
+    # see spec/models/customer_order_spec
+    order_items.reload
+
     update_attribute(
       :subtotal_items,
       order_items.collect(&:subtotal).sum

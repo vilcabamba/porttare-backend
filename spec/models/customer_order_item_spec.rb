@@ -94,9 +94,74 @@ RSpec.describe CustomerOrderItem,
 
       it {
         subtotal = customer_order_item.cantidad * customer_order_item.provider_item_precio
+
+        # should be cached
+        expect(
+          customer_order[:subtotal_items_cents]
+        ).to be_present
+
         expect(
           customer_order.subtotal_items
         ).to eq(subtotal)
+      }
+    end
+
+    describe "upon edition" do
+      let(:customer_order_item) {
+        create :customer_order_item
+      }
+      let(:older_order_item) {
+        create :customer_order_item,
+               customer_order: customer_order
+      }
+
+      before do
+        older_order_item
+
+        ##
+        # HACK added so that order_items is always fresh.
+        # see CustomerOrderItem#cache_subtotal_items!
+        # puts "older: #{older_order_item}"
+        # puts "new: #{customer_order_item}"
+        # puts "total: #{customer_order.subtotal_items}"
+
+        customer_order_item.update!(
+          cantidad: customer_order_item.cantidad + 2
+        )
+
+        # puts "after update: #{customer_order_item}"
+        # puts "total: #{customer_order.reload.subtotal_items}"
+      end
+
+      it {
+        subtotal_1 = older_order_item.cantidad * older_order_item.provider_item_precio
+        subtotal_2 = customer_order_item.cantidad * customer_order_item.provider_item_precio
+
+        expect(
+          customer_order.subtotal_items
+        ).to eq(subtotal_1 + subtotal_2)
+      }
+    end
+
+    describe "upon removal" do
+      let(:customer_order_item) {
+        create :customer_order_item
+      }
+      let(:older_order_item) {
+        create :customer_order_item,
+               customer_order: customer_order
+      }
+
+      before do
+        older_order_item
+
+        customer_order_item.destroy
+      end
+
+      it {
+        expect(
+          customer_order.subtotal_items
+        ).to eq(older_order_item.subtotal)
       }
     end
   end

@@ -25,6 +25,7 @@ class CustomerOrderItem < ActiveRecord::Base
 
   begin :callbacks
     after_save :update_customer_order_subtotals!
+    after_destroy :update_customer_order_subtotals!
   end
 
   begin :validations
