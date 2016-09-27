@@ -19,6 +19,9 @@ class CustomerOrder < ActiveRecord::Base
 
   enum status: STATUSES
 
+  monetize :subtotal_items_cents,
+           numericality: false
+
   validates :status,
             inclusion: { in: STATUSES }
 
@@ -27,4 +30,20 @@ class CustomerOrder < ActiveRecord::Base
            class_name: "CustomerOrderItem"
 
   scope :in_progress, -> { where(status: "in_progress") }
+
+  ##
+  # transitions to submitted state
+  # and caches subtotal_items
+  def submit!
+    update_subtotal_items!
+  end
+
+  ##
+  # caches subtotal_items
+  def update_subtotal_items!
+    order_items.collect do |order_item|
+      order_item.cache_provider_item_precio!
+      order_item.cantidad * order_item.provider_item_precio
+    end
+  end
 end

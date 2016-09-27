@@ -31,4 +31,27 @@ class CustomerOrderItem < ActiveRecord::Base
             numericality: {
               greater_than: 0
             }
+
+  ##
+  # reads cached provider_item_precio if present
+  # or asks the provider_item otherwise
+  # @return [Money]
+  def provider_item_precio
+    cached_precio = read_attribute(:provider_item_precio_cents)
+    if cached_precio.present?
+      Money.new(
+        cached_precio,
+        provider_item_precio_currency # DB defaults it to USD
+      )
+    else
+      provider_item.precio
+    end
+  end
+
+  def cache_provider_item_precio!
+    update_attribute(
+      :provider_item_precio,
+      provider_item.precio
+    )
+  end
 end

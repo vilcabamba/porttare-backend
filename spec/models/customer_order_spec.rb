@@ -18,6 +18,9 @@ RSpec.describe CustomerOrder,
   describe "factory" do
     subject { build :customer_order }
     it { is_expected.to be_valid }
+    it "default status" do
+      is_expected.to be_in_progress
+    end
   end
 
   describe "#in_progress scope" do
