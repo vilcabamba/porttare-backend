@@ -1,11 +1,11 @@
 module Api
-  class InvitationsController < BaseController
+  class RefersController < BaseController
     before_action :authenticate_api_auth_user!
 
     respond_to :json
 
     resource_description do
-      short "send an invitation to friend"
+      short "refer user"
     end
 
     def index

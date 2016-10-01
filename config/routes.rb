@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       resources :providers, only: [:index, :show]
     end
 
-    resource :invitation
+    resource :refer, only: :create
 
     namespace :customer do
       resource :cart,
