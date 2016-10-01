@@ -39,4 +39,6 @@ class User < ActiveRecord::Base
   has_many :locations,
            -> { order(id: :desc) },
            class_name: "UserLocation"
+  has_many :refers, class_name: "UserRefer"
+  has_many :guests, through: :refers
 end
