@@ -29,7 +29,7 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :trackable,
-          :validatable, :omniauthable, omniauth_providers: [:facebook]
+          :validatable, :omniauthable, omniauth_providers: [:facebook, :twitter]
 
   include DeviseTokenAuth::Concerns::User # after devise
 
