@@ -27,7 +27,7 @@ end
 gem 'omniauth', '~> 1.3'
 gem 'devise_token_auth', '~> 0.1'
 gem 'omniauth-facebook', '~> 3.0'
-gem 'omniauth-twitter'
+gem 'omniauth-twitter', '~> 1.2'
 gem 'rack-cors', '~> 0.4', require: 'rack/cors'
 gem 'pundit', '~> 1.1'
 gem 'money-rails', '~> 1.6'
