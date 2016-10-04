@@ -41,4 +41,9 @@ class User < ActiveRecord::Base
            class_name: "UserLocation"
   has_many :refers, class_name: "UserRefer"
   has_many :guests, through: :refers
+
+  def email_required?
+    provider != 'twitter'
+  end
+
 end
