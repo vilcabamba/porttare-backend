@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       namespace :cart do
         root to: 'items#index'
         resources :items,
-                  only: [:create, :update]
+                  only: [:create, :update, :destroy]
       end
     end
 

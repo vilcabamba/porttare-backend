@@ -18,10 +18,6 @@ RSpec.describe Api::Customer::Cart::ItemsController,
            customer_order: customer_order
   }
 
-  let(:new_cantidad) {
-    order_item_1.cantidad + 2
-  }
-
   before do
     login_as user
 
@@ -29,33 +25,23 @@ RSpec.describe Api::Customer::Cart::ItemsController,
     order_item_1
     order_item_2
 
-    # and update one of them
-    put_with_headers(
-      "/api/customer/cart/items/#{order_item_1.id}",
-      cantidad: new_cantidad
-    )
+    # gonna substract 1 item from my cart
+    expect {
+      # remove one of them
+      post_with_headers(
+        "/api/customer/cart/items/#{order_item_2.id}",
+        "_method" => "DELETE"
+      )
+    }.to change { customer_order.order_items.count }.by(-1)
   end
 
   let(:response_order) {
     JSON.parse(response.body).fetch("customer_order")
   }
 
-  it "order item gets updated" do
-    response_order_item = response_order["customer_order_items"].detect do |oi|
-      oi["id"] == order_item_1.id
-    end
-
-    expect(
-      response_order_item["cantidad"]
-    ).to eq(new_cantidad)
-  end
-
   it "order subtotal gets updated" do
-    subtotal = order_item_1.provider_item_precio * new_cantidad
-    subtotal += order_item_2.subtotal
-
     expect(
       response_order["subtotal_items_cents"]
-    ).to eq(subtotal.cents)
+    ).to eq(order_item_1.subtotal.cents)
   end
 end

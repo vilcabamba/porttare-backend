@@ -19,6 +19,16 @@ class CustomerOrderItemPolicy < ApplicationPolicy
   end
 
   def update?
+    order_in_progress?
+  end
+
+  def destroy?
+    order_in_progress?
+  end
+
+  private
+
+  def order_in_progress?
     # all users can edit their own
     # order items within their order
     # in progress.

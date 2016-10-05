@@ -6,11 +6,12 @@ module Api
         before_action :find_customer_profile
         before_action :find_current_order
         before_action :find_customer_order_item,
-                      only: :update
+                      only: [:update, :destroy]
 
         resource_description do
           name "Customer::Cart::Items"
           short "current customer's items in cart"
+          description "this endpoint will serialize full order in responses"
         end
 
         def_param_group :customer_order_item do
@@ -26,7 +27,7 @@ module Api
         api :POST,
             "/api/customer/cart/items",
             "Add items to the cart"
-        description "response includes full customer_order"
+        see "customer-cart-items#create", "Customer::Cart::Items#create for customer order serialization"
         param :provider_item_id,
               Integer,
               required: true,
@@ -60,7 +61,6 @@ module Api
         api :PUT,
             "/api/customer/cart/items/:id",
             "Update an item in the cart"
-        description "full order is serialized in response"
         see "customer-cart-items#create", "Customer::Cart::Items#create for customer order serialization"
         param :id,
               Integer,
@@ -79,6 +79,20 @@ module Api
             render "api/shared/resource_error",
                    status: :unprocessable_entity
           end
+        end
+
+        api :DELETE,
+            "/api/customer/cart/items/:id",
+            "Remove an item from the cart"
+        see "customer-cart-items#create", "Customer::Cart::Items#create for customer order serialization"
+        param :id,
+              Integer,
+              required: true,
+              desc: "order item's id"
+        def destroy
+          authorize @customer_order_item
+          @customer_order_item.destroy
+          render :customer_order, status: :accepted
         end
 
         private
