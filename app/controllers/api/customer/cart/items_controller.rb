@@ -3,8 +3,10 @@ module Api
     module Cart
       class ItemsController < Api::BaseController
         before_action :authenticate_api_auth_user!
-        before_action :find_or_create_customer_profile
-        before_action :find_or_create_current_order
+        before_action :find_or_create_customer_profile,
+                      except: :index
+        before_action :find_or_create_current_order,
+                      except: :index
         before_action :find_customer_order_item,
                       only: [:update, :destroy]
 
@@ -31,6 +33,8 @@ module Api
     }
   }}
         def index
+          @customer_profile = current_api_auth_user.customer_profile
+          @customer_order = @customer_profile.current_order if @customer_profile.present?
           render :customer_order
         end
 

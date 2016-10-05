@@ -27,12 +27,27 @@ RSpec.describe Api::Customer::Cart::ItemsController,
     end
 
     it "order is empty" do
-      binding.pry
+      expect(
+        response_order
+      ).to be_nil
     end
   end
 
   describe "customer with no order" do
+    let(:user) { create :user, :customer }
 
+    before {
+      # should not create any order
+      expect {
+        get_with_headers "/api/customer/cart"
+      }.to_not change(CustomerOrder, :count)
+    }
+
+    it "order is empty" do
+      expect(
+        response_order
+      ).to be_nil
+    end
   end
 
   describe "customer with order" do
