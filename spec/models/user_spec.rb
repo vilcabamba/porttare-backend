@@ -26,28 +26,26 @@
 #  admin                  :boolean          default(FALSE)
 #
 
-class User < ActiveRecord::Base
-  devise :database_authenticatable, :registerable,
-          :recoverable, :rememberable, :trackable,
-          :validatable, :omniauthable, omniauth_providers: [:facebook, :twitter]
+require 'rails_helper'
 
-  include DeviseTokenAuth::Concerns::User # after devise
+RSpec.describe User, type: :model do
 
-  has_one :provider_profile
-  has_one :courier_profile
-  has_one :customer_profile
-  has_many :locations,
-           -> { order(id: :desc) },
-           class_name: "UserLocation"
-  has_many :refers, class_name: "UserRefer"
-  has_many :guests, through: :refers
+  describe "email validation depending on social network" do
+    let(:user_from_facebook) { create :user, provider: 'facebook', uid: 213123 }
+    let(:user_from_twitter) { create :user, provider: 'twitter', uid: 211123 }
 
-  protected
+    describe "twitter is allowed without email" do
+      it {
+        subject.email = nil
+        expect(user_from_twitter).to be_valid
+      }
+    end
 
-  ##
-  # twitter doesn't send along
-  # user's email when authenticating
-  def email_required?
-    provider != 'twitter'
+    describe "should not allow from others without email" do
+      it {
+        user_from_facebook.email = nil
+        expect(user_from_facebook).to_not be_valid
+      }
+    end
   end
 end

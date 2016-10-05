@@ -5,7 +5,7 @@
 #  id                            :integer          not null, primary key
 #  customer_order_id             :integer          not null
 #  provider_item_id              :integer          not null
-#  provider_item_precio_cents    :integer          not null
+#  provider_item_precio_cents    :integer
 #  provider_item_precio_currency :string           default("USD"), not null
 #  cantidad                      :integer          default(1), not null
 #  observaciones                 :text
