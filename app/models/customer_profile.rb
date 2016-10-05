@@ -13,10 +13,9 @@ class CustomerProfile < ActiveRecord::Base
   has_many :customer_orders
 
   ##
-  # should always return an order in
-  # progress, usable for cart
+  # returns an order in progress (if any)
   # @return CustomerOrder
   def current_order
-    customer_orders.in_progress.first || customer_orders.create
+    customer_orders.in_progress.first
   end
 end
