@@ -16,7 +16,7 @@ RSpec.describe Api::Customer::CartController,
 
       expect {
         post_with_headers(
-          "/api/customer/cart",
+          "/api/customer/cart/items",
           posted_attributes.merge(
             provider_item_id: provider_item.id
           )
