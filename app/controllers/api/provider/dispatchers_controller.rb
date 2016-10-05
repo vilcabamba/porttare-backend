@@ -2,7 +2,7 @@ module Api
   module Provider
     class DispatchersController < BaseController
       resource_description do
-        name "Provider::Dispathchers"
+        name "Provider::Dispatchers"
         short "provider's dispatchers"
       end
 

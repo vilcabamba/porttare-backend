@@ -7,6 +7,7 @@ module Api
                   only: [:index, :show]
 
     resource_description do
+      name "Categories::Providers"
       short "providers from a category"
     end
 

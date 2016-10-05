@@ -11,7 +11,27 @@ module Api
         resource_description do
           name "Customer::Cart::Items"
           short "current customer's items in cart"
-          description "this endpoint will serialize full order in responses"
+          description "**NB.** this endpoint will render **full** customer order serialized in response as part of all actions"
+        end
+
+        api :GET,
+            "/customer/cart",
+            "Get current cart"
+        desc "Returns current customer order or empty if there's no customer order"
+        example %q{{
+    "customer_order":{
+      "id":1,
+      "status":"in_progress",
+      "subtotal_items_cents":399,
+      "customer_order_items":[{
+        "cantidad":7,
+        "provider_item_id":1,
+        "observaciones":"Gastropub neutra leggings tumblr. Disrupt heirloom waistcoat. Leggings brooklyn twee pinterest etsy vhs.\nHoodie raw denim scenester pop-up gastropub church-key."
+      }]
+    }
+  }}
+        def index
+          render :customer_order
         end
 
         def_param_group :customer_order_item do
@@ -25,26 +45,14 @@ module Api
         end
 
         api :POST,
-            "/api/customer/cart/items",
-            "Add items to the cart"
-        see "customer-cart-items#create", "Customer::Cart::Items#create for customer order serialization"
+            "/customer/cart/items",
+            "Add an item to the cart"
+        see "customer-cart-items#index", "Customer::Cart::Items#index for customer order serialization in response"
         param :provider_item_id,
               Integer,
               required: true,
               desc: "Ítem a agregar al carrito"
         param_group :customer_order_item
-        example %q{{
-    "customer_order":{
-      "id":1,
-      "status":"in_progress",
-      "subtotal_items_cents":399,
-      "customer_order_items":[{
-        "cantidad":7,
-        "provider_item_id":1,
-        "observaciones":"Gastropub neutra leggings tumblr. Disrupt heirloom waistcoat. Leggings brooklyn twee pinterest etsy vhs.\nHoodie raw denim scenester pop-up gastropub church-key. Pickled sustainable tattooed bushwick vhs tofu distillery wayfarers. Vegan shoreditch pug jean shorts shabby chic fixie banh mi.\nChurch-key fashion axe williamsburg. Pug semiotics single-origin coffee portland tilde butcher banh mi next level. Occupy synth hoodie gentrify pug organic. Celiac viral schlitz."
-      }]
-    }
-  }}
         def create
           @customer_order_item =
             @customer_order
@@ -59,9 +67,9 @@ module Api
         end
 
         api :PUT,
-            "/api/customer/cart/items/:id",
+            "/customer/cart/items/:id",
             "Update an item in the cart"
-        see "customer-cart-items#create", "Customer::Cart::Items#create for customer order serialization"
+        see "customer-cart-items#index", "Customer::Cart::Items#index for customer order serialization in response"
         param :id,
               Integer,
               required: true,
@@ -82,9 +90,9 @@ module Api
         end
 
         api :DELETE,
-            "/api/customer/cart/items/:id",
+            "/customer/cart/items/:id",
             "Remove an item from the cart"
-        see "customer-cart-items#create", "Customer::Cart::Items#create for customer order serialization"
+        see "customer-cart-items#index", "Customer::Cart::Items#index for customer order serialization in response"
         param :id,
               Integer,
               required: true,
