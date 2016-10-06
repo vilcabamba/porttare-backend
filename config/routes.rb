@@ -15,8 +15,12 @@ Rails.application.routes.draw do
         resources :items,
                   only: [:create, :update, :destroy]
       end
+      resource :profile,
+               only: [:show, :edit, :update]
       resources :wishlists,
                 only: [:index, :create, :update, :destroy]
+      resources :addresses,
+                only: [:create, :show, :edit, :update]
     end
 
     namespace :provider do

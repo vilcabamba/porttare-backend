@@ -1,0 +1,12 @@
+json.extract!(
+  customer_profile,
+  :id,
+  :user_id,
+  :ciudad,
+  :fecha_de_nacimiento
+)
+json.extract!(
+  customer_profile.user,
+  :name,
+  :email
+)

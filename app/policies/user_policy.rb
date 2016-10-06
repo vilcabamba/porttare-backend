@@ -43,7 +43,7 @@ class UserPolicy < ApplicationPolicy
       :password_confirmation
     ]
   end
-
+  
   private
 
   def is_admin?
