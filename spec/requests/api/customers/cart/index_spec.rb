@@ -51,6 +51,36 @@ RSpec.describe Api::Customer::Cart::ItemsController,
   end
 
   describe "customer with order" do
+    let(:user) { create :user, :customer }
+    let(:customer_order) {
+      create :customer_order,
+             customer_profile: user.customer_profile
+    }
+    let(:order_item_1) {
+      create :customer_order_item,
+             customer_order: customer_order
+    }
 
+    before do
+      order_item_1
+
+      get_with_headers "/api/customer/cart"
+    end
+
+    it "includes full order" do
+      expect(
+        response_order["subtotal_items_cents"]
+      ).to eq(customer_order.subtotal_items.cents)
+
+      response_item = response_order["customer_order_items"].first
+      expect(
+        response_item["provider_item_precio_cents"]
+      ).to eq(order_item_1.provider_item.precio.cents)
+
+      provider_item = response_item["provider_item"]
+      expect(
+        provider_item["titulo"]
+      ).to be_present
+    end
   end
 end

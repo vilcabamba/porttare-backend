@@ -19,17 +19,29 @@ module Api
         api :GET,
             "/customer/cart",
             "Get current cart"
-        desc "Returns current customer order or empty if there's no customer order"
+        desc "Returns current customer order or empty if there's no customer order. Each order item has a cached price which should be used as provider's item may change it's price"
         example %q{{
     "customer_order":{
       "id":1,
       "status":"in_progress",
-      "subtotal_items_cents":399,
+      "subtotal_items_cents":44811,
       "customer_order_items":[{
-        "cantidad":7,
-        "provider_item_id":1,
-        "observaciones":"Gastropub neutra leggings tumblr. Disrupt heirloom waistcoat. Leggings brooklyn twee pinterest etsy vhs.\nHoodie raw denim scenester pop-up gastropub church-key."
-      }]
+        "id":1,
+        "cantidad":9,
+        "provider_item_precio_cents":4979,
+        "observaciones":"Hella park cornhole mixtape brooklyn offal tumblr cardigan. Cred scenester vinegar fap trust fund aesthetic letterpress helvetica. Etsy salvia schlitz sriracha venmo. Meh forage umami messenger bag roof green juice.",
+        "provider_item":{
+          "id":1,
+          "titulo":"Incredible Wool Hat",
+          "descripcion":"flexibilidad asimétrica Totalmente configurable",
+          "unidad_medida":"peso",
+          "precio_cents":4979,
+          "volumen":"945",
+          "peso":"423 kg",
+          "observaciones":"Dreamcatcher meggings thundercats tacos hella chillwave mlkshk. Banjo 8-bit wolf keytar freegan polaroid. Celiac park bicycle rights blue bottle pork belly.",
+          "imagenes":[]
+        }
+      }
     }
   }}
         def index
