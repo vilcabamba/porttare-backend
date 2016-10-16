@@ -10,9 +10,11 @@ Rails.application.routes.draw do
     end
 
     namespace :customer do
-      resource :cart,
-               controller: :cart,
-               only: [:create]
+      namespace :cart do
+        root to: 'items#index'
+        resources :items,
+                  only: [:create, :update, :destroy]
+      end
     end
 
     namespace :provider do

@@ -50,5 +50,11 @@ FactoryGirl.define do
         create :courier_profile, user: user
       end
     end
+
+    trait :customer do
+      after :create do |user|
+        create :customer_profile, user: user
+      end
+    end
   end
 end

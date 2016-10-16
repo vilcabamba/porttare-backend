@@ -43,7 +43,7 @@ RSpec.describe CustomerProfile,
 
       subject { customer_profile.current_order }
 
-      it { is_expected.to_not eq(other_customer_order) }
+      it { is_expected.to_not be_present }
     end
   end
 end

@@ -6,7 +6,7 @@ module Api
 
     api :GET,
         "/products",
-        "public products",
+        "Public products. DEPRECATED. products should be accessed via Categories::Providers#show endpoint",
         deprecated: true
     desc "Up to #{Kaminari.config.default_per_page} products per page. Supports pagination"
     param :page, Integer

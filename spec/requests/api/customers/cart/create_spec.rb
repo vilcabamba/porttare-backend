@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Api::Customer::CartController,
+RSpec.describe Api::Customer::Cart::ItemsController,
                type: :request do
   let(:user) { create :user }
   before { login_as user }
@@ -11,12 +11,16 @@ RSpec.describe Api::Customer::CartController,
       attributes_for(:customer_order_item)
     }
 
+    let(:customer_order) {
+      JSON.parse(response.body).fetch("customer_order")
+    }
+
     before do
       provider_item
 
       expect {
         post_with_headers(
-          "/api/customer/cart",
+          "/api/customer/cart/items",
           posted_attributes.merge(
             provider_item_id: provider_item.id
           )
@@ -48,8 +52,6 @@ RSpec.describe Api::Customer::CartController,
     end
 
     it "should render whole order" do
-      json = JSON.parse response.body
-      customer_order = json["customer_order"]
       customer_order_item = customer_order["customer_order_items"].first
 
       expect(
@@ -67,6 +69,14 @@ RSpec.describe Api::Customer::CartController,
       expect(
         customer_order_item
       ).to have_key("observaciones")
+    end
+
+    it "order subtotal should be updated" do
+      subtotal = posted_attributes[:cantidad] * provider_item.precio
+
+      expect(
+        customer_order["subtotal_items_cents"]
+      ).to eq(subtotal.cents)
     end
   end
 end
