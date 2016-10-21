@@ -39,8 +39,11 @@ module Api
               String,
               required: true,
               desc: "Branches without `direccion` will be ignored"
-        param :horario,
-              String,
+        param :hora_de_apertura,
+              Time,
+              required: true
+        param :hora_de_cierre,
+              Time,
               required: true
         param :telefono,
               String,
@@ -77,7 +80,8 @@ module Api
       "id":1,
       "direccion":"Extramuros Jorge Yáñez 2",
       "ciudad":"Ávila",
-      "horario":"09:00-18:00",
+      "hora_de_apertura":"09:00",
+      "hora_de_cierre":"18:00",
       "telefono":"948075420",
       "enabled":false
     }]

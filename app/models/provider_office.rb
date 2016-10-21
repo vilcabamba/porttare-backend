@@ -7,10 +7,11 @@
 #  enabled             :boolean          default(FALSE)
 #  direccion           :string           not null
 #  ciudad              :string
-#  horario             :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  telefono            :string
+#  hora_de_apertura    :time
+#  hora_de_cierre      :time
 #
 
 require "porttare_backend/places"
@@ -21,7 +22,8 @@ class ProviderOffice < ActiveRecord::Base
            dependent: :destroy
 
   validates :direccion,
-            :horario,
+            :hora_de_apertura,
+            :hora_de_cierre,
             :telefono,
             presence: true
   validates :ciudad,

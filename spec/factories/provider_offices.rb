@@ -7,10 +7,11 @@
 #  enabled             :boolean          default(FALSE)
 #  direccion           :string           not null
 #  ciudad              :string
-#  horario             :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  telefono            :string
+#  hora_de_apertura    :time
+#  hora_de_cierre      :time
 #
 
 require "porttare_backend/places"
@@ -18,7 +19,8 @@ require "porttare_backend/places"
 FactoryGirl.define do
   factory :provider_office do
     provider_profile
-    horario   "10:00 AM - 7:00 PM"
+    hora_de_apertura   "10:00 AM"
+    hora_de_cierre     "7:00 PM"
     direccion { Faker::Address.street_address }
     ciudad    { PorttareBackend::Places.all.sample }
     telefono  { Faker::PhoneNumber.phone_number }

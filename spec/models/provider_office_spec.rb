@@ -7,10 +7,11 @@
 #  enabled             :boolean          default(FALSE)
 #  direccion           :string           not null
 #  ciudad              :string
-#  horario             :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  telefono            :string
+#  hora_de_apertura    :time
+#  hora_de_cierre      :time
 #
 
 require 'rails_helper'

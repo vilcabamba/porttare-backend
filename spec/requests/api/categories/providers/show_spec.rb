@@ -63,7 +63,7 @@ RSpec.describe Api::ProvidersController,
     it "includes full provider profile" do
       expect(
         provider_from_response["provider_offices"].first
-      ).to have_key("horario")
+      ).to have_key("hora_de_apertura")
     end
 
     it "doesn't include provider profile private attributes" do

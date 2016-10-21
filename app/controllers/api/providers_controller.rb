@@ -46,7 +46,8 @@ module Api
             "direccion":"Caserio Marilu,
              6 Puerta 639",
             "ciudad":"Torrejón de Ardoz",
-            "horario":"10:00 AM - 7:00 PM"
+            "hora_de_apertura":"10:00 AM"
+            "hora_de_cierre":"7:00 PM"
           }
         ]
       }
@@ -89,7 +90,8 @@ module Api
       "id":1,
       "direccion":"Municipio Guadalupe 84 Puerta 392",
       "ciudad":"Fuenlabrada",
-      "horario":"10:00 AM - 7:00 PM"}],
+      "hora_de_apertura":"10:00 AM"
+      "hora_de_cierre":"7:00 PM"}],
       "provider_items":[{
         "id":1,
         "titulo":"Small Copper Bag",

@@ -53,7 +53,7 @@ RSpec.describe Api::ProvidersController,
     it "includes complete info for provider profile" do
       expect(
         office_from_response
-      ).to have_key("horario")
+      ).to have_key("hora_de_apertura")
     end
 
     it "doesn't include private office attributes" do

@@ -27,7 +27,8 @@ class ProviderProfilePolicy < ApplicationPolicy
       formas_de_pago: [],
       offices_attributes: [
         :ciudad,
-        :horario,
+        :hora_de_apertura,
+        :hora_de_cierre,
         :telefono,
         :direccion
       ]
