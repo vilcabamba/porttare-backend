@@ -3,7 +3,7 @@ json.extract!(
   :id,
   :direccion,
   :ciudad,
-  :hora_de_apertura,
-  :hora_de_cierre,
   :telefono
 )
+json.hora_de_apertura provider_office.hora_de_apertura.strftime("%H:%M %p")
+json.hora_de_cierre provider_office.hora_de_cierre.strftime("%H:%M %p")
