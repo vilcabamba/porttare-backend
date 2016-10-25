@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020234018) do
+ActiveRecord::Schema.define(version: 20161025113714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,17 @@ ActiveRecord::Schema.define(version: 20161020234018) do
   end
 
   add_index "customer_profiles", ["user_id"], name: "index_customer_profiles_on_user_id", using: :btree
+
+  create_table "customer_wishlists", force: :cascade do |t|
+    t.integer  "customer_profile_id",              null: false
+    t.string   "nombre",                           null: false
+    t.text     "provider_items_ids",  default: [],              array: true
+    t.datetime "entregar_en"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "customer_wishlists", ["customer_profile_id"], name: "index_customer_wishlists_on_customer_profile_id", using: :btree
 
   create_table "provider_categories", force: :cascade do |t|
     t.string   "titulo",      null: false
@@ -217,6 +228,7 @@ ActiveRecord::Schema.define(version: 20161020234018) do
   add_foreign_key "customer_order_items", "provider_items"
   add_foreign_key "customer_orders", "customer_profiles"
   add_foreign_key "customer_profiles", "users"
+  add_foreign_key "customer_wishlists", "customer_profiles"
   add_foreign_key "provider_clients", "provider_profiles"
   add_foreign_key "provider_dispatchers", "provider_offices"
   add_foreign_key "provider_item_images", "provider_items"
