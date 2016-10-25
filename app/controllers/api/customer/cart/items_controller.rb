@@ -1,7 +1,7 @@
 module Api
   module Customer
     module Cart
-      class ItemsController < BaseController
+      class ItemsController < Api::Customer::BaseController
         before_action :authenticate_api_auth_user!
         before_action :find_or_create_customer_profile,
                       except: :index
