@@ -17,9 +17,6 @@ RSpec.describe Api::Customer::WishlistsController,
     }
 
     before do
-      # force current timezone
-      Time.zone = Rails.application.config.time_zone
-
       provider_item
 
       expect {
@@ -48,11 +45,15 @@ RSpec.describe Api::Customer::WishlistsController,
         resp_customer_wishlist["nombre"]
       ).to eq(attributes[:nombre])
 
+      tz_entregar_en = I18n.l(
+        attributes[:entregar_en].in_time_zone(
+          Rails.application.config.time_zone
+        ),
+        format: :api
+      )
       expect(
         resp_customer_wishlist["entregar_en"]
-      ).to eq(
-        I18n.l(attributes[:entregar_en], format: :api)
-      )
+      ).to eq(tz_entregar_en)
 
       expect(
         resp_customer_wishlist["provider_items_ids"]
