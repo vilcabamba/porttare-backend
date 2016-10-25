@@ -19,6 +19,10 @@ class CustomerWishlistPolicy < ApplicationPolicy
     is_customer?
   end
 
+  def destroy?
+    is_customer?
+  end
+
   private
 
   def is_customer?

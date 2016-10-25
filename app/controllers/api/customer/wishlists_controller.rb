@@ -47,7 +47,7 @@ module Api
           "update a wishlist"
       param :id,
             Integer,
-            requred: true,
+            required: true,
             desc: "customer wishlist's id"
       param_group :customer_wishlist
       def update
@@ -59,6 +59,19 @@ module Api
           render "api/shared/resource_error",
                  status: :unprocessable_entity
         end
+      end
+
+      api :DELETE,
+          "/customer/wishlists/:id",
+          "destroy a wishlist"
+      param :id,
+            Integer,
+            required: true,
+            desc: "wishlist's id"
+      def destroy
+        authorize @customer_wishlist
+        @customer_wishlist.destroy
+        head :no_content
       end
 
       private
