@@ -12,11 +12,16 @@
 #  telefono            :string
 #  hora_de_apertura    :time
 #  hora_de_cierre      :time
+#  inicio_de_labores   :string
+#  final_de_labores    :string
 #
 
 require "porttare_backend/places"
 
 class ProviderOffice < ActiveRecord::Base
+
+  DAYS_WEEK = I18n.t(:"date.day_names").map(&:capitalize)
+
   belongs_to :provider_profile
   has_many :provider_dispatchers,
            dependent: :destroy
@@ -26,6 +31,9 @@ class ProviderOffice < ActiveRecord::Base
             :hora_de_cierre,
             :hora_de_apertura,
             presence: true
+  validates :final_de_labores,
+            presence: true,
+            inclusion: { in: DAYS_WEEK }
   validates :ciudad,
             inclusion: { in: PorttareBackend::Places.all }
 

@@ -12,6 +12,8 @@
 #  telefono            :string
 #  hora_de_apertura    :time
 #  hora_de_cierre      :time
+#  inicio_de_labores   :string
+#  final_de_labores    :string
 #
 
 require "porttare_backend/places"

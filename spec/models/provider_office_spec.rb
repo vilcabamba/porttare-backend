@@ -12,6 +12,8 @@
 #  telefono            :string
 #  hora_de_apertura    :time
 #  hora_de_cierre      :time
+#  inicio_de_labores   :string
+#  final_de_labores    :string
 #
 
 require 'rails_helper'
@@ -37,5 +39,22 @@ RSpec.describe ProviderOffice,
         provider_office.hora_de_cierre.strftime("%H:%M %z")
       ).to eq("23:00 -0500")
     }
+  end
+
+  describe "validates labor days" do
+    subject { build :provider_office }
+    describe "valid" do
+      before {
+        subject.inicio_de_labores = ProviderOffice::DAYS_WEEK.sample
+      }
+      it { is_expected.to be_valid }
+    end
+
+    describe "invalid" do
+      before {
+        subject.final_de_labores = 'Enero'
+      }
+      it { is_expected.to_not be_valid }
+    end
   end
 end
