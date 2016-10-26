@@ -15,6 +15,10 @@ class CustomerWishlistPolicy < ApplicationPolicy
     ]
   end
 
+  def index?
+    true
+  end
+
   def update?
     is_customer?
   end

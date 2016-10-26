@@ -16,7 +16,7 @@ Rails.application.routes.draw do
                   only: [:create, :update, :destroy]
       end
       resources :wishlists,
-                only: [:create, :update, :destroy]
+                only: [:index, :create, :update, :destroy]
     end
 
     namespace :provider do

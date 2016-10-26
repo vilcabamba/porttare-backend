@@ -12,6 +12,21 @@ module Api
         short "current customer's wishlists"
       end
 
+      api :GET,
+          "/customer/wishlists",
+          "customer wishlists"
+      example %q{
+
+      }
+      def index
+        authorize CustomerWishlist
+        if current_api_auth_user.customer_profile
+          @customer_wishlists = customer_scope
+        else
+          skip_policy_scope
+        end
+      end
+
       def_param_group :customer_wishlist do
         param :nombre,
               String,
