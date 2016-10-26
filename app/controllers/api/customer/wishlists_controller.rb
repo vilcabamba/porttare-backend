@@ -15,8 +15,16 @@ module Api
       api :GET,
           "/customer/wishlists",
           "customer wishlists"
-      example %q{
-
+      example %q{{
+  "customer_wishlists":[
+    {
+      "id":3,
+      "nombre":"Twee raw denim.",
+      "provider_items_ids":[1,2],
+      "entregar_en":"2016-11-06 20:02 -0500"
+    }
+  ]
+}
       }
       def index
         authorize CustomerWishlist

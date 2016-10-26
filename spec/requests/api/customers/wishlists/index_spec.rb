@@ -31,6 +31,34 @@ RSpec.describe Api::Customer::WishlistsController,
   end
 
   describe "customer" do
+    let(:user) { create :user, :customer }
 
+    let(:other_wishlist) { create :customer_wishlist }
+    let(:my_wishlist) {
+      create :customer_wishlist,
+             customer_profile: user.customer_profile
+    }
+
+    before do
+      my_wishlist
+      other_wishlist
+
+      get_with_headers "/api/customer/wishlists"
+    end
+
+    it "includes my wishlist" do
+      my_response_wishlist = response_wishlists.detect do |wishlist|
+        wishlist["id"] == my_wishlist.id
+      end
+      expect(my_response_wishlist).to be_present
+    end
+
+    it "doesn't include other's wishlists" do
+      expect(
+        response_wishlists.detect do |wishlist|
+          wishlist["id"] == other_wishlist.id
+        end
+      ).to_not be_present
+    end
   end
 end
