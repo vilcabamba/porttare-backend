@@ -27,6 +27,10 @@ class CustomerWishlistPolicy < ApplicationPolicy
     is_customer?
   end
 
+  def create?
+    is_customer?
+  end
+
   private
 
   def is_customer?

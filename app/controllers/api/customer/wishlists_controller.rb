@@ -53,9 +53,8 @@ module Api
           "create a wishlist"
       param_group :customer_wishlist
       def create
-        @customer_wishlist =
-          @customer_profile
-            .customer_wishlists.new(customer_wishlist_params)
+        @customer_wishlist = customer_scope.new(customer_wishlist_params)
+        authorize @customer_wishlist
         if @customer_wishlist.save
           render :customer_wishlist, status: :created
         else
