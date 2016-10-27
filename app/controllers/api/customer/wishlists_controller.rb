@@ -6,6 +6,8 @@ module Api
                     except: :index
       before_action :find_customer_wishlist,
                     only: [:update, :destroy]
+      before_action :pundit_authorize,
+                    only: [:index, :create]
 
       resource_description do
         name "Customer::Wishlists"
@@ -27,7 +29,6 @@ module Api
 }
       }
       def index
-        authorize CustomerWishlist
         if current_api_auth_user.customer_profile
           @customer_wishlists = customer_scope
         else
@@ -54,7 +55,6 @@ module Api
       param_group :customer_wishlist
       def create
         @customer_wishlist = customer_scope.new(customer_wishlist_params)
-        authorize @customer_wishlist
         if @customer_wishlist.save
           render :customer_wishlist, status: :created
         else
@@ -97,6 +97,10 @@ module Api
       end
 
       private
+
+      def pundit_authorize
+        authorize CustomerWishlist
+      end
 
       def find_customer_wishlist
         @customer_wishlist = customer_scope.find(params[:id])
