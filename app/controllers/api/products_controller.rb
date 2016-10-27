@@ -36,12 +36,14 @@ module Api
   }
 }}
     def index
+      skip_authorization # REMOVE this endpoint
       @products = public_scope.page(params[:page])
     end
 
     private
 
     def public_scope
+      skip_policy_scope # calling PublicScope won't save us
       ProviderItemPolicy::PublicScope.new(
         pundit_user, ProviderItem
       ).resolve
