@@ -1,7 +1,7 @@
 module Api
   module Customer
     module Cart
-      class ItemsController < Api::BaseController
+      class ItemsController < Api::Customer::BaseController
         before_action :authenticate_api_auth_user!
         before_action :find_or_create_customer_profile,
                       except: :index
@@ -125,11 +125,6 @@ module Api
           @customer_order_item = @customer_order.order_items.find(
             params[:id]
           )
-        end
-
-        def find_or_create_customer_profile
-          @customer_profile =
-            current_api_auth_user.customer_profile || current_api_auth_user.create_customer_profile
         end
 
         def find_or_create_current_order
