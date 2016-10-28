@@ -14,30 +14,6 @@ module Api
       before_action :pundit_authorize,
                     only: [:index, :create]
 
-      api :POST,
-          "/customer/addresses",
-          "Create customer's address"
-      param :ciudad, String
-      param :parroquia, String
-      param :barrio, String
-      param :direccion_uno, String
-      param :direccion_dos, String
-      param :codigo_postal, String
-      param :referencia, String
-      param :numero_convencional, String
-      def create
-        @customer_address =
-          customer_scope.new(customer_address_params)
-        if @customer_address.save
-          render "api/customer/addresses/customer_address",
-                 status: :created
-        else
-          @errors = @customer_address.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
-      end
-
       api :GET,
           "/customer/addresses/:id",
           "Customer's address"
@@ -51,8 +27,8 @@ module Api
     "direccion_uno":"Calle Miguel Ángel",
     "direccion_dos":"Lorem Impusm",
     "codigo_postal":"124455",
-    "referencia":"La Primavera",
-    "numero_convencional":"2342-5678"
+    "numero_convencional":"2342-5678",
+    "referencia":"Cerca a la cuchara, casa de 2 pisos amarilla"
   }
 }}
     param :id, Integer, required: true
@@ -61,12 +37,40 @@ module Api
         render :customer_address
       end
 
+      def_param_group :customer_address do
+        param :ciudad, String
+        param :parroquia, String
+        param :barrio, String
+        param :direccion_uno, String
+        param :direccion_dos, String
+        param :codigo_postal, String
+        param :referencia, String
+        param :numero_convencional, String
+      end
+
+      api :POST,
+          "/customer/addresses",
+          "Create customer's address"
+      param_group :customer_address
+      def create
+        @customer_address =
+          customer_scope.new(customer_address_params)
+        if @customer_address.save
+          render :customer_address, status: :created
+        else
+          @errors = @customer_address.errors
+          render "api/shared/resource_error",
+                 status: :unprocessable_entity
+        end
+      end
+
       api :PUT,
           "/customer/addresses/:id",
           "Edit customer's address"
       param :id, Integer, required: true
-
+      param_group :customer_address
       def update
+        authorize @customer_address
         if @customer_address.update(customer_address_params)
           render :customer_address, status: :accepted
         else
@@ -83,7 +87,7 @@ module Api
       end
 
       def find_customer_addresses
-        @customer_address = CustomerAddress.find(params[:id])
+        @customer_address = customer_scope.find(params[:id])
       end
 
       def customer_address_params

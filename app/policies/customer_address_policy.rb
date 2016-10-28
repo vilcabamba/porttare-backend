@@ -29,6 +29,10 @@ class CustomerAddressPolicy < ApplicationPolicy
     is_customer?
   end
 
+  def update?
+    is_customer?
+  end
+
   private
 
   def is_customer?
