@@ -7,6 +7,7 @@ module Api
       end
 
       before_action :authenticate_api_auth_user!
+      before_action :authorize_user!
 
       api :GET,
           "/users/account",
@@ -21,10 +22,6 @@ module Api
   }
 }}
       def show
-        # TODO authorize
-        # authorize User
-        @user = current_api_auth_user
-        skip_policy_scope # because rendering self user
       end
 
       api :PUT,
@@ -36,10 +33,6 @@ module Api
       param :fecha_nacimiento, Date
       param :password, String, "if you want to update your account's password"
       def update
-        # TODO authorize
-        # authorize User
-        @user = current_api_auth_user
-        skip_policy_scope # because rendering self user
         if @user.update(user_params)
           render :show, status: :accepted
         else
@@ -58,6 +51,11 @@ module Api
           policy(User).permitted_attributes
         end
         params.permit(attributes)
+      end
+
+      def authorize_user!
+        authorize User
+        @user = policy_scope(User)
       end
     end
   end
