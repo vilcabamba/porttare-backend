@@ -10,7 +10,7 @@ json.provider_profile do
 
   json.provider_offices do
     json.array!(
-      @resource.provider_profile.offices,
+      @provider_profile.offices,
       partial: "provider_offices",
       as: :provider_office
     )

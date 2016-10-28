@@ -90,5 +90,12 @@ RSpec.describe Api::Provider::ProfilesController,
         provider_office.provider_profile
       ).to eq(user.provider_profile)
     }
+
+    it {
+      json_response = JSON.parse(response.body)
+      expect(
+        json_response["provider_profile"]["provider_offices"]
+      ).to_not be_empty
+    }
   end
 end

@@ -89,7 +89,8 @@ module Api
 }}
       def create
         authorize ProviderProfile
-        if apply_as_provider?
+        @provider_profile = provider_scope.new(provider_profile_params)
+        if @provider_profile.save
           render "api/provider/profiles/create",
                  status: :created
         else
@@ -101,16 +102,14 @@ module Api
 
       private
 
-      def apply_as_provider?
-        @provider_profile = ProviderProfile.new(provider_profile_params)
-        @provider_profile.user = current_api_auth_user
-        @provider_profile.save
-      end
-
       def provider_profile_params
         params.permit(
           *policy(ProviderProfile).permitted_attributes
         )
+      end
+
+      def provider_scope
+        policy_scope(ProviderProfile)
       end
     end
   end
