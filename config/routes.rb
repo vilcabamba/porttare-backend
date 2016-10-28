@@ -35,7 +35,7 @@ Rails.application.routes.draw do
       resource :profile, only: :create
     end
 
-    namespace :user do
+    namespace :users do
       resource :account,
                only: [:show, :update]
     end
