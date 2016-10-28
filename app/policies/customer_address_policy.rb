@@ -16,8 +16,7 @@ class CustomerAddressPolicy < ApplicationPolicy
       :direccion_dos,
       :codigo_postal,
       :referencia,
-      :numero_convencional,
-      :customer_profile_id
+      :numero_convencional
     ]
   end
 

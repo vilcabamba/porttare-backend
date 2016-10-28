@@ -1,7 +1,6 @@
 json.extract!(
   customer_address,
   :id,
-  :customer_profile_id,
   :ciudad,
   :parroquia,
   :barrio,
