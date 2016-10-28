@@ -1,6 +1,6 @@
 module Api
   module Customer
-    class AddressesController < BaseController
+    class AddressesController < Customer::BaseController
       resource_description do
         name "Customer::Addresses"
         short "customer's address"
