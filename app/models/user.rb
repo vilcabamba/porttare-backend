@@ -24,7 +24,7 @@
 #  created_at             :datetime
 #  updated_at             :datetime
 #  admin                  :boolean          default(FALSE)
-#  fecha_de_nacimiento    :date
+#  fecha_nacimiento       :date
 #  ciudad                 :string
 #
 

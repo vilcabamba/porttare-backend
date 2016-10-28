@@ -1,71 +1,40 @@
 require "rails_helper"
 
-RSpec.describe Api::Customer::ProfilesController,
+RSpec.describe Api::User::AccountsController,
                type: :request do
-  let(:user) { create :user }
-
   before { login_as user }
 
-  let(:response_customer_profile) {
-    JSON.parse(response.body).fetch("customer_profile")
+  let(:response_user) {
+    JSON.parse(response.body).fetch("user")
   }
 
   describe "without personal info" do
-    before { get_with_headers "/api/customer/profile" }
+    let(:user) { create :user }
+
+    before { get_with_headers "/api/user/account" }
 
     it {
-      expect(user.reload.customer_profile).to_not be_present
-      expect(response_customer_profile).to be_nil
+      expect(response_user["email"]).to eq(user.email)
+      expect(response_user["name"]).to eq(user.name)
     }
   end
 
   describe "with personal info" do
-    let(:customer_profile) {
-      create :customer_profile,
-             :with_info,
-             user: user
-    }
+    let(:user) { create :user, :with_personal_info }
 
-    before do
-      customer_profile
-      get_with_headers "/api/customer/profile"
-    end
+    before { get_with_headers "/api/user/account" }
 
-    it "should match user" do
+    it "includes personal info" do
+      binding.pry
+      expect(response_user["ciudad"]).to eq(user.ciudad)
       expect(
-        response_customer_profile["name"]
-      ).to eq(customer_profile.user.name)
-
-      expect(
-        response_customer_profile["email"]
-      ).to eq(customer_profile.user.email)
-
-      expect(
-        response_customer_profile["name"]
-      ).to_not eq(customer_profile_another_user.user.name)
-
-      expect(
-        response_customer_profile["email"]
-      ).to_not eq(customer_profile_another_user.user.email)
-    end
-
-    it "includes full customer profile" do
-      expect(
-        response_customer_profile
-      ).to have_key("fecha_de_nacimiento")
-
-      expect(
-        response_customer_profile
-      ).to have_key("ciudad")
-
-      expect(
-        response_customer_profile
-      ).to have_key("customer_addresses")
+        response_user["fecha_nacimiento"]
+      ).to eq(user.fecha_nacimiento.to_s)
     end
 
     it "should not include user password" do
       expect(
-        response_customer_profile
+        response_user
       ).to_not have_key("password")
     end
   end

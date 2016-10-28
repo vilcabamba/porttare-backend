@@ -232,7 +232,7 @@ ActiveRecord::Schema.define(version: 20161028180549) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "admin",                  default: false
-    t.date     "fecha_de_nacimiento"
+    t.date     "fecha_nacimiento"
     t.string   "ciudad"
   end
 
