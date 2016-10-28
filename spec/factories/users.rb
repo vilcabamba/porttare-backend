@@ -24,6 +24,8 @@
 #  created_at             :datetime
 #  updated_at             :datetime
 #  admin                  :boolean          default(FALSE)
+#  fecha_de_nacimiento    :date
+#  ciudad                 :string
 #
 
 FactoryGirl.define do
@@ -37,6 +39,11 @@ FactoryGirl.define do
 
     trait :admin do
       admin true
+    end
+
+    trait :with_personal_info do
+      ciudad              { Faker::Address.city }
+      fecha_de_nacimiento { Faker::Date.birthday }
     end
 
     trait :provider do

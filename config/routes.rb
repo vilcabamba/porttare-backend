@@ -15,8 +15,6 @@ Rails.application.routes.draw do
         resources :items,
                   only: [:create, :update, :destroy]
       end
-      resource :profile,
-               only: [:show, :edit, :update]
       resources :wishlists,
                 only: [:index, :create, :update, :destroy]
       resources :addresses,
@@ -35,6 +33,11 @@ Rails.application.routes.draw do
 
     namespace :courier do
       resource :profile, only: :create
+    end
+
+    namespace :user do
+      resource :account,
+               only: [:show, :update]
     end
 
     namespace :auth do
