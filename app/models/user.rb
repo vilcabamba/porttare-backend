@@ -41,7 +41,4 @@ class User < ActiveRecord::Base
   has_many :locations,
            -> { order(id: :desc) },
            class_name: "UserLocation"
-  accepts_nested_attributes_for(
-   :customer_profile
-  )
 end

@@ -9,8 +9,8 @@ module Api
       before_action :authenticate_api_auth_user!
 
       api :GET,
-          "/user/account",
-          "User's account"
+          "/users/account",
+          "get User's account"
       example %q{{
   "user":{
     "id":2,
@@ -27,6 +27,14 @@ module Api
         skip_policy_scope # because rendering self user
       end
 
+      api :PUT,
+          "/users/account",
+          "Update user account"
+      param :name, String
+      param :email, String
+      param :ciudad, String
+      param :fecha_nacimiento, Date
+      param :password, String, "if you want to update your account's password"
       def update
         # TODO authorize
         # authorize User
