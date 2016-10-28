@@ -9,7 +9,7 @@
 #  direccion_uno       :string
 #  direccion_dos       :string
 #  codigo_postal       :string
-#  referencia          :string
+#  referencia          :text
 #  numero_convencional :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
@@ -19,9 +19,10 @@
 FactoryGirl.define do
   factory :customer_address do
     customer_profile
+
     ciudad              { Faker::Address.city }
-    parroquia           { Faker::Address.city_prefix }
-    barrio              { Faker::Address.city_suffix }
+    parroquia           { Faker::Address.state }
+    barrio              { Faker::Address.city_prefix }
     direccion_uno       { Faker::Address.street_address }
     direccion_dos       { Faker::Address.secondary_address }
     codigo_postal       { Faker::Address.postcode }

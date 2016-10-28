@@ -9,7 +9,7 @@
 #  direccion_uno       :string
 #  direccion_dos       :string
 #  codigo_postal       :string
-#  referencia          :string
+#  referencia          :text
 #  numero_convencional :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null

@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20161025113714) do
     t.string   "direccion_uno"
     t.string   "direccion_dos"
     t.string   "codigo_postal"
-    t.string   "referencia"
+    t.text     "referencia"
     t.string   "numero_convencional"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
