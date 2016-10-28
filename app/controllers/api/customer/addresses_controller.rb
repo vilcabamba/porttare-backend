@@ -7,22 +7,28 @@ module Api
       end
 
       before_action :authenticate_api_auth_user!
-      before_action :find_customer_addresses, only: [:show, :update]
+      before_action :find_or_create_customer_profile,
+                    except: :index
+      before_action :find_customer_addresses,
+                    only: [:show, :update]
+      before_action :pundit_authorize,
+                    only: [:index, :create]
 
       api :POST,
           "/customer/addresses",
           "Create customer's address"
-          param :ciudad, String
-          param :parroquia, String
-          param :barrio, String
-          param :direccion_uno, String
-          param :direccion_dos, String
-          param :codigo_postal, String
-          param :referencia, String
-          param :numero_convencional, String
-
+      param :ciudad, String
+      param :parroquia, String
+      param :barrio, String
+      param :direccion_uno, String
+      param :direccion_dos, String
+      param :codigo_postal, String
+      param :referencia, String
+      param :numero_convencional, String
       def create
-        if create_address?
+        @customer_address =
+          customer_scope.new(customer_address_params)
+        if @customer_address.save
           render "api/customer/addresses/customer_address",
                  status: :created
         else
@@ -72,10 +78,8 @@ module Api
 
       private
 
-      def create_address?
-        @customer_address = CustomerAddress.new(customer_address_params)
-        @customer_address.customer_profile = current_api_auth_user.customer_profile
-        @customer_address.save
+      def pundit_authorize
+        authorize CustomerAddress
       end
 
       def find_customer_addresses
@@ -86,6 +90,10 @@ module Api
         params.permit(
           *policy(CustomerAddress).permitted_attributes
         )
+      end
+
+      def customer_scope
+        policy_scope(CustomerAddress)
       end
     end
   end

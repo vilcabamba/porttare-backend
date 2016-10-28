@@ -2,11 +2,11 @@ require "rails_helper"
 
 RSpec.describe Api::Customer::AddressesController,
                type: :request do
-  let(:user)
+  let(:user) { create :user }
   before { login_as user }
 
   describe "creates a customer (delivery) address" do
-    let(:attributes) { attributes_for :customer_addresses }
+    let(:attributes) { attributes_for :customer_address }
 
     before do
       expect {
