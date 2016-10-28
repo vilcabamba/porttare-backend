@@ -9,6 +9,7 @@ RSpec.describe Api::Customer::WishlistsController,
     let(:provider_item) { create :provider_item }
     let(:attributes) {
       attributes_for :customer_wishlist,
+                     :deliver_later,
                      provider_items_ids: [provider_item.id]
     }
 

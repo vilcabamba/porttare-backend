@@ -38,10 +38,16 @@ RSpec.describe Api::Customer::WishlistsController,
       create :customer_wishlist,
              customer_profile: user.customer_profile
     }
+    let(:my_wishlist_for_later) {
+      create :customer_wishlist,
+             :deliver_later,
+             customer_profile: user.customer_profile
+    }
 
     before do
       my_wishlist
       other_wishlist
+      my_wishlist_for_later
 
       get_with_headers "/api/customer/wishlists"
     end
@@ -59,6 +65,23 @@ RSpec.describe Api::Customer::WishlistsController,
           wishlist["id"] == other_wishlist.id
         end
       ).to_not be_present
+    end
+
+    it "format for deliver_later" do
+      tz_entregar_en = I18n.l(
+        my_wishlist_for_later.entregar_en.in_time_zone(
+          Rails.application.config.time_zone
+        ),
+        format: :api
+      )
+
+      wishlist_in_resp = response_wishlists.detect do |wishlist|
+        wishlist["id"] == my_wishlist_for_later.id
+      end
+
+      expect(
+        wishlist_in_resp["entregar_en"]
+      ).to eq(tz_entregar_en)
     end
   end
 end

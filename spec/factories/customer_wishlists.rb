@@ -16,7 +16,10 @@ FactoryGirl.define do
     customer_profile
 
     nombre          { Faker::Hipster.sentence }
-    entregar_en     { Faker::Time.forward }
     provider_items_ids []
+
+    trait :deliver_later do
+      entregar_en   { Faker::Time.forward }
+    end
   end
 end
