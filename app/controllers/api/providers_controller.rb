@@ -5,6 +5,8 @@ module Api
     before_action :authenticate_api_auth_user!
     before_action :find_provider_category,
                   only: [:index, :show]
+    before_action :pundit_authorize,
+                  only: [:index, :show]
 
     resource_description do
       name "Categories::Providers"
@@ -114,6 +116,10 @@ module Api
     end
 
     private
+
+    def pundit_authorize
+      authorize ProviderCategory
+    end
 
     def provider_category_scope
       policy_scope(ProviderCategory)

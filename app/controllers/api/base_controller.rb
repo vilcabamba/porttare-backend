@@ -11,6 +11,10 @@ module Api
     # and expose it to views so it's accessible
     helper_method :current_member
 
+    # strict pundit
+    after_action :verify_authorized
+    after_action :verify_policy_scoped
+
     protected
 
     def user_not_authorized

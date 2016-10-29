@@ -18,6 +18,14 @@ class CustomerOrderItemPolicy < ApplicationPolicy
     ]
   end
 
+  def index?
+    true
+  end
+
+  def create?
+    is_customer?
+  end
+
   def update?
     order_in_progress?
   end
@@ -27,6 +35,10 @@ class CustomerOrderItemPolicy < ApplicationPolicy
   end
 
   private
+
+  def is_customer?
+    user.customer_profile.present?
+  end
 
   def order_in_progress?
     # all users can edit their own

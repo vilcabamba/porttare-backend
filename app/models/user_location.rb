@@ -11,6 +11,7 @@
 
 class UserLocation < ActiveRecord::Base
   belongs_to :user
+  scope :latest, -> { order(id: :desc) }
   validates :user_id,
             :lat,
             :lon,

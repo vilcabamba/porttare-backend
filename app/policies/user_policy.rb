@@ -1,28 +1,26 @@
 class UserPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
+      scope.find_by(id: user.id)
+    end
+  end
+
+  class AdminScope < Scope
+    def resolve
       scope
     end
   end
 
-  def index?
+  def manage?
     is_admin?
   end
 
-  def new?
-    is_admin?
-  end
-
-  def create?
-    is_admin?
-  end
-
-  def edit?
-    is_admin?
+  def show?
+    true
   end
 
   def update?
-    is_admin?
+    true
   end
 
   def permitted_attributes

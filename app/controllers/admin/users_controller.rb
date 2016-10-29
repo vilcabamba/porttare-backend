@@ -5,18 +5,18 @@ module Admin
                   only: [:edit, :update]
 
     def index
-      @users = policy_scope(User).all
+      @users = users_scope.all
     end
 
     def new
-      @user = User.new
+      @user = users_scope.new
     end
 
     def edit
     end
 
     def create
-      @user = User.new(user_attributes)
+      @user = users_scope.new(user_attributes)
       if @user.save
         redirect_to(
           { action: :index },
@@ -51,11 +51,16 @@ module Admin
     end
 
     def authorize_resource
-      authorize User
+      authorize User, :manage?
     end
 
     def find_user
-      @user = User.find params[:id]
+      @user = users_scope.find params[:id]
+    end
+
+    def users_scope
+      skip_policy_scope
+      UserPolicy::AdminScope.new(pundit_user, User).resolve
     end
   end
 end

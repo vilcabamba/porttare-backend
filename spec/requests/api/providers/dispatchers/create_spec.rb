@@ -73,5 +73,29 @@ RSpec.describe Api::Provider::DispatchersController,
         ).to eq(provider_office.id)
       }
     end
+
+    describe "can't assign to another provider's office" do
+      let(:other_office) {
+        create :provider_office
+      }
+
+      let(:invalid_attributes) {
+        attributes_for(:provider_dispatcher).merge(
+          provider_office_id: other_office.id
+        )
+      }
+
+      before {
+        other_office
+        post_with_headers(
+          "/api/provider/dispatchers",
+          invalid_attributes
+        )
+      }
+
+      it "unauthorized" do
+        expect(response.status).to eq(401)
+      end
+    end
   end
 end

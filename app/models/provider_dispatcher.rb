@@ -14,6 +14,7 @@ class ProviderDispatcher < ActiveRecord::Base
   include SoftDestroyable
 
   validates :email, presence: true
+  validates :provider_office_id, presence: true
 
   begin :relationships
     belongs_to :provider_office

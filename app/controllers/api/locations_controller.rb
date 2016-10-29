@@ -19,20 +19,25 @@ module Api
   }
 }}
     def create
+      authorize UserLocation
       @previous_locations = get_previous_locations
-      location = current_api_auth_user.locations.create!(location_params)
+      location = user_scope.create!(location_params)
       @is_new_location = is_new_location?(location)
       render "previous_locations", status: :created
     end
 
     private
 
+    def user_scope
+      policy_scope(UserLocation)
+    end
+
     def location_params
       params.permit(:lat, :lon)
     end
 
     def get_previous_locations
-      current_api_auth_user.locations.limit(10).to_a
+      user_scope.latest.limit(10).to_a
     end
 
     def is_new_location?(location)

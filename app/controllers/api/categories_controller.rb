@@ -41,6 +41,7 @@ module Api
   ]
 }}
     def index
+      authorize ProviderCategory
       @provider_categories = public_scope.order(
         :titulo
       ).includes(

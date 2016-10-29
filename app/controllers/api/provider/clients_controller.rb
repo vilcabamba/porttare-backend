@@ -9,6 +9,8 @@ module Api
       before_action :authenticate_api_auth_user!
       before_action :find_provider_client,
                     only: [:update, :destroy]
+      before_action :pundit_authorize,
+                    only: [:index, :create]
 
       api :GET,
           "/provider/clients",
@@ -28,7 +30,6 @@ module Api
   ]
 }}
       def index
-        authorize ProviderClient
         @provider_clients = provider_scope
       end
 
@@ -46,11 +47,7 @@ module Api
           "Create a provider client"
       param_group :provider_client
       def create
-        authorize ProviderClient
-        @provider_client =
-          current_api_auth_user
-            .provider_profile
-            .provider_clients.new(provider_client_params)
+        @provider_client = provider_scope.new(provider_client_params)
         if @provider_client.save
           render :client, status: :created
         else
@@ -107,6 +104,10 @@ module Api
 
       def provider_scope
         policy_scope(ProviderClient)
+      end
+
+      def pundit_authorize
+        authorize ProviderClient
       end
     end
   end

@@ -9,6 +9,8 @@ module Api
                       except: :index
         before_action :find_customer_order_item,
                       only: [:update, :destroy]
+        before_action :pundit_authorize,
+                      only: [:index, :create]
 
         resource_description do
           name "Customer::Cart::Items"
@@ -46,7 +48,10 @@ module Api
   }}
         def index
           @customer_profile = current_api_auth_user.customer_profile
-          @customer_order = @customer_profile.current_order if @customer_profile.present?
+          if @customer_profile.present?
+            @customer_order = @customer_profile.current_order
+          end
+          skip_policy_scope # because we access through #current_order
           render :customer_order
         end
 
@@ -121,6 +126,10 @@ module Api
 
         private
 
+        def pundit_authorize
+          authorize CustomerOrderItem
+        end
+
         def find_customer_order_item
           @customer_order_item = @customer_order.order_items.find(
             params[:id]
@@ -128,6 +137,7 @@ module Api
         end
 
         def find_or_create_current_order
+          skip_policy_scope # because we access through #current_order
           @customer_order =
             @customer_profile.current_order || @customer_profile.customer_orders.create
         end
