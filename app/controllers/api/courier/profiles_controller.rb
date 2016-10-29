@@ -36,7 +36,8 @@ module Api
 }}
       def create
         authorize CourierProfile
-        if apply_as_courier?
+        @courier_profile = courier_scope.new(courier_profile_params)
+        if @courier_profile.save
           render "api/courier/profiles/create",
                  status: :created
         else
@@ -48,16 +49,14 @@ module Api
 
       private
 
-      def apply_as_courier?
-        @courier_profile = CourierProfile.new(courier_profile_params)
-        @courier_profile.user = current_api_auth_user
-        @courier_profile.save
-      end
-
       def courier_profile_params
         params.permit(
           *policy(CourierProfile).permitted_attributes
         )
+      end
+
+      def courier_scope
+        policy_scope(CourierProfile)
       end
     end
   end
