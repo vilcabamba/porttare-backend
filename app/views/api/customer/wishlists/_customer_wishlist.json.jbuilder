@@ -6,4 +6,4 @@ json.extract!(
 )
 json.entregar_en(
   l(customer_wishlist.entregar_en, format: :api)
-)
+) if customer_wishlist.entregar_en.present?

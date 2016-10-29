@@ -14,7 +14,7 @@ RSpec.describe Api::Customer::WishlistsController,
   }
 
   let(:new_attributes) {
-    attributes_for(:customer_wishlist).slice(
+    attributes_for(:customer_wishlist, :deliver_later).slice(
       :nombre,
       :entregar_en
     ).merge(provider_items_ids: [provider_item.id])

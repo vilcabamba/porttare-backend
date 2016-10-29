@@ -24,6 +24,8 @@
 #  created_at             :datetime
 #  updated_at             :datetime
 #  admin                  :boolean          default(FALSE)
+#  fecha_nacimiento       :date
+#  ciudad                 :string
 #
 
 class User < ActiveRecord::Base

@@ -42,9 +42,9 @@ module Admin
 
     def user_attributes
       attributes = if params[:user][:password].present?
-        policy(User).permitted_attributes_with_password
+        policy(User).admin_permitted_attributes_with_password
       else
-        policy(User).permitted_attributes
+        policy(User).admin_permitted_attributes
       end
       params.require(:user)
             .permit(attributes)

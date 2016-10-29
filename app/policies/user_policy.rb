@@ -31,6 +31,13 @@ class UserPolicy < ApplicationPolicy
       :nickname,
       :image,
       :email,
+      :ciudad,
+      :fecha_nacimiento
+    ]
+  end
+
+  def admin_permitted_attributes
+    permitted_attributes + [
       :admin
     ]
   end
@@ -39,6 +46,12 @@ class UserPolicy < ApplicationPolicy
     # programatically permit the following so
     # we don't mistakenly override
     permitted_attributes + [
+      :password
+    ]
+  end
+
+  def admin_permitted_attributes_with_password
+    admin_permitted_attributes + [
       :password,
       :password_confirmation
     ]

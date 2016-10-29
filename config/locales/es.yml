@@ -75,6 +75,7 @@ es:
       default: "%d/%m/%Y"
       long: "%d de %B de %Y"
       short: "%d de %b"
+      api: "%Y-%m-%d"
     month_names:
     -
     - enero

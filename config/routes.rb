@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       end
       resources :wishlists,
                 only: [:index, :create, :update, :destroy]
+      resources :addresses,
+                only: [:index, :create, :update]
     end
 
     namespace :provider do
@@ -31,6 +33,11 @@ Rails.application.routes.draw do
 
     namespace :courier do
       resource :profile, only: :create
+    end
+
+    namespace :users do
+      resource :account,
+               only: [:show, :update]
     end
 
     namespace :auth do

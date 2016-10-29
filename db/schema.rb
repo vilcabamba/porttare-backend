@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161025113714) do
+ActiveRecord::Schema.define(version: 20161028180549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,22 @@ ActiveRecord::Schema.define(version: 20161025113714) do
   end
 
   add_index "courier_profiles", ["user_id"], name: "index_courier_profiles_on_user_id", using: :btree
+
+  create_table "customer_addresses", force: :cascade do |t|
+    t.string   "ciudad"
+    t.string   "parroquia"
+    t.string   "barrio"
+    t.string   "direccion_uno"
+    t.string   "direccion_dos"
+    t.string   "codigo_postal"
+    t.text     "referencia"
+    t.string   "numero_convencional"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "customer_profile_id", null: false
+  end
+
+  add_index "customer_addresses", ["customer_profile_id"], name: "index_customer_addresses_on_customer_profile_id", using: :btree
 
   create_table "customer_order_items", force: :cascade do |t|
     t.integer  "customer_order_id",                             null: false
@@ -216,6 +232,8 @@ ActiveRecord::Schema.define(version: 20161025113714) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "admin",                  default: false
+    t.date     "fecha_nacimiento"
+    t.string   "ciudad"
   end
 
   add_index "users", ["admin"], name: "index_users_on_admin", using: :btree
@@ -224,6 +242,7 @@ ActiveRecord::Schema.define(version: 20161025113714) do
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
 
   add_foreign_key "courier_profiles", "users"
+  add_foreign_key "customer_addresses", "customer_profiles"
   add_foreign_key "customer_order_items", "customer_orders"
   add_foreign_key "customer_order_items", "provider_items"
   add_foreign_key "customer_orders", "customer_profiles"
