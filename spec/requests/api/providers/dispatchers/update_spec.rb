@@ -42,6 +42,21 @@ RSpec.describe Api::Provider::DispatchersController,
           json["provider_dispatcher"]["email"]
         ).to eq(new_attributes[:email])
       }
+
+      describe "can't assign another provider's office to my dispatcher" do
+        let(:other_office) { create :provider_office }
+
+        before {
+          put_with_headers(
+            "/api/provider/dispatchers/#{my_dispatcher.id}",
+            new_attributes.merge(provider_office_id: other_office.id)
+          )
+        }
+
+        it {
+          expect(response.status).to eq(401)
+        }
+      end
     end
 
     describe "can't update other provider's dispatcher" do

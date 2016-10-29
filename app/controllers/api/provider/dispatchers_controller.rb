@@ -7,6 +7,10 @@ module Api
       end
 
       before_action :authenticate_api_auth_user!
+      before_action :pundit_authorize,
+                    only: [:index, :create]
+      before_action :find_provider_office,
+                    only: [:create, :update]
       before_action :find_provider_dispatcher,
                     only: [:update, :destroy]
 
@@ -26,7 +30,6 @@ module Api
         }]
       }}
       def index
-        authorize ProviderDispatcher
         @provider_dispatchers = provider_scope
       end
 
@@ -41,7 +44,7 @@ module Api
       param_group :provider_dispatcher
       def create
         authorize ProviderDispatcher
-        @provider_dispatcher = ProviderDispatcher.new(provider_dispatcher_params)
+        @provider_dispatcher = @provider_office.provider_dispatchers.new(provider_dispatcher_params)
         if @provider_dispatcher.save
           render :dispatcher, status: :created
         else
@@ -98,6 +101,20 @@ module Api
 
       def provider_scope
         policy_scope(ProviderDispatcher)
+      end
+
+      def pundit_authorize
+        authorize ProviderDispatcher
+      end
+
+      def find_provider_office
+        @provider_office = policy_scope(ProviderOffice).find(
+          params[:provider_office_id]
+        ) if params[:provider_office_id].present?
+      rescue ActiveRecord::RecordNotFound
+        # means provider office is not within
+        # provider's scope
+        raise Pundit::NotAuthorizedError
       end
     end
   end
