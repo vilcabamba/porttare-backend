@@ -9,6 +9,8 @@ module Api
       before_action :authenticate_api_auth_user!
       before_action :find_provider_item,
                     only: [:update, :destroy]
+      before_action :pundit_authorize,
+                    only: [:index, :create]
 
       api :GET,
           "/provider/items",
@@ -37,7 +39,6 @@ module Api
   ]
 }}
       def index
-        authorize ProviderItem
         @provider_items = provider_scope
       end
 
@@ -71,11 +72,7 @@ module Api
           "Create a provider item"
       param_group :provider_item
       def create
-        authorize ProviderItem
-        @provider_item =
-          current_api_auth_user
-            .provider_profile
-            .provider_items.new(provider_item_params)
+        @provider_item = provider_scope.new(provider_item_params)
         if @provider_item.save
           render :item, status: :created
         else
@@ -125,6 +122,7 @@ module Api
       end
 
       def provider_scope
+        skip_policy_scope
         ProviderItemPolicy::ProviderScope.new(
           pundit_user, ProviderItem
         ).resolve
@@ -134,6 +132,10 @@ module Api
         params.permit(
           *policy(ProviderItem).permitted_attributes
         )
+      end
+
+      def pundit_authorize
+        authorize ProviderItem
       end
     end
   end

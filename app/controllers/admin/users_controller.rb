@@ -59,8 +59,8 @@ module Admin
     end
 
     def users_scope
-      @_pundit_policy_scoped = true
-      UserPolicy::AdminScope.new(current_admin, User).resolve
+      skip_policy_scope
+      UserPolicy::AdminScope.new(pundit_user, User).resolve
     end
   end
 end
