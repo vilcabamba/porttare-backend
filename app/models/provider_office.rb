@@ -19,23 +19,26 @@
 require "porttare_backend/places"
 
 class ProviderOffice < ActiveRecord::Base
+  DAY_NAMES = Date::DAYNAMES.map(&:downcase)
 
-  DAYS_WEEK = I18n.t(:"date.day_names").map(&:capitalize)
+  begin :relationships
+    belongs_to :provider_profile
+    has_many :provider_dispatchers,
+             dependent: :destroy
+  end
 
-  belongs_to :provider_profile
-  has_many :provider_dispatchers,
-           dependent: :destroy
-
-  validates :telefono,
-            :direccion,
-            :hora_de_cierre,
-            :hora_de_apertura,
-            presence: true
-  validates :final_de_labores,
-            presence: true,
-            inclusion: { in: DAYS_WEEK }
-  validates :ciudad,
-            inclusion: { in: PorttareBackend::Places.all }
+  begin :validations
+    validates :direccion,
+              :hora_de_apertura,
+              :hora_de_cierre,
+              :telefono,
+              presence: true
+    validates :inicio_de_labores,
+              :final_de_labores,
+              inclusion: { in: DAY_NAMES }
+    validates :ciudad,
+              inclusion: { in: PorttareBackend::Places.all }
+  end
 
   scope :enabled, -> { where(enabled: true) }
 

@@ -45,7 +45,7 @@ RSpec.describe ProviderOffice,
     subject { build :provider_office }
     describe "valid" do
       before {
-        subject.inicio_de_labores = ProviderOffice::DAYS_WEEK.sample
+        subject.inicio_de_labores = ProviderOffice::DAY_NAMES.sample
       }
       it { is_expected.to be_valid }
     end

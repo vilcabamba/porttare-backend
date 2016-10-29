@@ -3,9 +3,7 @@ json.extract!(
   :id,
   :direccion,
   :ciudad,
-  :telefono,
-  :inicio_de_labores,
-  :final_de_labores
+  :telefono
 )
 
 json.hora_de_apertura(

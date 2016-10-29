@@ -78,6 +78,14 @@ es:
     - jueves
     - viernes
     - sábado
+    day:
+      sunday: "domingo"
+      monday: "lunes"
+      tuesday: "martes"
+      wednesday: "miércoles"
+      thursday: "jueves"
+      friday: "viernes"
+      saturday: "sábado"
     formats:
       default: "%d/%m/%Y"
       long: "%d de %B de %Y"
