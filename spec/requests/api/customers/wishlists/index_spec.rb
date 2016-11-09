@@ -83,5 +83,55 @@ RSpec.describe Api::Customer::WishlistsController,
         wishlist_in_resp["entregar_en"]
       ).to eq(tz_entregar_en)
     end
+
+    describe "response sideloads providers and items" do
+      let(:providers_from_response) {
+        JSON.parse(response.body).fetch("provider_profiles")
+      }
+
+      let(:provider_category) { create :provider_category }
+
+      let(:provider_profile) {
+        create :provider_profile, provider_category: provider_category
+      }
+
+      let(:provider_item) {
+        create :provider_item, provider_profile: provider_profile
+      }
+
+      let(:my_wishlist) {
+        create :customer_wishlist,
+               provider_items_ids: [provider_item.id],
+               customer_profile: user.customer_profile
+      }
+
+      it "includes provider_item" do
+        response_wishlist = response_wishlists.detect do |wishlist|
+          wishlist["id"] == my_wishlist.id
+        end
+
+        provider_item_from_response = response_wishlist["provider_items"].first
+
+        expect(
+          provider_item_from_response["id"]
+        ).to eq(provider_item.id)
+
+        expect(
+          provider_item_from_response["provider_profile_id"]
+        ).to be_present
+      end
+
+      it "sideloads provider profiles" do
+        provider_from_response = providers_from_response.first
+
+        expect(
+          provider_from_response["id"]
+        ).to eq(provider_profile.id)
+
+        expect(
+          provider_from_response["provider_category_id"]
+        ).to eq(provider_category.id)
+      end
+    end
   end
 end

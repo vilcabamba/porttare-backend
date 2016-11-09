@@ -18,4 +18,11 @@ class CustomerWishlist < ActiveRecord::Base
   belongs_to :customer_profile
 
   validates :nombre, presence: true
+
+  # in which point is this performant?
+  # may need to refactor to a proper
+  # relationship to avoid N+1 queries
+  def provider_items
+    @provider_items ||= ProviderItem.find(provider_items_ids)
+  end
 end
