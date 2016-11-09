@@ -22,6 +22,7 @@ module Api
     {
       "id":4,
       "nombre":"90's meditation farm-to-table.",
+      "entregar_en":"2016-11-06 20:02 -0500",
       "provider_items":[
         {
           "provider_profile_id":2,
