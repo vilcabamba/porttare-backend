@@ -14,6 +14,8 @@ Rails.application.routes.draw do
         root to: 'items#index'
         resources :items,
                   only: [:create, :update, :destroy]
+        resource :checkout,
+                 only: :create
       end
       resources :wishlists,
                 only: [:index, :create, :update, :destroy]
