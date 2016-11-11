@@ -6,7 +6,15 @@ RSpec.describe Api::Customer::WishlistsController,
   before { login_as user }
 
   describe "creates a wishlist" do
-    let(:provider_item) { create :provider_item }
+    let(:provider_category) {
+      create :provider_category
+    }
+    let(:provider_profile) {
+      create :provider_profile, provider_category: provider_category
+    }
+    let(:provider_item) {
+      create :provider_item, provider_profile: provider_profile
+    }
     let(:attributes) {
       attributes_for :customer_wishlist,
                      :deliver_later,
@@ -56,9 +64,21 @@ RSpec.describe Api::Customer::WishlistsController,
         resp_customer_wishlist["entregar_en"]
       ).to eq(tz_entregar_en)
 
+      resp_provider_item = resp_customer_wishlist["provider_items"].detect do |item|
+        item["id"] == provider_item.id
+      end
+
       expect(
-        resp_customer_wishlist["provider_items_ids"]
-      ).to include(provider_item.id.to_s)
+        resp_provider_item["provider_profile_id"]
+      ).to eq(provider_item.provider_profile.id)
+
+      resp_provider_profile = JSON.parse(response.body).fetch("provider_profiles").detect do |profile|
+        profile["id"] == provider_item.provider_profile.id
+      end
+
+      expect(
+        resp_provider_profile["provider_category_id"]
+      ).to eq(provider_category.id)
     end
   end
 end

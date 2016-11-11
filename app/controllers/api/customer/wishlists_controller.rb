@@ -16,14 +16,47 @@ module Api
 
       api :GET,
           "/customer/wishlists",
-          "customer wishlists"
+          "customer wishlists. response sideloads public provider profiles and provider items"
       example %q{{
   "customer_wishlists":[
     {
-      "id":3,
-      "nombre":"Twee raw denim.",
-      "provider_items_ids":[1,2],
-      "entregar_en":"2016-11-06 20:02 -0500"
+      "id":4,
+      "nombre":"90's meditation farm-to-table.",
+      "entregar_en":"2016-11-06 20:02 -0500",
+      "provider_items":[
+        {
+          "provider_profile_id":2,
+          "id":2,
+          "titulo":"Intelligent Marble Shirt",
+          "descripcion":"contingencia 4th generación Progresivo",
+          "unidad_medida":"peso",
+          "precio_cents":1889,
+          "volumen":"428",
+          "peso":"693 kg",
+          "observaciones":"Next level narwhal gluten-free heirloom. Master small batch drinking ethical kogi cred helvetica. Fap lomo polaroid. Keffiyeh poutine heirloom bespoke.\nYou probably haven't heard of them gentrify retro fap. Chambray street chartreuse meditation cornhole brunch slow-carb keffiyeh. Cold-pressed keffiyeh try-hard. Twee retro lumbersexual loko poutine food truck sartorial freegan.",
+          "imagenes":[]
+        }
+      ]
+    }
+  ],
+  "provider_profiles":[
+    {
+      "provider_category_id":2,
+      "id":2,
+      "ruc":"0642772833",
+      "razon_social":"Maldonado, Nieto y Barrera Asociados",
+      "nombre_establecimiento":"Carrion Hermanos",
+      "actividad_economica":"agriculturist",
+      "representante_legal":"Rafael Sáenz Osorio",
+      "telefono":"996.620.499",
+      "email":"axel@halvorson.com",
+      "website":"http://lynch.org/vaughn.hilll",
+      "formas_de_pago":["tarjeta_credito"],
+      "logotipo_url":null,
+      "facebook_handle":"pink.williamson",
+      "twitter_handle":"diana",
+      "instagram_handle":"leanna_mclaughlin",
+      "youtube_handle":"rosamond.miller"
     }
   ]
 }
@@ -31,6 +64,9 @@ module Api
       def index
         if current_api_auth_user.customer_profile
           @customer_wishlists = customer_scope
+          @provider_profiles = get_provider_profiles(
+            @customer_wishlists.map(&:provider_items).flatten
+          )
         else
           skip_policy_scope
         end
@@ -56,6 +92,7 @@ module Api
       def create
         @customer_wishlist = customer_scope.new(customer_wishlist_params)
         if @customer_wishlist.save
+          @provider_profiles = get_provider_profiles(@customer_wishlist.provider_items)
           render :customer_wishlist, status: :created
         else
           @errors = @customer_wishlist.errors
@@ -75,6 +112,7 @@ module Api
       def update
         authorize @customer_wishlist
         if @customer_wishlist.update(customer_wishlist_params)
+          @provider_profiles = get_provider_profiles(@customer_wishlist.provider_items)
           render :customer_wishlist, status: :created
         else
           @errors = @customer_wishlist.errors
@@ -113,6 +151,16 @@ module Api
       def customer_wishlist_params
         params.permit(
           *policy(CustomerWishlist).permitted_attributes
+        )
+      end
+
+      def get_provider_profiles(provider_items)
+        # is this too much for the controller?
+        # could probably be avoided by adding a
+        # proper relationship
+        provider_profile_ids = provider_items.map(&:provider_profile_id)
+        ProviderProfile.where(
+          id: provider_profile_ids
         )
       end
     end

@@ -50,8 +50,12 @@ RSpec.describe Api::Customer::WishlistsController,
       response_wishlist["entregar_en"]
     ).to eq(tz_entregar_en)
 
+    resp_provider_item = response_wishlist["provider_items"].detect do |item|
+      item["id"] == provider_item.id
+    end
+
     expect(
-      customer_wishlist.reload.provider_items_ids
-    ).to include(provider_item.id.to_s)
+      resp_provider_item["provider_profile_id"]
+    ).to eq(provider_item.provider_profile.id)
   end
 end
