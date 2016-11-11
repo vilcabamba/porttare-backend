@@ -9,7 +9,7 @@ module Api
       before_action :authenticate_api_auth_user!
       before_action :find_or_create_customer_profile,
                     except: :index
-      before_action :find_customer_addresses,
+      before_action :find_customer_address,
                     only: [:update]
       before_action :pundit_authorize,
                     only: [:index, :create]
@@ -89,7 +89,7 @@ module Api
         authorize CustomerAddress
       end
 
-      def find_customer_addresses
+      def find_customer_address
         @customer_address = customer_scope.find(params[:id])
       end
 
