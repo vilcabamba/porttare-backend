@@ -25,11 +25,11 @@ Rails.application.routes.draw do
       resource :profile, only: :create
       resources :items,
                 only: [:index, :create, :update, :destroy]
+      resources :offices,
+                only: [:index, :create, :update]#, :destroy]
       resources :clients,
                 only: [:index, :create, :update, :destroy]
       resources :dispatchers,
-                only: [:index, :create, :update, :destroy]
-      resources :offices,
                 only: [:index, :create, :update, :destroy]
     end
 

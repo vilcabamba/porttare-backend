@@ -7,6 +7,10 @@ class ProviderOfficePolicy < ApplicationPolicy
     end
   end
 
+  def index?
+    is_provider?
+  end
+
   def create?
     is_provider?
   end

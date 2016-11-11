@@ -8,9 +8,31 @@ module Api
 
       before_action :authenticate_api_auth_user!
       before_action :pundit_authorize,
-                    only: [:create]
+                    only: [:index, :create]
       before_action :find_provider_office,
                     only: [:update]
+
+      api :GET,
+          "/provider/offices",
+          "List provider's offices (branches). Response includes full provider office attributes"
+      example %q{
+{
+  "provider_offices":[
+    {
+      "id":1,
+      "direccion":"Subida Martín Guardado 5",
+      "ciudad":"Loja",
+      "telefono":"945260520",
+      "hora_de_apertura":"15:00 +0000",
+      "hora_de_cierre":"00:00 +0000",
+      "enabled":false
+    }
+  ]
+}
+      }
+      def index
+        @provider_offices = provider_scope
+      end
 
       def_param_group :provider_office do
         param :direccion,
