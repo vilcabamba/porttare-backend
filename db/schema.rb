@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161028180549) do
+ActiveRecord::Schema.define(version: 20161111124332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,19 @@ ActiveRecord::Schema.define(version: 20161028180549) do
   end
 
   add_index "customer_addresses", ["customer_profile_id"], name: "index_customer_addresses_on_customer_profile_id", using: :btree
+
+  create_table "customer_billing_addresses", force: :cascade do |t|
+    t.integer  "customer_profile_id", null: false
+    t.string   "ciudad"
+    t.string   "telefono"
+    t.string   "email"
+    t.string   "ruc",                 null: false
+    t.string   "razon_social",        null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "customer_billing_addresses", ["customer_profile_id"], name: "index_customer_billing_addresses_on_customer_profile_id", using: :btree
 
   create_table "customer_order_items", force: :cascade do |t|
     t.integer  "customer_order_id",                             null: false
@@ -243,6 +256,7 @@ ActiveRecord::Schema.define(version: 20161028180549) do
 
   add_foreign_key "courier_profiles", "users"
   add_foreign_key "customer_addresses", "customer_profiles"
+  add_foreign_key "customer_billing_addresses", "customer_profiles"
   add_foreign_key "customer_order_items", "customer_orders"
   add_foreign_key "customer_order_items", "provider_items"
   add_foreign_key "customer_orders", "customer_profiles"
