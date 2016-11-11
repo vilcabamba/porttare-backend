@@ -21,13 +21,27 @@ class ProviderOffice < ActiveRecord::Base
   has_many :provider_dispatchers,
            dependent: :destroy
 
-  validates :direccion,
-            :hora_de_apertura,
+  validates :telefono,
+            :direccion,
             :hora_de_cierre,
-            :telefono,
+            :hora_de_apertura,
             presence: true
   validates :ciudad,
             inclusion: { in: PorttareBackend::Places.all }
 
   scope :enabled, -> { where(enabled: true) }
+
+  [
+    :hora_de_cierre,
+    :hora_de_apertura
+  ].each do |attribute_name|
+    define_method "#{attribute_name}=" do |new_time|
+      schedule_format = I18n.t("time.formats.office_schedule")
+      send(
+        :write_attribute,
+        attribute_name,
+        DateTime.strptime(new_time, schedule_format)
+      )
+    end
+  end
 end
