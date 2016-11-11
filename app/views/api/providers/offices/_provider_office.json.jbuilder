@@ -5,6 +5,10 @@ json.extract!(
   :ciudad,
   :telefono
 )
-# TODO define this format as standard
-json.hora_de_apertura provider_office.hora_de_apertura.in_time_zone.strftime("%H:%M %p")
-json.hora_de_cierre provider_office.hora_de_cierre.in_time_zone.strftime("%H:%M %p")
+
+json.hora_de_apertura(
+  l(provider_office.hora_de_apertura, format: :office_schedule)
+) if provider_office.hora_de_apertura.present?
+json.hora_de_cierre(
+  l(provider_office.hora_de_cierre, format: :office_schedule)
+) if provider_office.hora_de_cierre.present?

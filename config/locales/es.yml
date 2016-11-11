@@ -241,9 +241,10 @@ es:
       words_connector: ", "
   time:
     am: am
+    pm: pm
     formats:
       default: "%A, %d de %B de %Y %H:%M:%S %z"
       long: "%d de %B de %Y %H:%M"
       short: "%d de %b %H:%M"
       api: "%Y-%m-%d %H:%M %z"
-    pm: pm
+      office_schedule: "%H:%M %z"
