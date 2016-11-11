@@ -9,6 +9,8 @@ module Api
       before_action :authenticate_api_auth_user!
       before_action :pundit_authorize,
                     only: [:create]
+      before_action :find_provider_office,
+                    only: [:update]
 
       def_param_group :provider_office do
         param :direccion,
@@ -47,7 +49,27 @@ module Api
         end
       end
 
+      api :PUT,
+          "/provider/offices/:id",
+          "update a provider's office"
+      param :id, Integer, required: true, desc: "provider office id"
+      param_group :provider_office
+      def update
+        authorize @provider_office
+        if @provider_office.update(provider_office_params)
+          render :provider_office, status: :accepted
+        else
+          @errors = @provider_office.errors
+          render "api/shared/resource_error",
+                 status: :unprocessable_entity
+        end
+      end
+
       private
+
+      def find_provider_office
+        @provider_office = provider_scope.find(params[:id])
+      end
 
       def provider_office_params
         params.permit(
