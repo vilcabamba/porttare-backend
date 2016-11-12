@@ -64,9 +64,11 @@ module Api
       }
       def index
         super
-        @provider_profiles = get_provider_profiles(
-          @api_collection.map(&:provider_items).flatten
-        )
+        if @api_collection.present?
+          @provider_profiles = get_provider_profiles(
+            @api_collection.map(&:provider_items).flatten
+          )
+        end
       end
 
       def_param_group :customer_wishlist do
