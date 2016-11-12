@@ -2,6 +2,7 @@ module Api
   module Customer
     class AddressesController < Customer::BaseController
       include Api::BaseController::Resourceable
+      include Api::Customer::BaseController::ResourceCollectionable
 
       resource_description do
         name "Customer::Addresses"
@@ -33,12 +34,7 @@ module Api
   ]}
 }
       def index
-        pundit_authorize
-        if current_api_auth_user.customer_profile
-          @customer_addresses = resource_scope
-        else
-          skip_policy_scope
-        end
+        super
       end
 
       def_param_group :customer_address do

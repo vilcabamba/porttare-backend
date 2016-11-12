@@ -7,6 +7,10 @@ class CustomerBillingAddressPolicy < ApplicationPolicy
     end
   end
 
+  def index?
+    true
+  end
+
   def create?
     is_customer?
   end

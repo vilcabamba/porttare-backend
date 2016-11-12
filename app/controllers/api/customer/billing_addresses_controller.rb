@@ -2,6 +2,7 @@ module Api
   module Customer
     class BillingAddressesController < Customer::BaseController
       include Api::BaseController::Resourceable
+      include Api::Customer::BaseController::ResourceCollectionable
 
       resource_description do
         name "Customer::BillingAddresses"
@@ -33,6 +34,7 @@ module Api
   ]}
 }
       def index
+        super
       end
 
       def_param_group :customer_billing_address do
