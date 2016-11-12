@@ -1,7 +1,8 @@
 module Api
   module Provider
-    class DispatchersController < BaseController
+    class DispatchersController < Provider::BaseController
       include Api::BaseController::Resourceable
+      include Api::Provider::BaseController::ResourceCollectionable
 
       resource_description do
         name "Provider::Dispatchers"
@@ -11,7 +12,6 @@ module Api
       self.resource_klass = ProviderDispatcher
 
       before_action :authenticate_api_auth_user!
-      before_action :pundit_authorize
       before_action :find_provider_office,
                     only: [:create, :update]
 
@@ -31,7 +31,7 @@ module Api
         }]
       }}
       def index
-        @provider_dispatchers = resource_scope
+        super
       end
 
       def_param_group :provider_dispatcher do

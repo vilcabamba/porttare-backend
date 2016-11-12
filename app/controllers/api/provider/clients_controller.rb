@@ -1,7 +1,8 @@
 module Api
   module Provider
-    class ClientsController < BaseController
+    class ClientsController < Provider::BaseController
       include Api::BaseController::Resourceable
+      include Api::Provider::BaseController::ResourceCollectionable
 
       resource_description do
         name "Provider::Clients"
@@ -11,7 +12,6 @@ module Api
       self.resource_klass = ProviderClient
 
       before_action :authenticate_api_auth_user!
-      before_action :pundit_authorize
 
       api :GET,
           "/provider/clients",
@@ -31,7 +31,7 @@ module Api
   ]
 }}
       def index
-        @provider_clients = resource_scope
+        super
       end
 
       def_param_group :provider_client do

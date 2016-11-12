@@ -1,7 +1,8 @@
 module Api
   module Provider
-    class ItemsController < BaseController
+    class ItemsController < Provider::BaseController
       include Api::BaseController::Resourceable
+      include Api::Provider::BaseController::ResourceCollectionable
 
       resource_description do
         name "Provider::Items"
@@ -11,7 +12,6 @@ module Api
       self.resource_klass = ProviderItem
 
       before_action :authenticate_api_auth_user!
-      before_action :pundit_authorize
 
       api :GET,
           "/provider/items",
@@ -40,7 +40,7 @@ module Api
   ]
 }}
       def index
-        @provider_items = resource_scope
+        super
       end
 
       def_param_group :provider_item do

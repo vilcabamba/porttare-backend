@@ -1,7 +1,8 @@
 module Api
   module Provider
-    class OfficesController < BaseController
+    class OfficesController < Provider::BaseController
       include Api::BaseController::Resourceable
+      include Api::Provider::BaseController::ResourceCollectionable
 
       resource_description do
         name "Provider::Offices"
@@ -11,7 +12,6 @@ module Api
       self.resource_klass = ProviderOffice
 
       before_action :authenticate_api_auth_user!
-      before_action :pundit_authorize
 
       api :GET,
           "/provider/offices",
@@ -32,7 +32,7 @@ module Api
 }
       }
       def index
-        @provider_offices = resource_scope
+        super
       end
 
       def_param_group :provider_office do

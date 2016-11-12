@@ -1,6 +1,6 @@
 json.provider_offices do
   json.array!(
-    @provider_offices,
+    @api_collection,
     partial: "api/provider/offices/full_provider_office",
     as: :provider_office
   )
