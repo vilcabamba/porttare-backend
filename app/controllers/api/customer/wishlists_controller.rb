@@ -6,10 +6,7 @@ module Api
       before_action :authenticate_api_auth_user!
       before_action :find_or_create_customer_profile,
                     except: :index
-      before_action :find_customer_wishlist,
-                    only: [:update, :destroy]
-      before_action :pundit_authorize,
-                    only: [:index, :create]
+      before_action :pundit_authorize
 
       self.resource_klass = CustomerWishlist
 
@@ -106,15 +103,7 @@ module Api
             desc: "customer wishlist's id"
       param_group :customer_wishlist
       def update
-        authorize @customer_wishlist
-        if @customer_wishlist.update(customer_wishlist_params)
-          @provider_profiles = get_provider_profiles(@customer_wishlist.provider_items)
-          render :customer_wishlist, status: :created
-        else
-          @errors = @customer_wishlist.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
+        super
       end
 
       api :DELETE,
@@ -125,29 +114,23 @@ module Api
             required: true,
             desc: "wishlist's id"
       def destroy
-        authorize @customer_wishlist
-        @customer_wishlist.destroy
-        head :no_content
+        super
       end
 
       private
 
-      def new_api_resource
-        super
-        if @api_resource.valid?
-          # should we refactor this?
-          # this is the only controller using it:
-          # only if we are about to render the
-          # resource partial we need to sideload
-          # provider profiles
-          @provider_profiles = get_provider_profiles(
-            @api_resource.provider_items
-          )
-        end
+      def after_create_api_resource
+        sideload_provider_profiles
       end
 
-      def find_customer_wishlist
-        @customer_wishlist = customer_scope.find(params[:id])
+      def after_update_api_resource
+        sideload_provider_profiles
+      end
+
+      def sideload_provider_profiles
+        @provider_profiles = get_provider_profiles(
+          @api_resource.provider_items
+        )
       end
 
       def get_provider_profiles(provider_items)

@@ -11,8 +11,6 @@ module Api
       self.resource_klass = ProviderClient
 
       before_action :authenticate_api_auth_user!
-      before_action :find_provider_client,
-                    only: [:update, :destroy]
       before_action :pundit_authorize,
                     only: [:index, :create]
 
@@ -63,14 +61,7 @@ module Api
             desc: "Provider client's id"
       param_group :provider_client
       def update
-        authorize @provider_client
-        if @provider_client.update_attributes(provider_client_params)
-          render :client, status: :accepted
-        else
-          @errors = @provider_client.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
+        super
       end
 
       api :DELETE,

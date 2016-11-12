@@ -11,10 +11,7 @@ module Api
       self.resource_klass = ProviderItem
 
       before_action :authenticate_api_auth_user!
-      before_action :find_provider_item,
-                    only: [:update, :destroy]
-      before_action :pundit_authorize,
-                    only: [:index, :create]
+      before_action :pundit_authorize
 
       api :GET,
           "/provider/items",
@@ -88,14 +85,7 @@ module Api
             desc: "Provider item's id"
       param_group :provider_item
       def update
-        authorize @provider_item
-        if @provider_item.update_attributes(provider_item_params)
-          render :item, status: :accepted
-        else
-          @errors = @provider_item.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
+        super
       end
 
       api :DELETE,
@@ -107,15 +97,13 @@ module Api
             required: true,
             desc: "Provider item's id"
       def destroy
-        authorize @provider_item
-        @provider_item.soft_destroy
-        head :no_content
+        super
       end
 
       private
 
-      def find_provider_item
-        @provider_item = provider_scope.find(params[:id])
+      def resource_destruction_method
+        :soft_destroy
       end
 
       def resource_scope

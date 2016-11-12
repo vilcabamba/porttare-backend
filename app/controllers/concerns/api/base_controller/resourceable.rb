@@ -10,6 +10,7 @@ module Api
       def create
         new_api_resource
         if @api_resource.save
+          after_create_api_resource
           render resource_template, status: :created
         else
           render "api/shared/resource_error",
@@ -28,7 +29,21 @@ module Api
         end
       end
 
+      def destroy
+        find_api_resource
+        @api_resource.send resource_destruction_method
+        resource_destruction_response
+      end
+
       protected
+
+      def resource_destruction_response
+        head :no_content
+      end
+
+      def resource_destruction_method
+        :destroy
+      end
 
       def find_api_resource
         @api_resource = resource_scope.find(params[:id])
@@ -57,6 +72,10 @@ module Api
       end
 
       def after_update_api_resource
+        # to implement callbacks
+      end
+
+      def after_create_api_resource
         # to implement callbacks
       end
     end

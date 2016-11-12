@@ -11,10 +11,7 @@ module Api
       self.resource_klass = ProviderOffice
 
       before_action :authenticate_api_auth_user!
-      before_action :pundit_authorize,
-                    only: [:index, :create]
-      before_action :find_provider_office,
-                    only: [:update]
+      before_action :pundit_authorize
 
       api :GET,
           "/provider/offices",
@@ -74,14 +71,7 @@ module Api
       param :id, Integer, required: true, desc: "provider office id"
       param_group :provider_office
       def update
-        authorize @provider_office
-        if @provider_office.update(provider_office_params)
-          render :provider_office, status: :accepted
-        else
-          @errors = @provider_office.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
+        super
       end
 
       private

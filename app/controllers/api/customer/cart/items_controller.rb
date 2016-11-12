@@ -9,8 +9,6 @@ module Api
                       except: :index
         before_action :find_or_create_current_order,
                       except: :index
-        before_action :find_customer_order_item,
-                      only: [ :destroy]
 
         self.resource_klass = CustomerOrderItem
 
@@ -102,12 +100,14 @@ module Api
               required: true,
               desc: "order item's id"
         def destroy
-          authorize @customer_order_item
-          @customer_order_item.destroy
-          render :customer_order, status: :accepted
+          super
         end
 
         private
+
+        def resource_destruction_response
+          render :customer_order, status: :accepted
+        end
 
         def after_update_api_resource
           # HACK force resetting @customer_order
