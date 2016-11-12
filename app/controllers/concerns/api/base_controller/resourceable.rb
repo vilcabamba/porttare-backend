@@ -20,6 +20,7 @@ module Api
       def update
         find_api_resource
         if @api_resource.update(resource_params)
+          after_update_api_resource
           render resource_template, status: :accepted
         else
           render "api/shared/resource_error",
@@ -53,6 +54,10 @@ module Api
 
       def pundit_authorize
         authorize(resource_klass)
+      end
+
+      def after_update_api_resource
+        # to implement callbacks
       end
     end
   end

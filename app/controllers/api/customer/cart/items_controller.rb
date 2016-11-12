@@ -10,9 +10,7 @@ module Api
         before_action :find_or_create_current_order,
                       except: :index
         before_action :find_customer_order_item,
-                      only: [:update, :destroy]
-        before_action :pundit_authorize,
-                      only: [:index, :create]
+                      only: [ :destroy]
 
         self.resource_klass = CustomerOrderItem
 
@@ -92,17 +90,7 @@ module Api
               desc: "order item's id"
         param_group :customer_order_item
         def update
-          authorize @customer_order_item
-          if @customer_order_item.update(customer_order_item_params)
-            # HACK force resetting @customer_order
-            # as it's left stale because of caches and so
-            @customer_order = @customer_order_item.customer_order
-            render :customer_order, status: :accepted
-          else
-            @errors = @customer_order_item.errors
-            render "api/shared/resource_error",
-                   status: :unprocessable_entity
-          end
+          super
         end
 
         api :DELETE,
@@ -121,6 +109,12 @@ module Api
 
         private
 
+        def after_update_api_resource
+          # HACK force resetting @customer_order
+          # as it's left stale because of caches and so
+          @customer_order = @api_resource.customer_order
+        end
+
         def resource_template
           :customer_order # we render full order
         end
@@ -130,10 +124,9 @@ module Api
             @customer_order.order_items.new(resource_params)
         end
 
-        def find_customer_order_item
-          @customer_order_item = @customer_order.order_items.find(
-            params[:id]
-          )
+        def find_api_resource
+          @api_resource =
+            @customer_order.order_items.find(params[:id])
         end
 
         def find_or_create_current_order

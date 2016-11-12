@@ -13,10 +13,7 @@ module Api
       before_action :authenticate_api_auth_user!
       before_action :find_or_create_customer_profile,
                     except: :index
-      before_action :find_customer_address,
-                    only: [:update]
-      before_action :pundit_authorize,
-                    only: [:index, :create]
+      before_action :pundit_authorize
 
       api :GET,
           "/customer/addresses",
@@ -69,20 +66,7 @@ module Api
       param :id, Integer, required: true
       param_group :customer_address
       def update
-        authorize @customer_address
-        if @customer_address.update(customer_address_params)
-          render :customer_address, status: :accepted
-        else
-          @errors = @customer_address.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
-      end
-
-      private
-
-      def find_customer_address
-        @customer_address = customer_scope.find(params[:id])
+        super
       end
     end
   end
