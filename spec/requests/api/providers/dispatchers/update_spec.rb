@@ -26,22 +26,24 @@ RSpec.describe Api::Provider::DispatchersController,
         attributes_for(:provider_dispatcher)
       }
 
-      before {
-        put_with_headers(
-          "/api/provider/dispatchers/#{my_dispatcher.id}",
-          new_attributes
-        )
-      }
+      describe "successful operation" do
+        before {
+          put_with_headers(
+            "/api/provider/dispatchers/#{my_dispatcher.id}",
+            new_attributes
+          )
+        }
 
-      let(:json) {
-        JSON.parse response.body
-      }
+        let(:json) {
+          JSON.parse response.body
+        }
 
-      it {
-        expect(
-          json["provider_dispatcher"]["email"]
-        ).to eq(new_attributes[:email])
-      }
+        it {
+          expect(
+            json["provider_dispatcher"]["email"]
+          ).to eq(new_attributes[:email])
+        }
+      end
 
       describe "can't assign another provider's office to my dispatcher" do
         let(:other_office) { create :provider_office }
