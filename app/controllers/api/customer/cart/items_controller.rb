@@ -2,6 +2,8 @@ module Api
   module Customer
     module Cart
       class ItemsController < Api::Customer::BaseController
+        include Api::BaseController::Resourceable
+
         before_action :authenticate_api_auth_user!
         before_action :find_or_create_customer_profile,
                       except: :index
@@ -11,6 +13,8 @@ module Api
                       only: [:update, :destroy]
         before_action :pundit_authorize,
                       only: [:index, :create]
+
+        self.resource_klass = CustomerOrderItem
 
         resource_description do
           name "Customer::Cart::Items"
@@ -75,16 +79,7 @@ module Api
               desc: "Ítem a agregar al carrito"
         param_group :customer_order_item
         def create
-          @customer_order_item =
-            @customer_order
-              .order_items.new(customer_order_item_params)
-          if @customer_order_item.save
-            render :customer_order, status: :created
-          else
-            @errors = @customer_order_item.errors
-            render "api/shared/resource_error",
-                   status: :unprocessable_entity
-          end
+          super
         end
 
         api :PUT,
@@ -126,8 +121,13 @@ module Api
 
         private
 
-        def pundit_authorize
-          authorize CustomerOrderItem
+        def resource_template
+          :customer_order # we render full order
+        end
+
+        def new_api_resource
+          @api_resource =
+            @customer_order.order_items.new(resource_params)
         end
 
         def find_customer_order_item
@@ -140,12 +140,6 @@ module Api
           skip_policy_scope # because we access through #current_order
           @customer_order =
             @customer_profile.current_order || @customer_profile.customer_orders.create
-        end
-
-        def customer_order_item_params
-          params.permit(
-            *policy(CustomerOrderItem).permitted_attributes
-          )
         end
       end
     end

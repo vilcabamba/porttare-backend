@@ -10,7 +10,7 @@ module Api
       def create
         new_api_resource
         if @api_resource.save
-          render resource_identifier, status: :created
+          render resource_template, status: :created
         else
           render "api/shared/resource_error",
                  status: :unprocessable_entity
@@ -33,7 +33,7 @@ module Api
         )
       end
 
-      def resource_identifier
+      def resource_template
         resource_klass.to_s.underscore.to_sym
       end
 

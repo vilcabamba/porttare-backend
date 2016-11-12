@@ -1,10 +1,14 @@
 module Api
   module Customer
     class AddressesController < Customer::BaseController
+      include Api::BaseController::Resourceable
+
       resource_description do
         name "Customer::Addresses"
         short "customer's address"
       end
+
+      self.resource_klass = CustomerAddress
 
       before_action :authenticate_api_auth_user!
       before_action :find_or_create_customer_profile,
@@ -56,15 +60,7 @@ module Api
           "Create customer's address"
       param_group :customer_address
       def create
-        @customer_address =
-          customer_scope.new(customer_address_params)
-        if @customer_address.save
-          render :customer_address, status: :created
-        else
-          @errors = @customer_address.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
+        super
       end
 
       api :PUT,
@@ -85,22 +81,8 @@ module Api
 
       private
 
-      def pundit_authorize
-        authorize CustomerAddress
-      end
-
       def find_customer_address
         @customer_address = customer_scope.find(params[:id])
-      end
-
-      def customer_address_params
-        params.permit(
-          *policy(CustomerAddress).permitted_attributes
-        )
-      end
-
-      def customer_scope
-        policy_scope(CustomerAddress)
       end
     end
   end
