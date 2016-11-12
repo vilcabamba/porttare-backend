@@ -40,7 +40,6 @@ module Api
   ]
 }}
       def index
-        pundit_authorize
         @provider_items = resource_scope
       end
 
