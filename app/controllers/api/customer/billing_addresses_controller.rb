@@ -13,10 +13,7 @@ module Api
       before_action :authenticate_api_auth_user!
       before_action :find_or_create_customer_profile,
                     except: :index
-      before_action :find_customer_billing_address,
-                    only: [:update]
-      before_action :pundit_authorize,
-                    only: [:index, :create]
+      before_action :pundit_authorize
 
       api :GET,
           "/customer/billing_addresses",
@@ -52,6 +49,15 @@ module Api
           "Create a customer's billing address"
       param_group :customer_billing_address
       def create
+        super
+      end
+
+      api :PUT,
+          "/customer/billing_addresses/:id",
+          "Update a customer's billing address"
+      param :id, Integer, required: true
+      param_group :customer_billing_address
+      def update
         super
       end
     end

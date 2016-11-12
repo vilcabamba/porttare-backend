@@ -11,6 +11,10 @@ class CustomerBillingAddressPolicy < ApplicationPolicy
     is_customer?
   end
 
+  def update?
+    is_customer?
+  end
+
   def permitted_attributes
     [
       :ruc,

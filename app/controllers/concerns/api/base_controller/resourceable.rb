@@ -17,7 +17,21 @@ module Api
         end
       end
 
+      def update
+        find_api_resource
+        if @api_resource.update(resource_params)
+          render resource_template, status: :accepted
+        else
+          render "api/shared/resource_error",
+                 status: :unprocessable_entity
+        end
+      end
+
       protected
+
+      def find_api_resource
+        @api_resource = resource_scope.find(params[:id])
+      end
 
       def new_api_resource
         @api_resource = resource_scope.new(resource_params)
