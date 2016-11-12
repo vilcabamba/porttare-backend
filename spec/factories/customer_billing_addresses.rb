@@ -9,6 +9,7 @@
 #  email               :string
 #  ruc                 :string           not null
 #  razon_social        :string           not null
+#  direccion           :string           not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #
@@ -21,6 +22,7 @@ FactoryGirl.define do
     email        { Faker::Internet.email }
     ciudad       { Faker::Address.city }
     telefono     { Faker::PhoneNumber.phone_number }
+    direccion    { Faker::Address.street_address }
     razon_social { Faker::Company.name }
   end
 end

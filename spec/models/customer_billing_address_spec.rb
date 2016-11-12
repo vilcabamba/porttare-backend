@@ -9,6 +9,7 @@
 #  email               :string
 #  ruc                 :string           not null
 #  razon_social        :string           not null
+#  direccion           :string           not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #

@@ -10,6 +10,7 @@ class CreateCustomerBillingAddresses < ActiveRecord::Migration
       t.string :email
       t.string :ruc, null: false
       t.string :razon_social, null: false
+      t.string :direccion, null: false
 
       t.timestamps null: false
     end

@@ -9,6 +9,7 @@
 #  email               :string
 #  ruc                 :string           not null
 #  razon_social        :string           not null
+#  direccion           :string           not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #
@@ -17,6 +18,7 @@ class CustomerBillingAddress < ActiveRecord::Base
   belongs_to :customer_profile
 
   validates :ruc,
+            :direccion,
             :razon_social,
             presence: true
 end
