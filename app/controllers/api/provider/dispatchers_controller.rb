@@ -1,18 +1,19 @@
 module Api
   module Provider
-    class DispatchersController < BaseController
+    class DispatchersController < Provider::BaseController
+      include Api::BaseController::Resourceable
+      include Api::Provider::BaseController::ResourceCollectionable
+
       resource_description do
         name "Provider::Dispatchers"
         short "provider's dispatchers"
       end
 
+      self.resource_klass = ProviderDispatcher
+
       before_action :authenticate_api_auth_user!
-      before_action :pundit_authorize,
-                    only: [:index, :create]
       before_action :find_provider_office,
                     only: [:create, :update]
-      before_action :find_provider_dispatcher,
-                    only: [:update, :destroy]
 
       api :GET,
           "/provider/dispatchers",
@@ -30,7 +31,7 @@ module Api
         }]
       }}
       def index
-        @provider_dispatchers = provider_scope
+        super
       end
 
       def_param_group :provider_dispatcher do
@@ -43,15 +44,7 @@ module Api
           "Create a provider dispatcher"
       param_group :provider_dispatcher
       def create
-        authorize ProviderDispatcher
-        @provider_dispatcher = @provider_office.provider_dispatchers.new(provider_dispatcher_params)
-        if @provider_dispatcher.save
-          render :dispatcher, status: :created
-        else
-          @errors = @provider_dispatcher.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
+        super
       end
 
       api :PUT,
@@ -63,14 +56,7 @@ module Api
             desc: "Provider dispatcher's id"
       param_group :provider_dispatcher
       def update
-        authorize @provider_dispatcher
-        if @provider_dispatcher.update_attributes(provider_dispatcher_params)
-          render :dispatcher, status: :accepted
-        else
-          @errors = @provider_dispatcher.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
+        super
       end
 
       api :DELETE,
@@ -82,29 +68,17 @@ module Api
             required: true,
             desc: "Provider dispatcher's id"
       def destroy
-        authorize @provider_dispatcher
-        @provider_dispatcher.soft_destroy
-        head :no_content
+        super
       end
 
       private
 
-      def provider_dispatcher_params
-        params.permit(
-          *policy(ProviderDispatcher).permitted_attributes
-        )
+      def resource_destruction_method
+        :soft_destroy
       end
 
-      def find_provider_dispatcher
-        @provider_dispatcher = provider_scope.find(params[:id])
-      end
-
-      def provider_scope
-        policy_scope(ProviderDispatcher)
-      end
-
-      def pundit_authorize
-        authorize ProviderDispatcher
+      def new_api_resource
+        @api_resource = @provider_office.provider_dispatchers.new(resource_params)
       end
 
       def find_provider_office

@@ -1,16 +1,17 @@
 module Api
   module Provider
-    class ItemsController < BaseController
+    class ItemsController < Provider::BaseController
+      include Api::BaseController::Resourceable
+      include Api::Provider::BaseController::ResourceCollectionable
+
       resource_description do
         name "Provider::Items"
         short "provider's items"
       end
 
+      self.resource_klass = ProviderItem
+
       before_action :authenticate_api_auth_user!
-      before_action :find_provider_item,
-                    only: [:update, :destroy]
-      before_action :pundit_authorize,
-                    only: [:index, :create]
 
       api :GET,
           "/provider/items",
@@ -39,7 +40,7 @@ module Api
   ]
 }}
       def index
-        @provider_items = provider_scope
+        super
       end
 
       def_param_group :provider_item do
@@ -72,14 +73,7 @@ module Api
           "Create a provider item"
       param_group :provider_item
       def create
-        @provider_item = provider_scope.new(provider_item_params)
-        if @provider_item.save
-          render :item, status: :created
-        else
-          @errors = @provider_item.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
+        super
       end
 
       api :PUT,
@@ -91,14 +85,7 @@ module Api
             desc: "Provider item's id"
       param_group :provider_item
       def update
-        authorize @provider_item
-        if @provider_item.update_attributes(provider_item_params)
-          render :item, status: :accepted
-        else
-          @errors = @provider_item.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
+        super
       end
 
       api :DELETE,
@@ -110,32 +97,20 @@ module Api
             required: true,
             desc: "Provider item's id"
       def destroy
-        authorize @provider_item
-        @provider_item.soft_destroy
-        head :no_content
+        super
       end
 
       private
 
-      def find_provider_item
-        @provider_item = provider_scope.find(params[:id])
+      def resource_destruction_method
+        :soft_destroy
       end
 
-      def provider_scope
+      def resource_scope
         skip_policy_scope
         ProviderItemPolicy::ProviderScope.new(
           pundit_user, ProviderItem
         ).resolve
-      end
-
-      def provider_item_params
-        params.permit(
-          *policy(ProviderItem).permitted_attributes
-        )
-      end
-
-      def pundit_authorize
-        authorize ProviderItem
       end
     end
   end

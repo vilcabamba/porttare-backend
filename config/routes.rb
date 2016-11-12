@@ -19,6 +19,8 @@ Rails.application.routes.draw do
                 only: [:index, :create, :update, :destroy]
       resources :addresses,
                 only: [:index, :create, :update]
+      resources :billing_addresses,
+                only: [:index, :create, :update]
     end
 
     namespace :provider do

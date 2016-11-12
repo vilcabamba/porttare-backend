@@ -1,25 +1,25 @@
 module Api
   module Customer
-    class AddressesController < Customer::BaseController
+    class BillingAddressesController < Customer::BaseController
       include Api::BaseController::Resourceable
       include Api::Customer::BaseController::ResourceCollectionable
 
       resource_description do
-        name "Customer::Addresses"
-        short "customer's address"
+        name "Customer::BillingAddresses"
+        short "customer's billing addresses"
       end
 
-      self.resource_klass = CustomerAddress
+      self.resource_klass = CustomerBillingAddress
 
       before_action :authenticate_api_auth_user!
       before_action :find_or_create_customer_profile,
                     except: :index
 
       api :GET,
-          "/customer/addresses",
-          "customer addresses"
+          "/customer/billing_addresses",
+          "customer billing addresses"
       example %q{{
-  "customer_addresses":[
+  "customer_billing_addresses":[
     {
       "id":1,
       "ciudad":"Quito",
@@ -37,30 +37,27 @@ module Api
         super
       end
 
-      def_param_group :customer_address do
+      def_param_group :customer_billing_address do
+        param :ruc, String, required: true
+        param :email, String
         param :ciudad, String
-        param :parroquia, String
-        param :barrio, String
-        param :direccion_uno, String
-        param :direccion_dos, String
-        param :codigo_postal, String
-        param :referencia, String
-        param :numero_convencional, String
+        param :telefono, String
+        param :razon_social, String, required: true
       end
 
       api :POST,
-          "/customer/addresses",
-          "Create customer's address"
-      param_group :customer_address
+          "/customer/billing_addresses",
+          "Create a customer's billing address"
+      param_group :customer_billing_address
       def create
         super
       end
 
       api :PUT,
-          "/customer/addresses/:id",
-          "Edit customer's address"
+          "/customer/billing_addresses/:id",
+          "Update a customer's billing address"
       param :id, Integer, required: true
-      param_group :customer_address
+      param_group :customer_billing_address
       def update
         super
       end

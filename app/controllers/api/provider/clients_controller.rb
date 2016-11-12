@@ -1,16 +1,17 @@
 module Api
   module Provider
-    class ClientsController < BaseController
+    class ClientsController < Provider::BaseController
+      include Api::BaseController::Resourceable
+      include Api::Provider::BaseController::ResourceCollectionable
+
       resource_description do
         name "Provider::Clients"
         short "provider's clients"
       end
 
+      self.resource_klass = ProviderClient
+
       before_action :authenticate_api_auth_user!
-      before_action :find_provider_client,
-                    only: [:update, :destroy]
-      before_action :pundit_authorize,
-                    only: [:index, :create]
 
       api :GET,
           "/provider/clients",
@@ -30,7 +31,7 @@ module Api
   ]
 }}
       def index
-        @provider_clients = provider_scope
+        super
       end
 
       def_param_group :provider_client do
@@ -47,14 +48,7 @@ module Api
           "Create a provider client"
       param_group :provider_client
       def create
-        @provider_client = provider_scope.new(provider_client_params)
-        if @provider_client.save
-          render :client, status: :created
-        else
-          @errors = @provider_client.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
+        super
       end
 
       api :PUT,
@@ -66,14 +60,7 @@ module Api
             desc: "Provider client's id"
       param_group :provider_client
       def update
-        authorize @provider_client
-        if @provider_client.update_attributes(provider_client_params)
-          render :client, status: :accepted
-        else
-          @errors = @provider_client.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
+        super
       end
 
       api :DELETE,
@@ -85,29 +72,13 @@ module Api
             required: true,
             desc: "Provider client's id"
       def destroy
-        authorize @provider_client
-        @provider_client.soft_destroy
-        head :no_content
+        super
       end
 
       private
 
-      def provider_client_params
-        params.permit(
-          *policy(ProviderClient).permitted_attributes
-        )
-      end
-
-      def find_provider_client
-        @provider_client = provider_scope.find(params[:id])
-      end
-
-      def provider_scope
-        policy_scope(ProviderClient)
-      end
-
-      def pundit_authorize
-        authorize ProviderClient
+      def resource_destruction_method
+        :soft_destroy
       end
     end
   end

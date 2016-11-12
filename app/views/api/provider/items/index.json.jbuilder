@@ -1,6 +1,6 @@
 json.provider_items do
   json.array!(
-    @provider_items,
+    @api_collection,
     partial: "item",
     as: :provider_item
   )

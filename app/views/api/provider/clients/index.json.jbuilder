@@ -1,6 +1,6 @@
 json.provider_clients do
   json.array!(
-    @provider_clients,
+    @api_collection,
     partial: "client",
     as: :provider_client
   )

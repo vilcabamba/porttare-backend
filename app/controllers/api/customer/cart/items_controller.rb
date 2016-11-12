@@ -2,15 +2,15 @@ module Api
   module Customer
     module Cart
       class ItemsController < Api::Customer::BaseController
+        include Api::BaseController::Resourceable
+
         before_action :authenticate_api_auth_user!
         before_action :find_or_create_customer_profile,
                       except: :index
         before_action :find_or_create_current_order,
                       except: :index
-        before_action :find_customer_order_item,
-                      only: [:update, :destroy]
-        before_action :pundit_authorize,
-                      only: [:index, :create]
+
+        self.resource_klass = CustomerOrderItem
 
         resource_description do
           name "Customer::Cart::Items"
@@ -47,6 +47,7 @@ module Api
     }
   }}
         def index
+          pundit_authorize
           @customer_profile = current_api_auth_user.customer_profile
           if @customer_profile.present?
             @customer_order = @customer_profile.current_order
@@ -75,16 +76,7 @@ module Api
               desc: "Ítem a agregar al carrito"
         param_group :customer_order_item
         def create
-          @customer_order_item =
-            @customer_order
-              .order_items.new(customer_order_item_params)
-          if @customer_order_item.save
-            render :customer_order, status: :created
-          else
-            @errors = @customer_order_item.errors
-            render "api/shared/resource_error",
-                   status: :unprocessable_entity
-          end
+          super
         end
 
         api :PUT,
@@ -97,17 +89,7 @@ module Api
               desc: "order item's id"
         param_group :customer_order_item
         def update
-          authorize @customer_order_item
-          if @customer_order_item.update(customer_order_item_params)
-            # HACK force resetting @customer_order
-            # as it's left stale because of caches and so
-            @customer_order = @customer_order_item.customer_order
-            render :customer_order, status: :accepted
-          else
-            @errors = @customer_order_item.errors
-            render "api/shared/resource_error",
-                   status: :unprocessable_entity
-          end
+          super
         end
 
         api :DELETE,
@@ -119,33 +101,39 @@ module Api
               required: true,
               desc: "order item's id"
         def destroy
-          authorize @customer_order_item
-          @customer_order_item.destroy
-          render :customer_order, status: :accepted
+          super
         end
 
         private
 
-        def pundit_authorize
-          authorize CustomerOrderItem
+        def resource_destruction_response
+          render :customer_order, status: :accepted
         end
 
-        def find_customer_order_item
-          @customer_order_item = @customer_order.order_items.find(
-            params[:id]
-          )
+        def after_update_api_resource
+          # HACK force resetting @customer_order
+          # as it's left stale because of caches and so
+          @customer_order = @api_resource.customer_order
+        end
+
+        def resource_template
+          :customer_order # we render full order
+        end
+
+        def new_api_resource
+          @api_resource =
+            @customer_order.order_items.new(resource_params)
+        end
+
+        def find_api_resource
+          @api_resource =
+            @customer_order.order_items.find(params[:id])
         end
 
         def find_or_create_current_order
           skip_policy_scope # because we access through #current_order
           @customer_order =
             @customer_profile.current_order || @customer_profile.customer_orders.create
-        end
-
-        def customer_order_item_params
-          params.permit(
-            *policy(CustomerOrderItem).permitted_attributes
-          )
         end
       end
     end

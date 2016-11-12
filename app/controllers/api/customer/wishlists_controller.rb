@@ -1,13 +1,14 @@
 module Api
   module Customer
     class WishlistsController < BaseController
+      include Api::BaseController::Resourceable
+      include Api::Customer::BaseController::ResourceCollectionable
+
       before_action :authenticate_api_auth_user!
       before_action :find_or_create_customer_profile,
                     except: :index
-      before_action :find_customer_wishlist,
-                    only: [:update, :destroy]
-      before_action :pundit_authorize,
-                    only: [:index, :create]
+
+      self.resource_klass = CustomerWishlist
 
       resource_description do
         name "Customer::Wishlists"
@@ -62,13 +63,11 @@ module Api
 }
       }
       def index
-        if current_api_auth_user.customer_profile
-          @customer_wishlists = customer_scope
+        super
+        if @api_collection.present?
           @provider_profiles = get_provider_profiles(
-            @customer_wishlists.map(&:provider_items).flatten
+            @api_collection.map(&:provider_items).flatten
           )
-        else
-          skip_policy_scope
         end
       end
 
@@ -90,15 +89,7 @@ module Api
           "create a wishlist"
       param_group :customer_wishlist
       def create
-        @customer_wishlist = customer_scope.new(customer_wishlist_params)
-        if @customer_wishlist.save
-          @provider_profiles = get_provider_profiles(@customer_wishlist.provider_items)
-          render :customer_wishlist, status: :created
-        else
-          @errors = @customer_wishlist.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
+        super
       end
 
       api :PUT,
@@ -110,15 +101,7 @@ module Api
             desc: "customer wishlist's id"
       param_group :customer_wishlist
       def update
-        authorize @customer_wishlist
-        if @customer_wishlist.update(customer_wishlist_params)
-          @provider_profiles = get_provider_profiles(@customer_wishlist.provider_items)
-          render :customer_wishlist, status: :created
-        else
-          @errors = @customer_wishlist.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
+        super
       end
 
       api :DELETE,
@@ -129,28 +112,22 @@ module Api
             required: true,
             desc: "wishlist's id"
       def destroy
-        authorize @customer_wishlist
-        @customer_wishlist.destroy
-        head :no_content
+        super
       end
 
       private
 
-      def pundit_authorize
-        authorize CustomerWishlist
+      def after_create_api_resource
+        sideload_provider_profiles
       end
 
-      def find_customer_wishlist
-        @customer_wishlist = customer_scope.find(params[:id])
+      def after_update_api_resource
+        sideload_provider_profiles
       end
 
-      def customer_scope
-        policy_scope(CustomerWishlist)
-      end
-
-      def customer_wishlist_params
-        params.permit(
-          *policy(CustomerWishlist).permitted_attributes
+      def sideload_provider_profiles
+        @provider_profiles = get_provider_profiles(
+          @api_resource.provider_items
         )
       end
 
