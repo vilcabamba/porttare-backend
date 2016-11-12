@@ -14,6 +14,7 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  customer_profile_id :integer          not null
+#  nombre              :string
 #
 
 require 'rails_helper'

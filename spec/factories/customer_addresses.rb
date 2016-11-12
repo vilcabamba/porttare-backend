@@ -14,12 +14,14 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  customer_profile_id :integer          not null
+#  nombre              :string
 #
 
 FactoryGirl.define do
   factory :customer_address do
     customer_profile
 
+    nombre              { Faker::Address.name }
     ciudad              { Faker::Address.city }
     parroquia           { Faker::Address.state }
     barrio              { Faker::Address.city_prefix }
