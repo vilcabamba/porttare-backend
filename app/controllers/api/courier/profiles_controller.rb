@@ -1,12 +1,15 @@
 module Api
   module Courier
     class ProfilesController < BaseController
+      include Api::BaseController::Resourceable
+
       resource_description do
         name "Courier::Profiles"
         short "apply for a courier profile"
       end
 
       before_action :authenticate_api_auth_user!
+      before_action :pundit_authorize
 
       api :POST,
           "/courier/profile",
@@ -35,28 +38,13 @@ module Api
   }
 }}
       def create
-        authorize CourierProfile
-        @courier_profile = courier_scope.new(courier_profile_params)
-        if @courier_profile.save
-          render "api/courier/profiles/create",
-                 status: :created
-        else
-          @errors = @courier_profile.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
+        super
       end
 
       private
 
-      def courier_profile_params
-        params.permit(
-          *policy(CourierProfile).permitted_attributes
-        )
-      end
-
-      def courier_scope
-        policy_scope(CourierProfile)
+      def resource_klass
+        CourierProfile
       end
     end
   end
