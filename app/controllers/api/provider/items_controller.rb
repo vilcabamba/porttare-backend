@@ -1,10 +1,14 @@
 module Api
   module Provider
     class ItemsController < BaseController
+      include Api::BaseController::Resourceable
+
       resource_description do
         name "Provider::Items"
         short "provider's items"
       end
+
+      self.resource_klass = ProviderItem
 
       before_action :authenticate_api_auth_user!
       before_action :find_provider_item,
@@ -72,14 +76,7 @@ module Api
           "Create a provider item"
       param_group :provider_item
       def create
-        @provider_item = provider_scope.new(provider_item_params)
-        if @provider_item.save
-          render :item, status: :created
-        else
-          @errors = @provider_item.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
+        super
       end
 
       api :PUT,
@@ -121,21 +118,11 @@ module Api
         @provider_item = provider_scope.find(params[:id])
       end
 
-      def provider_scope
+      def resource_scope
         skip_policy_scope
         ProviderItemPolicy::ProviderScope.new(
           pundit_user, ProviderItem
         ).resolve
-      end
-
-      def provider_item_params
-        params.permit(
-          *policy(ProviderItem).permitted_attributes
-        )
-      end
-
-      def pundit_authorize
-        authorize ProviderItem
       end
     end
   end
