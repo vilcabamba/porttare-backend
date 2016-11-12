@@ -1,10 +1,14 @@
 module Api
   module Provider
     class OfficesController < BaseController
+      include Api::BaseController::Resourceable
+
       resource_description do
         name "Provider::Offices"
         short "provider offices (branches)"
       end
+
+      self.resource_klass = ProviderOffice
 
       before_action :authenticate_api_auth_user!
       before_action :pundit_authorize,
@@ -61,14 +65,7 @@ module Api
           "create a provider office"
       param_group :provider_office
       def create
-        @provider_office = provider_scope.new(provider_office_params)
-        if @provider_office.save
-          render :provider_office, status: :created
-        else
-          @errors = @provider_office.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
+        super
       end
 
       api :PUT,
@@ -91,20 +88,6 @@ module Api
 
       def find_provider_office
         @provider_office = provider_scope.find(params[:id])
-      end
-
-      def provider_office_params
-        params.permit(
-          *policy(ProviderOffice).permitted_attributes
-        )
-      end
-
-      def provider_scope
-        policy_scope(ProviderOffice)
-      end
-
-      def pundit_authorize
-        authorize ProviderOffice
       end
     end
   end

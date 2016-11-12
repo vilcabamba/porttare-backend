@@ -1,6 +1,8 @@
 module Api
   module Customer
     class WishlistsController < BaseController
+      include Api::BaseController::Resourceable
+
       before_action :authenticate_api_auth_user!
       before_action :find_or_create_customer_profile,
                     except: :index
@@ -8,6 +10,8 @@ module Api
                     only: [:update, :destroy]
       before_action :pundit_authorize,
                     only: [:index, :create]
+
+      self.resource_klass = CustomerWishlist
 
       resource_description do
         name "Customer::Wishlists"
@@ -90,15 +94,7 @@ module Api
           "create a wishlist"
       param_group :customer_wishlist
       def create
-        @customer_wishlist = customer_scope.new(customer_wishlist_params)
-        if @customer_wishlist.save
-          @provider_profiles = get_provider_profiles(@customer_wishlist.provider_items)
-          render :customer_wishlist, status: :created
-        else
-          @errors = @customer_wishlist.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
+        super
       end
 
       api :PUT,
@@ -136,22 +132,22 @@ module Api
 
       private
 
-      def pundit_authorize
-        authorize CustomerWishlist
+      def new_api_resource
+        super
+        if @api_resource.valid?
+          # should we refactor this?
+          # this is the only controller using it:
+          # only if we are about to render the
+          # resource partial we need to sideload
+          # provider profiles
+          @provider_profiles = get_provider_profiles(
+            @api_resource.provider_items
+          )
+        end
       end
 
       def find_customer_wishlist
         @customer_wishlist = customer_scope.find(params[:id])
-      end
-
-      def customer_scope
-        policy_scope(CustomerWishlist)
-      end
-
-      def customer_wishlist_params
-        params.permit(
-          *policy(CustomerWishlist).permitted_attributes
-        )
       end
 
       def get_provider_profiles(provider_items)

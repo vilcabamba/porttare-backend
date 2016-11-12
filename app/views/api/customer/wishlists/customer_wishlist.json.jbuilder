@@ -1,7 +1,7 @@
 json.customer_wishlist do
   json.partial!(
     "customer_wishlist",
-    customer_wishlist: @customer_wishlist
+    customer_wishlist: @api_resource
   )
 end
 
