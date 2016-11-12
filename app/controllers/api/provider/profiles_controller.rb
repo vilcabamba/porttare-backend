@@ -3,12 +3,17 @@ require "porttare_backend/places"
 module Api
   module Provider
     class ProfilesController < BaseController
+      include Api::BaseController::Resourceable
+
       resource_description do
         name "Provider::Profiles"
         short "apply for a provider profile"
       end
 
+      self.resource_klass = ProviderProfile
+
       before_action :authenticate_api_auth_user!
+      before_action :pundit_authorize
 
       api :POST,
           "/provider/profile",
@@ -72,28 +77,7 @@ module Api
   }
 }}
       def create
-        authorize ProviderProfile
-        @provider_profile = provider_scope.new(provider_profile_params)
-        if @provider_profile.save
-          render "api/provider/profiles/create",
-                 status: :created
-        else
-          @errors = @provider_profile.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
-      end
-
-      private
-
-      def provider_profile_params
-        params.permit(
-          *policy(ProviderProfile).permitted_attributes
-        )
-      end
-
-      def provider_scope
-        policy_scope(ProviderProfile)
+        super
       end
     end
   end

@@ -8,6 +8,8 @@ module Api
         short "customer's billing addresses"
       end
 
+      self.resource_klass = CustomerBillingAddress
+
       before_action :authenticate_api_auth_user!
       before_action :find_or_create_customer_profile,
                     except: :index
@@ -51,12 +53,6 @@ module Api
       param_group :customer_billing_address
       def create
         super
-      end
-
-      private
-
-      def resource_klass
-        CustomerBillingAddress
       end
     end
   end

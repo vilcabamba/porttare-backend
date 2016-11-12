@@ -8,6 +8,8 @@ module Api
         short "apply for a courier profile"
       end
 
+      self.resource_klass = CourierProfile
+
       before_action :authenticate_api_auth_user!
       before_action :pundit_authorize
 
@@ -39,12 +41,6 @@ module Api
 }}
       def create
         super
-      end
-
-      private
-
-      def resource_klass
-        CourierProfile
       end
     end
   end

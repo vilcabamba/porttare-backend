@@ -1,6 +1,12 @@
 module Api
   class BaseController < ::ApplicationController
     module Resourceable
+      extend ActiveSupport::Concern
+
+      included do
+        cattr_accessor :resource_klass
+      end
+
       def create
         @api_resource = resource_scope.new(resource_params)
         if @api_resource.save
@@ -29,12 +35,6 @@ module Api
 
       def pundit_authorize
         authorize(resource_klass)
-      end
-
-      private
-
-      def resource_klass
-        raise NotImplementedError
       end
     end
   end
