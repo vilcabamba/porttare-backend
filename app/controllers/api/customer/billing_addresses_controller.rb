@@ -22,17 +22,15 @@ module Api
   "customer_billing_addresses":[
     {
       "id":1,
-      "ciudad":"Quito",
-      "parroquia":"Quito",
-      "barrio":"Cumbayá",
-      "direccion_uno":"Calle Miguel Ángel",
-      "direccion_dos":"Lorem Impusm",
-      "codigo_postal":"124455",
-      "numero_convencional":"2342-5678",
-      "referencia":"Cerca a la cuchara, casa de 2 pisos amarilla"
+      "ruc":"2769097354745",
+      "email":"jamel@breitenberghamill.io",
+      "ciudad":"Segovia",
+      "telefono":"934 476 388",
+      "direccion":"Mercado Juan,43 Esc. 798",
+      "razon_social":"Alonso, Noriega y Paredes Asociados"
     }
-  ]}
-}
+  ]
+}}
       def index
         super
       end
