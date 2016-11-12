@@ -1,10 +1,14 @@
 module Api
   module Provider
     class DispatchersController < BaseController
+      include Api::BaseController::Resourceable
+
       resource_description do
         name "Provider::Dispatchers"
         short "provider's dispatchers"
       end
+
+      self.resource_klass = ProviderDispatcher
 
       before_action :authenticate_api_auth_user!
       before_action :pundit_authorize,
@@ -43,15 +47,7 @@ module Api
           "Create a provider dispatcher"
       param_group :provider_dispatcher
       def create
-        authorize ProviderDispatcher
-        @provider_dispatcher = @provider_office.provider_dispatchers.new(provider_dispatcher_params)
-        if @provider_dispatcher.save
-          render :dispatcher, status: :created
-        else
-          @errors = @provider_dispatcher.errors
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
-        end
+        super
       end
 
       api :PUT,
@@ -89,22 +85,12 @@ module Api
 
       private
 
-      def provider_dispatcher_params
-        params.permit(
-          *policy(ProviderDispatcher).permitted_attributes
-        )
+      def new_api_resource
+        @api_resource = @provider_office.provider_dispatchers.new(resource_params)
       end
 
       def find_provider_dispatcher
         @provider_dispatcher = provider_scope.find(params[:id])
-      end
-
-      def provider_scope
-        policy_scope(ProviderDispatcher)
-      end
-
-      def pundit_authorize
-        authorize ProviderDispatcher
       end
 
       def find_provider_office

@@ -8,7 +8,7 @@ module Api
       end
 
       def create
-        @api_resource = resource_scope.new(resource_params)
+        new_api_resource
         if @api_resource.save
           render resource_identifier, status: :created
         else
@@ -18,6 +18,10 @@ module Api
       end
 
       protected
+
+      def new_api_resource
+        @api_resource = resource_scope.new(resource_params)
+      end
 
       def resource_scope
         policy_scope(resource_klass)
