@@ -40,7 +40,8 @@ module Api
   ]
 }}
       def index
-        @provider_items = provider_scope
+        pundit_authorize
+        @provider_items = resource_scope
       end
 
       def_param_group :provider_item do

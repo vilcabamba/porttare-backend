@@ -13,7 +13,6 @@ module Api
       before_action :authenticate_api_auth_user!
       before_action :find_or_create_customer_profile,
                     except: :index
-      before_action :pundit_authorize
 
       api :GET,
           "/customer/billing_addresses",

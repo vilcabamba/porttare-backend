@@ -32,7 +32,7 @@ module Api
 }
       }
       def index
-        @provider_offices = provider_scope
+        @provider_offices = resource_scope
       end
 
       def_param_group :provider_office do

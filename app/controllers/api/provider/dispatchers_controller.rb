@@ -31,7 +31,7 @@ module Api
         }]
       }}
       def index
-        @provider_dispatchers = provider_scope
+        @provider_dispatchers = resource_scope
       end
 
       def_param_group :provider_dispatcher do

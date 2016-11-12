@@ -13,7 +13,6 @@ module Api
       self.resource_klass = ProviderProfile
 
       before_action :authenticate_api_auth_user!
-      before_action :pundit_authorize
 
       api :POST,
           "/provider/profile",

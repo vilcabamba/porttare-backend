@@ -13,7 +13,6 @@ module Api
       before_action :authenticate_api_auth_user!
       before_action :find_or_create_customer_profile,
                     except: :index
-      before_action :pundit_authorize
 
       api :GET,
           "/customer/addresses",
@@ -34,8 +33,9 @@ module Api
   ]}
 }
       def index
+        pundit_authorize
         if current_api_auth_user.customer_profile
-          @customer_addresses = customer_scope
+          @customer_addresses = resource_scope
         else
           skip_policy_scope
         end

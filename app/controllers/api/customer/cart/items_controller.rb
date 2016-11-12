@@ -47,6 +47,7 @@ module Api
     }
   }}
         def index
+          pundit_authorize
           @customer_profile = current_api_auth_user.customer_profile
           if @customer_profile.present?
             @customer_order = @customer_profile.current_order

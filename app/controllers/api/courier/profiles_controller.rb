@@ -11,7 +11,6 @@ module Api
       self.resource_klass = CourierProfile
 
       before_action :authenticate_api_auth_user!
-      before_action :pundit_authorize
 
       api :POST,
           "/courier/profile",

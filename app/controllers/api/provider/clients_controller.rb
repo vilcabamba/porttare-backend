@@ -11,8 +11,7 @@ module Api
       self.resource_klass = ProviderClient
 
       before_action :authenticate_api_auth_user!
-      before_action :pundit_authorize,
-                    only: [:index, :create]
+      before_action :pundit_authorize
 
       api :GET,
           "/provider/clients",
@@ -32,7 +31,7 @@ module Api
   ]
 }}
       def index
-        @provider_clients = provider_scope
+        @provider_clients = resource_scope
       end
 
       def_param_group :provider_client do
@@ -73,9 +72,13 @@ module Api
             required: true,
             desc: "Provider client's id"
       def destroy
-        authorize @provider_client
-        @provider_client.soft_destroy
-        head :no_content
+        super
+      end
+
+      private
+
+      def resource_destruction_method
+        :soft_destroy
       end
     end
   end

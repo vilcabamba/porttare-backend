@@ -5,8 +5,7 @@ module Api
     before_action :authenticate_api_auth_user!
     before_action :find_provider_category,
                   only: [:index, :show]
-    before_action :pundit_authorize,
-                  only: [:index, :show]
+    before_action :pundit_authorize
 
     resource_description do
       name "Categories::Providers"

@@ -9,6 +9,7 @@ module Api
 
       def create
         new_api_resource
+        pundit_authorize_resource
         if @api_resource.save
           after_create_api_resource
           render resource_template, status: :created
@@ -20,6 +21,7 @@ module Api
 
       def update
         find_api_resource
+        pundit_authorize_resource
         if @api_resource.update(resource_params)
           after_update_api_resource
           render resource_template, status: :accepted
@@ -31,6 +33,7 @@ module Api
 
       def destroy
         find_api_resource
+        pundit_authorize_resource
         @api_resource.send resource_destruction_method
         resource_destruction_response
       end
@@ -65,6 +68,10 @@ module Api
 
       def resource_template
         resource_klass.to_s.underscore.to_sym
+      end
+
+      def pundit_authorize_resource
+        authorize(@api_resource)
       end
 
       def pundit_authorize

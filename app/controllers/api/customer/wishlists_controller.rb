@@ -6,7 +6,6 @@ module Api
       before_action :authenticate_api_auth_user!
       before_action :find_or_create_customer_profile,
                     except: :index
-      before_action :pundit_authorize
 
       self.resource_klass = CustomerWishlist
 
@@ -63,8 +62,9 @@ module Api
 }
       }
       def index
+        pundit_authorize
         if current_api_auth_user.customer_profile
-          @customer_wishlists = customer_scope
+          @customer_wishlists = resource_scope
           @provider_profiles = get_provider_profiles(
             @customer_wishlists.map(&:provider_items).flatten
           )
