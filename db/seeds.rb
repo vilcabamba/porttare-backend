@@ -20,9 +20,8 @@ end
   "Encomiendas",
   "Medicinas",
   "Panadería y pastelería",
-  "Productos de floristería",
-  "Reservas en restaurantes",
-  "Tickets de shows"
+  "Floristería",
+  "Boletería"
 ].each do |category_name|
   ProviderCategory.where(
     titulo: category_name
