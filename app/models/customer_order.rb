@@ -23,20 +23,42 @@ class CustomerOrder < ActiveRecord::Base
     "in_progress",
     "submitted"
   ].freeze
+  FORMAS_DE_PAGO = [
+    "efectivo"
+  ].freeze
+  DELIVERY_METHODS = [
+    "shipping",
+    "pickup"
+  ].freeze
 
   enum status: STATUSES
+  enum forma_de_pago: FORMAS_DE_PAGO
+  enum delivery_method: DELIVERY_METHODS
 
   monetize :subtotal_items_cents,
            numericality: false
 
   validates :status,
             inclusion: { in: STATUSES }
+  validates :forma_de_pago,
+            allow_nil: true,
+            inclusion: { in: FORMAS_DE_PAGO }
+  validates :delivery_method,
+            allow_nil: true,
+            inclusion: { in: DELIVERY_METHODS }
+  validate :own_customer_address, if: :customer_address
+  validate :own_customer_billing_address, if: :customer_billing_address
 
   belongs_to :customer_profile
+  belongs_to :customer_address
+  belongs_to :customer_billing_address
   has_many :order_items,
            class_name: "CustomerOrderItem"
 
   scope :in_progress, -> { where(status: "in_progress") }
+
+  serialize :customer_address_attributes, JSON
+  serialize :customer_billing_address_attributes, JSON
 
   ##
   # transitions to submitted state
@@ -69,5 +91,19 @@ class CustomerOrder < ActiveRecord::Base
       :subtotal_items,
       order_items.collect(&:subtotal).sum
     )
+  end
+
+  private
+
+  def own_customer_address
+    if customer_address.customer_profile != customer_profile
+      errors.add(:customer_address_id, :invalid)
+    end
+  end
+
+  def own_customer_billing_address
+    if customer_billing_address.customer_profile != customer_profile
+      errors.add(:customer_billing_address_id, :invalid)
+    end
   end
 end
