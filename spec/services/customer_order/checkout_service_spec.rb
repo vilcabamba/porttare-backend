@@ -3,7 +3,7 @@ require 'rails_helper'
 describe CustomerOrder::CheckoutService,
          type: :model do
   let(:checkout_attributes) { {} }
-  let(:customer_order) { create :customer_order }
+  let(:customer_order) { create :customer_order, :for_submission }
   let(:user) { customer_order.customer_profile.user }
 
   subject {
@@ -15,6 +15,33 @@ describe CustomerOrder::CheckoutService,
   }
 
   describe "invalid" do
+    describe "without any items" do
+      let(:customer_order) { create :customer_order }
+      it {
+        is_expected.to_not be_valid
+        expect(
+          subject.errors[:order_items]
+        ).to be_present
+      }
+    end
+
+    describe "with an invalid order item" do
+      let(:customer_order_item) {
+        create :customer_order_item,
+               customer_order: customer_order
+      }
+      before {
+        customer_order_item
+        customer_order_item.update_column :cantidad, -1
+      }
+      it {
+        is_expected.to_not be_valid
+        expect(
+          subject.errors[:order_items]
+        ).to be_present
+      }
+    end
+
     describe "without required attributes" do
       it {
         is_expected.to_not be_valid
@@ -117,21 +144,44 @@ describe CustomerOrder::CheckoutService,
           forma_de_pago: "efectivo",
           delivery_method: "shipping",
           customer_address_id: customer_address.id,
-          customer_billing_address_id: customer_billing_address.id
+          customer_billing_address_id: customer_billing_address.id,
+          observaciones: "some stuff"
         }
       }
 
       it { is_expected.to be_valid }
 
-      it "caches addresses" do
-        pending
-      end
+      describe "when saving" do
+        before { expect(subject.save).to be_truthy }
 
-      it "stores attributes" do
-        pending
-        # forma_de_pago
-        # delivery_method
-        # observaciones
+        it "marks as submitted" do
+          expect(
+            customer_order.reload
+          ).to be_submitted
+        end
+
+        it "caches addresses" do
+          expect(
+            customer_order.reload.customer_address_attributes
+          ).to be_present
+          expect(
+            customer_order.reload.customer_billing_address_attributes
+          ).to be_present
+        end
+
+        it "stores attributes" do
+          [
+            :forma_de_pago,
+            :observaciones,
+            :delivery_method,
+            :customer_address_id,
+            :customer_billing_address_id
+          ].each do |attribute|
+            expect(
+              customer_order.reload.send(attribute)
+            ).to eq(checkout_attributes[attribute])
+          end
+        end
       end
     end
 
@@ -148,7 +198,7 @@ describe CustomerOrder::CheckoutService,
         }
       }
 
-      it { is_expected.to be_valid }
+      it { expect(subject.save).to be_truthy }
     end
   end
 end

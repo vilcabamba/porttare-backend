@@ -24,6 +24,13 @@ FactoryGirl.define do
 
     status :in_progress # default
 
+    trait :for_submission do
+      after(:create) do |customer_order|
+        create :customer_order_item,
+               customer_order: customer_order
+      end
+    end
+
     trait :submitted do
       status :submitted
     end

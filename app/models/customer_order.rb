@@ -62,9 +62,17 @@ class CustomerOrder < ActiveRecord::Base
 
   ##
   # transitions to submitted state
-  # and caches subtotal_items
+  # and caches:
+  #  - subtotal_items
+  #  - customer_address
+  #  - customer_billing_address
   def submit!
-    update_subtotal_items!
+    transaction do
+      cache_addresses!
+      update_subtotal_items!
+      submitted!
+      save
+    end
   end
 
   ##
@@ -94,6 +102,17 @@ class CustomerOrder < ActiveRecord::Base
   end
 
   private
+
+  ##
+  # assigns cached addresses
+  # customer_address is cached if present
+  # customer_billing_address is always cached
+  def cache_addresses!
+    assign_attributes(
+      customer_address_attributes: customer_address.try(:attributes),
+      customer_billing_address_attributes: customer_billing_address.attributes
+    )
+  end
 
   def own_customer_address
     if customer_address.customer_profile != customer_profile

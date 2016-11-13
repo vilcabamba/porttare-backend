@@ -139,6 +139,11 @@ es:
       year: Año
   errors:
     format: "%{attribute} %{message}"
+    models:
+      customer_order:
+        attributes:
+          order_items:
+            at_least_one: debe tener al menos un ítem
     messages:
       accepted: debe ser aceptado
       blank: no puede estar en blanco

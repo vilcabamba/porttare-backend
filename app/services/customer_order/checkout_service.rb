@@ -11,14 +11,29 @@ class CustomerOrder < ActiveRecord::Base
     end
 
     def valid?
-      validate_customer_order &&
-        validate_required_attributes &&
-        assign_submission_attributes
+      valid_customer_order? &&
+        valid_customer_order_items? &&
+        required_attributes_present? &&
+        assign_submission_attributes?
+    end
+
+    def save
+      valid? && @customer_order.submit!
     end
 
     private
 
-    def assign_submission_attributes
+    def valid_customer_order_items?
+      unless @customer_order.order_items.count > 0
+        errors.add(:order_items, :at_least_one)
+      end
+      unless @customer_order.order_items.reload.all?(&:valid?)
+        errors.add(:order_items, :invalid)
+      end
+      errors.empty?
+    end
+
+    def assign_submission_attributes?
       @customer_order.assign_attributes(@submission_attributes)
       @customer_order.valid?
     rescue ArgumentError => e
@@ -26,14 +41,14 @@ class CustomerOrder < ActiveRecord::Base
       false
     end
 
-    def validate_customer_order
+    def valid_customer_order?
       unless CustomerOrderPolicy.new(@user, @customer_order).checkout?
         errors.add(:status, :invalid)
       end
       errors.empty?
     end
 
-    def validate_required_attributes
+    def required_attributes_present?
       required_attributes.each do |required_attribute|
         if @submission_attributes[required_attribute].blank?
           errors.add(required_attribute, :blank)
