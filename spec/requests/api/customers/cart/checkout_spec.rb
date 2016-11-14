@@ -14,6 +14,26 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
       create :customer_order_item,
              customer_order: current_order
     }
+    let(:customer_address) {
+      create :customer_address,
+             customer_profile: user.customer_profile
+    }
+    let(:customer_billing_address) {
+      create :customer_billing_address,
+             customer_profile: user.customer_profile
+    }
+    let(:response_order) {
+      JSON.parse(response.body).fetch("customer_order")
+    }
+    let(:submission_attributes) {
+      {
+        forma_de_pago: "efectivo",
+        observaciones: "something",
+        delivery_method: "shipping",
+        customer_address_id: customer_address.id,
+        customer_billing_address_id: customer_billing_address.id
+      }
+    }
 
     before do
       current_order
@@ -25,41 +45,47 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
       )
     end
 
-    describe "with new address" do
+    describe "invalid - without address" do
       let(:submission_attributes) {
         {
           forma_de_pago: "efectivo",
-          observaciones: "",
-          direccion_entrega: {
-            calles: "",
-            referencia: "",
-            telefono: ""
-          },
-          direccion_facturacion: {
-            ruc: "",
-            razon_social: "",
-            telefono: "",
-            direccion: "",
-            email: ""
-          }
+          delivery_method: "shipping",
+          customer_billing_address_id: customer_billing_address.id
         }
+      }
+      it {
+        errors = JSON.parse(response.body).fetch("errors")
+        expect(errors).to have_key("customer_address_id")
       }
     end
 
-    describe "with old address" do
-
+    describe "successful submission" do
+      it "order is persisted" do
+        expect(
+          response_order["status"]
+        ).to eq("submitted")
+        expect(
+          response_order["observaciones"]
+        ).to eq(submission_attributes[:observaciones])
+      end
     end
 
-    describe "without address (pickup)" do
-
-    end
-
-    describe "new billing address" do
-
-    end
-
-    describe "old billing address" do
-
+    describe "successful - without address (pickup)" do
+      let(:submission_attributes) {
+        {
+          forma_de_pago: "efectivo",
+          delivery_method: "pickup",
+          customer_billing_address_id: customer_billing_address.id
+        }
+      }
+      it {
+        expect(
+          response_order["status"]
+        ).to eq("submitted")
+        expect(
+          response_order["delivery_method"]
+        ).to eq("pickup")
+      }
     end
 
     describe "discounts" do

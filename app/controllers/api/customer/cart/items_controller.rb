@@ -23,29 +23,36 @@ module Api
             "Get current cart"
         desc "Returns current customer order or empty if there's no customer order. Each order item has a cached price which should be used as provider's item may change it's price"
         example %q{{
-    "customer_order":{
-      "id":1,
-      "status":"in_progress",
-      "subtotal_items_cents":44811,
-      "customer_order_items":[{
-        "id":1,
-        "cantidad":9,
+  "customer_order":{
+    "id":1,
+    "status":"in_progress",
+    "observaciones":"something",
+    "forma_de_pago":"efectivo",
+    "delivery_method":"shipping",
+    "subtotal_items_cents":44811,
+    "customer_address_id":1,
+    "customer_billing_address_id":2,
+    "customer_order_items":[
+      {
+        "id":2,
+        "cantidad":1,
         "provider_item_precio_cents":4979,
-        "observaciones":"Hella park cornhole mixtape brooklyn offal tumblr cardigan. Cred scenester vinegar fap trust fund aesthetic letterpress helvetica. Etsy salvia schlitz sriracha venmo. Meh forage umami messenger bag roof green juice.",
+        "observaciones":"Banjo microdosing poutine bespoke truffaut. Ugh gastropub chillwave keytar sriracha.",
         "provider_item":{
           "id":1,
-          "titulo":"Incredible Wool Hat",
-          "descripcion":"flexibilidad asimétrica Totalmente configurable",
-          "unidad_medida":"peso",
+          "titulo":"Synergistic Iron Hat",
+          "descripcion":"utilización tangible Descentralizado",
+          "unidad_medida":"unidades",
           "precio_cents":4979,
           "volumen":"945",
           "peso":"423 kg",
-          "observaciones":"Dreamcatcher meggings thundercats tacos hella chillwave mlkshk. Banjo 8-bit wolf keytar freegan polaroid. Celiac park bicycle rights blue bottle pork belly.",
+          "observaciones":"Sartorial umami listicle normcore wes anderson",
           "imagenes":[]
         }
       }
-    }
-  }}
+    ]
+  }
+}}
         def index
           pundit_authorize
           @customer_profile = current_api_auth_user.customer_profile
@@ -53,7 +60,7 @@ module Api
             @customer_order = @customer_profile.current_order
           end
           skip_policy_scope # because we access through #current_order
-          render :customer_order
+          render resource_template
         end
 
         def_param_group :customer_order_item do
@@ -107,7 +114,7 @@ module Api
         private
 
         def resource_destruction_response
-          render :customer_order, status: :accepted
+          render resource_template, status: :accepted
         end
 
         def after_update_api_resource
@@ -117,7 +124,7 @@ module Api
         end
 
         def resource_template
-          :customer_order # we render full order
+          "api/customer/cart/customer_order"
         end
 
         def new_api_resource
