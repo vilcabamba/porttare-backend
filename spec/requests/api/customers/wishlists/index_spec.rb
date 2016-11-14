@@ -2,6 +2,8 @@ require "rails_helper"
 
 RSpec.describe Api::Customer::WishlistsController,
                type: :request do
+  include TimeZoneHelpers
+
   before { login_as user }
 
   let(:response_wishlists) {
@@ -68,20 +70,15 @@ RSpec.describe Api::Customer::WishlistsController,
     end
 
     it "format for deliver_later" do
-      tz_entregar_en = I18n.l(
-        my_wishlist_for_later.entregar_en.in_time_zone(
-          Rails.application.config.time_zone
-        ),
-        format: :api
-      )
-
       wishlist_in_resp = response_wishlists.detect do |wishlist|
         wishlist["id"] == my_wishlist_for_later.id
       end
 
       expect(
         wishlist_in_resp["entregar_en"]
-      ).to eq(tz_entregar_en)
+      ).to eq(
+        formatted_time(my_wishlist_for_later.entregar_en)
+      )
     end
 
     describe "response sideloads providers and items" do

@@ -2,13 +2,21 @@
 #
 # Table name: customer_orders
 #
-#  id                      :integer          not null, primary key
-#  status                  :integer          default(0), not null
-#  subtotal_items_cents    :integer          default(0), not null
-#  subtotal_items_currency :string           default("USD"), not null
-#  customer_profile_id     :integer
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
+#  id                                  :integer          not null, primary key
+#  status                              :integer          default(0), not null
+#  subtotal_items_cents                :integer          default(0), not null
+#  subtotal_items_currency             :string           default("USD"), not null
+#  customer_profile_id                 :integer
+#  created_at                          :datetime         not null
+#  updated_at                          :datetime         not null
+#  deliver_at                          :datetime
+#  delivery_method                     :integer
+#  forma_de_pago                       :integer
+#  observaciones                       :text
+#  customer_address_attributes         :text
+#  customer_billing_address_attributes :text
+#  customer_address_id                 :integer
+#  customer_billing_address_id         :integer
 #
 
 require 'rails_helper'
@@ -46,7 +54,10 @@ RSpec.describe CustomerOrder,
   end
 
   describe "#submit - upon submission" do
-    let(:customer_order) { create :customer_order }
+    let(:customer_order) {
+      create :customer_order,
+             :with_customer_billing_address
+    }
     let(:customer_order_item) {
       create :customer_order_item,
              customer_order: customer_order
@@ -96,5 +107,32 @@ RSpec.describe CustomerOrder,
         ).to eq(old_price)
       }
     end
+  end
+
+  describe "validates own address" do
+    subject { build :customer_order }
+    let(:customer_address) { create :customer_address }
+    before {
+      subject.customer_address = customer_address
+    }
+    it {
+      is_expected.to_not be_valid
+      expect(subject.errors).to have_key(:customer_address_id)
+    }
+  end
+
+  describe "deliver_at must be in future" do
+    subject { build :customer_order }
+    it {
+      subject.deliver_at = 1.week.ago
+      is_expected.to_not be_valid
+      expect(
+        subject.errors
+      ).to have_key(:deliver_at)
+    }
+    it {
+      subject.deliver_at = 1.week.from_now
+      is_expected.to be_valid
+    }
   end
 end

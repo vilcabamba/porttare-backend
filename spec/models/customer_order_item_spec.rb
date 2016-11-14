@@ -52,7 +52,10 @@ RSpec.describe CustomerOrderItem,
     end
 
     describe "when order is submitted and value is cached" do
-      let(:customer_order) { create :customer_order }
+      let(:customer_order) {
+        create :customer_order,
+               :with_customer_billing_address
+      }
       let(:order_item) {
         create :customer_order_item,
                customer_order: customer_order
