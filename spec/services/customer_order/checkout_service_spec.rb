@@ -3,8 +3,10 @@ require 'rails_helper'
 describe CustomerOrder::CheckoutService,
          type: :model do
   let(:checkout_attributes) { {} }
-  let(:customer_order) { create :customer_order, :for_submission }
   let(:user) { customer_order.customer_profile.user }
+  let(:customer_order) {
+    create :customer_order, :with_order_item
+  }
 
   subject {
     described_class.new(
