@@ -1,6 +1,9 @@
 class AddSubmissionAttributesToCustomerOrder < ActiveRecord::Migration
   def change
     add_column :customer_orders,
+               :deliver_at,
+               :datetime
+    add_column :customer_orders,
                :delivery_method,
                :integer
     add_column :customer_orders,

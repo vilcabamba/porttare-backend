@@ -19,6 +19,9 @@ module Api
         api :POST,
             "/customer/cart/checkout",
             "responds with full `customer_order`"
+        param :deliver_at,
+              Time,
+              desc: "una orden puede ser entregada luego"
         param :observaciones,
               String,
               desc: "observaciones para el pedido. ej: timbre al llegar"

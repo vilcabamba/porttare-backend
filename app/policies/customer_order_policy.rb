@@ -4,6 +4,7 @@ class CustomerOrderPolicy < ApplicationPolicy
   # controllers access via #current_order
   def permitted_attributes
     [
+      :deliver_at,
       :forma_de_pago,
       :observaciones,
       :delivery_method,

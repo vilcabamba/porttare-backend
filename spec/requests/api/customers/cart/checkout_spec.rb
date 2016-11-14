@@ -2,6 +2,8 @@ require "rails_helper"
 
 RSpec.describe Api::Customer::Cart::CheckoutsController,
                type: :request do
+  include TimeZoneHelpers
+
   let(:user) { create :user, :customer }
   before { login_as user }
 
@@ -85,6 +87,26 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
         expect(
           response_order["delivery_method"]
         ).to eq("pickup")
+      }
+    end
+
+    describe "deliver later" do
+      let(:submission_attributes) {
+        {
+          forma_de_pago: "efectivo",
+          observaciones: "something",
+          delivery_method: "shipping",
+          deliver_at: (Time.now + 2.hours).strftime("%Y-%m-%d %H:%M %z"),
+          customer_address_id: customer_address.id,
+          customer_billing_address_id: customer_billing_address.id
+        }
+      }
+      it {
+        expect(
+          response_order["deliver_at"]
+        ).to eq(
+          formatted_time(submission_attributes[:deliver_at])
+        )
       }
     end
 

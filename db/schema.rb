@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20161113122431) do
     t.integer  "customer_profile_id"
     t.datetime "created_at",                                          null: false
     t.datetime "updated_at",                                          null: false
+    t.datetime "deliver_at"
     t.integer  "delivery_method"
     t.integer  "forma_de_pago"
     t.text     "observaciones"

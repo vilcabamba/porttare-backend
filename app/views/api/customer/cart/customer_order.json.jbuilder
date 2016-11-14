@@ -12,6 +12,10 @@ json.customer_order do
       :customer_billing_address_id
     )
 
+    json.deliver_at(
+      l(@customer_order.deliver_at, format: :api)
+    ) if @customer_order.deliver_at.present?
+
     json.customer_order_items do
       json.array!(
         @customer_order.order_items,

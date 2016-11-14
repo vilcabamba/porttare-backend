@@ -9,6 +9,7 @@
 #  customer_profile_id                 :integer
 #  created_at                          :datetime         not null
 #  updated_at                          :datetime         not null
+#  deliver_at                          :datetime
 #  delivery_method                     :integer
 #  forma_de_pago                       :integer
 #  observaciones                       :text

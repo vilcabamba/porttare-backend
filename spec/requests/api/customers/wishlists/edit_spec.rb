@@ -2,6 +2,8 @@ require "rails_helper"
 
 RSpec.describe Api::Customer::WishlistsController,
                type: :request do
+  include TimeZoneHelpers
+
   let(:user) {
     create :user, :customer
   }
@@ -40,15 +42,11 @@ RSpec.describe Api::Customer::WishlistsController,
       response_wishlist["nombre"]
     ).to eq(new_attributes[:nombre])
 
-    tz_entregar_en = I18n.l(
-      new_attributes[:entregar_en].in_time_zone(
-        Rails.application.config.time_zone
-      ),
-      format: :api
-    )
     expect(
       response_wishlist["entregar_en"]
-    ).to eq(tz_entregar_en)
+    ).to eq(
+      formatted_time(new_attributes[:entregar_en])
+    )
 
     resp_provider_item = response_wishlist["provider_items"].detect do |item|
       item["id"] == provider_item.id
