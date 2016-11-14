@@ -2,6 +2,6 @@ json.extract!(
   provider_category,
   :id,
   :titulo,
-  :imagen,
+  :imagen_url,
   :descripcion
 )

@@ -15,4 +15,5 @@ class ProviderCategory < ActiveRecord::Base
             presence: true,
             uniqueness: true
   has_many :provider_profiles
+  mount_uploader :imagen, ProviderCategoryImageUploader
 end
