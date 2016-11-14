@@ -120,4 +120,19 @@ RSpec.describe CustomerOrder,
       expect(subject.errors).to have_key(:customer_address_id)
     }
   end
+
+  describe "deliver_at must be in future" do
+    subject { build :customer_order }
+    it {
+      subject.deliver_at = 1.week.ago
+      is_expected.to_not be_valid
+      expect(
+        subject.errors
+      ).to have_key(:deliver_at)
+    }
+    it {
+      subject.deliver_at = 1.week.from_now
+      is_expected.to be_valid
+    }
+  end
 end
