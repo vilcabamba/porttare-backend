@@ -46,8 +46,9 @@ class CustomerOrder < ActiveRecord::Base
   validates :delivery_method,
             allow_nil: true,
             inclusion: { in: DELIVERY_METHODS }
-  validate :own_customer_address, if: :customer_address
-  validate :own_customer_billing_address, if: :customer_billing_address
+  validates :customer_address,
+            :customer_billing_address,
+            own_address: true
 
   belongs_to :customer_profile
   belongs_to :customer_address
@@ -112,17 +113,5 @@ class CustomerOrder < ActiveRecord::Base
       customer_address_attributes: customer_address.try(:attributes),
       customer_billing_address_attributes: customer_billing_address.attributes
     )
-  end
-
-  def own_customer_address
-    if customer_address.customer_profile != customer_profile
-      errors.add(:customer_address_id, :invalid)
-    end
-  end
-
-  def own_customer_billing_address
-    if customer_billing_address.customer_profile != customer_profile
-      errors.add(:customer_billing_address_id, :invalid)
-    end
   end
 end
