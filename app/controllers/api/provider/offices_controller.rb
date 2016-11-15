@@ -26,7 +26,11 @@ module Api
       "telefono":"945260520",
       "hora_de_apertura":"15:00 +0000",
       "hora_de_cierre":"00:00 +0000",
-      "enabled":false
+      "enabled":false,
+      "final_de_labores":"sun",
+      "inicio_de_labores":"fri",
+      "localized_final_de_labores":"domingo",
+      "localized_inicio_de_labores":"viernes"
     }
   ]
 }
@@ -36,6 +40,13 @@ module Api
       end
 
       def_param_group :provider_office do
+        param :ciudad,
+              PorttareBackend::Places.all,
+              required: true
+        param :telefono,
+              String,
+              required: true,
+              desc: "un teléfono por sucursal"
         param :direccion,
               String,
               required: true,
@@ -48,13 +59,10 @@ module Api
               Time,
               required: true,
               desc: "format: `%H:%M %z`. Example: `13:00 -0500`"
-        param :telefono,
-              String,
-              required: true,
-              desc: "un teléfono por sucursal"
-        param :ciudad,
-              PorttareBackend::Places.all,
-              required: true
+        param :final_de_labores,
+              ProviderOffice.final_de_labores.values
+        param :inicio_de_labores,
+              ProviderOffice.final_de_labores.values
       end
 
       api :POST,

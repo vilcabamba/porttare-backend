@@ -22,10 +22,12 @@ class ProviderOfficePolicy < ApplicationPolicy
   def permitted_attributes
     [
       :ciudad,
+      :telefono,
+      :direccion,
       :hora_de_apertura,
       :hora_de_cierre,
-      :telefono,
-      :direccion
+      :final_de_labores,
+      :inicio_de_labores
     ]
   end
 

@@ -6,12 +6,14 @@
 #  provider_profile_id :integer          not null
 #  enabled             :boolean          default(FALSE)
 #  direccion           :string           not null
-#  ciudad              :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  telefono            :string
 #  hora_de_apertura    :time
 #  hora_de_cierre      :time
+#  inicio_de_labores   :integer
+#  final_de_labores    :integer
+#  ciudad              :integer
 #
 
 require 'rails_helper'
@@ -37,5 +39,25 @@ RSpec.describe ProviderOffice,
         provider_office.hora_de_cierre.strftime("%H:%M %z")
       ).to eq("23:00 -0500")
     }
+  end
+
+  describe "validates labor days" do
+    subject { build :provider_office }
+    describe "valid" do
+      before {
+        subject.inicio_de_labores = "tue"
+      }
+      it {
+        is_expected.to be_valid
+        expect(subject.inicio_de_labores).to be_tue
+      }
+    end
+
+    describe "invalid" do
+      before {
+        subject.final_de_labores = 'Enero'
+      }
+      it { is_expected.to_not be_valid }
+    end
   end
 end

@@ -70,6 +70,8 @@ module Api
       "ciudad":"Ávila",
       "hora_de_apertura":"09:00",
       "hora_de_cierre":"18:00",
+      "inicio_de_labores":"Lunes",
+      "final_de_labores":"Viernes",
       "telefono":"948075420",
       "enabled":false
     }]

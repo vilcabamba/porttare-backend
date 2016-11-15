@@ -6,28 +6,49 @@
 #  provider_profile_id :integer          not null
 #  enabled             :boolean          default(FALSE)
 #  direccion           :string           not null
-#  ciudad              :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  telefono            :string
 #  hora_de_apertura    :time
 #  hora_de_cierre      :time
+#  inicio_de_labores   :integer
+#  final_de_labores    :integer
+#  ciudad              :integer
 #
 
 require "porttare_backend/places"
 
 class ProviderOffice < ActiveRecord::Base
-  belongs_to :provider_profile
-  has_many :provider_dispatchers,
-           dependent: :destroy
+  extend Enumerize
+  extend IntegersEnumerable
 
-  validates :telefono,
-            :direccion,
-            :hora_de_cierre,
-            :hora_de_apertura,
-            presence: true
-  validates :ciudad,
-            inclusion: { in: PorttareBackend::Places.all }
+  CIUDADES = integers_enumerable(PorttareBackend::Places.all)
+  DAY_NAMES = integers_enumerable(Date::ABBR_DAYNAMES.map(&:downcase))
+
+  begin :relationships
+    belongs_to :provider_profile
+    has_many :provider_dispatchers,
+             dependent: :destroy
+  end
+
+  begin :validations
+    validates :direccion,
+              :hora_de_apertura,
+              :hora_de_cierre,
+              :telefono,
+              presence: true
+    validates :inicio_de_labores,
+              :final_de_labores,
+              allow_blank: true,
+              inclusion: { in: DAY_NAMES }
+    validates :ciudad,
+              allow_blank: true,
+              inclusion: { in: CIUDADES }
+  end
+
+  enumerize :ciudad, in: CIUDADES
+  enumerize :final_de_labores, in: DAY_NAMES
+  enumerize :inicio_de_labores, in: DAY_NAMES
 
   scope :enabled, -> { where(enabled: true) }
 
@@ -36,6 +57,8 @@ class ProviderOffice < ActiveRecord::Base
     :hora_de_apertura
   ].each do |attribute_name|
     define_method "#{attribute_name}=" do |new_time|
+      ##
+      # support setting schedule with custom format:
       schedule_format = I18n.t("time.formats.office_schedule")
       send(
         :write_attribute,

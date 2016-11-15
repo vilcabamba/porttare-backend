@@ -31,6 +31,7 @@ RSpec.describe Api::Provider::OfficesController,
         end
 
         expect(resp_office).to be_present
+        expect(resp_office).to have_key("inicio_de_labores")
         expect(resp_office).to have_key("enabled") # private attr
       end
 
