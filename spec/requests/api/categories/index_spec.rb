@@ -33,12 +33,21 @@ RSpec.describe Api::CategoriesController,
       ).to include(provider_profile.nombre_establecimiento)
     end
 
-    it "doesn't include full provider info" do
-      json = JSON.parse response.body
-      response_category = json["provider_categories"].first
-      expect(
-        response_category["provider_profiles"].first
-      ).to_not have_key("offices")
+    describe "response" do
+      let(:json) { JSON.parse response.body }
+      let(:response_category) { json["provider_categories"].first }
+
+      it "doesn't include full provider info" do
+        expect(
+          response_category["provider_profiles"].first
+        ).to_not have_key("offices")
+      end
+
+      it "full imagen url is rendered" do
+        expect(
+          response_category["imagen_url"]
+        ).to include(Rails.application.secrets.host)
+      end
     end
   end
 end
