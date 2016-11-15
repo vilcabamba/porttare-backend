@@ -20,10 +20,10 @@ require "porttare_backend/places"
 
 class ProviderOffice < ActiveRecord::Base
   extend Enumerize
-  extend IntegerEnumerable
+  extend IntegersEnumerable
 
-  CIUDADES = make_enumerable(PorttareBackend::Places.all)
-  DAY_NAMES = make_enumerable(Date::ABBR_DAYNAMES.map(&:downcase))
+  CIUDADES = integers_enumerable(PorttareBackend::Places.all)
+  DAY_NAMES = integers_enumerable(Date::ABBR_DAYNAMES.map(&:downcase))
 
   begin :relationships
     belongs_to :provider_profile

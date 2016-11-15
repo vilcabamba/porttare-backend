@@ -1,7 +1,7 @@
-module IntegerEnumerable
+module IntegersEnumerable
   ##
   # @note freezes array
-  def make_enumerable(array)
+  def integers_enumerable(array)
     array.inject({}) do |memo, name|
       memo[name] = memo.keys.count
       memo
