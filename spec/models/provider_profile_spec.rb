@@ -53,5 +53,10 @@ RSpec.describe ProviderProfile,
       }
       it { is_expected.to_not be_valid }
     end
+
+    describe "invalid" do
+      before { subject.formas_de_pago = [] }
+      it { is_expected.to_not be_valid }
+    end
   end
 end

@@ -31,6 +31,7 @@ module Api
       param :website, String
       param :forma_de_pago,
             Array,
+            required: true,
             in: ProviderProfile::FORMAS_DE_PAGO,
             desc: "an array of options. options must be within: #{ProviderProfile::FORMAS_DE_PAGO.join(", ")}"
       param :logotipo, File

@@ -82,6 +82,7 @@ class ProviderProfile < ActiveRecord::Base
       FORMAS_DE_PAGO.include?(forma_de_pago)
     end
     errors.add(:formas_de_pago, :invalid) unless all_valid
+    errors.add(:formas_de_pago, :empty) if formas_de_pago.empty?
   end
 
   def auto_assign_category!
