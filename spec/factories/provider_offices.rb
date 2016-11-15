@@ -6,7 +6,6 @@
 #  provider_profile_id :integer          not null
 #  enabled             :boolean          default(FALSE)
 #  direccion           :string           not null
-#  ciudad              :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  telefono            :string
@@ -14,6 +13,7 @@
 #  hora_de_cierre      :time
 #  inicio_de_labores   :integer
 #  final_de_labores    :integer
+#  ciudad              :integer
 #
 
 require "porttare_backend/places"

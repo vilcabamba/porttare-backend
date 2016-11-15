@@ -6,7 +6,6 @@
 #  provider_profile_id :integer          not null
 #  enabled             :boolean          default(FALSE)
 #  direccion           :string           not null
-#  ciudad              :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  telefono            :string
@@ -14,17 +13,17 @@
 #  hora_de_cierre      :time
 #  inicio_de_labores   :integer
 #  final_de_labores    :integer
+#  ciudad              :integer
 #
 
 require "porttare_backend/places"
 
 class ProviderOffice < ActiveRecord::Base
   extend Enumerize
+  extend IntegerEnumerable
 
-  DAY_NAMES = Date::ABBR_DAYNAMES.inject({}) do |memo, name|
-    memo[name.downcase] = memo.keys.count
-    memo
-  end.freeze
+  CIUDADES = make_enumerable(PorttareBackend::Places.all)
+  DAY_NAMES = make_enumerable(Date::ABBR_DAYNAMES.map(&:downcase))
 
   begin :relationships
     belongs_to :provider_profile
@@ -43,9 +42,11 @@ class ProviderOffice < ActiveRecord::Base
               allow_blank: true,
               inclusion: { in: DAY_NAMES }
     validates :ciudad,
-              inclusion: { in: PorttareBackend::Places.all }
+              allow_blank: true,
+              inclusion: { in: CIUDADES }
   end
 
+  enumerize :ciudad, in: CIUDADES
   enumerize :final_de_labores, in: DAY_NAMES
   enumerize :inicio_de_labores, in: DAY_NAMES
 

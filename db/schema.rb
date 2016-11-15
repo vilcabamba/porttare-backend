@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161113122431) do
+ActiveRecord::Schema.define(version: 20161115121245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,7 +185,6 @@ ActiveRecord::Schema.define(version: 20161113122431) do
     t.integer  "provider_profile_id",                 null: false
     t.boolean  "enabled",             default: false
     t.string   "direccion",                           null: false
-    t.string   "ciudad"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "telefono"
@@ -193,6 +192,7 @@ ActiveRecord::Schema.define(version: 20161113122431) do
     t.time     "hora_de_cierre"
     t.integer  "inicio_de_labores"
     t.integer  "final_de_labores"
+    t.integer  "ciudad"
   end
 
   add_index "provider_offices", ["enabled"], name: "index_provider_offices_on_enabled", using: :btree
