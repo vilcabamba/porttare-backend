@@ -29,7 +29,7 @@ module Api
       param :telefono, String, required: true
       param :email, String, required: true
       param :website, String
-      param :forma_de_pago,
+      param :formas_de_pago,
             Array,
             required: true,
             in: ProviderProfile::FORMAS_DE_PAGO,
