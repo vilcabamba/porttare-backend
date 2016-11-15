@@ -12,8 +12,8 @@
 #  telefono            :string
 #  hora_de_apertura    :time
 #  hora_de_cierre      :time
-#  inicio_de_labores   :string
-#  final_de_labores    :string
+#  inicio_de_labores   :integer
+#  final_de_labores    :integer
 #
 
 require 'rails_helper'
@@ -45,9 +45,12 @@ RSpec.describe ProviderOffice,
     subject { build :provider_office }
     describe "valid" do
       before {
-        subject.inicio_de_labores = ProviderOffice::DAY_NAMES.sample
+        subject.inicio_de_labores = "tue"
       }
-      it { is_expected.to be_valid }
+      it {
+        is_expected.to be_valid
+        expect(subject.inicio_de_labores).to be_tue
+      }
     end
 
     describe "invalid" do

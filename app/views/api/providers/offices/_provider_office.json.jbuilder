@@ -3,7 +3,11 @@ json.extract!(
   :id,
   :direccion,
   :ciudad,
-  :telefono
+  :telefono,
+  :final_de_labores,
+  :inicio_de_labores,
+  :final_de_labores_text,
+  :inicio_de_labores_text
 )
 
 json.hora_de_apertura(
@@ -12,3 +16,6 @@ json.hora_de_apertura(
 json.hora_de_cierre(
   l(provider_office.hora_de_cierre, format: :office_schedule)
 ) if provider_office.hora_de_cierre.present?
+
+json.localized_final_de_labores localized_day(provider_office.final_de_labores_value)
+json.localized_inicio_de_labores localized_day(provider_office.inicio_de_labores_value)

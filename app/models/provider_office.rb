@@ -12,14 +12,19 @@
 #  telefono            :string
 #  hora_de_apertura    :time
 #  hora_de_cierre      :time
-#  inicio_de_labores   :string
-#  final_de_labores    :string
+#  inicio_de_labores   :integer
+#  final_de_labores    :integer
 #
 
 require "porttare_backend/places"
 
 class ProviderOffice < ActiveRecord::Base
-  DAY_NAMES = Date::DAYNAMES.map(&:downcase)
+  extend Enumerize
+
+  DAY_NAMES = Date::ABBR_DAYNAMES.inject({}) do |memo, name|
+    memo[name.downcase] = memo.keys.count
+    memo
+  end.freeze
 
   begin :relationships
     belongs_to :provider_profile
@@ -35,10 +40,14 @@ class ProviderOffice < ActiveRecord::Base
               presence: true
     validates :inicio_de_labores,
               :final_de_labores,
+              allow_blank: true,
               inclusion: { in: DAY_NAMES }
     validates :ciudad,
               inclusion: { in: PorttareBackend::Places.all }
   end
+
+  enumerize :final_de_labores, in: DAY_NAMES
+  enumerize :inicio_de_labores, in: DAY_NAMES
 
   scope :enabled, -> { where(enabled: true) }
 
@@ -47,6 +56,8 @@ class ProviderOffice < ActiveRecord::Base
     :hora_de_apertura
   ].each do |attribute_name|
     define_method "#{attribute_name}=" do |new_time|
+      ##
+      # support setting schedule with custom format:
       schedule_format = I18n.t("time.formats.office_schedule")
       send(
         :write_attribute,

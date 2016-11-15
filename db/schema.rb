@@ -191,8 +191,8 @@ ActiveRecord::Schema.define(version: 20161113122431) do
     t.string   "telefono"
     t.time     "hora_de_apertura"
     t.time     "hora_de_cierre"
-    t.string   "inicio_de_labores"
-    t.string   "final_de_labores"
+    t.integer  "inicio_de_labores"
+    t.integer  "final_de_labores"
   end
 
   add_index "provider_offices", ["enabled"], name: "index_provider_offices_on_enabled", using: :btree

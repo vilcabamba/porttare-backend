@@ -12,8 +12,8 @@
 #  telefono            :string
 #  hora_de_apertura    :time
 #  hora_de_cierre      :time
-#  inicio_de_labores   :string
-#  final_de_labores    :string
+#  inicio_de_labores   :integer
+#  final_de_labores    :integer
 #
 
 require "porttare_backend/places"
@@ -29,6 +29,13 @@ FactoryGirl.define do
     direccion { Faker::Address.street_address }
     ciudad    { PorttareBackend::Places.all.sample }
     telefono  { Faker::PhoneNumber.phone_number }
+
+    final_de_labores {
+      ProviderOffice.final_de_labores.values.sample
+    }
+    inicio_de_labores {
+      ProviderOffice.inicio_de_labores.values.sample
+    }
 
     trait :enabled do
       enabled true
