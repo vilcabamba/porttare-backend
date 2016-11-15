@@ -5,9 +5,7 @@ json.extract!(
   :ciudad,
   :telefono,
   :final_de_labores,
-  :inicio_de_labores,
-  :final_de_labores_text,
-  :inicio_de_labores_text
+  :inicio_de_labores
 )
 
 json.hora_de_apertura(
