@@ -14,6 +14,7 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  customer_profile_id :integer          not null
+#  nombre              :string
 #
 
 require 'rails_helper'
@@ -23,5 +24,16 @@ RSpec.describe CustomerAddress,
   describe "factory" do
     subject { build :customer_address }
     it { is_expected.to be_valid }
+  end
+
+  describe "nombre gets set automatically" do
+    subject { build :customer_address, nombre: nil }
+    before { subject.save }
+    it { expect(subject.nombre).to eq(subject.direccion_uno) }
+    it {
+      new_name = "something new"
+      subject.update! nombre: new_name
+      expect(subject.reload.nombre).to eq(new_name)
+    }
   end
 end

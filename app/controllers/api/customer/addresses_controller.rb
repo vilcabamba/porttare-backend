@@ -22,6 +22,7 @@ module Api
   "customer_addresses":[
     {
       "id":1,
+      "nombre":"Departamento",
       "ciudad":"Quito",
       "parroquia":"Quito",
       "barrio":"Cumbayá",
@@ -38,6 +39,7 @@ module Api
       end
 
       def_param_group :customer_address do
+        param :nombre, String
         param :ciudad, String
         param :parroquia, String
         param :barrio, String

@@ -14,8 +14,17 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  customer_profile_id :integer          not null
+#  nombre              :string
 #
 
 class CustomerAddress < ActiveRecord::Base
   belongs_to :customer_profile
+
+  before_save :set_default_nombre, unless: :nombre
+
+  private
+
+  def set_default_nombre
+    self.nombre = direccion_uno
+  end
 end

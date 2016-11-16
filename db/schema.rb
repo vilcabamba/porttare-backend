@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20161115121245) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.integer  "customer_profile_id", null: false
+    t.string   "nombre"
   end
 
   add_index "customer_addresses", ["customer_profile_id"], name: "index_customer_addresses_on_customer_profile_id", using: :btree
