@@ -1,15 +1,28 @@
 #main-navbar {
   position: relative;
-  background-color: yellow;
+  background-color: $brandYellow;
   margin-bottom: 0;
 
   .navbar-header {
-    img, h1 {
-      display: inline-block;
-    }
+    .navbar-brand {
+      padding: 10px 0 0 40px;
 
-    h1 {
-      line-height: 20px;
+      img, h1 {
+        display: inline-block;
+      }
+
+      img {
+        max-height: 100%;
+      }
+
+      h1 {
+        margin: 0;
+        line-height: 20px;
+        margin-left: 20px;
+        padding-left: 20px;
+
+        border-left: 1px solid white;
+      }
     }
   }
 }

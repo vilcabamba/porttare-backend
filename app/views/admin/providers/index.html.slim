@@ -7,5 +7,6 @@ ul.nav.nav-pills
 .resources-collection.container-fluid
   .row
     - @provider_profiles.each do |provider_profile|
-      .resource.col-xs-3
-        h3 = provider_profile.nombre_establecimiento
+      .col-xs-4.col-sm-3
+        .resource
+          h3 = provider_profile.nombre_establecimiento
