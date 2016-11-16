@@ -1,3 +1,8 @@
 - if current_admin
-  #main-sidebar
-    h2 = t("admin.sidebar.title")
+  h2 = t("admin.sidebar.title")
+
+  ul.nav.nav-pills.nav-stacked
+    li = link_to t("admin.sidebar.providers"),
+                 admin_providers_path
+    li = link_to t("admin.sidebar.users"),
+                 admin_users_path

@@ -9,6 +9,8 @@ es:
       title: Administración
     sidebar:
       title: Plataforma de administración
+      providers: Proveedores
+      users: Usuarios
     users:
       new: Nuevo usuario
       edit: Editar usuario
