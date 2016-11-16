@@ -19,4 +19,12 @@
 
 class CustomerAddress < ActiveRecord::Base
   belongs_to :customer_profile
+
+  before_save :set_default_nombre, unless: :nombre
+
+  private
+
+  def set_default_nombre
+    self.nombre = direccion_uno
+  end
 end

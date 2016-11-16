@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161116043358) do
+ActiveRecord::Schema.define(version: 20161115121245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -223,11 +223,9 @@ ActiveRecord::Schema.define(version: 20161116043358) do
     t.string   "nombre_establecimiento",              null: false
     t.string   "logotipo"
     t.integer  "banco_tipo_cuenta"
-    t.integer  "status",                 default: 0
   end
 
   add_index "provider_profiles", ["provider_category_id"], name: "index_provider_profiles_on_provider_category_id", using: :btree
-  add_index "provider_profiles", ["status"], name: "index_provider_profiles_on_status", using: :btree
   add_index "provider_profiles", ["user_id"], name: "index_provider_profiles_on_user_id", using: :btree
 
   create_table "user_locations", force: :cascade do |t|
@@ -260,11 +258,12 @@ ActiveRecord::Schema.define(version: 20161116043358) do
     t.json     "tokens"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "admin",                  default: false
     t.date     "fecha_nacimiento"
     t.string   "ciudad"
-    t.text     "privileges",             default: [],                   array: true
   end
 
+  add_index "users", ["admin"], name: "index_users_on_admin", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
