@@ -1,0 +1,8 @@
+- if current_admin
+  nav#main-navbar.navbar.navbar-default.navbar-fixed-top
+    .navbar-header
+      = link_to admin_root_path,
+                class: "navbar-brand" do
+        = image_tag "/images/brand/porttare-white.png"
+
+        h1 = t("admin.main_navbar.title")

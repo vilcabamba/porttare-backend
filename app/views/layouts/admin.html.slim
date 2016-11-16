@@ -10,4 +10,12 @@ html
 
   body
     = render "layouts/flashes"
-    = yield
+    = render "layouts/admin/main_navbar"
+
+    .container
+      .row
+        .col-sm-2
+          = render "layouts/admin/sidebar"
+
+        .col-sm-10
+          = yield

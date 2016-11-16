@@ -1,0 +1,14 @@
+#main-navbar {
+  position: relative;
+  background-color: yellow;
+
+  .navbar-header {
+    img, h1 {
+      display: inline-block;
+    }
+
+    h1 {
+      line-height: 20px
+    }
+  }
+}

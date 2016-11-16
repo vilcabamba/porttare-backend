@@ -5,6 +5,10 @@ es:
   ui:
     submit: Enviar
   admin:
+    main_navbar:
+      title: Administración
+    sidebar:
+      title: Plataforma de administración
     users:
       new: Nuevo usuario
       edit: Editar usuario
