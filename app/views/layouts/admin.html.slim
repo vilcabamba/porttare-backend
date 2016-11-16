@@ -12,10 +12,10 @@ html
     = render "layouts/flashes"
     = render "layouts/admin/main_navbar"
 
-    .container-fluid
+    #main-wrapper.container-fluid
       .row
         .col-sm-2#main-sidebar
           = render "layouts/admin/sidebar"
 
-        .col-sm-10
+        .col-sm-10#main-content
           = yield

@@ -58,6 +58,6 @@ class UserPolicy < ApplicationPolicy
   private
 
   def is_admin?
-    user.admin?
+    user.privileges.admin?
   end
 end

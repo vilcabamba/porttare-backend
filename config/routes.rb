@@ -70,7 +70,13 @@ Rails.application.routes.draw do
              ]
   namespace :admin do
     resources :users
-    resources :providers
-    root "users#index"
+    resources :providers do
+      collection do
+        get "/by_status/:status",
+            to: "providers#index",
+            as: :by_status
+      end
+    end
+    root "providers#index"
   end
 end

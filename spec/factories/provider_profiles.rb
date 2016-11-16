@@ -26,6 +26,7 @@
 #  nombre_establecimiento :string           not null
 #  logotipo               :string
 #  banco_tipo_cuenta      :integer
+#  status                 :integer          default(0)
 #
 
 FactoryGirl.define do

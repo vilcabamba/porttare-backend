@@ -1,5 +1,13 @@
 ---
 es:
+  provider_profile:
+    statuses:
+      applied: Aplicado
+      ask_to_validate: Solicitud de validación
+      validated: Validado
+      active: Activo
+      ask_to_disable: Solicitud de desactivación
+      disabled: Desactivado
   api:
     something_went_wrong: "Ups, algo salió mal. Por favor vuelve a intentarlo"
   ui:

@@ -26,20 +26,35 @@
 #  nombre_establecimiento :string           not null
 #  logotipo               :string
 #  banco_tipo_cuenta      :integer
+#  status                 :integer          default(0)
 #
 
 class ProviderProfile < ActiveRecord::Base
+  extend Enumerize
+  extend IntegersEnumerable
+
   FORMAS_DE_PAGO = [
     "efectivo",
     "tarjeta_credito"
   ].freeze
-
   BANCO_TIPOS_CUENTA = [
     "Ahorros",
     "Crédito"
   ].freeze
+  STATUSES = integers_enumerable([
+    :applied, # just applied
+    :ask_to_validate, # awaiting contract with provider
+    :validated, # accepted by customer service
+    :active, # enabled by admin - provider ready to sell
+    :ask_to_disable, # awaiting admin to confirm and disable
+    :disabled # disabled by admin
+  ])
 
   enum banco_tipo_cuenta: BANCO_TIPOS_CUENTA
+  enumerize :status,
+            in: STATUSES,
+            scope: true,
+            i18n_scope: "provider_profile.statuses"
 
   mount_uploader :logotipo, ProviderProfileLogotipoUploader
 
