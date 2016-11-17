@@ -1,10 +1,4 @@
-ul.main-content-tabs.nav.nav-pills.nav-justified
-  - ProviderProfile.status.values.each do |status|
-    li class="#{'active' if status == @current_status}"
-      = link_to by_status_admin_providers_path(status: status) do
-        = t "admin.provider_profile.statuses.#{status}",
-            default: :"provider_profile.statuses.#{status}"
+= render "provider_statuses"
 
-.resource-collection.container-fluid
-  .row
-    = render @provider_profiles
+.resource-collection
+  = render @provider_profiles

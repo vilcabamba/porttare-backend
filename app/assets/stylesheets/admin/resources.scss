@@ -2,9 +2,6 @@
 @import "bootstrap/variables";
 
 .resource-collection {
-  padding-top: 15px;
-  padding-bottom: 15px;
-
   .resource-wrapper {
     padding-left: 10px;
     padding-right: 10px;
@@ -13,25 +10,84 @@
   }
 
   .resource {
-    border: 1px solid $resourceBorderColor;
+    border: 1px solid $resourceOuterBorderColor;
     background-color: white;
     border-radius: 3px;
     padding: 5px;
-  }
 
-  .resource-row {
-    border-bottom: 1px solid #efefef;
-  }
+    .resource-row {
+      border-bottom: 1px solid $resourceInnerBordercolor;
+      font-size: 15px;
+      font-family: Montserrat-Light;
 
-  .resource-head {
-    @extend .resource-row;
+      // because value span has indenting
+      padding-right: 5px;
 
-    .resource-title {
-      font-size: 18px;
-      padding-left: 0;
+      .resource-label {
+        color: $gray-light;
+        letter-spacing: -0.5px;
+      }
 
-      @media (min-width: $screen-md-min) {
-        font-size: 20px;
+      .resource-value {
+        left: 10px;
+        position: relative;
+        margin-left: -5px; // because we're using spans
+      }
+    }
+
+    .resource-body {
+      padding-left: 10px;
+      padding-right: 10px;
+
+      .resource-row {
+        padding: 10px 10px 10px 5px;
+
+        &:last-child {
+          border-bottom: 0;
+        }
+      }
+    }
+
+    .resource-head {
+      @extend .resource-row;
+
+      .resource-title-wrapper {
+        padding-left: 0;
+      }
+
+      .resource-image-wrapper {
+        text-align: center;
+
+        img {
+          max-height: 80px;
+        }
+      }
+
+      .resource-title {
+        font-size: 18px;
+
+        @media (min-width: $screen-md-min) {
+          font-size: 20px;
+        }
+      }
+
+      .resource-subtitle {
+
+      }
+    }
+
+    .resource-footer {
+      border-top: 1px solid $resourceInnerBordercolor;
+
+      // aesthetic
+      margin-left: -15px;
+      margin-right: -15px;
+
+      padding: 15px;
+      text-align: center;
+
+      .btn {
+        font-size: 14px;
       }
     }
   }

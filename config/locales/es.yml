@@ -12,6 +12,7 @@ es:
     something_went_wrong: "Ups, algo salió mal. Por favor vuelve a intentarlo"
   ui:
     submit: Enviar
+    view_details: Ver detalles
   admin:
     main_navbar:
       title: Administración

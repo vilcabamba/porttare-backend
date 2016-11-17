@@ -9,5 +9,9 @@ module Admin
     def index?
       user.privileges.customer_service? || user.privileges.admin?
     end
+
+    def show?
+      index?
+    end
   end
 end

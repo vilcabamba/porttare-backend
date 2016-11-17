@@ -1,0 +1,19 @@
+@import "admin/colors";
+
+.btn {
+  border-radius: 0;
+  border-width: 3px;
+  padding: 5px 20px;
+  font-family: Montserrat-Light;
+}
+
+.btn-default {
+  color: $brandYellowColor;
+  border-color: $brandYellowColor;
+
+  &:hover, &:active, &:hover:active, &:focus {
+    color: white;
+    border-color: $brandYellowColor;
+    background-color: $brandYellowColor;
+  }
+}

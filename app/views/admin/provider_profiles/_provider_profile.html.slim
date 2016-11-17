@@ -1,7 +1,7 @@
 .resource-wrapper.col-xs-4.col-sm-4
   .resource
     .resource-head.row
-      .col-xs-5
+      .col-xs-5.resource-image-wrapper
         - if provider_profile.logotipo?
           - image_url = provider_profile.logotipo_url
         - else
@@ -10,6 +10,22 @@
         = image_tag image_url,
                     class: "img-thumbnail"
 
-      .col-xs-7.resource-title
-         = provider_profile.nombre_establecimiento
-    .resource-row something else
+      .col-xs-7.resource-title-wrapper
+        .resource-title = provider_profile.nombre_establecimiento
+        .resource-subtitle = provider_profile.razon_social
+
+    .resource-body
+      - [:ruc,
+         :actividad_economica,
+         :representante_legal].each do |attribute|
+        .resource-row
+          span.resource-label
+            = t("activerecord.models.attributes.provider_profile.#{attribute}")
+            | :
+          span.resource-value
+            = provider_profile.send(attribute)
+
+    .resource-footer
+      = link_to t("ui.view_details"),
+                admin_provider_path(provider_profile),
+                class: "btn btn-default"
