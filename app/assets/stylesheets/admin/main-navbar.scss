@@ -1,3 +1,5 @@
+@import "admin/colors";
+
 #main-navbar {
   position: relative;
   background-color: $brandYellow;
@@ -5,6 +7,7 @@
 
   .navbar-header {
     .navbar-brand {
+      height: 70px;
       padding: 10px 0 0 40px;
 
       img, h1 {
