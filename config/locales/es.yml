@@ -24,6 +24,10 @@ es:
       edit: Editar usuario
       created: Usuario creado
       updated: Usuario actualizado
+    provider_profile:
+      statuses:
+        ask_to_validate: Validación
+        ask_to_disable: Desactivación
   devise:
     sessions:
       submit: Iniciar sesión

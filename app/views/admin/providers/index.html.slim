@@ -1,12 +1,13 @@
-ul.nav.nav-pills
+ul.main-content-tabs.nav.nav-pills.nav-justified
   - ProviderProfile.status.values.each do |status|
     li class="#{'active' if status == @current_status}"
       = link_to by_status_admin_providers_path(status: status) do
-        = t "provider_profile.statuses.#{status}"
+        = t "admin.provider_profile.statuses.#{status}",
+            default: :"provider_profile.statuses.#{status}"
 
-.resources-collection.container-fluid
+.resource-collection.container-fluid
   .row
     - @provider_profiles.each do |provider_profile|
-      .col-xs-4.col-sm-3
+      .resource-wrapper.col-xs-4.col-sm-4
         .resource
           h3 = provider_profile.nombre_establecimiento
