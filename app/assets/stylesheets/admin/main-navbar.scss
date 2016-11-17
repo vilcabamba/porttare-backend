@@ -4,11 +4,12 @@
   position: relative;
   background-color: $brandYellow;
   margin-bottom: 0;
+  border: 0;
 
   .navbar-header {
     .navbar-brand {
-      height: 70px;
-      padding: 10px 0 0 40px;
+      height: 60px;
+      padding: 10px 0 10px 40px;
 
       img, h1 {
         display: inline-block;
@@ -16,15 +17,20 @@
 
       img {
         max-height: 100%;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        padding-right: 30px;
+        border-right: 1px solid white;
       }
 
       h1 {
         margin: 0;
-        line-height: 20px;
-        margin-left: 20px;
-        padding-left: 20px;
-
-        border-left: 1px solid white;
+        padding-left: 30px;
+        font-size: 26px;
+        line-height: 24px;
+        color: white;
+        vertical-align: bottom;
+        margin-bottom: 7px;
       }
     }
   }
