@@ -7,7 +7,4 @@ ul.main-content-tabs.nav.nav-pills.nav-justified
 
 .resource-collection.container-fluid
   .row
-    - @provider_profiles.each do |provider_profile|
-      .resource-wrapper.col-xs-4.col-sm-4
-        .resource
-          h3 = provider_profile.nombre_establecimiento
+    = render @provider_profiles

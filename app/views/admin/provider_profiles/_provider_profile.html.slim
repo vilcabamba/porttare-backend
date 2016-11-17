@@ -1,0 +1,15 @@
+.resource-wrapper.col-xs-4.col-sm-4
+  .resource
+    .resource-head.row
+      .col-xs-5
+        - if provider_profile.logotipo?
+          - image_url = provider_profile.logotipo_url
+        - else
+          / placeholder
+          - image_url = "//placehold.it/250/#{rand(999)}/fff.png?text=#{provider_profile.nombre_establecimiento}"
+        = image_tag image_url,
+                    class: "img-thumbnail"
+
+      .col-xs-7.resource-title
+         = provider_profile.nombre_establecimiento
+    .resource-row something else

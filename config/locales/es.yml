@@ -7,7 +7,7 @@ es:
       validated: Validado
       active: Activo
       ask_to_disable: Solicitud de desactivación
-      disabled: Desactivado
+      disabled: Inactivo
   api:
     something_went_wrong: "Ups, algo salió mal. Por favor vuelve a intentarlo"
   ui:

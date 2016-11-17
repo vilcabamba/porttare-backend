@@ -1,4 +1,5 @@
 @import "admin/colors";
+@import "bootstrap/variables";
 
 .resource-collection {
   padding-top: 15px;
@@ -16,5 +17,22 @@
     background-color: white;
     border-radius: 3px;
     padding: 5px;
+  }
+
+  .resource-row {
+    border-bottom: 1px solid #efefef;
+  }
+
+  .resource-head {
+    @extend .resource-row;
+
+    .resource-title {
+      font-size: 18px;
+      padding-left: 0;
+
+      @media (min-width: $screen-md-min) {
+        font-size: 20px;
+      }
+    }
   }
 }

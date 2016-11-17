@@ -27,19 +27,20 @@
       &.active a, &:hover a {
         background-color: transparent;
         border-bottom: 5px solid $brandYellowColor;
+        font-family: Montserrat-SemiBold;
       }
 
       a {
         border-radius: 0;
-        font-size: 14px;
+        font-size: 16px;
         color: $gray-dark;
 
         @media (min-width: $screen-sm-min) {
-          font-size: 16px;
+          font-size: 18px;
         }
 
         @media (min-width: $screen-md-min) {
-          font-size: 18px;
+          font-size: 22px;
         }
       }
     }
