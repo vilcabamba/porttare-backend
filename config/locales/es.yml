@@ -1,15 +1,33 @@
 ---
 es:
+  provider_profile:
+    statuses:
+      applied: Aplicado
+      ask_to_validate: Solicitud de validación
+      validated: Validado
+      active: Activo
+      ask_to_disable: Solicitud de desactivación
+      disabled: Desactivado
   api:
     something_went_wrong: "Ups, algo salió mal. Por favor vuelve a intentarlo"
   ui:
     submit: Enviar
   admin:
+    main_navbar:
+      title: Administración
+    sidebar:
+      title: Plataforma de administración
+      providers: Proveedores
+      users: Usuarios
     users:
       new: Nuevo usuario
       edit: Editar usuario
       created: Usuario creado
       updated: Usuario actualizado
+    provider_profile:
+      statuses:
+        ask_to_validate: Validación
+        ask_to_disable: Desactivación
   devise:
     sessions:
       submit: Iniciar sesión

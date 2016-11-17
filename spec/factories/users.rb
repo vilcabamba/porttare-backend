@@ -23,9 +23,9 @@
 #  tokens                 :json
 #  created_at             :datetime
 #  updated_at             :datetime
-#  admin                  :boolean          default(FALSE)
 #  fecha_nacimiento       :date
 #  ciudad                 :string
+#  privileges             :text             default([]), is an Array
 #
 
 FactoryGirl.define do
@@ -37,8 +37,15 @@ FactoryGirl.define do
     password              { Faker::Internet.password }
     password_confirmation { password }
 
-    trait :admin do
-      admin true
+    ##
+    # defines traits with privileges
+    User::PRIVILEGES.each do |privilege|
+      trait privilege do
+        after :create do |user|
+          user.privileges << privilege
+          user.save!
+        end
+      end
     end
 
     trait :with_personal_info do

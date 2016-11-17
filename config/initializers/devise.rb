@@ -11,3 +11,11 @@ Devise.setup do |config|
 
   config.scoped_views = true
 end
+
+Rails.application.config.to_prepare do
+  Devise::SessionsController.layout "admin"
+  # Devise::RegistrationsController.layout "admin"
+  # Devise::ConfirmationsController.layout "devise"
+  # Devise::UnlocksController.layout "devise"
+  # Devise::PasswordsController.layout "devise"
+end

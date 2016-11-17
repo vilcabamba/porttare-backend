@@ -1,7 +1,7 @@
 module Admin
   class BaseController < ::ApplicationController
     before_action :authenticate_admin!
-    before_action :ensure_is_admin!
+    before_action :authorize_resource
 
     layout "admin"
 
@@ -26,7 +26,11 @@ module Admin
       redirect_to(
         root_path,
         error: I18n.t("pundit.not_authorized")
-      ) unless current_admin.admin?
+      ) unless current_admin.privileges.admin?
     end
+
+    private
+
+    def authorize_resource; raise NotImplementedError; end
   end
 end

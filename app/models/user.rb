@@ -23,17 +23,25 @@
 #  tokens                 :json
 #  created_at             :datetime
 #  updated_at             :datetime
-#  admin                  :boolean          default(FALSE)
 #  fecha_nacimiento       :date
 #  ciudad                 :string
+#  privileges             :text             default([]), is an Array
 #
 
 class User < ActiveRecord::Base
+  PRIVILEGES = [
+    :admin,
+    :customer_service
+  ].freeze
+
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :trackable,
           :validatable, :omniauthable, omniauth_providers: [:facebook]
 
+  extend Enumerize
   include DeviseTokenAuth::Concerns::User # after devise
+
+  enumerize :privileges, in: PRIVILEGES, multiple: true
 
   has_one :provider_profile
   has_one :courier_profile

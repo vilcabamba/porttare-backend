@@ -1,0 +1,47 @@
+@import "admin/colors";
+@import "bootstrap/variables";
+
+#main-wrapper {
+  position: relative;
+
+  #main-content {
+    float: right;
+    background-color: $mainContentBGColor;
+  }
+
+  .main-content-tabs {
+    // because we have col- padding
+    margin-left: -15px;
+    margin-right: -15px;
+    width: initial;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    background-color: white;
+    padding-top: 30px;
+    overflow: auto;
+
+    li {
+      text-transform: uppercase;
+
+      &.active a, &:hover a {
+        background-color: transparent;
+        border-bottom: 5px solid $brandYellowColor;
+      }
+
+      a {
+        border-radius: 0;
+        font-size: 14px;
+        color: $gray-dark;
+
+        @media (min-width: $screen-sm-min) {
+          font-size: 16px;
+        }
+
+        @media (min-width: $screen-md-min) {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}

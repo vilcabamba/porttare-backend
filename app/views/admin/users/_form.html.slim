@@ -23,8 +23,11 @@
     = f.password_field :password_confirmation
 
   .field
-    = f.label :admin
-    = f.check_box :admin
+    = f.label :privileges
+    = f.select :privileges,
+               f.object.class.privileges.values,
+               { include_blank: true },
+               multiple: true
 
   .actions
     = f.submit t("ui.submit")

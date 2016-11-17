@@ -14,6 +14,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'slim', '~> 3.0'
 gem 'carrierwave', '~> 0.11'
 gem 'enumerize', '~> 2.0'
+gem 'bootstrap-sass', '~> 3.3.7'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

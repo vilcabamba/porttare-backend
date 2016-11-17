@@ -1,6 +1,5 @@
 module Admin
   class UsersController < BaseController
-    before_action :authorize_resource
     before_action :find_user,
                   only: [:edit, :update]
 

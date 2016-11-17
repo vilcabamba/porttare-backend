@@ -1,0 +1,15 @@
+- if current_admin
+  h2 = t("admin.sidebar.title")
+
+  ul.nav.nav-pills.nav-stacked
+    li class="#{'active' if controller_name == 'providers'}"
+      = link_to admin_providers_path do
+        .wrapper
+          span.glyphicon.glyphicon-inbox
+          = t("admin.sidebar.providers")
+
+    li class="#{'active' if controller_name == 'users'}"
+      = link_to admin_users_path do
+        .wrapper
+          span.glyphicon.glyphicon-user
+          = t("admin.sidebar.users")
