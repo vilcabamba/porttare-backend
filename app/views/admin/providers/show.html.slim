@@ -1,7 +1,7 @@
 = render "provider_statuses"
 
-.resource-detail
-  .resource
+.resource-detail.panel.panel-default
+  .resource.panel-body
     .row
       .col-xs-3.col-md-2.col-lg-1
         = image_tag @provider_profile.logotipo_url,
@@ -20,3 +20,7 @@
               | :
             span.resource-value
               = @provider_profile.send(attribute)
+
+.resource-detail.panel.panel-default
+  .panel-heading = t("admin.history")
+  .panel-body Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.

@@ -14,6 +14,7 @@ es:
     submit: Enviar
     view_details: Ver detalles
   admin:
+    history: Historial
     main_navbar:
       title: Administración
     sidebar:
