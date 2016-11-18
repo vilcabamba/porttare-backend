@@ -2,11 +2,13 @@ module Admin
   class ProvidersController < BaseController
     def index
       @provider_status = params[:status] || ProviderProfile.status.values.first
-      @provider_profiles = providers_scope.with_status(@provider_status)
+      @provider_profiles = providers_scope.with_status(
+        @provider_status
+      ).decorate
     end
 
     def show
-      @provider_profile = providers_scope.find(params[:id])
+      @provider_profile = providers_scope.find(params[:id]).decorate
       @provider_status = @provider_profile.status
     end
 

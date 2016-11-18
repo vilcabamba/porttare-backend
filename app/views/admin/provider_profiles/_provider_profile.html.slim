@@ -2,22 +2,15 @@
   .resource
     .resource-head.row
       .col-xs-5.resource-image-wrapper
-        - if provider_profile.logotipo?
-          - image_url = provider_profile.logotipo_url
-        - else
-          / placeholder
-          - image_url = "//placehold.it/250/#{rand(999)}/fff.png?text=#{provider_profile.nombre_establecimiento}"
-        = image_tag image_url,
+        = image_tag provider_profile.logotipo_url,
                     class: "img-thumbnail"
 
       .col-xs-7.resource-title-wrapper
         .resource-title = provider_profile.nombre_establecimiento
-        .resource-subtitle = provider_profile.razon_social
+        .resource-subtitle = provider_profile.provider_category
 
     .resource-body
-      - [:ruc,
-         :actividad_economica,
-         :representante_legal].each do |attribute|
+      - provider_profile.card_attributes.each do |attribute|
         .resource-row
           span.resource-label
             = t("activerecord.models.attributes.provider_profile.#{attribute}")

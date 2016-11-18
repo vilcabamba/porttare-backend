@@ -1,0 +1,32 @@
+@import "admin/colors";
+@import "bootstrap/variables";
+
+.resource-detail {
+  padding: 15px;
+
+  .resource {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,.2);
+    padding: 15px;
+    font-family: Montserrat-Light;
+
+    .resource-title {
+      font-size: 22px;
+      margin: 5px 0;
+    }
+
+    .resource-row {
+      font-size: 16px;
+
+      .resource-label {
+        color: $gray-light;
+        letter-spacing: -0.5px;
+      }
+
+      .resource-value {
+        margin-left: 5px;
+      }
+    }
+  }
+}

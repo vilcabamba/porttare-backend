@@ -1,3 +1,25 @@
 = render "provider_statuses"
 
-= @provider_profile.nombre_establecimiento
+.resource-detail
+  .resource
+    .row
+      .col-xs-3
+        - if @provider_profile.logotipo?
+          - image_url = @provider_profile.logotipo_url
+        - else
+          - image_url = gravatar_image_url(@provider_profile.email)
+        = image_tag image_url, class: "img-thumbnail"
+
+      .col-xs-9
+        .resource-title
+          = @provider_profile.nombre_establecimiento
+        .resource-subtitle
+          = @provider_profile.provider_category
+
+        - @provider_profile.detail_attributes.each do |attribute|
+          .resource-row
+            span.resource-label
+              = t("activerecord.models.attributes.provider_profile.#{attribute}")
+              | :
+            span.resource-value
+              = @provider_profile.send(attribute)
