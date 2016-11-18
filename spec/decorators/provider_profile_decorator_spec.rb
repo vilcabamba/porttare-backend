@@ -1,4 +1,5 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe ProviderProfileDecorator do
+describe ProviderProfileDecorator,
+         type: :decorator do
 end
