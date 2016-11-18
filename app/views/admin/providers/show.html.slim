@@ -3,14 +3,11 @@
 .resource-detail
   .resource
     .row
-      .col-xs-3
-        - if @provider_profile.logotipo?
-          - image_url = @provider_profile.logotipo_url
-        - else
-          - image_url = gravatar_image_url(@provider_profile.email)
-        = image_tag image_url, class: "img-thumbnail"
+      .col-xs-3.col-md-2.col-lg-1
+        = image_tag @provider_profile.logotipo_url,
+                    class: "img-thumbnail"
 
-      .col-xs-9
+      .col-xs-9.col-md-10.col-lg-11
         .resource-title
           = @provider_profile.nombre_establecimiento
         .resource-subtitle
