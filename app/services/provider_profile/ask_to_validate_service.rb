@@ -1,6 +1,7 @@
 class ProviderProfile < ActiveRecord::Base
   class AskToValidateService
     def initialize(provider_profile, predicate)
+      @errors = []
       @provider_profile = provider_profile
       @predicate = predicate
     end
@@ -17,17 +18,36 @@ class ProviderProfile < ActiveRecord::Base
       end
     end
 
-    def notice
-      I18n.t(
-        "admin.provider_profile.transition.to.#{@predicate}"
-      )
+    def flashes
+      if valid?
+        {
+          success: I18n.t(
+            "admin.provider_profile.transition.to.#{@predicate}"
+          )
+        }
+      else
+        {
+          error: I18n.t("admin.something_went_wrong") + ": " + @errors.join(", ")
+        }
+      end
     end
 
     def valid?
-      main_office.present?
+      if @errors.empty?
+        validate_main_office
+      end
+      @errors.empty?
     end
 
     private
+
+    def validate_main_office
+      unless main_office.present?
+        @errors << I18n.t(
+          "admin.provider_profile.transition.error.office_required"
+        )
+      end
+    end
 
     def main_office
       @main_office ||= @provider_profile.offices.first

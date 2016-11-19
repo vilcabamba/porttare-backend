@@ -22,7 +22,7 @@ module Admin
       transitor.perform
       redirect_to(
         { action: :show, id: params[:id] },
-        notice: transitor.notice
+        transitor.flashes
       )
     end
   end

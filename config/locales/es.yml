@@ -14,6 +14,7 @@ es:
     submit: Enviar
     view_details: Ver detalles
   admin:
+    something_went_wrong: Ups, algo salió mal
     history:
       panel-title: Historial
       not_user: se
@@ -43,6 +44,8 @@ es:
           Un mensajero será notificado y hará una verificación física del proveedor
         to:
           ask_to_validate: Solicitud verificada. Se notificará a un mensajero para realizar la verificación física del proveedor
+        error:
+          office_required: Necesita tener una oficina
   devise:
     sessions:
       submit: Iniciar sesión
