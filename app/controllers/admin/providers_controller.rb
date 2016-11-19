@@ -15,9 +15,15 @@ module Admin
     end
 
     def transition
-      @provider_profile.paper_trail_event = params[:predicate]
-      @provider_profile.update!(status: params[:predicate])
-      redirect_to action: :show, id: params[:id]
+      transitor = ProviderProfile::AskToValidateService.new(
+        @provider_profile,
+        params[:predicate]
+      )
+      transitor.perform
+      redirect_to(
+        { action: :show, id: params[:id] },
+        notice: transitor.notice
+      )
     end
 
     private

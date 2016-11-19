@@ -21,5 +21,9 @@ module Api
       render json: { error: I18n.t("pundit.not_authorized") },
              status: :unauthorized
     end
+
+    def user_for_paper_trail
+      pundit_user.id if pundit_user.present? # honour pundit
+    end
   end
 end

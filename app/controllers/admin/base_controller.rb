@@ -25,5 +25,9 @@ module Admin
     private
 
     def authorize_resource; raise NotImplementedError; end
+
+    def user_for_paper_trail
+      pundit_user.id if pundit_user.present? # honour pundit
+    end
   end
 end

@@ -40,6 +40,8 @@ es:
         ask_to_validate_prompt: |
           He verificado que esta solicitud es válida.
           Un mensajero será notificado y hará una verificación física del proveedor
+        to:
+          ask_to_validate: Solicitud verificada. Se notificará a un mensajero para realizar la verificación física del proveedor
   devise:
     sessions:
       submit: Iniciar sesión
