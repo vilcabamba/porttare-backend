@@ -7,7 +7,12 @@ class ProviderProfile < ActiveRecord::Base
 
     def perform
       @provider_profile.paper_trail_event = @predicate
-      @provider_profile.update!(status: @predicate)
+      if @provider_profile.update(status: @predicate)
+        ShippingRequest.create!(
+          kind: @predicate,
+          resource: @provider_profile
+        )
+      end
     end
 
     def notice

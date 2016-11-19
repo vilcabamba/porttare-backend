@@ -35,9 +35,13 @@ describe %q{
 
       # creates a shipping request to validate
       # the provider
+      shipping_request = ShippingRequest.last
       expect(
-        ShippingRequest.last.resource
+        shipping_request.resource
       ).to eq(provider_profile)
+      expect(
+        shipping_request.kind
+      ).to eq("ask_to_validate")
     end
   end
 end

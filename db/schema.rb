@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161118112111) do
+ActiveRecord::Schema.define(version: 20161119155740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -229,6 +229,16 @@ ActiveRecord::Schema.define(version: 20161118112111) do
   add_index "provider_profiles", ["provider_category_id"], name: "index_provider_profiles_on_provider_category_id", using: :btree
   add_index "provider_profiles", ["status"], name: "index_provider_profiles_on_status", using: :btree
   add_index "provider_profiles", ["user_id"], name: "index_provider_profiles_on_user_id", using: :btree
+
+  create_table "shipping_requests", force: :cascade do |t|
+    t.integer  "resource_id",   null: false
+    t.string   "resource_type", null: false
+    t.string   "kind",          null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "shipping_requests", ["resource_id", "resource_type"], name: "index_shipping_requests_on_resource_id_and_resource_type", using: :btree
 
   create_table "user_locations", force: :cascade do |t|
     t.string   "lat",        null: false
