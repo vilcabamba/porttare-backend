@@ -2,6 +2,14 @@ module PaperTrail
   class VersionDecorator < Draper::Decorator
     delegate_all
 
+    def link_to_whodunnit(&block)
+      if whodunnit.present?
+        h.link_to(whodunnit_path, &block)
+      else
+        h.content_tag(:span, &block)
+      end
+    end
+
     def whodunnit_imagen_url
       if whodunnit.present?
         whodunnit.image_url
@@ -11,10 +19,9 @@ module PaperTrail
       end
     end
 
-    def link_to_whodunnit
+    def whodunnit_link_with_name
       if whodunnit.present?
-        h.link_to whodunnit.to_s,
-                  h.admin_user_path(whodunnit)
+        h.link_to whodunnit.to_s, whodunnit_path
       else
         h.t("admin.history.not_user")
       end
@@ -30,6 +37,10 @@ module PaperTrail
     end
 
     private
+
+    def whodunnit_path
+      h.admin_user_path(whodunnit)
+    end
 
     def whodunnit
       return if object.whodunnit.blank?

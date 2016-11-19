@@ -4,10 +4,11 @@
     - @provider_profile.versions.decorate.each do |version|
       .media
         .media-left
-          = image_tag version.whodunnit_imagen_url,
-                      class: "img-circle"
+          = version.link_to_whodunnit do
+            = image_tag version.whodunnit_imagen_url,
+                        class: "img-circle"
 
         .media-body.media-middle
-          => version.link_to_whodunnit
+          => version.whodunnit_link_with_name
           = version.action
           .text-muted = version.created_at
