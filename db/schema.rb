@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161119155740) do
+ActiveRecord::Schema.define(version: 20161119225301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -193,7 +193,7 @@ ActiveRecord::Schema.define(version: 20161119155740) do
     t.time     "hora_de_cierre"
     t.integer  "inicio_de_labores"
     t.integer  "final_de_labores"
-    t.integer  "ciudad"
+    t.string   "ciudad"
   end
 
   add_index "provider_offices", ["enabled"], name: "index_provider_offices_on_enabled", using: :btree
@@ -231,14 +231,19 @@ ActiveRecord::Schema.define(version: 20161119155740) do
   add_index "provider_profiles", ["user_id"], name: "index_provider_profiles_on_user_id", using: :btree
 
   create_table "shipping_requests", force: :cascade do |t|
-    t.integer  "resource_id",   null: false
-    t.string   "resource_type", null: false
-    t.string   "kind",          null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "resource_id",                        null: false
+    t.string   "resource_type",                      null: false
+    t.string   "kind",                               null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.string   "status",             default: "new", null: false
+    t.json     "address_attributes"
+    t.integer  "courier_profile_id"
   end
 
+  add_index "shipping_requests", ["courier_profile_id"], name: "index_shipping_requests_on_courier_profile_id", using: :btree
   add_index "shipping_requests", ["resource_id", "resource_type"], name: "index_shipping_requests_on_resource_id_and_resource_type", using: :btree
+  add_index "shipping_requests", ["status"], name: "index_shipping_requests_on_status", using: :btree
 
   create_table "user_locations", force: :cascade do |t|
     t.string   "lat",        null: false
@@ -319,5 +324,6 @@ ActiveRecord::Schema.define(version: 20161119155740) do
   add_foreign_key "provider_offices", "provider_profiles"
   add_foreign_key "provider_profiles", "provider_categories"
   add_foreign_key "provider_profiles", "users"
+  add_foreign_key "shipping_requests", "courier_profiles"
   add_foreign_key "user_locations", "users"
 end

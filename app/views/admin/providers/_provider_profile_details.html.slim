@@ -4,6 +4,7 @@
       .col-xs-3.col-md-2.col-lg-1
         = image_tag @current_resource.logotipo_url,
                     class: "img-thumbnail"
+        .text-center = @current_resource.status_text
 
       .col-xs-9.col-md-10.col-lg-11
         .resource-title

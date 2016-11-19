@@ -1,5 +1,5 @@
 module Admin
-  class ProviderProfilePolicy < ::ApplicationPolicy
+  class ProviderProfilePolicy < BasePolicy
     class Scope < Scope
       def resolve
         scope
@@ -19,12 +19,6 @@ module Admin
       when "ask_to_validate"
         privileges.customer_service? || privileges.admin?
       end
-    end
-
-    private
-
-    def privileges
-      user.privileges
     end
   end
 end

@@ -23,6 +23,7 @@ es:
       title: Plataforma de administración
       providers: Proveedores
       users: Usuarios
+      shipping_requests: Envíos
     users:
       new: Nuevo usuario
       edit: Editar usuario

@@ -12,7 +12,9 @@ describe %q{
 
   feature "verify provider application" do
     let(:provider_profile) {
-      create :provider_profile, status: :applied
+      create :provider_profile,
+             :with_office,
+             status: :applied
     }
 
     before {
@@ -42,6 +44,14 @@ describe %q{
       expect(
         shipping_request.kind
       ).to eq("ask_to_validate")
+      address_attributes = shipping_request.address_attributes
+      provider_office = provider_profile.offices.first
+      expect(
+        address_attributes["ciudad"]
+      ).to eq(provider_office["ciudad"])
+      expect(
+        address_attributes["direccion"]
+      ).to eq(provider_office["direccion"])
     end
   end
 end

@@ -2,12 +2,15 @@
 #
 # Table name: shipping_requests
 #
-#  id            :integer          not null, primary key
-#  resource_id   :integer          not null
-#  resource_type :string           not null
-#  kind          :string           not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id                 :integer          not null, primary key
+#  resource_id        :integer          not null
+#  resource_type      :string           not null
+#  kind               :string           not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  status             :string           default("new"), not null
+#  address_attributes :json
+#  courier_profile_id :integer
 #
 
 require 'rails_helper'
@@ -29,6 +32,17 @@ RSpec.describe ShippingRequest,
       expect(
         subject.reload.resource_type
       ).to eq(provider_profile.class.to_s)
+    }
+  end
+
+  describe "serializes address attributes" do
+    subject { build :shipping_request }
+    let(:attributes) { { some: :address } }
+    before { subject.update! address_attributes: attributes }
+    it {
+      expect(
+        subject.reload.address_attributes["some"]
+      ).to eq("address")
     }
   end
 end

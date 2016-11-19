@@ -2,17 +2,26 @@
 #
 # Table name: shipping_requests
 #
-#  id            :integer          not null, primary key
-#  resource_id   :integer          not null
-#  resource_type :string           not null
-#  kind          :string           not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id                 :integer          not null, primary key
+#  resource_id        :integer          not null
+#  resource_type      :string           not null
+#  kind               :string           not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  status             :string           default("new"), not null
+#  address_attributes :json
+#  courier_profile_id :integer
 #
 
 class ShippingRequest < ActiveRecord::Base
   extend Enumerize
 
+  STATUSES = [
+    :new,
+    :assigned,
+    :in_progress, # or phase1 & phase2
+    :delivered
+  ].freeze
   KINDS = [
     :ask_to_validate
   ].freeze
@@ -20,8 +29,10 @@ class ShippingRequest < ActiveRecord::Base
   belongs_to :resource, polymorphic: true
 
   enumerize :kind, in: KINDS
+  enumerize :status, in: STATUSES
 
   validates :resource,
             :kind,
+            :status,
             presence: true
 end
