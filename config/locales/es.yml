@@ -14,7 +14,9 @@ es:
     submit: Enviar
     view_details: Ver detalles
   admin:
-    history: Historial
+    history:
+      panel-title: Historial
+      not_user: se
     main_navbar:
       title: Administración
     sidebar:
@@ -30,6 +32,8 @@ es:
       statuses:
         ask_to_validate: Validación
         ask_to_disable: Desactivación
+      history:
+        create: aplicó como proveedor
   devise:
     sessions:
       submit: Iniciar sesión
@@ -275,3 +279,4 @@ es:
       short: "%d de %b %H:%M"
       api: "%Y-%m-%d %H:%M %z"
       office_schedule: "%H:%M %z"
+      admin_full: "%Y-%m-%d %H:%M"

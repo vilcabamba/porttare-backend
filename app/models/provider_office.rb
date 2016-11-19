@@ -25,6 +25,8 @@ class ProviderOffice < ActiveRecord::Base
   CIUDADES = integers_enumerable(PorttareBackend::Places.all)
   DAY_NAMES = integers_enumerable(Date::ABBR_DAYNAMES.map(&:downcase))
 
+  has_paper_trail
+
   begin :relationships
     belongs_to :provider_profile
     has_many :provider_dispatchers,
