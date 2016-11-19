@@ -34,6 +34,12 @@ es:
         ask_to_disable: Desactivación
       history:
         create: aplicó como proveedor
+        ask_to_validate: verificó esta solicitud
+      transition:
+        ask_to_validate: Solicitar validación
+        ask_to_validate_prompt: |
+          He verificado que esta solicitud es válida.
+          Un mensajero será notificado y hará una verificación física del proveedor
   devise:
     sessions:
       submit: Iniciar sesión

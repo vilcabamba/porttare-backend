@@ -7,11 +7,24 @@ module Admin
     end
 
     def index?
-      user.privileges.customer_service? || user.privileges.admin?
+      privileges.customer_service? || privileges.admin?
     end
 
     def show?
       index?
+    end
+
+    def transition?(to_status)
+      case to_status.to_s
+      when "ask_to_validate"
+        privileges.customer_service? || privileges.admin?
+      end
+    end
+
+    private
+
+    def privileges
+      user.privileges
     end
   end
 end

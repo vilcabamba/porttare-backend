@@ -2,7 +2,7 @@ class UserDecorator < Draper::Decorator
   delegate_all
 
   def to_s
-    object.name
+    object.name.presence || object.nickname.presence || object.email
   end
 
   def image_url
