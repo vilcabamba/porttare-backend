@@ -1,22 +1,22 @@
 module Admin
   class ProvidersController < BaseController
-    before_action :find_provider_profile,
-                  except: :index
+    include Admin::BaseController::Resourceable
+
+    self.resource_klass = ProviderProfile
+
+    before_action :find_current_resource, only: :transition
 
     def index
-      @provider_status = params[:status] || ProviderProfile.status.values.first
-      @provider_profiles = providers_scope.with_status(
-        @provider_status
-      ).decorate
+      super
     end
 
     def show
-      @provider_status = @provider_profile.status
+      super
     end
 
     def transition
       transitor = ProviderProfile::AskToValidateService.new(
-        @provider_profile,
+        @current_resource,
         params[:predicate]
       )
       transitor.perform
@@ -24,38 +24,6 @@ module Admin
         { action: :show, id: params[:id] },
         notice: transitor.notice
       )
-    end
-
-    private
-
-    def find_provider_profile
-      @provider_profile = providers_scope.find(params[:id]).decorate
-    end
-
-    def authorize_resource
-      arguments = [ "#{action_name}?" ]
-      arguments << params[:predicate] if params[:predicate].present?
-      if pundit_policy.send(*arguments)
-        skip_authorization
-      else
-        raise NotAuthorizedError
-      end
-    end
-
-    def pundit_policy
-      Admin::ProviderProfilePolicy.new(
-        pundit_user,
-        ProviderProfile
-      )
-    end
-    helper_method :pundit_policy
-
-    def providers_scope
-      skip_policy_scope
-      Admin::ProviderProfilePolicy::Scope.new(
-        pundit_user,
-        ProviderProfile
-      ).resolve
     end
   end
 end

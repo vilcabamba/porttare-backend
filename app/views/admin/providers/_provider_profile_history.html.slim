@@ -1,7 +1,7 @@
 .resource-detail.resource-history.panel.panel-default
   .panel-heading = t("admin.history.panel-title")
   .panel-body
-    - @provider_profile.versions.decorate.each do |version|
+    - @current_resource.versions.decorate.each do |version|
       .media
         .media-left
           = version.link_to_whodunnit do

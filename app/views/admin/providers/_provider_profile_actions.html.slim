@@ -1,4 +1,4 @@
-- case @provider_profile.status
+- case @current_resource.status
 - when "applied"
   - to_status = :ask_to_validate
 
@@ -7,6 +7,6 @@
       = t("admin.provider_profile.transition.#{to_status}_prompt")
 
     = link_to t("admin.provider_profile.transition.#{to_status}"),
-              transition_admin_provider_path(@provider_profile, predicate: to_status),
+              transition_admin_provider_path(@current_resource, predicate: to_status),
               class: "btn btn-default",
               method: :post
