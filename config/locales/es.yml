@@ -33,7 +33,7 @@ es:
         ask_to_validate: Validación
         ask_to_disable: Desactivación
       history:
-        create: aplicó como proveedor
+        apply: aplicó como proveedor
         ask_to_validate: verificó esta solicitud
       transition:
         ask_to_validate: Solicitar validación
