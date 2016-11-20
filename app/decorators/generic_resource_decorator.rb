@@ -4,7 +4,7 @@ class GenericResourceDecorator < Draper::Decorator
   def label_for(attribute)
     klass_name = object.class.to_s.underscore
     h.t(
-      "activerecord.models.attributes.#{klass_name}.#{attribute}"
+      "activerecord.attributes.#{klass_name}.#{attribute}"
     ) + ":"
   end
 end

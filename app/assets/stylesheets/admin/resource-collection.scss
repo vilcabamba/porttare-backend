@@ -56,7 +56,7 @@
       .resource-title-wrapper {
         padding-left: 0;
         padding-top: 5px;
-        padding-bottom: 10px;
+        padding-bottom: 5px;
       }
 
       .resource-image-wrapper {
@@ -85,7 +85,11 @@
       }
 
       .resource-subtitle {
-
+        color: $brandYellowColor;
+        font-size: 12px;
+        letter-spacing: -0.5px;
+        font-family: Montserrat-Light;
+        text-transform: uppercase;
       }
     }
 

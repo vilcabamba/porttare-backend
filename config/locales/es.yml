@@ -14,6 +14,8 @@ es:
       assigned: Asignado
       in_progress: En progreso
       delivered: Entregado
+    kinds:
+      ask_to_validate: Validar proveedor
   api:
     something_went_wrong: "Ups, algo salió mal. Por favor vuelve a intentarlo"
   ui:
@@ -78,6 +80,11 @@ es:
         password: Contraseña
         password_confirmation: Confirmación de contraseña
         remember_me: Recordarme
+      shipping_request:
+        created_at: Generada
+        address: Dirección
+        provider: Proveedor
+        telefono: Teléfono
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"

@@ -6,6 +6,7 @@
   height: 100%;
   padding-top: 60px; // main-navbar's height
   top: 0;
+  width: 83.5%;
 
   .resource-grid {
     height: 100%;
@@ -44,8 +45,16 @@
     .resource-collection {
       .resource {
         margin-top: 5px;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
         white-space: normal;
+
+        .resource-footer {
+          padding: 10px 10px 5px 10px;
+
+          .btn-xs {
+            font-size: 12px;
+          }
+        }
       }
     }
   }

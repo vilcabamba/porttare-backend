@@ -2,7 +2,7 @@
 
 .resource-collection
   - resources_with_status(status).each do |shipping_request|
-    .resource
+    = div_for shipping_request, class: "resource" do
       .resource-head.row
         .col-xs-4.resource-state-icon
           span.glyphicon.glyphicon-unchecked
@@ -12,7 +12,7 @@
             ' Pedido #
             = shipping_request.id
           .resource-subtitle
-            = shipping_request.kind
+            = shipping_request.kind_str
 
       .resource-body
         - shipping_request.card_attributes.each do |attribute|
@@ -22,4 +22,7 @@
             span.resource-value
               = shipping_request.send(attribute)
 
-        .well = shipping_request.attributes
+      .resource-footer
+        = link_to t("ui.view_details"),
+                  admin_shipping_request_path(shipping_request),
+                  class: "btn btn-xs btn-default"
