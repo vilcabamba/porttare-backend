@@ -15,10 +15,13 @@
     border-radius: 3px;
     padding: 5px;
 
-    .resource-row {
+    .resource-row--base {
       border-bottom: 1px solid $resourceInnerBordercolor;
       font-family: Montserrat-Light;
+    }
 
+    .resource-row {
+      @extend .resource-row--base;
       // because value span has indenting
       padding-right: 5px;
 
@@ -48,10 +51,12 @@
     }
 
     .resource-head {
-      @extend .resource-row;
+      @extend .resource-row--base;
 
       .resource-title-wrapper {
         padding-left: 0;
+        padding-top: 5px;
+        padding-bottom: 10px;
       }
 
       .resource-image-wrapper {
@@ -60,6 +65,13 @@
         img {
           max-height: 80px;
         }
+      }
+
+      .resource-state-icon {
+        font-size: 30px;
+        text-align: right;
+        padding-top: 5px;
+        font-weight: lighter;
       }
 
       .resource-title {

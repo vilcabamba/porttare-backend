@@ -1,7 +1,25 @@
 .column-title = t "shipping_request.statuses.#{status}"
 
 .resource-collection
-  - resources_with_status(status).each do |resource|
+  - resources_with_status(status).each do |shipping_request|
     .resource
-      ' Pedido #
-      = resource.id
+      .resource-head.row
+        .col-xs-4.resource-state-icon
+          span.glyphicon.glyphicon-unchecked
+
+        .col-xs-8.resource-title-wrapper
+          .resource-title
+            ' Pedido #
+            = shipping_request.id
+          .resource-subtitle
+            = shipping_request.kind
+
+      .resource-body
+        - shipping_request.card_attributes.each do |attribute|
+          .resource-row
+            span.resource-label
+              = shipping_request.label_for(attribute)
+            span.resource-value
+              = shipping_request.send(attribute)
+
+        .well = shipping_request.attributes

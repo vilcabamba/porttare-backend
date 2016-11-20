@@ -1,5 +1,4 @@
-class ProviderProfileDecorator < Draper::Decorator
-  delegate_all
+class ProviderProfileDecorator < GenericResourceDecorator
   decorates_association :user
 
   def logotipo_url

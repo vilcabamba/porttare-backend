@@ -1,5 +1,6 @@
-.resource-grid.container-fluid
-  .row
-    - ShippingRequest.status.values.each do |status|
-      .resource-grid-column.col-xs-4
-        = render "shipping_requests_by_status", status: status
+.grid-wrapper
+  .resource-grid.container-fluid
+    .row
+      - ShippingRequest.status.values.each do |status|
+        .resource-grid-column.col-xs-4
+          = render "shipping_requests_by_status", status: status

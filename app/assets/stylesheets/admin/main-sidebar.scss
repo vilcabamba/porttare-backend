@@ -8,6 +8,10 @@
   background-color: $sidebarBGColor;
   box-shadow: -1px 0 1px rgba(0,0,0,.2) inset;
 
+  .affix {
+    top: 0;
+  }
+
   h2 {
     margin-top: 17px;
     font-size: 12px;

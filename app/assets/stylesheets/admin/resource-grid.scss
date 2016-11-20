@@ -1,12 +1,35 @@
 @import "admin/colors";
 
+.grid-wrapper {
+  position: fixed;
+  background-color: $mainContentBGColor;
+  height: 100%;
+  padding-top: 60px; // main-navbar's height
+  top: 0;
+
+  .resource-grid {
+    height: 100%;
+
+    .row, .resource-grid-column {
+      height: 100%;
+    }
+
+    .resource-collection {
+      height: 100%;
+      overflow: auto;
+    }
+  }
+}
+
 .resource-grid {
   white-space: nowrap;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
 
   .resource-grid-column {
     float: none;
     display: inline-block;
+    vertical-align: top;
 
     .column-title {
       border-left: 5px solid $brandYellowColor;
@@ -16,6 +39,7 @@
       .resource {
         margin-top: 5px;
         margin-bottom: 5px;
+        white-space: normal;
       }
     }
   }
