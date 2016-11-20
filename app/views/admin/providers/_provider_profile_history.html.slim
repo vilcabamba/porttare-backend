@@ -11,4 +11,12 @@
         .media-body.media-middle
           => version.whodunnit_link_with_name
           = version.action
+
+          - version.associations.each do |association|
+            div
+              => t("admin.provider_profile.history.generated")
+              = version.link_to_association(association) do
+                => t("activerecord.models.#{association.item_type.underscore}")
+                = "##{association.item_id}"
+
           .text-muted = version.created_at

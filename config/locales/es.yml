@@ -37,6 +37,7 @@ es:
       history:
         apply: aplicó como proveedor
         ask_to_validate: verificó esta solicitud
+        generated: "generado:"
       transition:
         ask_to_validate: Solicitar validación
         ask_to_validate_prompt: |
@@ -62,6 +63,7 @@ es:
   activerecord:
     models:
       user: Usuario
+      shipping_request: Solicitud de envío
     attributes:
       user:
         name: Nombre

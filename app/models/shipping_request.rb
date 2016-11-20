@@ -28,8 +28,10 @@ class ShippingRequest < ActiveRecord::Base
 
   belongs_to :resource, polymorphic: true
 
+  has_paper_trail
+
   enumerize :kind, in: KINDS
-  enumerize :status, in: STATUSES
+  enumerize :status, in: STATUSES, scope: true
 
   validates :resource,
             :kind,

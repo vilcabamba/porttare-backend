@@ -8,13 +8,15 @@ class ProviderProfile < ActiveRecord::Base
 
     def perform
       return unless valid?
-      @provider_profile.paper_trail_event = @predicate
-      if @provider_profile.update(status: @predicate)
-        ShippingRequest.create!(
-          kind: @predicate,
-          resource: @provider_profile,
-          address_attributes: address_attributes
-        )
+      @provider_profile.transaction do
+        @provider_profile.paper_trail_event = @predicate
+        if @provider_profile.update(status: @predicate)
+          ShippingRequest.create!(
+            kind: @predicate,
+            resource: @provider_profile,
+            address_attributes: address_attributes
+          )
+        end
       end
     end
 

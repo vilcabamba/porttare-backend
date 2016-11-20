@@ -2,6 +2,22 @@ module PaperTrail
   class VersionDecorator < Draper::Decorator
     delegate_all
 
+    def associations
+      object.class.where(
+        transaction_id: transaction_id
+      ).where.not(item_type: object.item_type)
+    end
+
+    def link_to_association(association, &block)
+      h.link_to(
+        h.send(
+          "admin_#{association.item_type.underscore}_path",
+          association.item
+        ),
+        &block
+      )
+    end
+
     def link_to_whodunnit(&block)
       if whodunnit.present?
         h.link_to(whodunnit_path, &block)
