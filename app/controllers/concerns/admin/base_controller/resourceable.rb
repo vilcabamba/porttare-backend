@@ -8,13 +8,6 @@ module Admin
         cattr_accessor :resource_klass
       end
 
-      def index
-        @resource_status = params[:status] || resource_klass.status.values.first
-        @resource_collection = resource_scope.with_status(
-          @resource_status
-        ).decorate
-      end
-
       def show
         find_current_resource
         @resource_status = @current_resource.status

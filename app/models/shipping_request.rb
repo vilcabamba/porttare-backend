@@ -31,7 +31,9 @@ class ShippingRequest < ActiveRecord::Base
   has_paper_trail
 
   enumerize :kind, in: KINDS
-  enumerize :status, in: STATUSES, scope: true
+  enumerize :status,
+            in: STATUSES,
+            scope: true
 
   validates :resource,
             :kind,

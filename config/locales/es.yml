@@ -8,6 +8,12 @@ es:
       active: Activo
       ask_to_disable: Solicitud de desactivación
       disabled: Inactivo
+  shipping_request:
+    statuses:
+      new: Nuevo
+      assigned: Asignado
+      in_progress: En progreso
+      delivered: Entregado
   api:
     something_went_wrong: "Ups, algo salió mal. Por favor vuelve a intentarlo"
   ui:

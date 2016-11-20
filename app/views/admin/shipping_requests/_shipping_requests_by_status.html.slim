@@ -1,0 +1,7 @@
+.column-title = t "shipping_request.statuses.#{status}"
+
+.resource-collection
+  - resources_with_status(status).each do |resource|
+    .resource
+      ' Pedido #
+      = resource.id

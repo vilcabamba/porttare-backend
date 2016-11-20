@@ -1,0 +1,22 @@
+@import "admin/colors";
+
+.resource-grid {
+  white-space: nowrap;
+  overflow: auto;
+
+  .resource-grid-column {
+    float: none;
+    display: inline-block;
+
+    .column-title {
+      border-left: 5px solid $brandYellowColor;
+    }
+
+    .resource-collection {
+      .resource {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}

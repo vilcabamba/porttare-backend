@@ -7,7 +7,10 @@ module Admin
     before_action :find_current_resource, only: :transition
 
     def index
-      super
+      @resource_status = params[:status] || resource_klass.status.values.first
+      @resource_collection = resource_scope.with_status(
+        @resource_status
+      ).decorate
     end
 
     def show
