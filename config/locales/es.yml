@@ -38,6 +38,10 @@ es:
       edit: Editar usuario
       created: Usuario creado
       updated: Usuario actualizado
+    shipping_request:
+      title: Pedido
+    provider_office:
+      title: Oficina
     provider_profile:
       statuses:
         ask_to_validate: Validación
