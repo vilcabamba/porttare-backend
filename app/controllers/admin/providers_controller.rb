@@ -10,7 +10,7 @@ module Admin
       @resource_status = params[:status] || resource_klass.status.values.first
       @resource_collection = resource_scope.with_status(
         @resource_status
-      ).decorate
+      ).includes(:provider_category).decorate
     end
 
     def show

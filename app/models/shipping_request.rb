@@ -33,7 +33,8 @@ class ShippingRequest < ActiveRecord::Base
   enumerize :kind, in: KINDS
   enumerize :status,
             in: STATUSES,
-            scope: true
+            scope: true,
+            i18n_scope: "shipping_request.statuses"
 
   validates :resource,
             :kind,
