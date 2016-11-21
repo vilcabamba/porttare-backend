@@ -1,8 +1,10 @@
 class ProviderProfile < ActiveRecord::Base
   class TransitorService
+    delegate :flashes, to: :@transitor
+
     def initialize(resource, predicate)
       @predicate = predicate
-      @transitor = resource_klass.new(resource)
+      @transitor = transitor_class.new(resource)
     end
 
     ##
@@ -12,13 +14,13 @@ class ProviderProfile < ActiveRecord::Base
       self
     end
 
-    delegate :flashes, to: :@transitor
-
     private
 
-    def resource_klass
+    def transitor_class
       (
-        "ProviderProfile::" + @predicate.classify + "Service"
+        "ProviderProfile::TransitionTo::" +
+        @predicate.classify +
+        "Service"
       ).constantize
     end
   end
