@@ -3,19 +3,21 @@ class ProviderProfile < ActiveRecord::Base
     class AskToValidateService < GenericTransitionService
       def perform
         return unless valid?
-        @provider_profile.transaction do
-          @provider_profile.paper_trail_event = predicate
-          if @provider_profile.update(status: predicate)
-            ShippingRequest.create!(
-              kind: predicate,
-              resource: @provider_profile,
-              address_attributes: address_attributes
-            )
-          end
+        transaction do
+          update_state!
+          create_shipping_request!
         end
       end
 
       private
+
+      def create_shipping_request!
+        ShippingRequest.create!(
+          kind: predicate,
+          resource: @provider_profile,
+          address_attributes: address_attributes
+        )
+      end
 
       def predicate
         :ask_to_validate

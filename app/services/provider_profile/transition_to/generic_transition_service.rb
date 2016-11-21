@@ -1,6 +1,8 @@
 class ProviderProfile < ActiveRecord::Base
   module TransitionTo
     class GenericTransitionService
+      delegate :transaction, to: :@provider_profile
+
       def initialize(provider_profile)
         @provider_profile = provider_profile
       end
@@ -30,6 +32,11 @@ class ProviderProfile < ActiveRecord::Base
 
       def errors
         @errors ||= []
+      end
+
+      def update_state
+        @provider_profile.paper_trail_event = predicate
+        @provider_profile.update!(status: predicate)
       end
     end
   end
