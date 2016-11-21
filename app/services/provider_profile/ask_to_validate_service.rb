@@ -1,18 +1,19 @@
 class ProviderProfile < ActiveRecord::Base
   class AskToValidateService
-    def initialize(provider_profile, predicate)
+    PREDICATE = :ask_to_validate
+
+    def initialize(provider_profile)
       @errors = []
       @provider_profile = provider_profile
-      @predicate = predicate
     end
 
     def perform
       return unless valid?
       @provider_profile.transaction do
-        @provider_profile.paper_trail_event = @predicate
-        if @provider_profile.update(status: @predicate)
+        @provider_profile.paper_trail_event = PREDICATE
+        if @provider_profile.update(status: PREDICATE)
           ShippingRequest.create!(
-            kind: @predicate,
+            kind: PREDICATE,
             resource: @provider_profile,
             address_attributes: address_attributes
           )
@@ -24,7 +25,7 @@ class ProviderProfile < ActiveRecord::Base
       if valid?
         {
           success: I18n.t(
-            "admin.provider_profile.transition.to.#{@predicate}"
+            "admin.provider_profile.transition.to.#{PREDICATE}"
           )
         }
       else

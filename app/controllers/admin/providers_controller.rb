@@ -18,11 +18,10 @@ module Admin
     end
 
     def transition
-      transitor = ProviderProfile::AskToValidateService.new(
+      transitor = ProviderProfile::TransitorService.new(
         @current_resource,
         params[:predicate]
-      )
-      transitor.perform
+      ).perform!
       redirect_to(
         { action: :show, id: params[:id] },
         transitor.flashes
