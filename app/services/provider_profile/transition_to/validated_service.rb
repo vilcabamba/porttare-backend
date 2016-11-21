@@ -4,7 +4,7 @@ class ProviderProfile < ActiveRecord::Base
       def perform
         return unless valid?
         transaction do
-          update_state
+          update_state!
         end
       end
 
