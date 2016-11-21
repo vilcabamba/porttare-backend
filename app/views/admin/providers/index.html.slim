@@ -1,4 +1,5 @@
 = render "provider_statuses"
 
 .resource-collection.auto-masonry
-  = render @resource_collection.to_a
+  - @resource_collection.each do |provider_profile|
+    = render provider_profile
