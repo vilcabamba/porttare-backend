@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe ProviderProfile::AskToValidateService,
+describe ProviderProfile::TransitionTo::AskToValidateService,
          type: :model do
   subject {
     described_class.new(provider_profile, :ask_to_validate)
