@@ -3,7 +3,7 @@ require "rails_helper"
 describe ProviderProfile::TransitionTo::AskToValidateService,
          type: :model do
   subject {
-    described_class.new(provider_profile, :ask_to_validate)
+    described_class.new(provider_profile)
   }
 
   describe "valid" do
