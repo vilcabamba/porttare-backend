@@ -1,24 +1,6 @@
 @import "admin/colors";
 @import "bootstrap/variables";
 
-// common:
-
-.resource {
-  .resource-state-icon {
-    font-size: 30px;
-    text-align: right;
-    padding-top: 5px;
-  }
-
-  .resource-subtitle {
-    color: $brandYellowColor;
-    font-size: 12px;
-    letter-spacing: -0.5px;
-    font-family: Montserrat-Light;
-    text-transform: uppercase;
-  }
-}
-
 .resource-collection {
   .resource-wrapper {
     padding-left: 10px;

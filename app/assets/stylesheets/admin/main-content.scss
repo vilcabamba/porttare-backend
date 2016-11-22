@@ -11,11 +11,11 @@ html, body {
   top: 0;
   min-height: 100%;
   width: 100%;
+  background-color: $mainContentBGColor;
   padding-top: 60px; // main navbar
 
   #main-content {
     float: right;
-    background-color: $mainContentBGColor;
     padding-left: 0;
     padding-right: 0;
   }
