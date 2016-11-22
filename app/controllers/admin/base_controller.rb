@@ -22,15 +22,12 @@ module Admin
       I18n.t(key)
     end
 
-    def ensure_is_admin!
-      redirect_to(
-        root_path,
-        error: I18n.t("pundit.not_authorized")
-      ) unless current_admin.privileges.admin?
-    end
-
     private
 
     def authorize_resource; raise NotImplementedError; end
+
+    def user_for_paper_trail
+      pundit_user.id if pundit_user.present? # honour pundit
+    end
   end
 end

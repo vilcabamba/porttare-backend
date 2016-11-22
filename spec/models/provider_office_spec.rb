@@ -13,7 +13,7 @@
 #  hora_de_cierre      :time
 #  inicio_de_labores   :integer
 #  final_de_labores    :integer
-#  ciudad              :integer
+#  ciudad              :string
 #
 
 require 'rails_helper'

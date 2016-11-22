@@ -1,0 +1,36 @@
+@import "admin/colors";
+
+.btn {
+  border-radius: 0;
+  border-width: 3px;
+  padding: 5px 20px;
+  font-family: Montserrat-Light;
+}
+
+.btn-xs {
+  padding: 2px 10px;
+  border-width: 2px;
+}
+
+.btn-default {
+  color: $brandYellowColor;
+  border-color: $brandYellowColor;
+
+  &:hover, &:active, &:hover:active, &:focus {
+    color: white;
+    border-color: $brandYellowColor;
+    background-color: $brandYellowColor;
+  }
+}
+
+.panel-default {
+  border: 0;
+  box-shadow: 0 0 5px #dcdcdc;
+
+  .panel-heading {
+    border-color: $brandYellowColor;
+    background-color: $brandYellowColor;
+    text-align: center;
+    color: white;
+  }
+}

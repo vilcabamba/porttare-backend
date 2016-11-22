@@ -81,6 +81,13 @@ module Api
       def create
         super
       end
+
+      private
+
+      def new_api_resource
+        super
+        @api_resource.paper_trail_event = "apply"
+      end
     end
   end
 end

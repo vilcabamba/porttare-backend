@@ -50,6 +50,8 @@ class ProviderProfile < ActiveRecord::Base
     :disabled # disabled by admin
   ])
 
+  has_paper_trail
+
   enum banco_tipo_cuenta: BANCO_TIPOS_CUENTA
   enumerize :status,
             in: STATUSES,
@@ -64,7 +66,8 @@ class ProviderProfile < ActiveRecord::Base
     has_many :provider_items
     has_many :provider_clients
     has_many :offices,
-             class_name: 'ProviderOffice'
+             class_name: 'ProviderOffice',
+             dependent: :destroy
 
     accepts_nested_attributes_for(
       :offices,

@@ -1,0 +1,21 @@
+.resource-detail.resource-history.panel.panel-default
+  .panel-heading = t("admin.history.panel-title")
+  .panel-body
+    - @current_resource.versions.latest.decorate.each do |version|
+      .media
+        .media-left
+          = version.link_to_whodunnit do
+            = image_tag version.whodunnit_imagen_url,
+                        class: "img-circle"
+
+        .media-body.media-middle
+          => version.whodunnit_link_with_name
+          = version.action
+
+          - version.decorated_associations.each do |association|
+            div
+              => t("admin.provider_profile.history.generated")
+              = association.link_to_resource do
+                = association.title
+
+          .text-muted = version.created_at

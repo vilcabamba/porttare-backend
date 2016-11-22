@@ -2,8 +2,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+@import "bootstrap-overrides";
+
 @import "admin/fonts";
+@import "admin/alerts";
 @import "admin/main-navbar";
 @import "admin/main-sidebar";
 @import "admin/main-content";
-@import "admin/resources";
+@import "admin/resource-collection";
+@import "admin/resource-detail";
+@import "admin/resource-grid";

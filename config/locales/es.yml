@@ -7,27 +7,58 @@ es:
       validated: Validado
       active: Activo
       ask_to_disable: Solicitud de desactivación
-      disabled: Desactivado
+      disabled: Inactivo
+  shipping_request:
+    statuses:
+      new: Nuevo
+      assigned: Asignado
+      in_progress: En progreso
+      delivered: Entregado
+    kinds:
+      ask_to_validate: Validar proveedor
   api:
     something_went_wrong: "Ups, algo salió mal. Por favor vuelve a intentarlo"
   ui:
     submit: Enviar
+    view_details: Ver detalles
   admin:
+    something_went_wrong: Ups, algo salió mal
+    history:
+      panel-title: Historial
+      not_user: se
     main_navbar:
       title: Administración
     sidebar:
       title: Plataforma de administración
       providers: Proveedores
       users: Usuarios
+      shipping_requests: Envíos
     users:
       new: Nuevo usuario
       edit: Editar usuario
       created: Usuario creado
       updated: Usuario actualizado
+    shipping_request:
+      title: Pedido
+    provider_office:
+      title: Oficina
     provider_profile:
       statuses:
         ask_to_validate: Validación
         ask_to_disable: Desactivación
+      history:
+        apply: aplicó como proveedor
+        ask_to_validate: verificó esta solicitud
+        generated: "generado:"
+      transition:
+        ask_to_validate: Solicitar validación
+        ask_to_validate_prompt: |
+          He verificado que esta solicitud es válida.
+          Un mensajero será notificado y hará una verificación física del proveedor
+        to:
+          ask_to_validate: Solicitud verificada. Se notificará a un mensajero para realizar la verificación física del proveedor
+        error:
+          office_required: Necesita tener una oficina
   devise:
     sessions:
       submit: Iniciar sesión
@@ -44,6 +75,7 @@ es:
   activerecord:
     models:
       user: Usuario
+      shipping_request: Solicitud de envío
     attributes:
       user:
         name: Nombre
@@ -52,6 +84,11 @@ es:
         password: Contraseña
         password_confirmation: Confirmación de contraseña
         remember_me: Recordarme
+      shipping_request:
+        created_at: Generada
+        address: Dirección
+        provider: Proveedor
+        telefono: Teléfono
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"
@@ -273,3 +310,4 @@ es:
       short: "%d de %b %H:%M"
       api: "%Y-%m-%d %H:%M %z"
       office_schedule: "%H:%M %z"
+      admin_full: "%Y-%m-%d %H:%M"

@@ -70,11 +70,17 @@ Rails.application.routes.draw do
              ]
   namespace :admin do
     resources :users
+    resources :shipping_requests
     resources :providers do
       collection do
         get "/by_status/:status",
             to: "providers#index",
             as: :by_status
+      end
+      member do
+        post "/transition/:predicate",
+             to: "providers#transition",
+             as: :transition
       end
     end
     root "providers#index"

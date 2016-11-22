@@ -1,33 +1,31 @@
 module Admin
   class ProvidersController < BaseController
+    include Admin::BaseController::Resourceable
+
+    self.resource_klass = ProviderProfile
+
+    before_action :find_current_resource, only: :transition
+
     def index
-      @current_status = params[:status] || ProviderProfile.status.values.first
-      @provider_profiles = providers_scope.with_status(@current_status)
+      @resource_status = params[:status] || resource_klass.status.values.first
+      @resource_collection = resource_scope.with_status(
+        @resource_status
+      ).includes(:provider_category).decorate
     end
 
-    private
-
-    def authorize_resource
-      if pundit_policy.send("#{action_name}?")
-        skip_authorization
-      else
-        raise NotAuthorizedError
-      end
+    def show
+      super
     end
 
-    def pundit_policy
-      Admin::ProviderProfilePolicy.new(
-        pundit_user,
-        ProviderProfile
+    def transition
+      transitor = ProviderProfile::TransitorService.new(
+        @current_resource,
+        params[:predicate]
+      ).perform!
+      redirect_to(
+        { action: :show, id: params[:id] },
+        transitor.flashes
       )
-    end
-
-    def providers_scope
-      skip_policy_scope
-      Admin::ProviderProfilePolicy::Scope.new(
-        pundit_user,
-        ProviderProfile
-      ).resolve
     end
   end
 end

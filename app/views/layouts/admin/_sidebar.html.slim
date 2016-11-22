@@ -1,15 +1,22 @@
 - if current_admin
-  h2 = t("admin.sidebar.title")
+  #affix
+    h2 = t("admin.sidebar.title")
 
-  ul.nav.nav-pills.nav-stacked
-    li class="#{'active' if controller_name == 'providers'}"
-      = link_to admin_providers_path do
-        .wrapper
-          span.glyphicon.glyphicon-inbox
-          = t("admin.sidebar.providers")
+    ul.nav.nav-pills.nav-stacked
+      li class="#{'active' if controller_name == 'providers'}"
+        = link_to admin_providers_path do
+          .wrapper
+            span.glyphicon.glyphicon-inbox
+            = t("admin.sidebar.providers")
 
-    li class="#{'active' if controller_name == 'users'}"
-      = link_to admin_users_path do
-        .wrapper
-          span.glyphicon.glyphicon-user
-          = t("admin.sidebar.users")
+      li class="#{'active' if controller_name == 'shipping_requests'}"
+        = link_to admin_shipping_requests_path do
+          .wrapper
+            span.glyphicon.glyphicon-export
+            = t("admin.sidebar.shipping_requests")
+
+      li class="#{'active' if controller_name == 'users'}"
+        = link_to admin_users_path do
+          .wrapper
+            span.glyphicon.glyphicon-user
+            = t("admin.sidebar.users")

@@ -55,5 +55,12 @@ FactoryGirl.define do
         "Personal natural"
       ].sample
     }
+
+    trait :with_office do
+      after(:create) do |provider_profile|
+        create :provider_office,
+               provider_profile: provider_profile
+      end
+    end
   end
 end

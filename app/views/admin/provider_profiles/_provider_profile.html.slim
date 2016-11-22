@@ -1,0 +1,23 @@
+.resource-wrapper.col-xs-4.col-sm-4.col-lg-3
+  .resource
+    .resource-head.row
+      .col-xs-5.resource-image-wrapper
+        = image_tag provider_profile.logotipo_url,
+                    class: "img-thumbnail"
+
+      .col-xs-7.resource-title-wrapper
+        .resource-title = provider_profile.nombre_establecimiento
+        .resource-subtitle = provider_profile.provider_category
+
+    .resource-body
+      - provider_profile.card_attributes.each do |attribute|
+        .resource-row
+          span.resource-label
+            = provider_profile.label_for(attribute)
+          span.resource-value
+            = provider_profile.send(attribute)
+
+    .resource-footer
+      = link_to t("ui.view_details"),
+                admin_provider_path(provider_profile),
+                class: "btn btn-default"

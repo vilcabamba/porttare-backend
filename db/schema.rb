@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161116043358) do
+ActiveRecord::Schema.define(version: 20161119225301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -193,7 +193,7 @@ ActiveRecord::Schema.define(version: 20161116043358) do
     t.time     "hora_de_cierre"
     t.integer  "inicio_de_labores"
     t.integer  "final_de_labores"
-    t.integer  "ciudad"
+    t.string   "ciudad"
   end
 
   add_index "provider_offices", ["enabled"], name: "index_provider_offices_on_enabled", using: :btree
@@ -229,6 +229,21 @@ ActiveRecord::Schema.define(version: 20161116043358) do
   add_index "provider_profiles", ["provider_category_id"], name: "index_provider_profiles_on_provider_category_id", using: :btree
   add_index "provider_profiles", ["status"], name: "index_provider_profiles_on_status", using: :btree
   add_index "provider_profiles", ["user_id"], name: "index_provider_profiles_on_user_id", using: :btree
+
+  create_table "shipping_requests", force: :cascade do |t|
+    t.integer  "resource_id",                        null: false
+    t.string   "resource_type",                      null: false
+    t.string   "kind",                               null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.string   "status",             default: "new", null: false
+    t.json     "address_attributes"
+    t.integer  "courier_profile_id"
+  end
+
+  add_index "shipping_requests", ["courier_profile_id"], name: "index_shipping_requests_on_courier_profile_id", using: :btree
+  add_index "shipping_requests", ["resource_id", "resource_type"], name: "index_shipping_requests_on_resource_id_and_resource_type", using: :btree
+  add_index "shipping_requests", ["status"], name: "index_shipping_requests_on_status", using: :btree
 
   create_table "user_locations", force: :cascade do |t|
     t.string   "lat",        null: false
@@ -269,6 +284,29 @@ ActiveRecord::Schema.define(version: 20161116043358) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
 
+  create_table "version_associations", force: :cascade do |t|
+    t.integer "version_id"
+    t.string  "foreign_key_name", null: false
+    t.integer "foreign_key_id"
+  end
+
+  add_index "version_associations", ["foreign_key_name", "foreign_key_id"], name: "index_version_associations_on_foreign_key", using: :btree
+  add_index "version_associations", ["version_id"], name: "index_version_associations_on_version_id", using: :btree
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",      null: false
+    t.integer  "item_id",        null: false
+    t.string   "event",          null: false
+    t.string   "whodunnit"
+    t.json     "object"
+    t.datetime "created_at"
+    t.json     "object_changes"
+    t.integer  "transaction_id"
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
+  add_index "versions", ["transaction_id"], name: "index_versions_on_transaction_id", using: :btree
+
   add_foreign_key "courier_profiles", "users"
   add_foreign_key "customer_addresses", "customer_profiles"
   add_foreign_key "customer_billing_addresses", "customer_profiles"
@@ -286,5 +324,6 @@ ActiveRecord::Schema.define(version: 20161116043358) do
   add_foreign_key "provider_offices", "provider_profiles"
   add_foreign_key "provider_profiles", "provider_categories"
   add_foreign_key "provider_profiles", "users"
+  add_foreign_key "shipping_requests", "courier_profiles"
   add_foreign_key "user_locations", "users"
 end

@@ -98,4 +98,16 @@ RSpec.describe Api::Provider::ProfilesController,
       ).to_not be_empty
     }
   end
+
+  describe "logs event as appliance rather than simple creation" do
+    it "logs custom event", versioning: true do
+      post_with_headers(
+        "/api/provider/profile",
+        attributes_for(:provider_profile)
+      )
+
+      version = PaperTrail::Version.last
+      expect(version.event).to eq("apply")
+    end
+  end
 end

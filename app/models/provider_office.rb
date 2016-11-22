@@ -13,7 +13,7 @@
 #  hora_de_cierre      :time
 #  inicio_de_labores   :integer
 #  final_de_labores    :integer
-#  ciudad              :integer
+#  ciudad              :string
 #
 
 require "porttare_backend/places"
@@ -22,8 +22,10 @@ class ProviderOffice < ActiveRecord::Base
   extend Enumerize
   extend IntegersEnumerable
 
-  CIUDADES = integers_enumerable(PorttareBackend::Places.all)
+  CIUDADES = PorttareBackend::Places.all
   DAY_NAMES = integers_enumerable(Date::ABBR_DAYNAMES.map(&:downcase))
+
+  has_paper_trail
 
   begin :relationships
     belongs_to :provider_profile
