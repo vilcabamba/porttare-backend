@@ -6,7 +6,7 @@
   padding-left: 0;
   padding-right: 0;
   background-color: $sidebarBGColor;
-  box-shadow: -1px 0 1px rgba(0,0,0,.2) inset;
+  box-shadow: -1px 0 1px $defaultShadowColor inset;
 
   .affix {
     top: 0;
