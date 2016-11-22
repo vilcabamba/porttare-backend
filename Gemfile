@@ -17,6 +17,7 @@ gem 'enumerize', '~> 2.0'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'draper', '~> 2.1'
 gem 'paper_trail', '~> 5.2'
+gem 'postgres_ext', '~> 3.0'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
