@@ -43,6 +43,8 @@
       // because value span has indenting
       padding-right: 5px;
 
+      overflow: auto;
+
       .resource-label {
         color: $gray-light;
         letter-spacing: -0.5px;
@@ -82,6 +84,7 @@
 
         img {
           max-height: 80px;
+          margin-bottom: 5px;
         }
       }
 
