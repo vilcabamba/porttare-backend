@@ -6,7 +6,7 @@ module Admin
 
     def index
       pundit_authorize
-      @resource_status = params[:status] || "all"
+      @resource_status = by_status || "all"
       @resource_collection = resource_scope.send(
         @resource_status
       ).decorate
@@ -35,6 +35,11 @@ module Admin
     end
 
     private
+
+    def by_status
+      # avoid pulling directly from params
+      (User::PRIVILEGES.map(&:to_s) & [params[:status]]).first
+    end
 
     def user_scopes
       [ "all" ] + User.privileges.values
