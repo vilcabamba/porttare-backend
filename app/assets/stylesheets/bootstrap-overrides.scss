@@ -29,16 +29,14 @@
   background-color: white;
 }
 
-.panel {
-  .panel-default {
-    border: 0;
-    box-shadow: 0 0 5px #dcdcdc;
+.panel.panel-default {
+  border: 0;
+  box-shadow: 0 0 5px #dcdcdc;
 
-    & > .panel-heading {
-      border-color: $brandYellowColor;
-      background-color: $brandYellowColor;
-      text-align: center;
-      color: white;
-    }
+  & > .panel-heading {
+    border-color: $brandYellowColor;
+    background-color: $brandYellowColor;
+    text-align: center;
+    color: white;
   }
 }
