@@ -2,12 +2,14 @@ module Admin
   class ProvidersController < BaseController
     include Admin::BaseController::Resourceable
 
-    self.resource_klass = ProviderProfile
+    self.resource_type = "ProviderProfile"
 
     before_action :find_current_resource, only: :transition
+    before_action :pundit_authorize, only: :transition
 
     def index
-      @resource_status = params[:status] || resource_klass.status.values.first
+      pundit_authorize
+      @resource_status = params[:status] || ProviderProfile.status.values.first
       @resource_collection = resource_scope.with_status(
         @resource_status
       ).includes(:provider_category).decorate
@@ -15,6 +17,7 @@ module Admin
 
     def show
       super
+      @resource_status = @current_resource.status
     end
 
     def transition

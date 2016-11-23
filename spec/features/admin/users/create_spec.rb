@@ -36,7 +36,7 @@ describe %q{
       }.to change{ User.count }.by(1)
 
       expect(page).to have_content(
-        I18n.t("admin.users.created")
+        I18n.t("admin.user.created")
       )
     }
   end
