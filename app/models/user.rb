@@ -41,7 +41,17 @@ class User < ActiveRecord::Base
   extend Enumerize
   include DeviseTokenAuth::Concerns::User # after devise
 
-  enumerize :privileges, in: PRIVILEGES, multiple: true
+  enumerize :privileges,
+            in: PRIVILEGES,
+            multiple: true
+
+  ##
+  # define a scope for each privilege
+  PRIVILEGES.each do |privilege|
+    scope privilege, -> {
+      where.overlap(privileges: [ privilege ])
+    }
+  end
 
   has_one :provider_profile
   has_one :courier_profile

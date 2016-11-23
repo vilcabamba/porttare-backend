@@ -28,9 +28,7 @@ module Api
       "hora_de_cierre":"00:00 +0000",
       "enabled":false,
       "final_de_labores":"sun",
-      "inicio_de_labores":"fri",
-      "localized_final_de_labores":"domingo",
-      "localized_inicio_de_labores":"viernes"
+      "inicio_de_labores":"fri"
     }
   ]
 }

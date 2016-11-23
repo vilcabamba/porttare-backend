@@ -1,4 +1,5 @@
 @import "admin/colors";
+@import "bootstrap/variables";
 
 .btn {
   border-radius: 0;
@@ -23,11 +24,16 @@
   }
 }
 
-.panel-default {
+.btn-danger {
+  color: $brand-danger;
+  background-color: white;
+}
+
+.panel.panel-default {
   border: 0;
   box-shadow: 0 0 5px #dcdcdc;
 
-  .panel-heading {
+  & > .panel-heading {
     border-color: $brandYellowColor;
     background-color: $brandYellowColor;
     text-align: center;

@@ -1,7 +1,9 @@
 @import "admin/colors";
 
 #main-sidebar {
+  padding-top: 60px; //main navbar
   position: absolute;
+  top: 0;
   height: 100%;
   padding-left: 0;
   padding-right: 0;

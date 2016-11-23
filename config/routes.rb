@@ -69,7 +69,13 @@ Rails.application.routes.draw do
                :passwords
              ]
   namespace :admin do
-    resources :users
+    resources :users do
+      collection do
+        get "/by_status/:status",
+            to: "users#index",
+            as: :by_status
+      end
+    end
     resources :shipping_requests
     resources :providers do
       collection do

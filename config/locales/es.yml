@@ -16,11 +16,17 @@ es:
       delivered: Entregado
     kinds:
       ask_to_validate: Validar proveedor
+  user:
+    privileges:
+      admin: Administrador
+      customer_service: Servicio al cliente
   api:
     something_went_wrong: "Ups, algo salió mal. Por favor vuelve a intentarlo"
   ui:
-    submit: Enviar
+    update: Actualizar
+    create: Crear
     view_details: Ver detalles
+    cancel: Cancelar
   admin:
     something_went_wrong: Ups, algo salió mal
     history:
@@ -36,8 +42,11 @@ es:
     users:
       new: Nuevo usuario
       edit: Editar usuario
+    user:
       created: Usuario creado
       updated: Usuario actualizado
+      privileges:
+        all: Todos
     shipping_request:
       title: Pedido
     provider_office:
@@ -71,7 +80,7 @@ es:
         invalid: Usuario o contraseña incorrectos
         unauthenticated: Por favor inicia sesión
   pundit:
-    not_authorized: No estás autorizado para hacer esto
+    not_authorized: No estás autorizado para hacer eso
   activerecord:
     models:
       user: Usuario

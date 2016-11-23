@@ -38,7 +38,7 @@ describe %q{
       expect(user.reload.name).to eq(attributes[:name])
 
       expect(page).to have_content(
-        I18n.t("admin.users.updated")
+        I18n.t("admin.user.updated")
       )
     }
   end

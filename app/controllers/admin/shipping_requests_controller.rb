@@ -2,13 +2,15 @@ module Admin
   class ShippingRequestsController < BaseController
     include Admin::BaseController::Resourceable
 
-    self.resource_klass = ShippingRequest
+    self.resource_type = "ShippingRequest"
 
     def index
+      pundit_authorize
     end
 
     def show
       super
+      @resource_status = @current_resource.status
     end
 
     private
