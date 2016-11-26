@@ -50,6 +50,7 @@ module Api
   "provider_profile":{
     "id":3,
     "ruc":"5184135690",
+    "status":"applied",
     "razon_social":"Bernal e Hijos",
     "nombre_establecimiento":"Ballesteros y Sosa",
     "actividad_economica":"writer",
