@@ -13,6 +13,7 @@ module Api
       self.resource_klass = ProviderProfile
 
       before_action :authenticate_api_auth_user!
+      skip_before_action :verify_provider_is_active
 
       api :POST,
           "/provider/profile",

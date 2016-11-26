@@ -8,6 +8,8 @@ es:
       active: Activo
       ask_to_disable: Solicitud de desactivación
       disabled: Inactivo
+    errors:
+      disabled: Perfil de proveedor deshabilitado
   shipping_request:
     statuses:
       new: Nuevo

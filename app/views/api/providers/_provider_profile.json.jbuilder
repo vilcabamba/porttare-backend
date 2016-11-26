@@ -4,6 +4,7 @@ json.extract!(
   provider_profile,
   :id,
   :ruc,
+  :status,
   :razon_social,
   :nombre_establecimiento,
   :actividad_economica,
