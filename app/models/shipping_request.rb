@@ -30,14 +30,24 @@ class ShippingRequest < ActiveRecord::Base
 
   has_paper_trail
 
-  enumerize :kind, in: KINDS
+  enumerize :kind,
+            in: KINDS,
+            i18n_scope: "shipping_request.kinds"
   enumerize :status,
             in: STATUSES,
             scope: true,
             i18n_scope: "shipping_request.statuses"
 
+  ##
+  # resource may be the provider we need to validate
+  # resource may be what we're delivering (customer_order)
   validates :resource,
             :kind,
             :status,
             presence: true
+
+  def provider_profile
+    # TODO this should be perhaps another relationship
+    resource
+  end
 end

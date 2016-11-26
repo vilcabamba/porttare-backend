@@ -19,6 +19,7 @@ module Api
         api :POST,
             "/customer/cart/checkout",
             "responds with full `customer_order`"
+        see "customer-cart-items#index", "Customer::Cart::Items#index for customer order serialization in response"
         param :deliver_at,
               Time,
               desc: "una orden puede ser entregada luego"
