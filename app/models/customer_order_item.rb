@@ -65,6 +65,16 @@ class CustomerOrderItem < ActiveRecord::Base
       end
     end
 
+    ##
+    # re-adds this customer order item to the cart
+    # including new attributes
+    def readd_from_attributes(parameters)
+      self.cantidad += parameters[:cantidad].to_i
+      if parameters[:observaciones].present?
+        self.observaciones += "\n" + parameters[:observaciones]
+      end
+    end
+
     def cache_provider_item_precio!
       update_attribute(
         :provider_item_precio,

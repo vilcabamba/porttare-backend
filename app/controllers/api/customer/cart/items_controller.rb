@@ -128,8 +128,21 @@ module Api
         end
 
         def new_api_resource
-          @api_resource =
-            @customer_order.order_items.new(resource_params)
+          @api_resource = existing_order_item.presence || new_order_item
+        end
+
+        def existing_order_item
+          @customer_order.order_items.find_by(
+            provider_item_id: params[:provider_item_id].to_i
+          ).tap do |api_resource|
+            if api_resource.present?
+              api_resource.readd_from_attributes resource_params
+            end
+          end
+        end
+
+        def new_order_item
+          @customer_order.order_items.new(resource_params)
         end
 
         def find_api_resource
