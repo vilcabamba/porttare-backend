@@ -31,7 +31,7 @@ RSpec.describe Api::Provider::ProfilesController,
 
       version = PaperTrail::Version.last
       expect(version.event).to eq("update")
-      expect(version.item).to eq(provider_profile)
+      expect(version.item).to eq(user.provider_profile)
     end
   end
 end
