@@ -6,7 +6,7 @@ module Api
       include Api::BaseController::Resourceable
 
       resource_description do
-        name "Provider::Profiles"
+        name "Provider::Profile"
         short "apply for a provider profile"
       end
 
