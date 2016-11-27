@@ -49,11 +49,11 @@ module Api
       end
 
       def find_api_resource
-        @api_resource = resource_scope.find(params[:id])
+        @api_resource ||= resource_scope.find(params[:id])
       end
 
       def new_api_resource
-        @api_resource = resource_scope.new(resource_params)
+        @api_resource ||= resource_scope.new(resource_params)
       end
 
       def resource_scope
