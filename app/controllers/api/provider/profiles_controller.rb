@@ -92,7 +92,7 @@ module Api
       api :PUT,
           "/provider/profile",
           "Update provider's profile"
-      see "provider_offices#create", "Provider::Offices#create for attributes for offices"
+      see "provider-offices#create", "Provider::Offices#create for attributes for offices"
       param_group :provider_profile
       def update
         @api_resource = resource_scope.first
