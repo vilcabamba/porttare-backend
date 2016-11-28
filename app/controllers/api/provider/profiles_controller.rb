@@ -6,46 +6,51 @@ module Api
       include Api::BaseController::Resourceable
 
       resource_description do
-        name "Provider::Profiles"
+        name "Provider::Profile"
         short "apply for a provider profile"
       end
 
       self.resource_klass = ProviderProfile
 
       before_action :authenticate_api_auth_user!
-      skip_before_action :verify_provider_is_active
+      skip_before_action :verify_provider_is_active,
+                         only: :create
+
+      def_param_group :provider_profile do
+        param :ruc, String, required: true
+        param :razon_social, String, required: true
+        param :nombre_establecimiento,
+              String,
+              required: true,
+              desc: "AKA. _nombre comercial_"
+        param :actividad_economica, String
+        param :representante_legal, String, required: true
+        param :telefono, String, required: true
+        param :email, String, required: true
+        param :website, String
+        param :formas_de_pago,
+              Array,
+              required: true,
+              in: ProviderProfile::FORMAS_DE_PAGO,
+              desc: "an array of options. options must be within: #{ProviderProfile::FORMAS_DE_PAGO.join(", ")}"
+        param :logotipo, File
+        param :banco_nombre, String
+        param :banco_numero_cuenta, String
+        param :banco_tipo_cuenta, ProviderProfile::BANCO_TIPOS_CUENTA
+        param :offices_attributes,
+              Hash,
+              desc: "provider's offices (branches). See provider::offices endpoint for attributes"
+        param :facebook_handle, String
+        param :twitter_handle, String
+        param :instagram_handle, String
+        param :youtube_handle, String
+      end
 
       api :POST,
           "/provider/profile",
           "Submit a provider profile application. Response includes the errors if any."
       see "provider-offices#create", "Provider::Offices#create for attributes for offices"
-      param :ruc, String, required: true
-      param :razon_social, String, required: true
-      param :nombre_establecimiento,
-            String,
-            required: true,
-            desc: "AKA. _nombre comercial_"
-      param :actividad_economica, String
-      param :representante_legal, String, required: true
-      param :telefono, String, required: true
-      param :email, String, required: true
-      param :website, String
-      param :formas_de_pago,
-            Array,
-            required: true,
-            in: ProviderProfile::FORMAS_DE_PAGO,
-            desc: "an array of options. options must be within: #{ProviderProfile::FORMAS_DE_PAGO.join(", ")}"
-      param :logotipo, File
-      param :banco_nombre, String
-      param :banco_numero_cuenta, String
-      param :banco_tipo_cuenta, ProviderProfile::BANCO_TIPOS_CUENTA
-      param :offices_attributes,
-            Hash,
-            desc: "provider's offices (branches). See provider::offices endpoint for attributes"
-      param :facebook_handle, String
-      param :twitter_handle, String
-      param :instagram_handle, String
-      param :youtube_handle, String
+      param_group :provider_profile
       example %q{{
   "provider_profile":{
     "id":3,
@@ -81,6 +86,16 @@ module Api
   }
 }}
       def create
+        super
+      end
+
+      api :PUT,
+          "/provider/profile",
+          "Update provider's profile"
+      see "provider-offices#create", "Provider::Offices#create for attributes for offices"
+      param_group :provider_profile
+      def update
+        @api_resource = resource_scope.first
         super
       end
 

@@ -26,7 +26,8 @@ Rails.application.routes.draw do
     end
 
     namespace :provider do
-      resource :profile, only: :create
+      resource :profile,
+               only: [:create, :update]
       resources :items,
                 only: [:index, :create, :update, :destroy]
       resources :offices,

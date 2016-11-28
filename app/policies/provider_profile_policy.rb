@@ -12,6 +12,10 @@ class ProviderProfilePolicy < ApplicationPolicy
     user.provider_profile.nil?
   end
 
+  def update?
+    user.provider_profile.present?
+  end
+
   def permitted_attributes
     # non-allowed attributes
     # tipo_contribuyente

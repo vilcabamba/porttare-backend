@@ -4,7 +4,7 @@ module Api
       include Api::BaseController::Resourceable
 
       resource_description do
-        name "Courier::Profiles"
+        name "Courier::Profile"
         short "apply for a courier profile"
       end
 
