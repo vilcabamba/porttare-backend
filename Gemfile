@@ -18,6 +18,7 @@ gem 'bootstrap-sass', '~> 3.3.7'
 gem 'draper', '~> 2.1'
 gem 'paper_trail', '~> 5.2'
 gem 'postgres_ext', '~> 3.0'
+gem 'dotenv-rails', '~> 2.1'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -64,6 +65,15 @@ group :development do
   gem 'letter_opener'
   gem 'annotate', '~> 2.7'
   gem 'simplecov', '~> 0.12'
+end
+
+group :deployment do
+  gem 'capistrano', '~> 3.6'
+  gem 'capistrano-rbenv', '~> 2.0'
+  gem 'capistrano-bundler', '~> 1.2'
+  gem 'capistrano-rails', '~> 1.2'
+  gem 'capistrano-passenger', '~> 0.2'
+  gem 'slackistrano', '~> 3.1', require: false
 end
 
 group :test do

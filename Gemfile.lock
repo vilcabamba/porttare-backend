@@ -40,6 +40,8 @@ GEM
     airbrake (4.3.8)
       builder
       multi_json
+    airbrussh (1.1.1)
+      sshkit (>= 1.6.1, != 1.7.0)
     annotate (2.7.1)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 12.0)
@@ -59,6 +61,24 @@ GEM
     bullet (5.4.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.10.0)
+    capistrano (3.6.1)
+      airbrussh (>= 1.0.0)
+      capistrano-harrow
+      i18n
+      rake (>= 10.0.0)
+      sshkit (>= 1.9.0)
+    capistrano-bundler (1.2.0)
+      capistrano (~> 3.1)
+      sshkit (~> 1.2)
+    capistrano-harrow (0.5.3)
+    capistrano-passenger (0.2.0)
+      capistrano (~> 3.0)
+    capistrano-rails (1.2.0)
+      capistrano (~> 3.1)
+      capistrano-bundler (~> 1.1)
+    capistrano-rbenv (2.0.3)
+      capistrano (~> 3.1)
+      sshkit (~> 1.3)
     capybara (2.8.1)
       addressable
       mime-types (>= 1.16)
@@ -101,6 +121,10 @@ GEM
     docile (1.1.5)
     domain_name (0.5.20160826)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.1.1)
+    dotenv-rails (2.1.1)
+      dotenv (= 2.1.1)
+      railties (>= 4.0, < 5.1)
     draper (2.1.0)
       actionpack (>= 3.0)
       activemodel (>= 3.0)
@@ -166,6 +190,9 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (3.2.0)
     netrc (0.11.0)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
@@ -282,6 +309,8 @@ GEM
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
     sixarm_ruby_unaccent (1.1.1)
+    slackistrano (3.1.0)
+      capistrano (>= 3.5.0)
     slim (3.0.3)
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
@@ -294,6 +323,9 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    sshkit (1.11.4)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
     temple (0.7.5)
     thor (0.19.1)
     thread_safe (0.3.5)
@@ -327,6 +359,11 @@ DEPENDENCIES
   apipie-rails
   bootstrap-sass (~> 3.3.7)
   bullet (~> 5.4)
+  capistrano (~> 3.6)
+  capistrano-bundler (~> 1.2)
+  capistrano-passenger (~> 0.2)
+  capistrano-rails (~> 1.2)
+  capistrano-rbenv (~> 2.0)
   capybara (~> 2.8)
   carrierwave (~> 0.11)
   cloudinary (~> 1.2)
@@ -334,6 +371,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   database_cleaner
   devise_token_auth (~> 0.1)
+  dotenv-rails (~> 2.1)
   draper (~> 2.1)
   enumerize (~> 2.0)
   factory_girl_rails (~> 4.7)
@@ -359,6 +397,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   simplecov (~> 0.12)
+  slackistrano (~> 3.1)
   slim (~> 3.0)
   spring
   turbolinks
@@ -366,4 +405,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.13.0
+   1.13.6

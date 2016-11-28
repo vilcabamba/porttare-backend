@@ -79,4 +79,42 @@ RSpec.describe Api::Customer::Cart::ItemsController,
       ).to eq(subtotal.cents)
     end
   end
+
+  describe "add an item which already is in the cart" do
+    let(:user) { create :user, :customer }
+    let(:customer_order) {
+      create :customer_order,
+             customer_profile: user.customer_profile
+    }
+    let(:existing_item) {
+      create :customer_order_item,
+             cantidad: 3,
+             customer_order: customer_order
+    }
+    let(:posted_attributes) {
+      attributes_for :customer_order_item,
+                     provider_item_id: existing_item.provider_item_id
+    }
+
+    before do
+      existing_item
+      expect {
+        post_with_headers "/api/customer/cart/items", posted_attributes
+      }.to_not change(CustomerOrderItem, :count)
+    end
+
+    it "updates customer order item" do
+      existing_item.reload
+
+      expect(
+        existing_item.cantidad
+      ).to eq(3 + posted_attributes[:cantidad])
+
+      expect(
+        existing_item.observaciones
+      ).to include(
+        "\n" + posted_attributes[:observaciones]
+      )
+    end
+  end
 end

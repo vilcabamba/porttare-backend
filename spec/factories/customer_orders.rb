@@ -6,7 +6,7 @@
 #  status                              :integer          default(0), not null
 #  subtotal_items_cents                :integer          default(0), not null
 #  subtotal_items_currency             :string           default("USD"), not null
-#  customer_profile_id                 :integer
+#  customer_profile_id                 :integer          not null
 #  created_at                          :datetime         not null
 #  updated_at                          :datetime         not null
 #  deliver_at                          :datetime
