@@ -1,6 +1,6 @@
 server 'demo-backend.moviggo.noggalito.com', user: 'demo-porttare', roles: %w{app db web}
 
-set :deploy_to, '/home/demo-porttare/porttare-backend'
+set :deploy_to, '/home/demo-porttare/demo-porttare-backend'
 set :rbenv_path, '/home/demo-porttare/.rbenv'
 
 # role-based syntax
