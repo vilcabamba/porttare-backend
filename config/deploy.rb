@@ -4,7 +4,10 @@ lock '3.6.1'
 set :application, 'porttare-backend'
 set :repo_url, 'git@github.com:noggalito/porttare-backend.git'
 
-set :slack_webhook, 'https://hooks.slack.com/services/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'
+set :slackistrano, {
+  channel: '#porttare',
+  webhook: 'https://hooks.slack.com/services/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'
+}
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
