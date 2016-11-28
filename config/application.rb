@@ -7,6 +7,8 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 Bundler.require(:default, :api)
 
+Dotenv::Railtie.load
+
 module PorttareBackend
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
