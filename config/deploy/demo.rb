@@ -1,6 +1,6 @@
-server 'demo-backend.noggalito.moviggo.com', user: 'macool', roles: %w{app db web}
+server 'demo-backend.moviggo.noggalito.com', user: 'demo-porttare', roles: %w{app db web}
 
-set :deploy_to, '/home/macool/demo-porttare-backend'
+set :deploy_to, '/home/demo-porttare/porttare-backend'
 
 # role-based syntax
 # ==================
