@@ -25,7 +25,8 @@ end
 # set host on carrierwave so that it
 # responds with a full url for resources
 CarrierWave.configure do |config|
-  host_url = "//" + Rails.application.secrets.host
+  schema = Rails.application.config.force_ssl ? "https:" : "http:"
+  host_url = schema + "//" + Rails.application.secrets.host
   if Rails.application.secrets.port.present?
     host_url += ":" + Rails.application.secrets.port.to_s
   end
