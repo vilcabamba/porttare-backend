@@ -66,6 +66,15 @@ group :development do
   gem 'simplecov', '~> 0.12'
 end
 
+group :deployment do
+  gem 'capistrano', '~> 3.6'
+  gem 'capistrano-rbenv', '~> 2.0'
+  gem 'capistrano-bundler', '~> 1.2'
+  gem 'capistrano-rails', '~> 1.2'
+  gem 'capistrano-passenger', '~> 0.2'
+  gem 'slackistrano', '~> 3.1', require: false
+end
+
 group :test do
   gem 'codeclimate-test-reporter', '~> 0.6', require: nil
 end
