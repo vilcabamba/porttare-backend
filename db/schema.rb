@@ -177,6 +177,7 @@ ActiveRecord::Schema.define(version: 20161130005942) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.datetime "deleted_at"
+    t.integer  "cantidad",            default: 0
   end
 
   add_index "provider_items", ["deleted_at"], name: "index_provider_items_on_deleted_at", using: :btree
