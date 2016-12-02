@@ -69,7 +69,8 @@ module Api
           name:             auth_hash['name'],
           email:            auth_hash['email'],
           fecha_nacimiento: fecha_nacimiento,
-          image:            auth_hash['picture']['data']['url']
+          image:            auth_hash['picture']['data']['url'],
+          credentials:      { access_token: params[:access_token] }
         )
       end
 
