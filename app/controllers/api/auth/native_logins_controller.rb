@@ -6,6 +6,8 @@ module Api
         short "login via oauth in devices"
       end
 
+      skip_before_action :verify_authenticity_token
+
       def create
         if params[:provider] == "facebook"
           create_from_facebook!
@@ -14,6 +16,10 @@ module Api
       end
 
       private
+
+      def devise_mapping
+        Devise.mappings[:api_auth_user]
+      end
 
       def create_from_facebook!
         get_resource_from_auth_hash
@@ -25,7 +31,7 @@ module Api
           @resource.skip_confirmation! # don't send confirmation email
         end
 
-        sign_in(:user, @resource, store: false, bypass: false)
+        sign_in(:api_auth_user, @resource, store: false, bypass: false)
 
         @resource.save!
       end
