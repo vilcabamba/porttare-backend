@@ -6,7 +6,7 @@ RSpec.describe Api::Users::AccountsController,
   before { login_as user }
 
   let(:response_user) {
-    JSON.parse(response.body).fetch("user")
+    JSON.parse(response.body).fetch("data")
   }
 
   describe "update my info" do
