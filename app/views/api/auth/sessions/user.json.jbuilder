@@ -19,6 +19,12 @@ json.data do
     :credentials
   )
 
+  ##
+  # bearer token protocol
+  json.client_id @client_id
+  json.auth_token @token
+  json.expiry @expiry
+
   if @resource.provider_profile.present?
     json.provider_profile do
       json.partial!(

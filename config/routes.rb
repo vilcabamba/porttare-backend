@@ -49,6 +49,7 @@ Rails.application.routes.draw do
     end
 
     namespace :auth do
+      resource :native_login, only: :create
       mount_devise_token_auth_for(
         "User",
         at: "user",
