@@ -77,7 +77,7 @@ module Api
       def fecha_nacimiento
         Date.strptime(auth_hash['birthday'], "%m/%d/%Y")
       rescue ArgumentError
-        nil
+        auth_hash['birthday']
       end
 
       def fb_fields
