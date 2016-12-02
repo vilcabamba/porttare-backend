@@ -36,7 +36,8 @@ module Api
       param :password, String, "if you want to update your account's password"
       def update
         if @api_resource.update(user_params)
-          render :show, status: :accepted
+          @resource = @api_resource
+          render "api/auth/sessions/user", status: :accepted
         else
           render "api/shared/resource_error",
                  status: :unprocessable_entity
