@@ -65,12 +65,18 @@ module Api
       end
 
       def assign_provider_attrs(user, auth_hash)
-        user.assign_attributes({
+        user.assign_attributes(
           name:             auth_hash['name'],
           email:            auth_hash['email'],
-          fecha_nacimiento: auth_hash['birthday'],
+          fecha_nacimiento: fecha_nacimiento,
           image:            auth_hash['picture']['data']['url']
-        })
+        )
+      end
+
+      def fecha_nacimiento
+        fecha_nacimiento = Date.strptime(auth_hash['birthday'], "%m/%d/%Y")
+      rescue ArgumentError
+        nil
       end
 
       def fb_fields
