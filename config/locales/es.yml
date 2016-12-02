@@ -69,7 +69,7 @@ es:
         to:
           ask_to_validate: Solicitud verificada. Se notificará a un mensajero para realizar la verificación física del proveedor
         error:
-          office_required: Necesita tener una oficina
+          office_required: Necesita tener una oficina con una dirección a donde enviaremos un mensajero para validar al proveedor
   devise:
     sessions:
       submit: Iniciar sesión
