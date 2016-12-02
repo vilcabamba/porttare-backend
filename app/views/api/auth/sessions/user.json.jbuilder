@@ -5,18 +5,9 @@ end
 json.data do
   json.type @resource.class.name.parameterize
 
-  json.extract!(
-    @resource,
-    :id,
-    :provider,
-    :uid,
-    :name,
-    :nickname,
-    :image,
-    :custom_image_url,
-    :email,
-    :info,
-    :credentials
+  json.partial!(
+    "api/users/accounts/user",
+    user: @resource
   )
 
   ##
