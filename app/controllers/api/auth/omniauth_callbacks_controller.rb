@@ -17,6 +17,7 @@ module Api
         param :provider, String, required: true
         param :auth_origin_url, String, required: true
       end
+      # TODO save birthday
 
       protected
 
