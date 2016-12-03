@@ -75,7 +75,7 @@ module Api
       end
 
       def fecha_nacimiento
-        Date.strptime(auth_hash['birthday'], "%m/%d/%Y")
+        Date.strptime(auth_hash['birthday'].to_s, "%m/%d/%Y")
       rescue ArgumentError
         auth_hash['birthday']
       end
