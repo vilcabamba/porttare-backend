@@ -7,6 +7,12 @@ module Api
         cattr_accessor :resource_klass
       end
 
+      def show
+        find_api_resource
+        pundit_authorize_resource
+        render resource_template
+      end
+
       def create
         new_api_resource
         pundit_authorize_resource
