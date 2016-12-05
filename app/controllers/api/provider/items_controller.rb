@@ -16,30 +16,40 @@ module Api
       api :GET,
           "/provider/items",
           "Lists a provider's items"
+      see "provider-items#show", "provider::items#show for provider item in response"
       desc "item's price is described in cents"
       example %q{{
   "provider_items":[
-    {
-      "id":1,
-      "titulo":"Rustic Silk Pants",
-      "descripcion":"data-warehouse 4th generación Orígenes",
-      "unidad_medida":"volumen",
-      "precio_cents":4079,
-      "volumen":"798",
-      "peso":"986 kg",
-      "observaciones":"Marfa 90's xoxo shoreditch. Selvage butcher trust fund. Pickled polaroid echo hammock.\nKickstarter stumptown gastropub. Ramps chambray letterpress. Etsy ramps sustainable selfies tousled.\nPhoto booth loko chambray art party chillwave umami street tilde. Truffaut hammock knausgaard. Cronut messenger bag banh mi bushwick.",
-      "created_at":"2016-08-17T17:21:04.569-05:00",
-      "updated_at":"2016-08-17T17:21:04.569-05:00",
-      "imagenes":[
-        {
-          "id":1,
-          "imagen_url":"https://robohash.org/aliquamdelenitiquisquam.png?size=50x50&set=set1"
-        }
-      ]
-    }
+    { ... }, { ... }
   ]
 }}
       def index
+        super
+      end
+
+      api :GET, "/provider/items:id", "get a provider's item"
+      param :id, Integer, required: true
+      example %q{{
+  "provider_item":{
+    "id":1,
+    "titulo":"Ergonomic Granite Gloves",
+    "descripcion":"utilización ejecutiva Pre-emptivo",
+    "unidad_medida":"peso",
+    "precio_cents":1196,
+    "volumen":"653",
+    "peso":"499 kg",
+    "observaciones":"Fanny pack single-origin coffee schlitz sriracha tofu +1 chartreuse fashion axe.",
+    "created_at":"2016-12-05T07:18:10.702-05:00",
+    "updated_at":"2016-12-05T07:18:10.702-05:00",
+    "imagenes":[
+      {
+        "id":1,
+        "imagen_url":"https://robohash.org/aliquamdelenitiquisquam.png?size=50x50&set=set1"
+      }
+    ]
+  }
+}}
+      def show
         super
       end
 

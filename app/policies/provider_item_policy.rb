@@ -18,6 +18,10 @@ class ProviderItemPolicy < ApplicationPolicy
     is_provider?
   end
 
+  def show?
+    is_provider?
+  end
+
   def create?
     is_provider?
   end
