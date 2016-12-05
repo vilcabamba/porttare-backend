@@ -31,7 +31,7 @@ module Api
       param :name, String
       param :email, String
       param :ciudad, String
-      param :custom_image, String
+      param :custom_image, File
       param :fecha_nacimiento, Date
       param :password, String, "if you want to update your account's password"
       def update
