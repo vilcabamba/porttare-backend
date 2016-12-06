@@ -104,6 +104,24 @@ class CustomerOrder < ActiveRecord::Base
     )
   end
 
+  def provider_profiles
+    ProviderProfile.where(
+      id: provider_items.pluck(:provider_profile_id)
+    )
+  end
+
+  def provider_items
+    ProviderItem.where(
+      id: order_items.pluck(:provider_item_id)
+    )
+  end
+
+  def order_items_by_provider(provider_profile)
+    order_items.select do |order_item|
+      order_item.provider_item.provider_profile_id == provider_profile.id
+    end
+  end
+
   private
 
   ##

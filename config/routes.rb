@@ -31,11 +31,11 @@ Rails.application.routes.draw do
       resources :items,
                 only: [:index, :show, :create, :update, :destroy]
       resources :offices,
-                only: [:index, :create, :update, :show]#, :destroy]
+                only: [:index, :show, :create, :update]#, :destroy]
       resources :clients,
                 only: [:index, :create, :update, :destroy]
       resources :dispatchers,
-                only: [:index, :create, :update, :destroy]
+                only: [:index, :show, :create, :update, :destroy]
     end
 
     namespace :courier do

@@ -52,7 +52,8 @@ RSpec.describe Api::Customer::Cart::ItemsController,
     end
 
     it "should render whole order" do
-      customer_order_item = customer_order["customer_order_items"].first
+      provider_profile = customer_order["provider_profiles"].first
+      customer_order_item = provider_profile["customer_order_items"].first
 
       expect(
         customer_order

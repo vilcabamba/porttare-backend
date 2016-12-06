@@ -16,11 +16,11 @@ json.customer_order do
       l(@customer_order.deliver_at, format: :api)
     ) if @customer_order.deliver_at.present?
 
-    json.customer_order_items do
+    json.provider_profiles do
       json.array!(
-        @customer_order.order_items,
-        partial: "api/customer/cart/customer_order_item",
-        as: :customer_order_item
+        @customer_order.provider_profiles,
+        partial: "api/customer/cart/provider_profiles",
+        as: :provider_profile
       )
     end
   else

@@ -18,19 +18,33 @@ module Api
       api :GET,
           "/provider/dispatchers",
           "Lists provider's dispatchers"
+      see "provider-dispatchers#show", "Provider::Dispatchers#show for full dispatcher response"
       example %q{{
-        "provider_dispatchers":[{
-          "id":5,
-          "email":"daron.gulgowski@ebertraynor.org",
-          "provider_office_id":5,
-          "user":{
-            "id":7,
-            "name":"Beatriz Soto Valles",
-            "image":"https://robohash.org/architectoanimiquos.png?size=300x300&set=set1"
-          }
-        }]
+        "provider_dispatchers":[
+          {...}
+        ]
       }}
       def index
+        super
+      end
+
+      api :GET,
+          "/provider/dispatchers/:id",
+          "Get a provider's dispatcher. Includes user in response if exists"
+      param :id, Integer, required: true
+      example %q{
+  "provider_dispatcher": {
+    "id":5,
+    "email":"daron.gulgowski@ebertraynor.org",
+    "provider_office_id":5,
+    "user":{
+      "id":7,
+      "name":"Beatriz Soto Valles",
+      "image":"https://robohash.org/architectoanimiquos.png?size=300x300&set=set1"
+    }
+  }
+}
+      def show
         super
       end
 
