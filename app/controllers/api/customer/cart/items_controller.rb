@@ -21,7 +21,7 @@ module Api
         api :GET,
             "/customer/cart",
             "Get current cart"
-        desc "Returns current customer order or empty if there's no customer order. Each order item has a cached price which should be used as provider's item may change it's price"
+        desc "Returns current customer order or empty if there's no customer order. Each order item has a cached price which should be used as provider's item may change it's price. Customer order items are grouped by the provider who offers them."
         example %q{{
   "customer_order":{
     "id":1,
@@ -32,25 +32,41 @@ module Api
     "subtotal_items_cents":44811,
     "customer_address_id":1,
     "customer_billing_address_id":2,
-    "customer_order_items":[
-      {
-        "id":2,
-        "cantidad":1,
-        "provider_item_precio_cents":4979,
-        "observaciones":"Banjo microdosing poutine bespoke truffaut. Ugh gastropub chillwave keytar sriracha.",
+    "provider_profiles":[{
+      "id":1,
+      "ruc":"6938433417",
+      "status":"applied",
+      "razon_social":"Suárez, Grijalva y Méndez Asociados",
+      "nombre_establecimiento":"Meza y Ochoa",
+      "actividad_economica":"librarian",
+      "representante_legal":"Sr. María Teresa Garica Saiz",
+      "telefono":"967273751",
+      "email":"duncan@bruentorphy.com",
+      "website":"http://koelpin.com/myrl.greenholt",
+      "formas_de_pago":["tarjeta_credito"],
+      "logotipo_url":null,
+      "facebook_handle":"faustino",
+      "twitter_handle":"renee",
+      "instagram_handle":"foster",
+      "youtube_handle":"isac.metz",
+      "customer_order_items":[{
+        "id":1,
+        "cantidad":7,
+        "observaciones":"Wolf offal drinking taxidermy tousled farm-to-table. Distillery fixie sustainable small batch wayfarers paleo.",
+        "provider_item_precio_cents":6585,
         "provider_item":{
           "id":1,
-          "titulo":"Synergistic Iron Hat",
-          "descripcion":"utilización tangible Descentralizado",
-          "unidad_medida":"unidades",
-          "precio_cents":4979,
-          "volumen":"945",
-          "peso":"423 kg",
-          "observaciones":"Sartorial umami listicle normcore wes anderson",
+          "titulo":"Durable Granite Car",
+          "descripcion":"Soporte orientada a soluciones Versatil",
+          "unidad_medida":"peso",
+          "precio_cents":6585,
+          "volumen":"530",
+          "peso":"660 kg",
+          "observaciones":"Forage small batch you probably haven't heard of them.",
           "imagenes":[]
         }
-      }
-    ]
+      }]
+    }]
   }
 }}
         def index

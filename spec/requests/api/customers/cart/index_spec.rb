@@ -72,7 +72,14 @@ RSpec.describe Api::Customer::Cart::ItemsController,
         response_order["subtotal_items_cents"]
       ).to eq(customer_order.subtotal_items.cents)
 
-      response_item = response_order["customer_order_items"].first
+      response_provider = response_order["provider_profiles"].first
+      expect(
+        response_provider["nombre_establecimiento"]
+      ).to eq(
+        order_item_1.provider_item.provider_profile.nombre_establecimiento
+      )
+
+      response_item = response_provider["customer_order_items"].first
       expect(
         response_item["provider_item_precio_cents"]
       ).to eq(order_item_1.provider_item.precio.cents)
