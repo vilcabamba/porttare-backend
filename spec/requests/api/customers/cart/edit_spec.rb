@@ -41,7 +41,8 @@ RSpec.describe Api::Customer::Cart::ItemsController,
   }
 
   it "order item gets updated" do
-    response_order_item = response_order["customer_order_items"].detect do |oi|
+    provider_profile = response_order["provider_profiles"].first
+    response_order_item = provider_profile["customer_order_items"].detect do |oi|
       oi["id"] == order_item_1.id
     end
 
