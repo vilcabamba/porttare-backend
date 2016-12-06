@@ -49,18 +49,19 @@ module Api
   "provider_dispatcher": {
     "id":5,
     "email":"daron.gulgowski@ebertraynor.org",
+    "provider_office_id":5,
     "user":{
       "id":7,
       "name":"Beatriz Soto Valles",
       "image":"https://robohash.org/architectoanimiquos.png?size=300x300&set=set1"
     },
     "provider_office":{
-      "id":1,
+      "id":5,
       "direccion":"Bajada Lucia s/n.",
       "ciudad":"Quito",
       "telefono":"912968346",
       "final_de_labores":"mon",
-      "inicio_de_labores":"mon",
+      "inicio_de_labores":"thu",
       "hora_de_apertura":"15:00 +0000",
       "hora_de_cierre":"00:00 +0000"
     }
