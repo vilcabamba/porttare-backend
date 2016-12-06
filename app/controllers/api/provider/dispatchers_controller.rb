@@ -19,9 +19,21 @@ module Api
           "/provider/dispatchers",
           "Lists provider's dispatchers"
       see "provider-dispatchers#show", "Provider::Dispatchers#show for full dispatcher response"
+      description "**NB** provider dispatcher in response doesn't include provider office as the rest of endpoints. It only includes the provider office id instead."
       example %q{{
         "provider_dispatchers":[
-          {...}
+          {
+            "provider_dispatcher": {
+              "id":5,
+              "email":"daron.gulgowski@ebertraynor.org",
+              "provider_office_id":5,
+              "user":{
+                "id":7,
+                "name":"Beatriz Soto Valles",
+                "image":"https://robohash.org/architectoanimiquos.png?size=300x300&set=set1"
+              }
+            }
+          }
         ]
       }}
       def index
@@ -30,17 +42,27 @@ module Api
 
       api :GET,
           "/provider/dispatchers/:id",
-          "Get a provider's dispatcher. Includes user in response if exists"
+          "Get a provider's dispatcher"
+      description "Includes provider office in response. Includes user in response if exists"
       param :id, Integer, required: true
       example %q{
   "provider_dispatcher": {
     "id":5,
     "email":"daron.gulgowski@ebertraynor.org",
-    "provider_office_id":5,
     "user":{
       "id":7,
       "name":"Beatriz Soto Valles",
       "image":"https://robohash.org/architectoanimiquos.png?size=300x300&set=set1"
+    },
+    "provider_office":{
+      "id":1,
+      "direccion":"Bajada Lucia s/n.",
+      "ciudad":"Quito",
+      "telefono":"912968346",
+      "final_de_labores":"mon",
+      "inicio_de_labores":"mon",
+      "hora_de_apertura":"15:00 +0000",
+      "hora_de_cierre":"00:00 +0000"
     }
   }
 }
@@ -56,6 +78,7 @@ module Api
       api :POST,
           "/provider/dispatchers",
           "Create a provider dispatcher"
+      see "provider-dispatchers#show", "Provider::Dispatchers#show for full dispatcher response"
       param_group :provider_dispatcher
       def create
         super
@@ -64,6 +87,7 @@ module Api
       api :PUT,
           "/provider/dispatchers/:id",
           "Update a provider's dispatcher"
+      see "provider-dispatchers#show", "Provider::Dispatchers#show for full dispatcher response"
       param :id,
             Integer,
             required: true,
