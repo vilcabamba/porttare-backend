@@ -43,6 +43,8 @@ class ProviderItemPolicy < ApplicationPolicy
       :volumen,
       :peso,
       :observaciones,
+      :cantidad,
+      :en_stock,
       imagenes_attributes: [
         :id,
         :imagen,

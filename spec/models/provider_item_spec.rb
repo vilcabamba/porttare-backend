@@ -15,6 +15,8 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  deleted_at          :datetime
+#  cantidad            :integer          default(0)
+#  en_stock            :boolean
 #
 
 require 'rails_helper'

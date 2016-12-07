@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161130005942) do
+ActiveRecord::Schema.define(version: 20161202222427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -177,9 +177,12 @@ ActiveRecord::Schema.define(version: 20161130005942) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.datetime "deleted_at"
+    t.integer  "cantidad",            default: 0
+    t.boolean  "en_stock"
   end
 
   add_index "provider_items", ["deleted_at"], name: "index_provider_items_on_deleted_at", using: :btree
+  add_index "provider_items", ["en_stock"], name: "index_provider_items_on_en_stock", using: :btree
   add_index "provider_items", ["provider_profile_id"], name: "index_provider_items_on_provider_profile_id", using: :btree
 
   create_table "provider_offices", force: :cascade do |t|

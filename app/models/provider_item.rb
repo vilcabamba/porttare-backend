@@ -15,6 +15,8 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  deleted_at          :datetime
+#  cantidad            :integer          default(0)
+#  en_stock            :boolean
 #
 
 class ProviderItem < ActiveRecord::Base
@@ -34,9 +36,11 @@ class ProviderItem < ActiveRecord::Base
 
   begin :validations
     validates :titulo,
+              :cantidad,
               presence: true
     validates :precio,
-              numericality: { greater_than: 0 }
+              :cantidad,
+              numericality: { greater_than_or_equal_to: 0 }
     validates :unidad_medida,
               inclusion: { in: UNIDADES_MEDIDA }
   end
