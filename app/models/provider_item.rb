@@ -39,7 +39,8 @@ class ProviderItem < ActiveRecord::Base
               :cantidad,
               presence: true
     validates :precio,
-              :cantidad,
+              numericality: { greater_than: 0 }
+    validates :cantidad,
               numericality: { greater_than_or_equal_to: 0 }
     validates :unidad_medida,
               inclusion: { in: UNIDADES_MEDIDA }
