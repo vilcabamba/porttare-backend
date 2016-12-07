@@ -49,6 +49,7 @@ es:
     user:
       created: Usuario creado
       updated: Usuario actualizado
+      self_privileges: No puedes editar tus propios privilegios - Es probable que quedes fuera del sistema
       privileges:
         all: Todos
     shipping_request:
@@ -97,6 +98,7 @@ es:
         password: Contraseña
         password_confirmation: Confirmación de contraseña
         remember_me: Recordarme
+        privileges: Privilegios
       shipping_request:
         created_at: Generada
         address: Dirección

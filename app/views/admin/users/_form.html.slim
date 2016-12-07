@@ -10,32 +10,41 @@
           = render "admin/shared/form_errors",
                    resource: user
 
-          .field
+          .form-group
             = f.label :name
-            = f.text_field :name
+            = f.text_field :name,
+                           class: "form-control"
 
-          .field
+          .form-group
             = f.label :nickname
-            = f.text_field :nickname
+            = f.text_field :nickname,
+                           class: "form-control"
 
-          .field
+          .form-group
             = f.label :email
-            = f.text_field :email
+            = f.text_field :email,
+                           class: "form-control"
 
-          .field
+          .form-group
             = f.label :password
-            = f.password_field :password
+            = f.password_field :password,
+                               class: "form-control"
 
-          .field
+          .form-group
             = f.label :password_confirmation
-            = f.password_field :password_confirmation
+            = f.password_field :password_confirmation,
+                               class: "form-control"
 
-          .field
+          .form-group
             = f.label :privileges
             = f.select :privileges,
                        f.object.class.privileges.values,
                        { include_blank: true },
-                       multiple: true
+                       class: "js-selectize",
+                       multiple: true,
+                       disabled: f.object == current_admin
+            - if f.object == current_admin
+              .help-block = t("admin.user.self_privileges")
 
       hr
 
