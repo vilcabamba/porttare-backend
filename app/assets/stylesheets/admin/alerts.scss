@@ -8,12 +8,17 @@ body > .flashes {
 
   .alert {
     box-shadow: 0 1px 5px $defaultShadowColor;
+    background-color: rgba(0,0,0,.8);
+    color: white;
 
     .close {
+      color: white;
       margin-top: -15px;
       margin-right: -5px;
       padding-left: 10px;
       font-size: 26px;
+      opacity: 1;
+      text-shadow: 0 1px 0 rgba(255,255,255,.5);
     }
   }
 }

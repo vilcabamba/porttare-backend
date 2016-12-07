@@ -34,4 +34,20 @@
       }
     }
   }
+
+  .current-session {
+    .dropdown.open .dropdown-toggle {
+      background-color: initial;
+    }
+
+    .dropdown-toggle {
+      padding: 10px 30px 10px 15px;
+      cursor: pointer;
+
+      img {
+        display: inline-block;
+        max-height: 40px;
+      }
+    }
+  }
 }

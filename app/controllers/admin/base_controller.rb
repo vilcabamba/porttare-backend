@@ -21,6 +21,11 @@ module Admin
       I18n.t(key)
     end
 
+    def decorated_current_admin
+      @decorated_current_admin ||= current_admin.decorate
+    end
+    helper_method :decorated_current_admin
+
     private
 
     def user_for_paper_trail
