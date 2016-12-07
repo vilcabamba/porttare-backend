@@ -29,6 +29,7 @@ es:
     create: Crear
     view_details: Ver detalles
     cancel: Cancelar
+    login: Iniciar sesión
     logout: Cerrar sesión
   admin:
     something_went_wrong: Ups, algo salió mal
