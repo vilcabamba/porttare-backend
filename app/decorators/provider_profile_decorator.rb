@@ -1,5 +1,6 @@
 class ProviderProfileDecorator < GenericResourceDecorator
   decorates_association :user
+  decorates_association :provider_category
 
   def logotipo_url
     if object.logotipo?
@@ -7,6 +8,10 @@ class ProviderProfileDecorator < GenericResourceDecorator
     else
       h.gravatar_image_url(provider_profile.email)
     end
+  end
+
+  def formas_de_pago
+    object.formas_de_pago.join(", ")
   end
 
   def card_attributes
