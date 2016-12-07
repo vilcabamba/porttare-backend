@@ -16,6 +16,7 @@
 #  updated_at          :datetime         not null
 #  deleted_at          :datetime
 #  cantidad            :integer          default(0)
+#  en_stock            :boolean
 #
 
 class ProviderItem < ActiveRecord::Base
