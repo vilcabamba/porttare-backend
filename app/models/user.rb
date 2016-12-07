@@ -42,23 +42,34 @@ class User < ActiveRecord::Base
   extend Enumerize
   include DeviseTokenAuth::Concerns::User # after devise
 
+  begin :validations
+    validates :email,
+              presence: true,
+              uniqueness: true,
+              if: "provider == 'email'"
+  end
+
+  begin :relationships
+    has_one :provider_profile
+    has_one :courier_profile
+    has_one :customer_profile
+    has_many :locations,
+             class_name: "UserLocation"
+  end
+
+  begin :scopes
+    ##
+    # define a scope for each privilege
+    PRIVILEGES.each do |privilege|
+      scope privilege, -> {
+        where.overlap(privileges: [ privilege ])
+      }
+    end
+  end
+
   enumerize :privileges,
             in: PRIVILEGES,
             multiple: true
 
   mount_uploader :custom_image, UserCustomImageUploader
-
-  ##
-  # define a scope for each privilege
-  PRIVILEGES.each do |privilege|
-    scope privilege, -> {
-      where.overlap(privileges: [ privilege ])
-    }
-  end
-
-  has_one :provider_profile
-  has_one :courier_profile
-  has_one :customer_profile
-  has_many :locations,
-           class_name: "UserLocation"
 end
