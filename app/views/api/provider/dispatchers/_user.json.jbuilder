@@ -1,6 +1,6 @@
 json.extract!(
   user,
   :id,
-  :name,
-  :image
+  :to_s,
+  :image_url
 )

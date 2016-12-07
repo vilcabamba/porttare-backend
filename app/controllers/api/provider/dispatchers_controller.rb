@@ -29,8 +29,8 @@ module Api
               "provider_office_id":5,
               "user":{
                 "id":7,
-                "name":"Beatriz Soto Valles",
-                "image":"https://robohash.org/architectoanimiquos.png?size=300x300&set=set1"
+                "to_s":"Beatriz Soto Valles",
+                "image_url":"https://robohash.org/architectoanimiquos.png?size=300x300&set=set1"
               }
             }
           }
@@ -52,7 +52,7 @@ module Api
     "provider_office_id":5,
     "user":{
       "id":7,
-      "name":"Beatriz Soto Valles",
+      "to_s":"Beatriz Soto Valles",
       "image":"https://robohash.org/architectoanimiquos.png?size=300x300&set=set1"
     },
     "provider_office":{
