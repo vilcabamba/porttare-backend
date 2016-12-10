@@ -92,7 +92,11 @@ module Api
       "direccion":"Municipio Guadalupe 84 Puerta 392",
       "ciudad":"Fuenlabrada",
       "hora_de_apertura":"10:00 AM"
-      "hora_de_cierre":"7:00 PM"}],
+      "hora_de_cierre":"7:00 PM"
+    }],
+    "provider_item_categories":[{
+      "id":2,
+      "nombre":"Grocery, Tools \u0026 Computers",
       "provider_items":[{
         "id":1,
         "titulo":"Small Copper Bag",
@@ -107,9 +111,9 @@ module Api
           "imagen_url":"https://robohash.org/entesuntdelectus.png?size=400x600&set=set1"
         }]
       }]
-    }]
+    ]}
   }
-}
+}}
     def show
       @provider_profile = @provider_category.provider_profiles.find(params[:id])
     end

@@ -63,9 +63,9 @@ class ProviderProfile < ActiveRecord::Base
   begin :relationships
     belongs_to :user
     belongs_to :provider_category
-    has_many :provider_item_categories
     has_many :provider_items
     has_many :provider_clients
+    has_many :provider_item_categories
     has_many :offices,
              class_name: 'ProviderOffice',
              dependent: :destroy
@@ -92,6 +92,21 @@ class ProviderProfile < ActiveRecord::Base
 
   begin :callbacks
     before_create :auto_assign_category!
+  end
+
+  ##
+  # @note assigns default category to items without category
+  def provider_items_by_categories
+    @provider_items_by_categories ||=
+      provider_items.includes(:provider_item_category)
+                    .group_by do |provider_item|
+        provider_item.provider_item_category || ProviderItemCategory.default
+      end.map do |provider_item_category, provider_items|
+        {
+          provider_items: provider_items,
+          provider_item_category: provider_item_category
+        }
+      end
   end
 
   private

@@ -4,6 +4,7 @@
 #
 #  id                  :integer          not null, primary key
 #  nombre              :string
+#  predeterminada      :boolean          default(FALSE)
 #  provider_profile_id :integer
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null

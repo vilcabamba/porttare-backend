@@ -157,11 +157,13 @@ ActiveRecord::Schema.define(version: 20161209224755) do
 
   create_table "provider_item_categories", force: :cascade do |t|
     t.string   "nombre"
+    t.boolean  "predeterminada",      default: false
     t.integer  "provider_profile_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
+  add_index "provider_item_categories", ["predeterminada"], name: "index_provider_item_categories_on_predeterminada", using: :btree
   add_index "provider_item_categories", ["provider_profile_id"], name: "index_provider_item_categories_on_provider_profile_id", using: :btree
 
   create_table "provider_item_images", force: :cascade do |t|

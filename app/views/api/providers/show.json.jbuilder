@@ -7,11 +7,11 @@ json.provider_profile do
     provider_profile: @provider_profile
   )
 
-  json.provider_items do
+  json.provider_item_categories do
     json.array!(
-      @provider_profile.provider_items,
-      partial: "api/providers/items/provider_item",
-      as: :provider_item
+      @provider_profile.provider_items_by_categories,
+      partial: "api/providers/item_categories/provider_item_category",
+      as: :by_category
     )
   end
 end
