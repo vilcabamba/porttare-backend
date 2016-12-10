@@ -17,5 +17,9 @@ FactoryGirl.define do
     trait :personal do
       provider_profile
     end
+
+    trait :default do
+      predeterminada true
+    end
   end
 end

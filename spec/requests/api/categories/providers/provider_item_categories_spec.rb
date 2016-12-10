@@ -29,8 +29,7 @@ RSpec.describe Api::ProvidersController,
 
     describe "if I haven't set any categories" do
       let(:default_provider_item_category) {
-        create :provider_item_category,
-               predeterminada: true
+        create :provider_item_category, :default
       }
 
       before do
