@@ -1,6 +1,7 @@
 module Api
   module Provider
     class DispatchersController < Provider::BaseController
+      include Api::BaseController::Scopable
       include Api::BaseController::Resourceable
       include Api::Provider::BaseController::ResourceCollectionable
 

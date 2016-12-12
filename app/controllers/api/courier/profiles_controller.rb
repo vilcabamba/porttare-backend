@@ -1,6 +1,7 @@
 module Api
   module Courier
     class ProfilesController < BaseController
+      include Api::BaseController::Scopable
       include Api::BaseController::Resourceable
 
       resource_description do

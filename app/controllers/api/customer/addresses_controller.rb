@@ -1,6 +1,7 @@
 module Api
   module Customer
     class AddressesController < Customer::BaseController
+      include Api::BaseController::Scopable
       include Api::BaseController::Resourceable
       include Api::Customer::BaseController::ResourceCollectionable
 

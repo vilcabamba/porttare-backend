@@ -3,6 +3,7 @@ require "porttare_backend/places"
 module Api
   module Provider
     class ProfilesController < Provider::BaseController
+      include Api::BaseController::Scopable
       include Api::BaseController::Resourceable
 
       resource_description do

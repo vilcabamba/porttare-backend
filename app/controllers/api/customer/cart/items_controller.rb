@@ -2,6 +2,7 @@ module Api
   module Customer
     module Cart
       class ItemsController < Api::Customer::BaseController
+        include Api::BaseController::Scopable
         include Api::BaseController::Resourceable
 
         before_action :authenticate_api_auth_user!
