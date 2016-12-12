@@ -1,12 +1,6 @@
 module Api
   class BaseController < ::ApplicationController
     module Resourceable
-      extend ActiveSupport::Concern
-
-      included do
-        cattr_accessor :resource_klass
-      end
-
       def show
         find_api_resource
         pundit_authorize_resource
@@ -62,10 +56,6 @@ module Api
         @api_resource ||= resource_scope.new(resource_params)
       end
 
-      def resource_scope
-        policy_scope(resource_klass)
-      end
-
       def resource_params
         params.permit(
           *policy(resource_klass).permitted_attributes
@@ -78,10 +68,6 @@ module Api
 
       def pundit_authorize_resource
         authorize(@api_resource)
-      end
-
-      def pundit_authorize
-        authorize(resource_klass)
       end
 
       def after_update_api_resource

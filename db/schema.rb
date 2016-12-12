@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161202222427) do
+ActiveRecord::Schema.define(version: 20161209224755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,6 +155,17 @@ ActiveRecord::Schema.define(version: 20161202222427) do
   add_index "provider_dispatchers", ["deleted_at"], name: "index_provider_dispatchers_on_deleted_at", using: :btree
   add_index "provider_dispatchers", ["provider_office_id"], name: "index_provider_dispatchers_on_provider_office_id", using: :btree
 
+  create_table "provider_item_categories", force: :cascade do |t|
+    t.string   "nombre"
+    t.boolean  "predeterminada",      default: false
+    t.integer  "provider_profile_id"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "provider_item_categories", ["predeterminada"], name: "index_provider_item_categories_on_predeterminada", using: :btree
+  add_index "provider_item_categories", ["provider_profile_id"], name: "index_provider_item_categories_on_provider_profile_id", using: :btree
+
   create_table "provider_item_images", force: :cascade do |t|
     t.integer  "provider_item_id", null: false
     t.string   "imagen",           null: false
@@ -166,23 +177,25 @@ ActiveRecord::Schema.define(version: 20161202222427) do
 
   create_table "provider_items", force: :cascade do |t|
     t.integer  "provider_profile_id"
-    t.string   "titulo",                              null: false
+    t.string   "titulo",                                    null: false
     t.text     "descripcion"
     t.integer  "unidad_medida"
-    t.integer  "precio_cents",        default: 0,     null: false
-    t.string   "precio_currency",     default: "USD", null: false
+    t.integer  "precio_cents",              default: 0,     null: false
+    t.string   "precio_currency",           default: "USD", null: false
     t.string   "volumen"
     t.string   "peso"
     t.text     "observaciones"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.datetime "deleted_at"
-    t.integer  "cantidad",            default: 0
+    t.integer  "cantidad",                  default: 0
     t.boolean  "en_stock"
+    t.integer  "provider_item_category_id"
   end
 
   add_index "provider_items", ["deleted_at"], name: "index_provider_items_on_deleted_at", using: :btree
   add_index "provider_items", ["en_stock"], name: "index_provider_items_on_en_stock", using: :btree
+  add_index "provider_items", ["provider_item_category_id"], name: "index_provider_items_on_provider_item_category_id", using: :btree
   add_index "provider_items", ["provider_profile_id"], name: "index_provider_items_on_provider_profile_id", using: :btree
 
   create_table "provider_offices", force: :cascade do |t|
@@ -323,7 +336,9 @@ ActiveRecord::Schema.define(version: 20161202222427) do
   add_foreign_key "customer_wishlists", "customer_profiles"
   add_foreign_key "provider_clients", "provider_profiles"
   add_foreign_key "provider_dispatchers", "provider_offices"
+  add_foreign_key "provider_item_categories", "provider_profiles"
   add_foreign_key "provider_item_images", "provider_items"
+  add_foreign_key "provider_items", "provider_item_categories"
   add_foreign_key "provider_items", "provider_profiles"
   add_foreign_key "provider_offices", "provider_profiles"
   add_foreign_key "provider_profiles", "provider_categories"

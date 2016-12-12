@@ -8,25 +8,26 @@ RSpec.describe Api::ProvidersController,
   describe "show a provider's public profile including their items for offer" do
     let(:category) { create :provider_category }
     let(:other_provider_item) { create :provider_item }
-
     let(:provider_profile){
       create :provider_profile,
              provider_category: category
     }
-
     let(:provider_item) {
       create :provider_item,
              :with_imagen,
              provider_profile: provider_profile
     }
-
     let(:provider_office) {
       create :provider_office,
              :enabled,
              provider_profile: provider_profile
     }
+    let(:default_provider_item_category) {
+      create :provider_item_category, :default
+    }
 
     before do
+      default_provider_item_category
       provider_profile
       provider_item
       other_provider_item
@@ -43,7 +44,9 @@ RSpec.describe Api::ProvidersController,
     }
 
     let(:provider_items_from_response) {
-      provider_from_response["provider_items"]
+      provider_from_response.fetch(
+        "provider_item_categories"
+      ).first.fetch("provider_items")
     }
 
     it "should include provider products" do
@@ -80,7 +83,7 @@ RSpec.describe Api::ProvidersController,
 
     it "doesn't include provider item private attributes" do
       expect(
-        provider_from_response["provider_items"].first
+        provider_items_from_response.first
       ).to_not have_key("created_at")
     end
   end

@@ -1,6 +1,7 @@
 module Api
   module Provider
     class ItemsController < Provider::BaseController
+      include Api::BaseController::Scopable
       include Api::BaseController::Resourceable
       include Api::Provider::BaseController::ResourceCollectionable
 
@@ -104,6 +105,8 @@ module Api
           "Create a provider item"
       param_group :provider_item
       def create
+        new_api_resource
+        build_provider_item_category
         super
       end
 
@@ -116,6 +119,8 @@ module Api
             desc: "Provider item's id"
       param_group :provider_item
       def update
+        find_api_resource
+        build_provider_item_category
         super
       end
 
@@ -132,6 +137,14 @@ module Api
       end
 
       private
+
+      def build_provider_item_category
+        if params[:provider_item_category_attributes].present?
+          @api_resource.build_provider_item_category(
+            provider_profile: pundit_user.provider_profile
+          )
+        end
+      end
 
       def resource_destruction_method
         :soft_destroy
