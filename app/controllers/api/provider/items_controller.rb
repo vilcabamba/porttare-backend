@@ -13,8 +13,6 @@ module Api
       self.resource_klass = ProviderItem
 
       before_action :authenticate_api_auth_user!
-      before_action :build_provider_item_category,
-                    only: [:create, :update]
 
       api :GET,
           "/provider/items",
@@ -107,6 +105,8 @@ module Api
           "Create a provider item"
       param_group :provider_item
       def create
+        new_api_resource
+        build_provider_item_category
         super
       end
 
@@ -119,6 +119,8 @@ module Api
             desc: "Provider item's id"
       param_group :provider_item
       def update
+        find_api_resource
+        build_provider_item_category
         super
       end
 
@@ -137,7 +139,6 @@ module Api
       private
 
       def build_provider_item_category
-        find_api_resource
         if params[:provider_item_category_attributes].present?
           @api_resource.build_provider_item_category(
             provider_profile: pundit_user.provider_profile
