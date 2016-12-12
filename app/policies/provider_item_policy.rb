@@ -45,10 +45,14 @@ class ProviderItemPolicy < ApplicationPolicy
       :observaciones,
       :cantidad,
       :en_stock,
+      :provider_item_category_id,
       imagenes_attributes: [
         :id,
         :imagen,
         :_destroy
+      ],
+      provider_item_category_attributes: [
+        :nombre
       ]
     ]
   end

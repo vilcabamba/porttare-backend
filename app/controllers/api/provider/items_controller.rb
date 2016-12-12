@@ -13,6 +13,8 @@ module Api
       self.resource_klass = ProviderItem
 
       before_action :authenticate_api_auth_user!
+      before_action :build_provider_item_category,
+                    only: [:create, :update]
 
       api :GET,
           "/provider/items",
@@ -133,6 +135,15 @@ module Api
       end
 
       private
+
+      def build_provider_item_category
+        find_api_resource
+        if params[:provider_item_category_attributes].present?
+          @api_resource.build_provider_item_category(
+            provider_profile: pundit_user.provider_profile
+          )
+        end
+      end
 
       def resource_destruction_method
         :soft_destroy

@@ -15,7 +15,7 @@ json.extract!(
 json.imagenes do
   json.array!(
     product.imagenes,
-    partial: "api/provider/items/item_imagen",
+    partial: "api/providers/items/provider_item_image",
     as: :provider_item_image
   )
 end

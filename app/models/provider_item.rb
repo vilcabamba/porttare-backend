@@ -59,5 +59,10 @@ class ProviderItem < ActiveRecord::Base
       allow_destroy: true,
       reject_if: proc { |attrs| attrs['imagen'].blank? }
     )
+
+    accepts_nested_attributes_for(
+      :provider_item_category,
+      reject_if: proc { |attrs| attrs['nombre'].blank? }
+    )
   end
 end
