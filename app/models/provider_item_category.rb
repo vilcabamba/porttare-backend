@@ -17,4 +17,8 @@ class ProviderItemCategory < ActiveRecord::Base
   def self.default
     where(predeterminada: true).first
   end
+
+  def personal
+    provider_profile_id.present?
+  end
 end
