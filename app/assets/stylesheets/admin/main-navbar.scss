@@ -41,13 +41,18 @@
     }
 
     .dropdown-toggle {
-      padding: 10px 30px 10px 15px;
+      padding: 10px 15px 10px 15px;
       cursor: pointer;
 
       img {
         display: inline-block;
         max-height: 40px;
+        margin-right: 5px;
       }
     }
+  }
+
+  .navbar-right {
+    margin-right: 0;
   }
 }
