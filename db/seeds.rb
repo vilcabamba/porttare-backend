@@ -28,7 +28,7 @@ end
   ).first_or_create
 end
 
-if ProviderItemCategory.count == 0
+if ProviderItemCategory.where(predeterminada: true).count == 0
   ProviderItemCategory.create!(
     nombre: "General",
     predeterminada: true
