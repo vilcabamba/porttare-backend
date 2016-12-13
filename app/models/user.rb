@@ -27,6 +27,7 @@
 #  ciudad                 :string
 #  privileges             :text             default([]), is an Array
 #  custom_image           :string
+#  agreed_tos             :boolean          default(FALSE)
 #
 
 class User < ActiveRecord::Base
