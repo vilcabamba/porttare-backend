@@ -5,6 +5,8 @@ RSpec.describe Api::CategoriesController,
   let(:user) { create :user }
   before { login_as user }
 
+  let(:json) { JSON.parse response.body }
+
   describe "lists categories and providers" do
     before do
       provider_category
@@ -34,7 +36,6 @@ RSpec.describe Api::CategoriesController,
     end
 
     describe "response" do
-      let(:json) { JSON.parse response.body }
       let(:response_category) { json["provider_categories"].first }
 
       it "doesn't include full provider info" do
@@ -48,6 +49,26 @@ RSpec.describe Api::CategoriesController,
           response_category["imagen_url"]
         ).to include(Rails.application.secrets.host)
       end
+    end
+  end
+
+  describe "disabled category" do
+    before do
+      disabled_category
+      get_with_headers "/api/categories"
+    end
+
+    let(:disabled_category) {
+      create :provider_category,
+             status: :disabled
+    }
+
+    it "should not be included" do
+      expect(
+        json["provider_categories"].detect do |resp_category|
+          resp_category["id"] == disabled_category.id
+        end
+      ).to_not be_present
     end
   end
 end

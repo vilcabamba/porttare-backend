@@ -1,7 +1,7 @@
 class ProviderCategoryPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all # all visible ATM
+      scope.with_status(:enabled)
     end
   end
 
