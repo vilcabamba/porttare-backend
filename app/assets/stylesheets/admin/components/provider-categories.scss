@@ -1,0 +1,15 @@
+.provider-categories-collection {
+  .resource {
+    .img-responsive {
+      height: 150px;
+      width: 100%;
+      background-size: cover;
+      background-position: 50%;
+      cursor: pointer;
+
+      &--expanded {
+        height: 300px;
+      }
+    }
+  }
+}

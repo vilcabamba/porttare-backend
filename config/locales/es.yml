@@ -10,6 +10,10 @@ es:
       disabled: Inactivo
     errors:
       disabled: Perfil de proveedor deshabilitado
+  provider_category:
+    statuses:
+      enabled: Activo
+      disabled: Inactivo
   shipping_request:
     statuses:
       new: Nuevo
@@ -25,6 +29,7 @@ es:
   api:
     something_went_wrong: "Ups, algo salió mal. Por favor vuelve a intentarlo"
   ui:
+    edit: Editar
     update: Actualizar
     create: Crear
     view_details: Ver detalles
@@ -43,9 +48,9 @@ es:
       providers: Proveedores
       users: Usuarios
       shipping_requests: Envíos
+      provider_categories: Categorías
     users:
       new: Nuevo usuario
-      edit: Editar usuario
     user:
       created: Usuario creado
       updated: Usuario actualizado
@@ -104,6 +109,9 @@ es:
         address: Dirección
         provider: Proveedor
         telefono: Teléfono
+      provider_category:
+        titulo: Título
+        descripcion: Descripción
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"

@@ -96,6 +96,13 @@ Rails.application.routes.draw do
              as: :transition
       end
     end
+    resources :provider_categories do
+      collection do
+        get "/by_status/:status",
+            to: "provider_categories#index",
+            as: :by_status
+      end
+    end
     root "providers#index"
   end
 end

@@ -8,6 +8,7 @@
 #  descripcion :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  status      :string           default("enabled"), not null
 #
 
 FactoryGirl.define do
