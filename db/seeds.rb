@@ -29,6 +29,7 @@ end
 end
 
 if ProviderItemCategory.where(predeterminada: true).count == 0
+  puts "creating default provider item category"
   ProviderItemCategory.create!(
     nombre: "General",
     predeterminada: true

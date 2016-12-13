@@ -16,6 +16,9 @@ module Api
       api :GET,
           "/provider/item_categories",
           "Lists categories available for a provider"
+      param :q,
+            String,
+            desc: "Used to filter relevant provider item categories"
       desc "`personal` means this category is available only for this provider. `predeterminada` is the default category used for provider items"
       example %q{{
   "provider_item_categories":[
@@ -35,6 +38,10 @@ module Api
 }}
       def index
         super
+        if params[:q].present?
+          @api_collection = @api_collection.nombre_like(params[:q])
+        end
+        @api_collection = @api_collection.page(1)
       end
     end
   end

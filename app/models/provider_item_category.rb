@@ -14,6 +14,10 @@ class ProviderItemCategory < ActiveRecord::Base
   belongs_to :provider_profile
   has_many :provider_items
 
+  scope :nombre_like, ->(query) {
+    where("nombre ILIKE :nombre", nombre: "%#{query}%")
+  }
+
   def self.default
     where(predeterminada: true).first
   end
