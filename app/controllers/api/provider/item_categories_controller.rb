@@ -40,8 +40,8 @@ module Api
         super
         if params[:q].present?
           @api_collection = @api_collection.nombre_like(params[:q])
+          @api_collection = @api_collection.page(1)
         end
-        @api_collection = @api_collection.page(1)
       end
     end
   end
