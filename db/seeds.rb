@@ -27,3 +27,10 @@ end
     titulo: category_name
   ).first_or_create
 end
+
+if ProviderItemCategory.count == 0
+  ProviderItemCategory.create!(
+    nombre: "General",
+    predeterminada: true
+  )
+end
