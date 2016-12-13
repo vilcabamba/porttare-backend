@@ -78,6 +78,8 @@ es:
           ask_to_validate: Solicitud verificada. Se notificará a un mensajero para realizar la verificación física del proveedor
         error:
           office_required: Necesita tener una oficina con una dirección a donde enviaremos un mensajero para validar al proveedor
+    provider_category:
+      updated: Categoría actualizada
   devise:
     sessions:
       submit: Iniciar sesión
@@ -112,6 +114,8 @@ es:
       provider_category:
         titulo: Título
         descripcion: Descripción
+        status: Estado
+        remove_imagen: Eliminar imagen
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"

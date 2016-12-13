@@ -14,6 +14,8 @@
 class ProviderCategory < ActiveRecord::Base
   extend Enumerize
 
+  has_paper_trail
+
   validates :titulo,
             presence: true,
             uniqueness: true
@@ -24,4 +26,6 @@ class ProviderCategory < ActiveRecord::Base
             in: [:enabled, :disabled].freeze,
             scope: true,
             i18n_scope: "provider_category.statuses"
+
+  scope :by_titulo, -> { order(:titulo) }
 end

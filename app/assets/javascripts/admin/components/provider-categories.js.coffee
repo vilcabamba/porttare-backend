@@ -6,5 +6,7 @@ $(document).on "click", "#{wrapper} #{selector}", (e) ->
   $target = $(e.currentTarget)
   $target.toggleClass classToToggle
 
-  # reload masonry
-  $(".auto-masonry").masonry()
+  # reload masonry after css transition
+  setTimeout(->
+    $(".auto-masonry").masonry()
+  , 90)
