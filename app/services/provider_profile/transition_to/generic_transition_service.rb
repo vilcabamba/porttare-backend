@@ -37,6 +37,7 @@ class ProviderProfile < ActiveRecord::Base
       def update_state!
         @provider_profile.paper_trail_event = predicate
         @provider_profile.update!(status: predicate)
+        @provider_profile.paper_trail_event = nil
       end
     end
   end
