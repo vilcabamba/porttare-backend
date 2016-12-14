@@ -114,8 +114,8 @@ class ProviderProfile < ActiveRecord::Base
   ##
   # @note will reject! (inline) blank options
   def validate_formas_de_pago
-    all_valid = formas_de_pago.reject!(&:blank?)
-                              .all? do |forma_de_pago|
+    formas_de_pago.reject!(&:blank?)
+    all_valid = formas_de_pago.all? do |forma_de_pago|
       FORMAS_DE_PAGO.include?(forma_de_pago)
     end
     errors.add(:formas_de_pago, :invalid) unless all_valid

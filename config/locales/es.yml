@@ -78,6 +78,8 @@ es:
           create: "creado:"
           generated: "generado:"
           update: "actualizado:"
+      wont_transition:
+        ask_to_validate: Esta solicitud no puede ser validada
       transition:
         ask_to_validate: Solicitar validación
         ask_to_validate_prompt: |

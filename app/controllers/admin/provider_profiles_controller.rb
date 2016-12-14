@@ -37,10 +37,7 @@ module Admin
     end
 
     def transition
-      transitor = ProviderProfile::TransitorService.new(
-        @current_resource,
-        params[:predicate]
-      ).perform!
+      transitor = transitor_service(params[:predicate]).perform!
       redirect_to(
         { action: :show, id: params[:id] },
         transitor.flashes
@@ -52,5 +49,13 @@ module Admin
     def build_one_office
       @current_resource.offices.object.build if @current_resource.offices.length == 0
     end
+
+    def transitor_service(predicate)
+      ProviderProfile::TransitorService.new(
+        @current_resource,
+        predicate
+      )
+    end
+    helper_method :transitor_service
   end
 end
