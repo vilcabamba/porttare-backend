@@ -139,9 +139,12 @@ module Api
       private
 
       def build_provider_item_category
-        if params[:provider_item_category_attributes].present?
+        req_attributes = resource_params[:provider_item_category_attributes]
+        if req_attributes.present?
           @api_resource.build_provider_item_category(
-            provider_profile: pundit_user.provider_profile
+            req_attributes.merge(
+              provider_profile: pundit_user.provider_profile
+            )
           )
         end
       end

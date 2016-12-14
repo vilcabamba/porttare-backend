@@ -40,5 +40,35 @@ RSpec.describe Api::Provider::ItemsController,
         ).to eq(provider.provider_profile)
       end
     end
+
+    describe "creating an item" do
+      before do
+        attributes = attributes_for(:provider_item).merge(
+          provider_item_category_attributes: {
+            nombre: "bebidas"
+          }
+        )
+        post_with_headers(
+          "/api/provider/items",
+          attributes
+        )
+      end
+
+      it "creates personal category" do
+        provider_item_category = ProviderItemCategory.last
+
+        expect(
+          provider_item_category.nombre
+        ).to eq("bebidas")
+
+        expect(
+          provider_item_category.personal
+        ).to be_truthy
+
+        expect(
+          provider_item_category.provider_profile
+        ).to eq(provider.provider_profile)
+      end
+    end
   end
 end
