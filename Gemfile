@@ -20,6 +20,7 @@ gem 'paper_trail', '~> 5.2'
 gem 'postgres_ext', '~> 3.0'
 gem 'dotenv-rails', '~> 2.1'
 gem 'koala', '~> 2.4'
+gem 'simple_form', '~> 3.3'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
