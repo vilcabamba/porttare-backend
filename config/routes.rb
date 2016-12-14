@@ -103,6 +103,6 @@ Rails.application.routes.draw do
             as: :by_status
       end
     end
-    root "providers#index"
+    root "provider_profiles#index"
   end
 end
