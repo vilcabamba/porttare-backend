@@ -35,12 +35,12 @@ legend = t("admin.provider_office.title")
   = f.label :inicio_de_labores
   = f.select :inicio_de_labores,
              f.object.class.inicio_de_labores.options,
-             {},
+             { include_blank: true },
              class: "js-selectize"
 
 .form-group
   = f.label :final_de_labores
   = f.select :final_de_labores,
              f.object.class.final_de_labores.options,
-             {},
+             { include_blank: true },
              class: "js-selectize"

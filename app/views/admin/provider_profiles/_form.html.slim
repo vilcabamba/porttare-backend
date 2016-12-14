@@ -1,4 +1,4 @@
-= form_for [:admin, provider_profile.object] do |f|
+= simple_form_for [:admin, provider_profile.object] do |f|
   .row
     .col-xs-12.col-xs-offset-0.col-sm-8.col-sm-offset-2
       .resource-detail.panel.panel-default
@@ -13,51 +13,14 @@
                        { include_blank: true },
                        class: "js-selectize"
 
-          .form-group
-            = f.label :ruc
-            = f.text_field :ruc,
-                           required: true,
-                           class: "form-control"
-
-          .form-group
-            = f.label :razon_social
-            = f.text_field :razon_social,
-                           required: true,
-                           class: "form-control"
-
-          .form-group
-            = f.label :nombre_establecimiento
-            = f.text_field :nombre_establecimiento,
-                           required: true,
-                           class: "form-control"
-
-          .form-group
-            = f.label :actividad_economica
-            = f.text_field :actividad_economica,
-                           class: "form-control"
-
-          .form-group
-            = f.label :tipo_contribuyente
-            = f.text_field :tipo_contribuyente,
-                           class: "form-control"
-
-          .form-group
-            = f.label :representante_legal
-            = f.text_field :representante_legal,
-                           required: true,
-                           class: "form-control"
-
-          .form-group
-            = f.label :telefono
-            = f.telephone_field :telefono,
-                                required: true,
-                                class: "form-control"
-
-          .form-group
-            = f.label :email
-            = f.email_field :email,
-                            required: true,
-                            class: "form-control"
+          = f.input :ruc
+          = f.input :razon_social
+          = f.input :nombre_establecimiento
+          = f.input :actividad_economica
+          = f.input :tipo_contribuyente
+          = f.input :representante_legal
+          = f.input :telefono, input_html: { type: :tel }
+          = f.input :email
 
           .form-group
             = f.label :fecha_inicio_actividad
