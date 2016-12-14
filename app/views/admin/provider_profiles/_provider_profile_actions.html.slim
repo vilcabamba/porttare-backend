@@ -1,6 +1,5 @@
-- case @current_resource.status
-- when "applied"
-  = render "transition_btn", to_status: :ask_to_validate
-
-- when "ask_to_validate"
-  = render "transition_btn", to_status: :validated
+- if pundit_policy.send(:edit?)
+  .text-center
+    = link_to t("ui.edit"),
+              edit_admin_provider_profile_path(@current_resource),
+              class: "btn btn-default btn-xs"

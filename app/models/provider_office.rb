@@ -37,7 +37,6 @@ class ProviderOffice < ActiveRecord::Base
     validates :direccion,
               :hora_de_apertura,
               :hora_de_cierre,
-              :telefono,
               presence: true
     validates :inicio_de_labores,
               :final_de_labores,
@@ -49,8 +48,12 @@ class ProviderOffice < ActiveRecord::Base
   end
 
   enumerize :ciudad, in: CIUDADES
-  enumerize :final_de_labores, in: DAY_NAMES
-  enumerize :inicio_de_labores, in: DAY_NAMES
+  enumerize :final_de_labores,
+            in: DAY_NAMES,
+            i18n_scope: "enumerize.defaults.daynames"
+  enumerize :inicio_de_labores,
+            in: DAY_NAMES,
+            i18n_scope: "enumerize.defaults.daynames"
 
   scope :enabled, -> { where(enabled: true) }
 
@@ -62,11 +65,12 @@ class ProviderOffice < ActiveRecord::Base
       ##
       # support setting schedule with custom format:
       schedule_format = I18n.t("time.formats.office_schedule")
-      send(
-        :write_attribute,
-        attribute_name,
-        DateTime.strptime(new_time, schedule_format)
-      )
+      begin
+        new_time = DateTime.strptime(new_time, schedule_format)
+      rescue ArgumentError
+        # fallback to write as is
+      end
+      send :write_attribute, attribute_name, new_time
     end
   end
 end

@@ -22,6 +22,20 @@ module Admin
       @resource_status = @current_resource.status
     end
 
+    def new
+      super
+      build_one_office
+    end
+
+    def edit
+      super
+      build_one_office
+    end
+
+    def update
+      super
+    end
+
     def transition
       transitor = ProviderProfile::TransitorService.new(
         @current_resource,
@@ -31,6 +45,12 @@ module Admin
         { action: :show, id: params[:id] },
         transitor.flashes
       )
+    end
+
+    private
+
+    def build_one_office
+      @current_resource.offices.object.build if @current_resource.offices.length == 0
     end
   end
 end

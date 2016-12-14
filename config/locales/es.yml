@@ -63,6 +63,9 @@ es:
       title: Oficina
     provider_profile:
       new: Nuevo proveedor
+      branches: Sucursales
+      updated: Proveedor actualizado
+      created: Proveedor creado
       statuses:
         ask_to_validate: Validación
         ask_to_disable: Desactivación
@@ -344,3 +347,13 @@ es:
       truncate: "..."
       first: "&laquo;"
       last: "&raquo;"
+  enumerize:
+    defaults:
+      daynames:
+        sun: Domingo
+        mon: Lunes
+        tue: Martes
+        wed: Miércoles
+        thu: Jueves
+        fri: Viernes
+        sat: Sábado

@@ -1,0 +1,9 @@
+.resource-title = t("admin.provider_profile.branches")
+
+- @current_resource.offices.each do |provider_office|
+  - provider_office.detail_attributes.each do |attribute|
+    .resource-row
+      span.resource-label
+        = provider_office.label_for(attribute)
+      span.resource-value
+        = provider_office.send(attribute)
