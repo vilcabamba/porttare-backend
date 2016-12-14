@@ -10,9 +10,11 @@ module Admin
     def index
       pundit_authorize
       @resource_status = params[:status] || ProviderProfile.status.values.first
-      @resource_collection = resource_scope.with_status(
-        @resource_status
-      ).includes(:provider_category).decorate
+      @resource_collection =
+        resource_scope.with_status(@resource_status)
+                      .includes(:provider_category)
+                      .page(params[:page]).per(9)
+                      .decorate
     end
 
     def show

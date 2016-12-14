@@ -338,3 +338,8 @@ es:
       api: "%Y-%m-%d %H:%M %z"
       office_schedule: "%H:%M %z"
       admin_full: "%Y-%m-%d %H:%M"
+  views:
+    pagination:
+      truncate: "..."
+      first: "&laquo;"
+      last: "&raquo;"
