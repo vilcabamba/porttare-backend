@@ -14,7 +14,8 @@
 
           - version.decorated_associations.each do |association|
             div
-              => t("admin.provider_profile.history.generated")
+              - event = (version.event == "apply") ? "generated" : version.event
+              => t("admin.provider_profile.history.association.#{event}")
               = association.link_to_resource do
                 = association.title
 

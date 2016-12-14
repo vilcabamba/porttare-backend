@@ -47,6 +47,7 @@ module Admin
         :telefono,
         :logotipo,
         :logotipo_cache,
+        :remove_logotipo,
         :razon_social,
         :banco_nombre,
         :twitter_handle,

@@ -72,7 +72,12 @@ es:
       history:
         apply: aplicó como proveedor
         ask_to_validate: verificó esta solicitud
-        generated: "generado:"
+        create: creó este proveedor
+        update: actualizó este proveedor
+        association:
+          create: "creado:"
+          generated: "generado:"
+          update: "actualizado:"
       transition:
         ask_to_validate: Solicitar validación
         ask_to_validate_prompt: |
@@ -120,6 +125,8 @@ es:
         descripcion: Descripción
         status: Estado
         remove_imagen: Eliminar imagen
+      provider_office:
+        enabled: Habilitada
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"
