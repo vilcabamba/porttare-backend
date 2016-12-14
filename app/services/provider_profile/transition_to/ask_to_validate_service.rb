@@ -24,6 +24,9 @@ class ProviderProfile < ActiveRecord::Base
       end
 
       def perform_validations!
+        unless @provider_profile.valid?
+          errors << @provider_profile.errors.full_messages
+        end
         unless main_office.present?
           errors << I18n.t(
             "admin.provider_profile.transition.error.office_required"

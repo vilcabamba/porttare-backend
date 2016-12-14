@@ -23,8 +23,13 @@ class ProviderOfficeDecorator < GenericResourceDecorator
     weekday :final_de_labores
   end
 
+  def enabled
+    h.t("views.boolean.#{object.enabled.to_s}")
+  end
+
   def detail_attributes
     [
+      :enabled,
       :direccion,
       :telefono,
       :hora_de_apertura,

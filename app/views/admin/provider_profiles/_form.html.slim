@@ -7,6 +7,13 @@
                    resource: f.object
 
           .form-group
+            = f.label :provider_category_id
+            = f.select :provider_category_id,
+                       ProviderCategory.all.decorate.map{|c| [c.to_s, c.id]},
+                       { include_blank: true },
+                       class: "js-selectize"
+
+          .form-group
             = f.label :ruc
             = f.text_field :ruc,
                            required: true,

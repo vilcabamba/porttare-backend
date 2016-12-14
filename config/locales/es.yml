@@ -356,6 +356,9 @@ es:
       truncate: "..."
       first: "&laquo;"
       last: "&raquo;"
+    boolean:
+      "true": "Sí"
+      "false": "No"
   enumerize:
     defaults:
       daynames:

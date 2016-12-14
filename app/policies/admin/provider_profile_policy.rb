@@ -59,6 +59,7 @@ module Admin
         :banco_numero_cuenta,
         :actividad_economica,
         :representante_legal,
+        :provider_category_id,
         :nombre_establecimiento,
         :fecha_inicio_actividad,
         formas_de_pago: [],
