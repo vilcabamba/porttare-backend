@@ -84,15 +84,15 @@ Rails.application.routes.draw do
       end
     end
     resources :shipping_requests
-    resources :providers do
+    resources :provider_profiles do
       collection do
         get "/by_status/:status",
-            to: "providers#index",
+            to: "provider_profiles#index",
             as: :by_status
       end
       member do
         post "/transition/:predicate",
-             to: "providers#transition",
+             to: "provider_profiles#transition",
              as: :transition
       end
     end

@@ -1,6 +1,6 @@
 ul.main-content-tabs.nav.nav-pills.nav-justified
   - ProviderProfile.status.values.each do |status|
     li class="#{'active' if status == @resource_status}"
-      = link_to by_status_admin_providers_path(status: status) do
+      = link_to by_status_admin_provider_profiles_path(status: status) do
         = t "admin.provider_profile.statuses.#{status}",
             default: :"provider_profile.statuses.#{status}"

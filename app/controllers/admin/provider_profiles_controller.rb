@@ -1,5 +1,5 @@
 module Admin
-  class ProvidersController < BaseController
+  class ProviderProfilesController < BaseController
     include Admin::BaseController::Resourceable
 
     self.resource_type = "ProviderProfile"

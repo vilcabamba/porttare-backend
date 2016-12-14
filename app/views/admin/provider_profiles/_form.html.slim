@@ -1,0 +1,115 @@
+= form_for [:admin, provider_profile] do |f|
+  .row
+    .col-xs-12.col-xs-offset-0.col-sm-8.col-sm-offset-2
+      .resource-detail.panel.panel-default
+        .resource.panel-body
+          = render "admin/shared/form_errors",
+                   resource: f.object
+
+          .form-group
+            = f.label :ruc
+            = f.text_field :ruc,
+                           required: true,
+                           class: "form-control"
+
+          .form-group
+            = f.label :razon_social
+            = f.text_field :razon_social,
+                           required: true,
+                           class: "form-control"
+
+          .form-group
+            = f.label :nombre_establecimiento
+            = f.text_field :nombre_establecimiento,
+                           required: true,
+                           class: "form-control"
+
+          .form-group
+            = f.label :actividad_economica
+            = f.text_field :actividad_economica,
+                           class: "form-control"
+
+          .form-group
+            = f.label :tipo_contribuyente
+            = f.text_field :tipo_contribuyente,
+                           class: "form-control"
+
+          .form-group
+            = f.label :representante_legal
+            = f.text_field :representante_legal,
+                           required: true,
+                           class: "form-control"
+
+          .form-group
+            = f.label :telefono
+            = f.text_field :telefono,
+                           required: true,
+                           class: "form-control"
+
+          .form-group
+            = f.label :email
+            = f.text_field :email,
+                           required: true,
+                           class: "form-control"
+
+          .form-group
+            = f.label :fecha_inicio_actividad
+            = f.text_field :fecha_inicio_actividad,
+                           class: "form-control"
+
+          .form-group
+            = f.label :banco_nombre
+            = f.text_field :banco_nombre,
+                           class: "form-control"
+
+          .form-group
+            = f.label :banco_numero_cuenta
+            = f.text_field :banco_numero_cuenta,
+                           class: "form-control"
+
+          .form-group
+            = f.label :banco_tipo_cuenta
+            = f.select :banco_tipo_cuenta,
+                       ProviderProfile::BANCO_TIPOS_CUENTA,
+                       {},
+                       class: "js-selectize"
+
+          .form-group
+            = f.label :website
+            = f.text_field :website,
+                           class: "form-control"
+
+          - [:facebook, :twitter, :instagram, :youtube].each do |sn|
+            .form-group
+              = f.label "#{sn}_handle"
+              = f.text_field "#{sn}_handle",
+                             class: "form-control"
+
+          .form-group
+            = f.label :formas_de_pago
+            = f.select :formas_de_pago,
+                       ProviderProfile::FORMAS_DE_PAGO,
+                       {},
+                       class: "js-selectize",
+                       multiple: true
+
+          .form-group
+            = f.label :logotipo
+            = f.file_field :logotipo
+            - if f.object.logotipo?
+              .provider-category-form-image
+                = image_tag f.object.logotipo_url,
+                            class: "img-responsive"
+
+              .checkbox
+                = f.label :remove_logotipo do
+                  = f.check_box :remove_logotipo
+                  = t("activerecord.attributes.provider_profile.remove_logotipo")
+
+            = f.hidden_field :logotipo_cache
+
+          hr
+
+          .actions.text-center
+            = f.submit t("ui.#{f.object.new_record? ? 'create' : 'update'}"),
+                       class: "btn btn-default"

@@ -14,6 +14,10 @@ module Admin
       index?
     end
 
+    def new?
+      privileges.customer_service? || privileges.admin?
+    end
+
     def transition?(to_status)
       case to_status.to_s
       when "ask_to_validate"

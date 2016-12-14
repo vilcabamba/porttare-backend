@@ -19,7 +19,7 @@ describe %q{
 
     before {
       provider_profile
-      visit admin_provider_path(provider_profile)
+      visit admin_provider_profile_path(provider_profile)
     }
 
     it "persists a version for history", versioning: true do

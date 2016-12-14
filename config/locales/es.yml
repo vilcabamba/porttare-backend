@@ -62,6 +62,7 @@ es:
     provider_office:
       title: Oficina
     provider_profile:
+      new: Nuevo proveedor
       statuses:
         ask_to_validate: Validación
         ask_to_disable: Desactivación
