@@ -10,6 +10,10 @@ es:
       disabled: Inactivo
     errors:
       disabled: Perfil de proveedor deshabilitado
+  provider_category:
+    statuses:
+      enabled: Activo
+      disabled: Inactivo
   shipping_request:
     statuses:
       new: Nuevo
@@ -25,6 +29,7 @@ es:
   api:
     something_went_wrong: "Ups, algo salió mal. Por favor vuelve a intentarlo"
   ui:
+    edit: Editar
     update: Actualizar
     create: Crear
     view_details: Ver detalles
@@ -43,9 +48,9 @@ es:
       providers: Proveedores
       users: Usuarios
       shipping_requests: Envíos
+      provider_categories: Categorías
     users:
       new: Nuevo usuario
-      edit: Editar usuario
     user:
       created: Usuario creado
       updated: Usuario actualizado
@@ -57,13 +62,24 @@ es:
     provider_office:
       title: Oficina
     provider_profile:
+      new: Nuevo proveedor
+      branches: Sucursales
+      updated: Proveedor actualizado
+      created: Proveedor creado
       statuses:
         ask_to_validate: Validación
         ask_to_disable: Desactivación
       history:
         apply: aplicó como proveedor
         ask_to_validate: verificó esta solicitud
-        generated: "generado:"
+        create: creó este proveedor
+        update: actualizó este proveedor
+        association:
+          create: "creado:"
+          generated: "generado:"
+          update: "actualizado:"
+      wont_transition:
+        ask_to_validate: Esta solicitud no puede ser validada
       transition:
         ask_to_validate: Solicitar validación
         ask_to_validate_prompt: |
@@ -73,6 +89,8 @@ es:
           ask_to_validate: Solicitud verificada. Se notificará a un mensajero para realizar la verificación física del proveedor
         error:
           office_required: Necesita tener una oficina con una dirección a donde enviaremos un mensajero para validar al proveedor
+    provider_category:
+      updated: Categoría actualizada
   devise:
     sessions:
       submit: Iniciar sesión
@@ -104,6 +122,13 @@ es:
         address: Dirección
         provider: Proveedor
         telefono: Teléfono
+      provider_category:
+        titulo: Título
+        descripcion: Descripción
+        status: Estado
+        remove_imagen: Eliminar imagen
+      provider_office:
+        enabled: Habilitada
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"
@@ -326,3 +351,21 @@ es:
       api: "%Y-%m-%d %H:%M %z"
       office_schedule: "%H:%M %z"
       admin_full: "%Y-%m-%d %H:%M"
+  views:
+    pagination:
+      truncate: "..."
+      first: "&laquo;"
+      last: "&raquo;"
+    boolean:
+      "true": "Sí"
+      "false": "No"
+  enumerize:
+    defaults:
+      daynames:
+        sun: Domingo
+        mon: Lunes
+        tue: Martes
+        wed: Miércoles
+        thu: Jueves
+        fri: Viernes
+        sat: Sábado

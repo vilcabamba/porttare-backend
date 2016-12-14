@@ -6,6 +6,8 @@
                     class: "img-thumbnail"
         .text-center = @current_resource.status_text
 
+        = render "provider_profile_actions"
+
       .col-xs-9.col-md-10.col-lg-11
         .resource-title
           = @current_resource.nombre_establecimiento
@@ -19,7 +21,10 @@
             span.resource-value
               = @current_resource.send(attribute)
 
+        - if @current_resource.offices.count > 0
+          = render "provider_profile_offices"
+
     hr
 
     .text-center
-      = render "provider_profile_actions"
+      = render "provider_profile_transitions"

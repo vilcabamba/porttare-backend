@@ -28,15 +28,16 @@ class ProviderProfile < ActiveRecord::Base
         errors.empty?
       end
 
-      private
-
       def errors
         @errors ||= []
       end
 
+      private
+
       def update_state!
         @provider_profile.paper_trail_event = predicate
         @provider_profile.update!(status: predicate)
+        @provider_profile.paper_trail_event = nil
       end
     end
   end

@@ -28,9 +28,8 @@ module Admin
         pundit_authorize
         if @current_resource.save
           redirect_to(
-            { action: :show,
-              id: @current_resource.id },
-            success: t("admin.#{resource_type.downcase}.created")
+            resource_path,
+            success: t("admin.#{resource_type.underscore}.created")
           )
         else
           render :new
@@ -42,9 +41,8 @@ module Admin
         pundit_authorize
         if @current_resource.update(resource_params)
           redirect_to(
-            { action: :show,
-              id: @current_resource.id },
-            notice: t("admin.#{resource_type.downcase}.updated")
+            resource_path,
+            notice: t("admin.#{resource_type.underscore}.updated")
           )
         else
           render :edit
@@ -100,6 +98,11 @@ module Admin
 
       def resource_klass
         resource_type.constantize
+      end
+
+      def resource_path
+        { action: :show,
+          id: @current_resource.id }
       end
     end
   end

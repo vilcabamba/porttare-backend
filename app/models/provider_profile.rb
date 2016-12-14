@@ -90,10 +90,6 @@ class ProviderProfile < ActiveRecord::Base
     validate :validate_formas_de_pago
   end
 
-  begin :callbacks
-    before_create :auto_assign_category!
-  end
-
   ##
   # @note assigns default category to items without category
   def provider_items_by_categories
@@ -111,18 +107,14 @@ class ProviderProfile < ActiveRecord::Base
 
   private
 
+  ##
+  # @note will reject! (inline) blank options
   def validate_formas_de_pago
+    formas_de_pago.reject!(&:blank?)
     all_valid = formas_de_pago.all? do |forma_de_pago|
       FORMAS_DE_PAGO.include?(forma_de_pago)
     end
     errors.add(:formas_de_pago, :invalid) unless all_valid
     errors.add(:formas_de_pago, :empty) if formas_de_pago.empty?
-  end
-
-  def auto_assign_category!
-    # TODO
-    # remove me once we can assign
-    # provider categories
-    self.provider_category = ProviderCategory.all.sample
   end
 end

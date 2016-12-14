@@ -1,9 +1,9 @@
-= form_for [:admin, user] do |f|
+= form_for [:admin, user.object] do |f|
   .resource-detail.panel.panel-default
     .resource.panel-body
       .row
         .col-xs-3.col-md-2.col-lg-1
-          = image_tag f.object.image_url,
+          = image_tag user.image_url,
                       class: "img-responsive img-circle"
 
         .col-xs-9.col-md-10.col-lg-11

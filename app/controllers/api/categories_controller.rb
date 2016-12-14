@@ -42,11 +42,8 @@ module Api
 }}
     def index
       authorize ProviderCategory
-      @provider_categories = public_scope.order(
-        :titulo
-      ).includes(
-        :provider_profiles
-      )
+      @provider_categories = public_scope.by_titulo
+                                         .includes(:provider_profiles)
     end
 
     private

@@ -1,0 +1,46 @@
+legend = t("admin.provider_office.title")
+
+= f.hidden_field :id
+
+.form-group
+  .checkbox
+    = f.label :enabled do
+      = f.check_box :enabled
+      = t("activerecord.attributes.provider_office.enabled")
+
+.form-group
+  = f.label :direccion
+  = f.text_field :direccion,
+                 required: true,
+                 class: "form-control"
+
+.form-group
+  = f.label :telefono
+  = f.telephone_field :telefono,
+                      class: "form-control"
+
+.form-group
+  = f.label :hora_de_apertura
+  = f.time_field :hora_de_apertura,
+                 required: true,
+                 class: "form-control"
+
+.form-group
+  = f.label :hora_de_cierre
+  = f.time_field :hora_de_cierre,
+                 required: true,
+                 class: "form-control"
+
+.form-group
+  = f.label :inicio_de_labores
+  = f.select :inicio_de_labores,
+             f.object.class.inicio_de_labores.options,
+             { include_blank: true },
+             class: "js-selectize"
+
+.form-group
+  = f.label :final_de_labores
+  = f.select :final_de_labores,
+             f.object.class.final_de_labores.options,
+             { include_blank: true },
+             class: "js-selectize"

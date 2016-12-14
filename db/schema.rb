@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161212222846) do
+ActiveRecord::Schema.define(version: 20161213040016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,13 +119,15 @@ ActiveRecord::Schema.define(version: 20161212222846) do
   add_index "customer_wishlists", ["customer_profile_id"], name: "index_customer_wishlists_on_customer_profile_id", using: :btree
 
   create_table "provider_categories", force: :cascade do |t|
-    t.string   "titulo",      null: false
+    t.string   "titulo",                          null: false
     t.string   "imagen"
     t.text     "descripcion"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "status",      default: "enabled", null: false
   end
 
+  add_index "provider_categories", ["status"], name: "index_provider_categories_on_status", using: :btree
   add_index "provider_categories", ["titulo"], name: "index_provider_categories_on_titulo", unique: true, using: :btree
 
   create_table "provider_clients", force: :cascade do |t|

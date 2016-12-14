@@ -1,9 +1,9 @@
 class ProviderProfile < ActiveRecord::Base
   class TransitorService
-    delegate :flashes, to: :@transitor
+    delegate :flashes, :valid?, :errors, to: :@transitor
 
     def initialize(resource, predicate)
-      @predicate = predicate
+      @predicate = predicate.to_s
       @transitor = transitor_class.new(resource)
     end
 

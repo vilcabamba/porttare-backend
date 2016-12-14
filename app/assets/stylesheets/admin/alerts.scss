@@ -1,8 +1,10 @@
 @import "admin/colors";
+@import "bootstrap/variables";
 
 body > .flashes {
   position: fixed;
   bottom: 0;
+  left: 15px;
   right: 15px;
   z-index: 1;
 
@@ -10,6 +12,12 @@ body > .flashes {
     box-shadow: 0 1px 5px $defaultShadowColor;
     background-color: rgba(0,0,0,.8);
     color: white;
+
+    @media (min-width: $screen-xs-min) {
+      max-width: 50%;
+      margin-right: 0;
+      margin-left: auto;
+    }
 
     .close {
       color: white;

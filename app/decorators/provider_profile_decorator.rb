@@ -1,5 +1,6 @@
 class ProviderProfileDecorator < GenericResourceDecorator
   decorates_association :user
+  decorates_association :offices
   decorates_association :provider_category
 
   def logotipo_url

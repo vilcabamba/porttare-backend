@@ -7,9 +7,10 @@ module Admin
     def index
       pundit_authorize
       @resource_status = by_status || "all"
-      @resource_collection = resource_scope.send(
-        @resource_status
-      ).decorate
+      @resource_collection =
+        resource_scope.send(@resource_status)
+                      .page(params[:page]).per(9)
+                      .decorate
     end
 
     def show
