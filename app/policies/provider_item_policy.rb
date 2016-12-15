@@ -8,10 +8,9 @@ class ProviderItemPolicy < ApplicationPolicy
   end
 
   class PublicScope < Scope
-    # TODO: define public scope
-    # probably something like filter out
-    # deleted ones ?
-    # def resolve; scope.all; end
+    def resolve
+      scope.in_stock
+    end
   end
 
   def index?
@@ -32,6 +31,10 @@ class ProviderItemPolicy < ApplicationPolicy
 
   def destroy?
     is_provider?
+  end
+
+  def read?
+    true
   end
 
   def permitted_attributes

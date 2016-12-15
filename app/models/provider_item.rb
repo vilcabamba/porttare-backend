@@ -47,6 +47,10 @@ class ProviderItem < ActiveRecord::Base
               inclusion: { in: UNIDADES_MEDIDA }
   end
 
+  begin :scopes
+    scope :in_stock, ->{ where(en_stock: true) }
+  end
+
   begin :relationships
     belongs_to :provider_profile
     belongs_to :provider_item_category

@@ -34,6 +34,7 @@ module Api
       "observaciones":"Marfa 90's xoxo shoreditch. Selvage butcher trust fund. Pickled polaroid echo hammock.\nKickstarter stumptown gastropub. Ramps chambray letterpress. Etsy ramps sustainable selfies tousled.\nPhoto booth loko chambray art party chillwave umami street tilde. Truffaut hammock knausgaard. Cronut messenger bag banh mi bushwick.",
       "created_at":"2016-08-17T17:21:04.569-05:00",
       "updated_at":"2016-08-17T17:21:04.569-05:00",
+      "provider_item_category_id":1,
       "imagenes":[
         {
           "id":1,

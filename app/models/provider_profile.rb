@@ -105,6 +105,10 @@ class ProviderProfile < ActiveRecord::Base
       end
   end
 
+  def cover_url
+    provider_category.imagen_url if provider_category.present?
+  end
+
   private
 
   ##

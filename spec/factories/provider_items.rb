@@ -39,5 +39,9 @@ FactoryGirl.define do
                provider_item: provider_item
       end
     end
+
+    trait :en_stock do
+      en_stock true
+    end
   end
 end
