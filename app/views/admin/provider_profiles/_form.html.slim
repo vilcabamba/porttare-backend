@@ -9,7 +9,7 @@
           .form-group
             = f.label :provider_category_id
             = f.select :provider_category_id,
-                       ProviderCategory.all.decorate.map{|c| [c.to_s, c.id]},
+                       provider_categories_for_select,
                        { include_blank: true },
                        class: "js-selectize"
 

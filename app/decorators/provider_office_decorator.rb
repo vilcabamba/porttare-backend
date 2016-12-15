@@ -48,7 +48,10 @@ class ProviderOfficeDecorator < GenericResourceDecorator
 
   def office_time(field)
     if object.send(field).present?
-      l(object.send(field), format: :office_schedule)
+      h.l(
+        object.send(field).in_time_zone,
+        format: :office_schedule
+      )
     end
   end
 end

@@ -65,6 +65,10 @@ class ProviderOffice < ActiveRecord::Base
       ##
       # support setting schedule with custom format:
       schedule_format = I18n.t("time.formats.office_schedule")
+      if new_time.length < 6
+        # assume it's system's TZ
+        new_time += Time.zone.formatted_offset
+      end
       begin
         new_time = DateTime.strptime(new_time, schedule_format)
       rescue ArgumentError

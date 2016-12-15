@@ -351,6 +351,7 @@ es:
       api: "%Y-%m-%d %H:%M %z"
       office_schedule: "%H:%M %z"
       admin_full: "%Y-%m-%d %H:%M"
+      hour_only: "%H:%M"
   views:
     pagination:
       truncate: "..."
