@@ -14,8 +14,9 @@ json.deliver_at(
   l(customer_order.deliver_at, format: :api)
 ) if customer_order.deliver_at.present?
 
+
 json.provider_profiles do
-  customer_order.provider_profiles.each do |provider_profile|
+  json.array! customer_order.provider_profiles do |provider_profile|
     json.partial!(
       "api/customer/cart/provider_profiles",
       provider_profile: provider_profile,
