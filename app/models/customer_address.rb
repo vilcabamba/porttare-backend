@@ -22,6 +22,8 @@ class CustomerAddress < ActiveRecord::Base
 
   before_save :set_default_nombre, unless: :nombre
 
+  validates :direccion_uno, presence: true
+
   private
 
   def set_default_nombre
