@@ -58,7 +58,12 @@ class CustomerOrder < ActiveRecord::Base
   has_many :order_items,
            class_name: "CustomerOrderItem"
 
-  scope :in_progress, -> { where(status: "in_progress") }
+  scope :submitted, -> {
+    where status: statuses["submitted"]
+  }
+  scope :in_progress, -> {
+    where status: statuses["in_progress"]
+  }
 
   serialize :customer_address_attributes, JSON
   serialize :customer_billing_address_attributes, JSON
