@@ -1,4 +1,16 @@
 class CustomerOrderPolicy < ApplicationPolicy
+  class Scope < Scope
+    def resolve
+      scope.where(
+        customer_profile_id: user.customer_profile.id
+      )
+    end
+  end
+
+  def index?
+    true # non-customers may access this endpoint
+  end
+
   ##
   # scope is not being used.
   # controllers access via #current_order
