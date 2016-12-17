@@ -27,7 +27,6 @@ RSpec.describe Api::ItemsController,
     end
 
     it "should respond with provider item" do
-      puts response.body
       resp_provider_item = JSON.parse(response.body).fetch("provider_item")
       expect(resp_provider_item["titulo"]).to eq(provider_item.titulo)
     end
