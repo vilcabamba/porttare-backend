@@ -76,6 +76,7 @@ group :deployment do
   gem 'capistrano-bundler', '~> 1.2'
   gem 'capistrano-rails', '~> 1.2'
   gem 'capistrano-passenger', '~> 0.2'
+  gem 'capistrano3-delayed-job', '~> 1.7'
   gem 'slackistrano', '~> 3.1', require: false
 end
 
