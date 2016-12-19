@@ -77,7 +77,7 @@ group :deployment do
   gem 'capistrano-rails', '~> 1.2'
   gem 'capistrano-passenger', '~> 0.2'
   gem 'capistrano3-delayed-job', '~> 1.7'
-  gem 'daemons', '~> 1.2', require: false # to daemonize delayed_job at deployment server
+  gem 'daemons', '~> 1.2', require: false # to daemonize delayed_job
   gem 'slackistrano', '~> 3.1', require: false
 end
 
