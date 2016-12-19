@@ -10,6 +10,7 @@ set :slackistrano, {
 }
 
 set :delayed_job_prefix, 'porttare-backend'
+set :delayed_job_monitor, true
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp

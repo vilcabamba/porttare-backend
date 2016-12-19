@@ -89,6 +89,3 @@ group :staging do
   gem 'rails_12factor'
   gem 'cloudinary', '~> 1.2'
 end
-
-group :demo, :production do
-end
