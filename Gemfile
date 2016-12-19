@@ -82,7 +82,7 @@ group :test do
   gem 'codeclimate-test-reporter', '~> 0.6', require: nil
 end
 
-group :heroku do
+group :staging do
   gem 'rails_12factor'
   gem 'cloudinary', '~> 1.2'
 end
