@@ -9,6 +9,9 @@ set :slackistrano, {
   webhook: 'https://hooks.slack.com/services/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'
 }
 
+set :delayed_job_prefix, 'porttare-backend'
+set :delayed_job_monitor, true
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 set :branch, ENV['BRANCH'] || 'production'

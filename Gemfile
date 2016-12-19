@@ -40,6 +40,7 @@ gem 'pundit', '~> 1.1'
 gem 'money-rails', '~> 1.6'
 gem 'kaminari', '~> 0.17'
 gem 'airbrake', '~> 4.3'
+gem 'delayed_job_active_record', '~> 4.1'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -75,6 +76,8 @@ group :deployment do
   gem 'capistrano-bundler', '~> 1.2'
   gem 'capistrano-rails', '~> 1.2'
   gem 'capistrano-passenger', '~> 0.2'
+  gem 'capistrano3-delayed-job', '~> 1.7'
+  gem 'daemons', '~> 1.2' # to deploy delayed_job
   gem 'slackistrano', '~> 3.1', require: false
 end
 
