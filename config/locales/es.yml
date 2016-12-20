@@ -145,6 +145,9 @@ es:
         enabled: Habilitada
       provider_item_categories:
         nombre: Nombre
+      provider_item:
+        provider_item_category: Categoría
+        descripcion: Descripción
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"

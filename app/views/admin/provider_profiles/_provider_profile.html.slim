@@ -9,8 +9,10 @@
         .resource-title = provider_profile.nombre_establecimiento
         .resource-subtitle = provider_profile.provider_category
 
-    = render "admin/shared/common_resource_collection_body",
-             resource: provider_profile
+    .resource-body
+      = render "admin/shared/common_resource_collection_body",
+               resource: provider_profile,
+               display: :card_attributes
 
     .resource-footer
       = link_to t("ui.view_details"),

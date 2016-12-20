@@ -13,6 +13,14 @@
   .resource {
     padding: 15px;
 
+    .image-wrapper {
+      text-align: center;
+
+      .placeholder-thumbnail {
+        font-size: 60px;
+      }
+    }
+
     .resource-title {
       font-size: 22px;
       margin: 5px 0 0 0;

@@ -14,12 +14,9 @@
         .resource-subtitle
           = @current_resource.provider_category
 
-        - @current_resource.detail_attributes.each do |attribute|
-          .resource-row
-            span.resource-label
-              = @current_resource.label_for(attribute)
-            span.resource-value
-              = @current_resource.send(attribute)
+        = render "admin/shared/common_resource_collection_body",
+                 resource: @current_resource,
+                 display: :detail_attributes
 
         - if @current_resource.offices.count > 0
           = render "provider_profile_offices"
