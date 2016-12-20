@@ -22,3 +22,9 @@
         = render "admin/shared/common_resource_collection_body",
                  resource: @current_resource,
                  display: :detail_attributes
+
+        .attached-images.row
+          - @current_resource.imagenes.each do |imagen|
+            .attached-image.col-xs-3
+              = image_tag imagen.imagen_url,
+                          class: "img-responsive"

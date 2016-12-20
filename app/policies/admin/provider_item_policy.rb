@@ -29,5 +29,27 @@ module Admin
     def update?
       edit?
     end
+
+    def permitted_attributes
+      [
+        :titulo,
+        :descripcion,
+        :observaciones,
+        :unidad_medida,
+        :precio,
+        :volumen,
+        :peso,
+        :en_stock,
+        :provider_item_category_id,
+        :provider_profile_id,
+        imagenes_attributes: [
+          :id,
+          :imagen,
+          :imagen_cache,
+          :remove_imagen,
+          :_destroy
+        ]
+      ]
+    end
   end
 end

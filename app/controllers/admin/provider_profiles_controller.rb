@@ -58,8 +58,7 @@ module Admin
     helper_method :transitor_service
 
     def provider_categories_for_select
-      ProviderCategory.all
-                      .order(:titulo)
+      ProviderCategory.by_titulo
                       .decorate
                       .map do |provider_category|
         [ provider_category.to_s, provider_category.id ]

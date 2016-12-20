@@ -90,6 +90,12 @@ class ProviderProfile < ActiveRecord::Base
     validate :validate_formas_de_pago
   end
 
+  begin :scopes
+    scope :by_nombre, -> {
+      order(:nombre_establecimiento)
+    }
+  end
+
   ##
   # @note assigns default category to items without category
   def provider_items_by_categories

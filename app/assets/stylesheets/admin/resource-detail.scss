@@ -62,3 +62,32 @@
 .resource-action-prompt {
   white-space: pre-line;
 }
+
+.attached-images {
+  .attached-image {
+    img {
+      margin: auto;
+    }
+  }
+}
+
+.attached-images-in-form {
+  .add_nested_fields {
+    display: block;
+  }
+
+  .fields {
+    display: inline-block;
+
+    .file {
+      width: 150px;
+    }
+
+    img {
+      max-height: 200px;
+      max-width: 200px;
+      margin: auto;
+      display: block;
+    }
+  }
+}

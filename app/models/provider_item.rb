@@ -45,6 +45,8 @@ class ProviderItem < ActiveRecord::Base
               numericality: { greater_than_or_equal_to: 0 }
     validates :unidad_medida,
               inclusion: { in: UNIDADES_MEDIDA }
+    validates :provider_profile_id,
+              presence: true
   end
 
   begin :scopes
@@ -61,7 +63,9 @@ class ProviderItem < ActiveRecord::Base
     accepts_nested_attributes_for(
       :imagenes,
       allow_destroy: true,
-      reject_if: proc { |attrs| attrs['imagen'].blank? }
+      reject_if: proc { |attrs|
+        attrs['imagen'].blank? && attrs['_destroy'].blank?
+      }
     )
 
     accepts_nested_attributes_for(

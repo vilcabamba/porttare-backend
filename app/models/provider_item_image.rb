@@ -11,9 +11,11 @@
 
 class ProviderItemImage < ActiveRecord::Base
   belongs_to :provider_item
+  has_paper_trail
 
   mount_uploader :imagen, ProviderItemImageUploader
 
   validates :imagen,
-            presence: true
+            presence: true,
+            if: "imagen_cache.blank?"
 end
