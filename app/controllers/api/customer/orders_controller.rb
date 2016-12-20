@@ -19,7 +19,12 @@ module Api
       see "customer-cart-items#index", "Customer::Cart::Items#index for customer order serialization in response"
       def index
         super
-        @api_collection = @api_collection.submitted.latest
+      end
+
+      private
+
+      def collection_scope
+        resource_scope.submitted.latest
       end
     end
   end
