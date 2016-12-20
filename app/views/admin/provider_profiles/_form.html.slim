@@ -55,14 +55,11 @@
               = f.text_field "#{sn}_handle",
                              class: "form-control"
 
-          .form-group
-            = f.label :formas_de_pago
-            = f.select :formas_de_pago,
-                       ProviderProfile::FORMAS_DE_PAGO,
-                       {},
-                       class: "js-selectize",
-                       multiple: true,
-                       required: true
+          = f.input :formas_de_pago,
+                    collection: ProviderProfile::FORMAS_DE_PAGO,
+                    required: true,
+                    input_html: { class: "js-selectize",
+                                  multiple: true }
 
           .form-group
             = f.label :logotipo
