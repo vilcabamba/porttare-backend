@@ -8,11 +8,11 @@ module Api
         name "Customer::Orders"
         short "customer's previous orders"
       end
-      
+
       self.resource_klass = CustomerOrder
-      
+
       before_action :authenticate_api_auth_user!
-      
+
       api :GET,
           "/customer/orders",
           "customer's previous orders"
@@ -20,11 +20,11 @@ module Api
       def index
         super
       end
-      
+
       private
-      
-      def resource_scope
-        policy_scope(resource_klass).submitted
+
+      def collection_scope
+        resource_scope.submitted.latest
       end
     end
   end

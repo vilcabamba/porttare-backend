@@ -15,6 +15,12 @@
             span.glyphicon.glyphicon-inbox
             = t("admin.sidebar.providers")
 
+      li class="#{'active' if controller_name == 'provider_item_categories'}"
+        = link_to admin_provider_item_categories_path do
+          .wrapper
+            span.glyphicon.glyphicon-th-list
+            = t("admin.sidebar.provider_item_categories")
+
       li class="#{'active' if controller_name == 'shipping_requests'}"
         = link_to admin_shipping_requests_path do
           .wrapper

@@ -80,6 +80,8 @@ Rails.application.routes.draw do
                :passwords
              ]
   namespace :admin do
+    resources :shipping_requests
+    resources :provider_item_categories
     resources :users do
       collection do
         get "/by_status/:status",
@@ -87,7 +89,6 @@ Rails.application.routes.draw do
             as: :by_status
       end
     end
-    resources :shipping_requests
     resources :provider_profiles do
       collection do
         get "/by_status/:status",

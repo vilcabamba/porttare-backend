@@ -3,6 +3,8 @@ server 'demo-backend.moviggo.com', user: 'demo-porttare', roles: %w{app db web}
 set :deploy_to, '/home/demo-porttare/demo-porttare-backend'
 set :rbenv_path, '/home/demo-porttare/.rbenv'
 
+set :delayed_job_prefix, 'porttare-backend-demo'
+
 # role-based syntax
 # ==================
 

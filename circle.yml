@@ -4,3 +4,8 @@ machine:
 test:
   override:
     - RAILS_ENV=test bundle exec rspec -r rspec_junit_formatter --format RspecJunitFormatter -o $CIRCLE_TEST_REPORTS/rspec/junit.xml
+deployment:
+  demo:
+    branch: production
+    commands:
+      - bundle exec cap demo deploy

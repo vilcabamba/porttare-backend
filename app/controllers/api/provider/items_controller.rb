@@ -12,8 +12,6 @@ module Api
 
       self.resource_klass = ProviderItem
 
-      before_action :authenticate_api_auth_user!
-
       api :GET,
           "/provider/items",
           "Lists a provider's items"

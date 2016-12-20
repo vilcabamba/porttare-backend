@@ -1,6 +1,7 @@
 module Api
   module Provider
     class BaseController < Api::BaseController
+      before_action :authenticate_api_auth_user!
       before_action :verify_provider_is_active
 
       protected

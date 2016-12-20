@@ -9,10 +9,12 @@ RSpec.describe Api::Provider::ItemsController,
     describe "updating an item" do
       let(:my_item) {
         create :provider_item,
+               :with_provider_item_category,
                provider_profile: provider.provider_profile
       }
 
       before do
+        my_item
         attributes = {
           provider_item_category_attributes: {
             nombre: "snacks"

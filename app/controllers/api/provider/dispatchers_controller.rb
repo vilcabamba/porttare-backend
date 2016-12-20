@@ -12,7 +12,6 @@ module Api
 
       self.resource_klass = ProviderDispatcher
 
-      before_action :authenticate_api_auth_user!
       before_action :find_provider_office,
                     only: [:create, :update]
 

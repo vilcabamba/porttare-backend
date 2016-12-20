@@ -12,8 +12,6 @@ module Api
 
       self.resource_klass = ProviderClient
 
-      before_action :authenticate_api_auth_user!
-
       api :GET,
           "/provider/clients",
           "Lists provider's clients"

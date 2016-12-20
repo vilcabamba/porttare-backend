@@ -11,9 +11,14 @@
 #
 
 class ProviderItemCategory < ActiveRecord::Base
+  has_paper_trail
+
   belongs_to :provider_profile
   has_many :provider_items
 
+  scope :by_nombre, -> {
+    order("LOWER(nombre)")
+  }
   scope :nombre_like, ->(query) {
     where("nombre ILIKE :nombre", nombre: "%#{query}%")
   }
