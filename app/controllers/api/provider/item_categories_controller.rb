@@ -9,8 +9,6 @@ module Api
         short "provider item categories"
       end
 
-      before_action :authenticate_api_auth_user!
-
       self.resource_klass = ProviderItemCategory
 
       api :GET,
