@@ -36,6 +36,8 @@ es:
     cancel: Cancelar
     login: Iniciar sesión
     logout: Cerrar sesión
+    positive: sí
+    negative: "no"
   admin:
     provider: Proveedor
     something_went_wrong: Ups, algo salió mal
@@ -51,6 +53,7 @@ es:
       shipping_requests: Envíos
       provider_categories: Áreas
       provider_item_categories: Categorías
+      provider_items: Productos
     users:
       new: Nuevo usuario
     user:
@@ -63,6 +66,8 @@ es:
       title: Pedido
     provider_office:
       title: Oficina
+    provider_item:
+      new: Nuevo producto
     provider_item_category:
       new: Nueva categoría
       global: Visible para todos

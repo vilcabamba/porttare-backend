@@ -82,6 +82,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :shipping_requests
     resources :provider_item_categories
+    resources :provider_items
     resources :users do
       collection do
         get "/by_status/:status",

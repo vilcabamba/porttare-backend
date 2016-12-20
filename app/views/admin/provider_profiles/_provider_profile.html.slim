@@ -9,13 +9,8 @@
         .resource-title = provider_profile.nombre_establecimiento
         .resource-subtitle = provider_profile.provider_category
 
-    .resource-body
-      - provider_profile.card_attributes.each do |attribute|
-        .resource-row
-          span.resource-label
-            = provider_profile.label_for(attribute)
-          span.resource-value
-            = provider_profile.send(attribute)
+    = render "admin/shared/common_resource_collection_body",
+             resource: provider_profile
 
     .resource-footer
       = link_to t("ui.view_details"),
