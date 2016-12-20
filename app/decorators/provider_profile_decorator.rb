@@ -3,6 +3,10 @@ class ProviderProfileDecorator < GenericResourceDecorator
   decorates_association :offices
   decorates_association :provider_category
 
+  def to_s
+     nombre_establecimiento
+  end
+
   def logotipo_url
     if object.logotipo?
       object.logotipo_url

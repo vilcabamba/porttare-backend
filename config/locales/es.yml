@@ -37,6 +37,7 @@ es:
     login: Iniciar sesión
     logout: Cerrar sesión
   admin:
+    provider: Proveedor
     something_went_wrong: Ups, algo salió mal
     history:
       panel-title: Historial
@@ -48,7 +49,8 @@ es:
       providers: Proveedores
       users: Usuarios
       shipping_requests: Envíos
-      provider_categories: Categorías
+      provider_categories: Áreas
+      provider_item_categories: Categorías
     users:
       new: Nuevo usuario
     user:
@@ -61,6 +63,13 @@ es:
       title: Pedido
     provider_office:
       title: Oficina
+    provider_item_category:
+      new: Nueva categoría
+      global: Visible para todos
+      provider_items_count: Productos
+      default: Categoría predeterminada
+      created: Categoría creada
+      updated: Categoría actualizada
     provider_profile:
       new: Nuevo proveedor
       branches: Sucursales
@@ -129,6 +138,8 @@ es:
         remove_imagen: Eliminar imagen
       provider_office:
         enabled: Habilitada
+      provider_item_categories:
+        nombre: Nombre
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"

@@ -40,6 +40,10 @@ FactoryGirl.define do
       end
     end
 
+    trait :with_provider_item_category do
+      provider_item_category
+    end
+
     trait :en_stock do
       en_stock true
     end

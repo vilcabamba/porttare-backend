@@ -1,14 +1,17 @@
 @import "admin/colors";
 @import "bootstrap/variables";
 
-.resource-collection {
+.resource-collection,
+.resource-table-collection {
   .resource-wrapper {
     padding-left: 10px;
     padding-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
   }
+}
 
+.resource-collection {
   .resource {
     border: 1px solid $resourceOuterBorderColor;
     background-color: white;
