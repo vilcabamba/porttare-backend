@@ -19,13 +19,17 @@ class ProviderProfileDecorator < GenericResourceDecorator
     object.formas_de_pago.join(", ")
   end
 
+  def link_to_resource(options=nil, &block)
+    h.link_to h.admin_provider_profile_path(object), options, &block
+  end
+
   def card_attributes
     [
       :ruc,
       :razon_social,
       :actividad_economica,
       :representante_legal
-    ]
+    ].freeze
   end
 
   def detail_attributes
@@ -44,6 +48,6 @@ class ProviderProfileDecorator < GenericResourceDecorator
       :twitter_handle,
       :instagram_handle,
       :youtube_handle
-    ]
+    ].freeze
   end
 end

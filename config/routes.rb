@@ -26,7 +26,7 @@ Rails.application.routes.draw do
       resources :billing_addresses,
                 only: [:index, :create, :update]
       resources :orders,
-                only: :index
+                only: [:index, :show]
     end
 
     namespace :provider do
@@ -80,8 +80,10 @@ Rails.application.routes.draw do
                :passwords
              ]
   namespace :admin do
+    resources :resource_version, only: :show
     resources :shipping_requests
     resources :provider_item_categories
+    resources :provider_items
     resources :users do
       collection do
         get "/by_status/:status",

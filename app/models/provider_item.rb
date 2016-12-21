@@ -21,6 +21,8 @@
 #
 
 class ProviderItem < ActiveRecord::Base
+  has_paper_trail
+
   include SoftDestroyable
 
   UNIDADES_MEDIDA = [
@@ -45,10 +47,16 @@ class ProviderItem < ActiveRecord::Base
               numericality: { greater_than_or_equal_to: 0 }
     validates :unidad_medida,
               inclusion: { in: UNIDADES_MEDIDA }
+    validates :provider_profile_id,
+              presence: true
   end
 
   begin :scopes
     scope :in_stock, ->{ where(en_stock: true) }
+  end
+
+  begin :callbacks
+    before_update :touch_if_associations_changed
   end
 
   begin :relationships
@@ -61,12 +69,23 @@ class ProviderItem < ActiveRecord::Base
     accepts_nested_attributes_for(
       :imagenes,
       allow_destroy: true,
-      reject_if: proc { |attrs| attrs['imagen'].blank? }
+      reject_if: proc { |attrs|
+        attrs['imagen'].blank? && attrs['_destroy'].blank?
+      }
     )
 
     accepts_nested_attributes_for(
       :provider_item_category,
       reject_if: proc { |attrs| attrs['nombre'].blank? }
     )
+  end
+
+  private
+
+  def touch_if_associations_changed
+    if imagenes.any?(&:changed?) || imagenes.any?(&:marked_for_destruction?)
+      # touch_with_version
+      self.updated_at = Time.now
+    end
   end
 end

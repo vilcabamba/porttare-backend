@@ -36,12 +36,21 @@ es:
     cancel: Cancelar
     login: Iniciar sesión
     logout: Cerrar sesión
+    positive: sí
+    negative: "no"
   admin:
     provider: Proveedor
     something_went_wrong: Ups, algo salió mal
     history:
       panel-title: Historial
       not_user: se
+      default:
+        create: creó este registro
+        association:
+          create: "creado:"
+          generated: "generado:"
+          update: "actualizado:"
+          destroy: "eliminado:"
     main_navbar:
       title: Administración
     sidebar:
@@ -51,6 +60,7 @@ es:
       shipping_requests: Envíos
       provider_categories: Áreas
       provider_item_categories: Categorías
+      provider_items: Productos
     users:
       new: Nuevo usuario
     user:
@@ -63,6 +73,17 @@ es:
       title: Pedido
     provider_office:
       title: Oficina
+    provider_item:
+      new: Nuevo producto
+      updated: Producto actualizado
+      created: Producto creado
+      add_image: Agregar imagen
+      history:
+        create: creó este producto
+        update: actualizó este producto
+        association:
+          provider_item_image:
+            create: "subido:"
     provider_item_category:
       new: Nueva categoría
       global: Visible para todos
@@ -83,10 +104,6 @@ es:
         ask_to_validate: verificó esta solicitud
         create: creó este proveedor
         update: actualizó este proveedor
-        association:
-          create: "creado:"
-          generated: "generado:"
-          update: "actualizado:"
       wont_transition:
         ask_to_validate: Esta solicitud no puede ser validada
       transition:
@@ -117,6 +134,7 @@ es:
     models:
       user: Usuario
       shipping_request: Solicitud de envío
+      provider_item_image: Imagen de producto
     attributes:
       user:
         name: Nombre
@@ -140,6 +158,15 @@ es:
         enabled: Habilitada
       provider_item_categories:
         nombre: Nombre
+      provider_item:
+        provider_item_category: Categoría
+        provider_item_category_id: Categoría
+        provider_profile_id: Proveedor
+        descripcion: Descripción
+      provider_profile:
+        provider_category_id: Área
+      provider_item_image:
+        remove_imagen: Eliminar imagen
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"

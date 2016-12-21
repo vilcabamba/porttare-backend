@@ -74,6 +74,10 @@ class ProviderOffice < ActiveRecord::Base
       rescue ArgumentError
         # fallback to write as is
       end
+      old_time = send(attribute_name)
+      if old_time.present?
+        return if old_time.in_time_zone.strftime(schedule_format) == new_time.in_time_zone.strftime(schedule_format)
+      end
       send :write_attribute, attribute_name, new_time
     end
   end

@@ -1,0 +1,6 @@
+- resource.send(display).each do |attribute|
+  .resource-row
+    span.resource-label
+      = resource.label_for(attribute)
+    span.resource-value
+      = resource.send(attribute)
