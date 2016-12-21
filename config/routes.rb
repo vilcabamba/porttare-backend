@@ -26,7 +26,7 @@ Rails.application.routes.draw do
       resources :billing_addresses,
                 only: [:index, :create, :update]
       resources :orders,
-                only: :index
+                only: [:index, :show]
     end
 
     namespace :provider do

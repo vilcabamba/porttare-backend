@@ -2,6 +2,7 @@ module Api
   module Customer
     class OrdersController < Customer::BaseController
       include Api::BaseController::Scopable
+      include Api::BaseController::Resourceable
       include Api::Customer::BaseController::ResourceCollectionable
 
       resource_description do
@@ -18,6 +19,14 @@ module Api
           "customer's previous orders"
       see "customer-cart-items#index", "Customer::Cart::Items#index for customer order serialization in response"
       def index
+        super
+      end
+
+      api :GET,
+          "/customer/orders/:id",
+          "get a customer's previous order"
+      see "customer-cart-items#index", "Customer::Cart::Items#index for customer order serialization in response"
+      def show
         super
       end
 
