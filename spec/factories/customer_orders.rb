@@ -17,6 +17,7 @@
 #  customer_billing_address_attributes :text
 #  customer_address_id                 :integer
 #  customer_billing_address_id         :integer
+#  submitted_at                        :datetime
 #
 
 FactoryGirl.define do
@@ -43,6 +44,7 @@ FactoryGirl.define do
 
     trait :submitted do
       status :submitted
+      submitted_at { Time.now }
     end
   end
 end

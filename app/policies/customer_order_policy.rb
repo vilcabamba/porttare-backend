@@ -11,6 +11,10 @@ class CustomerOrderPolicy < ApplicationPolicy
     true # non-customers may access this endpoint
   end
 
+  def show?
+    belongs_to_user?
+  end
+
   ##
   # scope is not being used.
   # controllers access via #current_order

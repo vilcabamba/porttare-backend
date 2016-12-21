@@ -7,4 +7,12 @@ class GenericResourceDecorator < Draper::Decorator
       "activerecord.attributes.#{klass_name}.#{attribute}"
     ) + ":"
   end
+
+  def hidden_attr_for_history?(key)
+    @hidden_attrs ||= [
+      :created_at,
+      :updated_at
+    ].freeze
+    @hidden_attrs.include?(key.to_sym)
+  end
 end

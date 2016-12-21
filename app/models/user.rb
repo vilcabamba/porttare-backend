@@ -73,4 +73,13 @@ class User < ActiveRecord::Base
             multiple: true
 
   mount_uploader :custom_image, UserCustomImageUploader
+
+  private
+
+  ##
+  # override devise's default
+  # https://github.com/plataformatec/devise/blob/a9bb7d0318054ebb74d09d835927fbb377afd8bd/README.md#activejob-integration
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
+  end
 end

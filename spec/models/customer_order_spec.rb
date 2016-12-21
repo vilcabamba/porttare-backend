@@ -17,6 +17,7 @@
 #  customer_billing_address_attributes :text
 #  customer_address_id                 :integer
 #  customer_billing_address_id         :integer
+#  submitted_at                        :datetime
 #
 
 require 'rails_helper'
