@@ -26,5 +26,5 @@
         .attached-images.row
           - @current_resource.imagenes.each do |imagen|
             .attached-image.col-xs-3
-              = image_tag imagen.imagen_url,
+              = image_tag imagen.imagen.small_cropped.url,
                           class: "img-responsive"

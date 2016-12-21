@@ -1,3 +1,3 @@
 # encoding: utf-8
-class UserCustomImageUploader < ApplicationUploader
+class UserCustomImageUploader < ImageVersionableUploader
 end

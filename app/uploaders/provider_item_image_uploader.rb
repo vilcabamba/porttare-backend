@@ -1,3 +1,3 @@
 # encoding: utf-8
-class ProviderItemImageUploader < ApplicationUploader
+class ProviderItemImageUploader < ImageVersionableUploader
 end

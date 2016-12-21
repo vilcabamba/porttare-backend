@@ -9,7 +9,7 @@ class ProviderProfileDecorator < GenericResourceDecorator
 
   def logotipo_url
     if object.logotipo?
-      object.logotipo_url
+      object.logotipo.small.url
     else
       h.gravatar_image_url(provider_profile.email)
     end
