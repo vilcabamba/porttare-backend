@@ -1,5 +1,5 @@
 json.extract!(
-  user,
+  user.decorate,
   :id,
   :uid,
   :name,

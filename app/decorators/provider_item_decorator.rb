@@ -8,7 +8,7 @@ class ProviderItemDecorator < GenericResourceDecorator
 
   def main_image_url
     if imagenes.any?
-      imagenes.first.imagen_url
+      imagenes.first.imagen.small_cropped.url
     end
   end
 

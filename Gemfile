@@ -42,6 +42,7 @@ gem 'money-rails', '~> 1.6'
 gem 'kaminari', '~> 0.17'
 gem 'airbrake', '~> 4.3'
 gem 'delayed_job_active_record', '~> 4.1'
+gem 'mini_magick', '~> 4.6'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
