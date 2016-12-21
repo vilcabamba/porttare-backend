@@ -1,6 +1,6 @@
 require "porttare_backend/create_default_image_versions"
 
-class CreateDefaultImageVersions < ActiveRecord::Migration
+class RecreateImageVersions < ActiveRecord::Migration
   def up
     say_with_time "creating default image versions" do
       PorttareBackend::CreateDefaultImageVersions.run!
@@ -8,6 +8,6 @@ class CreateDefaultImageVersions < ActiveRecord::Migration
   end
 
   def down
-    say "doing nothing"
+    say "doing nothing.."
   end
 end
