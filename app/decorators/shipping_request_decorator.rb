@@ -2,6 +2,10 @@ class ShippingRequestDecorator < GenericResourceDecorator
   delegate_all
   decorates_association :resource
 
+  def to_s
+    title
+  end
+
   def link_to_resource(&block)
     h.link_to(
       h.admin_shipping_request_path(object.id),

@@ -3,10 +3,7 @@ module PaperTrail
     delegate_all
 
     def decorated_associations
-      associations.map do |association|
-        klass = "::" + association.item_type + "Decorator"
-        klass.constantize.new(association.item)
-      end
+      associations.decorate
     end
 
     def link_to_whodunnit(&block)
@@ -36,11 +33,18 @@ module PaperTrail
 
     def action
       model_key = object.item_type.underscore
-      h.t("admin.#{model_key}.history.#{event}")
+      h.t(
+        "admin.#{model_key}.history.#{event}",
+        default: :"admin.history.default.#{event}"
+      )
     end
 
     def created_at
       h.l(object.created_at, format: :admin_full)
+    end
+
+    def decorated_resource
+      @decorated_resource ||= item.decorate if item.present?
     end
 
     private

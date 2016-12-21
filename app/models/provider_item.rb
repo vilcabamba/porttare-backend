@@ -21,6 +21,8 @@
 #
 
 class ProviderItem < ActiveRecord::Base
+  has_paper_trail
+
   include SoftDestroyable
 
   UNIDADES_MEDIDA = [
@@ -53,6 +55,10 @@ class ProviderItem < ActiveRecord::Base
     scope :in_stock, ->{ where(en_stock: true) }
   end
 
+  begin :callbacks
+    before_update :touch_if_associations_changed
+  end
+
   begin :relationships
     belongs_to :provider_profile
     belongs_to :provider_item_category
@@ -72,5 +78,12 @@ class ProviderItem < ActiveRecord::Base
       :provider_item_category,
       reject_if: proc { |attrs| attrs['nombre'].blank? }
     )
+  end
+
+  def touch_if_associations_changed
+    if imagenes.any?(&:changed?) || imagenes.any?(&:marked_for_destruction?)
+      # touch_with_version
+      self.updated_at = Time.now
+    end
   end
 end

@@ -1,4 +1,8 @@
 class ProviderOfficeDecorator < GenericResourceDecorator
+  def to_s
+    title
+  end
+
   def title
     I18n.t("admin.provider_office.title") + " #{object.direccion}"
   end

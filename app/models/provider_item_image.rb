@@ -10,8 +10,9 @@
 #
 
 class ProviderItemImage < ActiveRecord::Base
-  belongs_to :provider_item
   has_paper_trail
+
+  belongs_to :provider_item
 
   mount_uploader :imagen, ProviderItemImageUploader
 
