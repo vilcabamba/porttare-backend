@@ -127,7 +127,8 @@ class CustomerOrder < ActiveRecord::Base
   end
 
   def order_items_by_provider(provider_profile)
-    order_items.select do |order_item|
+    order_items.includes(provider_item: :imagenes)
+               .select do |order_item|
       order_item.provider_item.provider_profile_id == provider_profile.id
     end
   end
