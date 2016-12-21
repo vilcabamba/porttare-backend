@@ -80,6 +80,8 @@ class ProviderItem < ActiveRecord::Base
     )
   end
 
+  private
+
   def touch_if_associations_changed
     if imagenes.any?(&:changed?) || imagenes.any?(&:marked_for_destruction?)
       # touch_with_version

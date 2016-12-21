@@ -6,9 +6,10 @@ class ShippingRequestDecorator < GenericResourceDecorator
     title
   end
 
-  def link_to_resource(&block)
+  def link_to_resource(options=nil, &block)
     h.link_to(
       h.admin_shipping_request_path(object.id),
+      options,
       &block
     )
   end

@@ -96,6 +96,10 @@ class ProviderProfile < ActiveRecord::Base
     }
   end
 
+  begin :callbacks
+    before_update :touch_if_associations_changed
+  end
+
   ##
   # @note assigns default category to items without category
   def provider_items_by_categories
@@ -126,5 +130,11 @@ class ProviderProfile < ActiveRecord::Base
     end
     errors.add(:formas_de_pago, :invalid) unless all_valid
     errors.add(:formas_de_pago, :empty) if formas_de_pago.empty?
+  end
+
+  def touch_if_associations_changed
+    if offices.any?(&:changed?) || offices.any?(&:marked_for_destruction?)
+      self.updated_at = Time.now
+    end
   end
 end

@@ -80,6 +80,7 @@ Rails.application.routes.draw do
                :passwords
              ]
   namespace :admin do
+    resources :resource_version, only: :show
     resources :shipping_requests
     resources :provider_item_categories
     resources :provider_items

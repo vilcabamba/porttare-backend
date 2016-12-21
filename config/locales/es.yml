@@ -163,6 +163,8 @@ es:
         provider_item_category_id: Categoría
         provider_profile_id: Proveedor
         descripcion: Descripción
+      provider_profile:
+        provider_category_id: Área
       provider_item_image:
         remove_imagen: Eliminar imagen
     errors:

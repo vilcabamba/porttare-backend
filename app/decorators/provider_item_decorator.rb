@@ -2,6 +2,10 @@ class ProviderItemDecorator < GenericResourceDecorator
   decorates_association :provider_profile
   decorates_association :provider_item_category
 
+  def to_s
+    titulo
+  end
+
   def main_image_url
     if imagenes.any?
       imagenes.first.imagen_url
@@ -32,6 +36,14 @@ class ProviderItemDecorator < GenericResourceDecorator
       :created_at,
       :cantidad
     ]
+  end
+
+  def link_to_resource(options=nil, &block)
+    h.link_to(
+      h.admin_provider_item_path(object),
+      options,
+      &block
+    )
   end
 
   def precio

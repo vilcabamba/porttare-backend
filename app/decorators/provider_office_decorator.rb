@@ -7,8 +7,8 @@ class ProviderOfficeDecorator < GenericResourceDecorator
     I18n.t("admin.provider_office.title") + " #{object.direccion}"
   end
 
-  def link_to_resource(&block)
-    h.content_tag :span, &block
+  def link_to_resource(options=nil, &block)
+    h.content_tag :span, options, &block
   end
 
   def hora_de_apertura
@@ -41,7 +41,11 @@ class ProviderOfficeDecorator < GenericResourceDecorator
       :inicio_de_labores,
       :final_de_labores,
       :ciudad
-    ]
+    ].freeze
+  end
+
+  def history_parsed_fields
+
   end
 
   private

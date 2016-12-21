@@ -25,4 +25,7 @@
               - else
                 = t("activerecord.models.#{association.item_type.underscore}")
 
-          .text-muted = version.created_at
+          div
+            = link_to version.created_at,
+                      admin_resource_version_path(version),
+                      class: "text-muted"

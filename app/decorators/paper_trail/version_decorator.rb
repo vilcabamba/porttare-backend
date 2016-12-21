@@ -47,6 +47,12 @@ module PaperTrail
       @decorated_resource ||= item.decorate if item.present?
     end
 
+    def changeset_visible_attributes
+      changeset.reject do |key, _|
+        decorated_resource.hidden_attr_for_history?(key)
+      end
+    end
+
     private
 
     def associations
