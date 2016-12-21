@@ -1,7 +1,7 @@
 # public provider profile
 
 json.extract!(
-  provider_profile,
+  provider_profile.decorate,
   :id,
   :ruc,
   :status,

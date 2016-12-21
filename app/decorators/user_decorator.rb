@@ -6,7 +6,7 @@ class UserDecorator < GenericResourceDecorator
   end
 
   def image_url
-    image.presence || gravatar_image || gravatar_mystery_man
+    custom_image_url.presence || image.presence || gravatar_image || gravatar_mystery_man
   end
 
   def card_attributes
@@ -28,6 +28,10 @@ class UserDecorator < GenericResourceDecorator
     privileges.sort_by do |privilege|
       User::PRIVILEGES.index(privilege)
     end.last
+  end
+
+  def custom_image_url
+    custom_image.small_cropped.url if custom_image?
   end
 
   private
