@@ -70,6 +70,7 @@ group :development do
   gem 'letter_opener'
   gem 'annotate', '~> 2.7'
   gem 'simplecov', '~> 0.12'
+  gem 'rails-erd', '~> 1.5', require: false
 end
 
 group :deployment do
