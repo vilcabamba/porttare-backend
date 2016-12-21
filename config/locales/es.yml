@@ -178,6 +178,7 @@ es:
           attributes:
             order_items:
               at_least_one: debe tener al menos un ítem
+              missing_delivery_address: detallar direcciones de envío
             deliver_at:
               must_be_future: debe ser una fecha en el futuro
   date:

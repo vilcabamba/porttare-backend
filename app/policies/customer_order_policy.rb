@@ -20,12 +20,15 @@ class CustomerOrderPolicy < ApplicationPolicy
   # controllers access via #current_order
   def permitted_attributes
     [
-      :deliver_at,
       :forma_de_pago,
       :observaciones,
-      :delivery_method,
-      :customer_address_id,
-      :customer_billing_address_id
+      :customer_billing_address_id,
+      deliveries_attributes: [
+        :provider_profile_id,
+        :delivery_method,
+        :customer_address_id,
+        :deliver_at
+      ]
     ]
   end
 

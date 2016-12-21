@@ -9,13 +9,9 @@
 #  customer_profile_id                 :integer          not null
 #  created_at                          :datetime         not null
 #  updated_at                          :datetime         not null
-#  deliver_at                          :datetime
-#  delivery_method                     :integer
 #  forma_de_pago                       :integer
 #  observaciones                       :text
-#  customer_address_attributes         :text
 #  customer_billing_address_attributes :text
-#  customer_address_id                 :integer
 #  customer_billing_address_id         :integer
 #  submitted_at                        :datetime
 #

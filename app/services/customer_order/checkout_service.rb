@@ -13,8 +13,9 @@ class CustomerOrder < ActiveRecord::Base
     def valid?
       valid_customer_order? &&
         valid_customer_order_items? &&
+        assign_submission_attributes? &&
         required_attributes_present? &&
-        assign_submission_attributes?
+        valid_customer_order_deliveries?
     end
 
     def save
@@ -22,6 +23,18 @@ class CustomerOrder < ActiveRecord::Base
     end
 
     private
+
+    def valid_customer_order_deliveries?
+      @customer_order.provider_profiles.all? do |provider_profile|
+        delivery = @customer_order.delivery_for_provider(
+          provider_profile
+        )
+        if delivery.blank? || !delivery.ready_for_submission?
+          errors.add(:order_items, :missing_delivery_address)
+        end
+        errors.empty?
+      end
+    end
 
     def valid_customer_order_items?
       unless @customer_order.order_items.count > 0
@@ -50,7 +63,9 @@ class CustomerOrder < ActiveRecord::Base
 
     def required_attributes_present?
       required_attributes.each do |required_attribute|
-        if @submission_attributes[required_attribute].blank?
+        if @customer_order.send(required_attribute).blank?
+        # # what if they are already in the model?
+        # if @submission_attributes[required_attribute].blank?
           errors.add(required_attribute, :blank)
         end
       end
@@ -58,15 +73,14 @@ class CustomerOrder < ActiveRecord::Base
     end
 
     def required_attributes
-      attributes = [
+      [
         :forma_de_pago,
-        :delivery_method,
+        # :delivery_method,
         :customer_billing_address_id
       ]
-      if @submission_attributes[:delivery_method] != "pickup"
-        attributes << :customer_address_id
-      end
-      attributes
+      # if @submission_attributes[:delivery_method] != "pickup"
+      #   attributes << :customer_address_id
+      # end
     end
   end
 end

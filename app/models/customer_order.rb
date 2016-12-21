@@ -9,13 +9,9 @@
 #  customer_profile_id                 :integer          not null
 #  created_at                          :datetime         not null
 #  updated_at                          :datetime         not null
-#  deliver_at                          :datetime
-#  delivery_method                     :integer
 #  forma_de_pago                       :integer
 #  observaciones                       :text
-#  customer_address_attributes         :text
 #  customer_billing_address_attributes :text
-#  customer_address_id                 :integer
 #  customer_billing_address_id         :integer
 #  submitted_at                        :datetime
 #
@@ -28,14 +24,9 @@ class CustomerOrder < ActiveRecord::Base
   FORMAS_DE_PAGO = [
     "efectivo"
   ].freeze
-  DELIVERY_METHODS = [
-    "shipping",
-    "pickup"
-  ].freeze
 
   enum status: STATUSES
   enum forma_de_pago: FORMAS_DE_PAGO
-  enum delivery_method: DELIVERY_METHODS
 
   monetize :subtotal_items_cents,
            numericality: false
@@ -45,19 +36,21 @@ class CustomerOrder < ActiveRecord::Base
   validates :forma_de_pago,
             allow_nil: true,
             inclusion: { in: FORMAS_DE_PAGO }
-  validates :delivery_method,
-            allow_nil: true,
-            inclusion: { in: DELIVERY_METHODS }
-  validates :customer_address,
-            :customer_billing_address,
+  validates :customer_billing_address,
             own_address: true
-  validates :deliver_at, in_future: true
+  # validates :deliver_at, in_future: true
 
   belongs_to :customer_profile
   belongs_to :customer_address
   belongs_to :customer_billing_address
+  has_many :deliveries,
+           class_name: "CustomerOrderDelivery"
+  # TODO should this be through deliveries?
   has_many :order_items,
-           class_name: "CustomerOrderItem"
+           class_name: "CustomerOrderItem",
+           dependent: :destroy
+
+  accepts_nested_attributes_for :deliveries
 
   begin :scopes
     scope :submitted, -> {
@@ -83,6 +76,7 @@ class CustomerOrder < ActiveRecord::Base
   def submit!
     transaction do
       cache_addresses!
+      cache_billing_addresses!
       update_subtotal_items!
       update_submitted_at!
       submitted!
@@ -141,16 +135,23 @@ class CustomerOrder < ActiveRecord::Base
     end
   end
 
+  def delivery_for_provider(provider_profile)
+    deliveries.detect do |delivery|
+      delivery.provider_profile_id == provider_profile.id
+    end
+  end
+
   private
 
-  ##
-  # assigns cached addresses
-  # customer_address is cached if present
-  # customer_billing_address is always cached
-  def cache_addresses!
+  def cache_billing_addresses!
     assign_attributes(
-      customer_address_attributes: customer_address.try(:attributes),
       customer_billing_address_attributes: customer_billing_address.attributes
     )
+  end
+
+  def cache_addresses!
+    deliveries.each do |delivery|
+      delivery.send :cache_address!
+    end
   end
 end
