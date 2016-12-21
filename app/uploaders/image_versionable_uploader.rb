@@ -4,10 +4,14 @@ class ImageVersionableUploader < ApplicationUploader
   end
 
   version :small do
-    process resize_to_fit: [500, 500]
+    process resize_to_limit: [500, 500]
   end
 
-  version :small_cropped do
-    process resize_to_fill: [500, 500]
+  version :small_padded do
+    process resize_and_pad: [500, 500]
   end
+
+  # version :small_cropped do
+  #   process resize_to_fill: [500, 500]
+  # end
 end

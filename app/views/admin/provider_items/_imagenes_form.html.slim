@@ -1,5 +1,5 @@
 - if f.object.imagen?
-  = image_tag f.object.imagen.small_cropped.url,
+  = image_tag f.object.imagen.small_padded.url,
               class: "img-thumbnail"
   = f.input :imagen_cache,
             as: :hidden
