@@ -17,6 +17,7 @@
 #  customer_billing_address_attributes :text
 #  customer_address_id                 :integer
 #  customer_billing_address_id         :integer
+#  submitted_at                        :datetime
 #
 
 class CustomerOrder < ActiveRecord::Base
@@ -83,6 +84,7 @@ class CustomerOrder < ActiveRecord::Base
     transaction do
       cache_addresses!
       update_subtotal_items!
+      update_submitted_at!
       submitted!
       save
     end
@@ -98,6 +100,12 @@ class CustomerOrder < ActiveRecord::Base
       order_item.subtotal
     end.sum
     update_attribute(:subtotal_items, subtotal)
+  end
+
+  ##
+  # writes submitted_at with current time
+  def update_submitted_at!
+    update_attribute :submitted_at, Time.now
   end
 
   ##

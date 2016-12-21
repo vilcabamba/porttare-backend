@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161219132744) do
+ActiveRecord::Schema.define(version: 20161221045756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,12 +92,14 @@ ActiveRecord::Schema.define(version: 20161219132744) do
     t.text     "customer_billing_address_attributes"
     t.integer  "customer_address_id"
     t.integer  "customer_billing_address_id"
+    t.datetime "submitted_at"
   end
 
   add_index "customer_orders", ["customer_address_id"], name: "index_customer_orders_on_customer_address_id", using: :btree
   add_index "customer_orders", ["customer_billing_address_id"], name: "index_customer_orders_on_customer_billing_address_id", using: :btree
   add_index "customer_orders", ["customer_profile_id"], name: "index_customer_orders_on_customer_profile_id", using: :btree
   add_index "customer_orders", ["status"], name: "index_customer_orders_on_status", using: :btree
+  add_index "customer_orders", ["submitted_at"], name: "index_customer_orders_on_submitted_at", using: :btree
 
   create_table "customer_profiles", force: :cascade do |t|
     t.integer  "user_id",    null: false
