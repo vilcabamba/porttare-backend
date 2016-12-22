@@ -73,12 +73,8 @@ class CustomerOrder < ActiveRecord::Base
     def required_attributes
       [
         :forma_de_pago,
-        # :delivery_method,
         :customer_billing_address_id
       ]
-      # if @submission_attributes[:delivery_method] != "pickup"
-      #   attributes << :customer_address_id
-      # end
     end
   end
 end
