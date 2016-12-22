@@ -52,12 +52,6 @@ describe CustomerOrder::CheckoutService,
         ).to have_key(:forma_de_pago)
         expect(
           subject.errors.messages
-        ).to have_key(:delivery_method)
-        expect(
-          subject.errors.messages
-        ).to have_key(:customer_address_id)
-        expect(
-          subject.errors.messages
         ).to have_key(:customer_billing_address_id)
       }
     end
@@ -81,17 +75,21 @@ describe CustomerOrder::CheckoutService,
     describe "wrong delivery_method" do
       let(:checkout_attributes) {
         {
-          delivery_method: "none",
           forma_de_pago: "efectivo",
-          customer_address_id: 1,
-          customer_billing_address_id: 1
+          customer_billing_address_id: 1,
+          deliveries_attributes: [ {
+            provider_profile_id: customer_order.provider_profiles.first.id,
+            delivery_method: "none",
+            customer_address_id: 1
+          } ]
         }
       }
       it {
         is_expected.to_not be_valid
+
         expect(
-          subject.errors.messages[:base].join
-        ).to include("delivery_method")
+          subject.errors.messages
+        ).to have_key(:"deliveries.delivery_method")
       }
     end
 
@@ -99,9 +97,12 @@ describe CustomerOrder::CheckoutService,
       let(:checkout_attributes) {
         {
           forma_de_pago: "free",
-          delivery_method: "shipping",
-          customer_address_id: 1,
-          customer_billing_address_id: 1
+          customer_billing_address_id: 1,
+          deliveries_attributes: [ {
+            provider_profile_id: customer_order.provider_profiles.first.id,
+            delivery_method: "shipping",
+            customer_address_id: 1,
+          } ]
         }
       }
       it {
@@ -117,16 +118,19 @@ describe CustomerOrder::CheckoutService,
       let(:customer_billing_address) { create :customer_billing_address }
       let(:checkout_attributes) {
         {
-          customer_address_id: customer_address.id,
           customer_billing_address_id: customer_billing_address.id,
           forma_de_pago: "efectivo",
-          delivery_method: "shipping"
+          deliveries_attributes: [ {
+            provider_profile_id: customer_order.provider_profiles.first.id,
+            delivery_method: "shipping",
+            customer_address_id: customer_address.id
+          } ]
         }
       }
       it {
         is_expected.to_not be_valid
-        expect(subject.errors).to have_key(:customer_address_id)
         expect(subject.errors).to have_key(:customer_billing_address_id)
+        expect(subject.errors).to have_key(:"deliveries.customer_address_id")
       }
     end
   end
@@ -144,10 +148,13 @@ describe CustomerOrder::CheckoutService,
       let(:checkout_attributes) {
         {
           forma_de_pago: "efectivo",
-          delivery_method: "shipping",
-          customer_address_id: customer_address.id,
           customer_billing_address_id: customer_billing_address.id,
-          observaciones: "some stuff"
+          observaciones: "some stuff",
+          deliveries_attributes: [ {
+            provider_profile_id: customer_order.provider_profiles.first.id,
+            delivery_method: "shipping",
+            customer_address_id: customer_address.id,
+          } ]
         }
       }
 
@@ -164,7 +171,7 @@ describe CustomerOrder::CheckoutService,
 
         it "caches addresses" do
           expect(
-            customer_order.reload.customer_address_attributes
+            customer_order.deliveries.first.reload.customer_address_attributes
           ).to be_present
           expect(
             customer_order.reload.customer_billing_address_attributes
@@ -175,13 +182,22 @@ describe CustomerOrder::CheckoutService,
           [
             :forma_de_pago,
             :observaciones,
-            :delivery_method,
-            :customer_address_id,
             :customer_billing_address_id
           ].each do |attribute|
             expect(
               customer_order.reload.send(attribute)
             ).to eq(checkout_attributes[attribute])
+          end
+          [
+            :delivery_method,
+            :customer_address_id,
+            :provider_profile_id
+          ].each do |attribute|
+            expect(
+              customer_order.deliveries.first.reload.send(attribute)
+            ).to eq(
+              checkout_attributes[:deliveries_attributes].first[attribute]
+            )
           end
         end
       end
@@ -195,8 +211,11 @@ describe CustomerOrder::CheckoutService,
       let(:checkout_attributes) {
         {
           forma_de_pago: "efectivo",
-          delivery_method: "pickup",
-          customer_billing_address_id: customer_billing_address.id
+          customer_billing_address_id: customer_billing_address.id,
+          deliveries_attributes: [ {
+            provider_profile_id: customer_order.provider_profiles.first.id,
+            delivery_method: "pickup"
+          } ]
         }
       }
 

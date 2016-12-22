@@ -38,7 +38,6 @@ class CustomerOrder < ActiveRecord::Base
             inclusion: { in: FORMAS_DE_PAGO }
   validates :customer_billing_address,
             own_address: true
-  # validates :deliver_at, in_future: true
 
   belongs_to :customer_profile
   belongs_to :customer_address

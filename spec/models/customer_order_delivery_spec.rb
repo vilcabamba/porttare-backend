@@ -17,6 +17,35 @@ require 'rails_helper'
 
 RSpec.describe CustomerOrderDelivery,
                type: :model do
-  subject { build :customer_order_delivery }
-  it { is_expected.to be_valid }
+  describe "factory" do
+    subject { build :customer_order_delivery }
+    it { is_expected.to be_valid }
+  end
+
+  describe "validates own address" do
+    subject { build :customer_order_delivery }
+    let(:customer_address) { create :customer_address }
+    before {
+      subject.customer_address = customer_address
+    }
+    it {
+      is_expected.to_not be_valid
+      expect(subject.errors).to have_key(:customer_address_id)
+    }
+  end
+
+  describe "deliver_at must be in future" do
+    subject { build :customer_order_delivery }
+    it {
+      subject.deliver_at = 1.week.ago
+      is_expected.to_not be_valid
+      expect(
+        subject.errors
+      ).to have_key(:deliver_at)
+    }
+    it {
+      subject.deliver_at = 1.week.from_now
+      is_expected.to be_valid
+    }
+  end
 end

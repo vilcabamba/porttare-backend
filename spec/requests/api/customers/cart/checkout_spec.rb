@@ -31,9 +31,12 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
       {
         forma_de_pago: "efectivo",
         observaciones: "something",
-        delivery_method: "shipping",
-        customer_address_id: customer_address.id,
-        customer_billing_address_id: customer_billing_address.id
+        customer_billing_address_id: customer_billing_address.id,
+        deliveries_attributes: [ {
+          provider_profile_id: order_item.provider_item.provider_profile.id,
+          delivery_method: "shipping",
+          customer_address_id: customer_address.id,
+        } ]
       }
     }
 
@@ -46,8 +49,11 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
       let(:submission_attributes) {
         {
           forma_de_pago: "efectivo",
-          delivery_method: "shipping",
-          customer_billing_address_id: customer_billing_address.id
+          customer_billing_address_id: customer_billing_address.id,
+          deliveries_attributes: [ {
+            provider_profile_id: order_item.provider_item.provider_profile.id,
+            delivery_method: "shipping",
+          } ]
         }
       }
 
@@ -60,7 +66,7 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
 
       it {
         errors = JSON.parse(response.body).fetch("errors")
-        expect(errors).to have_key("customer_address_id")
+        expect(errors).to have_key("order_items")
       }
     end
 
@@ -86,8 +92,11 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
       let(:submission_attributes) {
         {
           forma_de_pago: "efectivo",
-          delivery_method: "pickup",
-          customer_billing_address_id: customer_billing_address.id
+          customer_billing_address_id: customer_billing_address.id,
+          deliveries_attributes: [ {
+            provider_profile_id: order_item.provider_item.provider_profile.id,
+            delivery_method: "pickup"
+          } ]
         }
       }
 
@@ -102,8 +111,9 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
         expect(
           response_order["status"]
         ).to eq("submitted")
+        response_provider = response_order["provider_profiles"].first
         expect(
-          response_order["delivery_method"]
+          response_provider["customer_order_delivery"]["delivery_method"]
         ).to eq("pickup")
       }
     end
@@ -113,10 +123,13 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
         {
           forma_de_pago: "efectivo",
           observaciones: "something",
-          delivery_method: "shipping",
-          deliver_at: (Time.now + 2.hours).strftime("%Y-%m-%d %H:%M %z"),
-          customer_address_id: customer_address.id,
-          customer_billing_address_id: customer_billing_address.id
+          customer_billing_address_id: customer_billing_address.id,
+          deliveries_attributes: [ {
+            provider_profile_id: order_item.provider_item.provider_profile.id,
+            delivery_method: "shipping",
+            deliver_at: (Time.now + 2.hours).strftime("%Y-%m-%d %H:%M %z"),
+            customer_address_id: customer_address.id
+          } ]
         }
       }
 
@@ -128,10 +141,13 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
       end
 
       it {
+        response_provider = response_order["provider_profiles"].first
         expect(
-          response_order["deliver_at"]
+          response_provider["customer_order_delivery"]["deliver_at"]
         ).to eq(
-          formatted_time(submission_attributes[:deliver_at])
+          formatted_time(
+            submission_attributes[:deliveries_attributes].first[:deliver_at]
+          )
         )
       }
     end

@@ -29,7 +29,7 @@ class CustomerOrder < ActiveRecord::Base
         delivery = @customer_order.delivery_for_provider(
           provider_profile
         )
-        if delivery.blank? || !delivery.ready_for_submission?
+        if delivery.blank? || !delivery.valid? || !delivery.ready_for_submission?
           errors.add(:order_items, :missing_delivery_address)
         end
         errors.empty?
@@ -64,8 +64,6 @@ class CustomerOrder < ActiveRecord::Base
     def required_attributes_present?
       required_attributes.each do |required_attribute|
         if @customer_order.send(required_attribute).blank?
-        # # what if they are already in the model?
-        # if @submission_attributes[required_attribute].blank?
           errors.add(required_attribute, :blank)
         end
       end

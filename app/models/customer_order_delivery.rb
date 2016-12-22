@@ -29,6 +29,7 @@ class CustomerOrderDelivery < ActiveRecord::Base
             inclusion: { in: DELIVERY_METHODS }
   validates :customer_address,
             own_address: true
+  validates :deliver_at, in_future: true
 
   belongs_to :customer_order
   belongs_to :customer_address
