@@ -226,7 +226,9 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
         end
         expect(
           two["customer_order_delivery"]["deliver_at"]
-        ).to eq(future_shipping)
+        ).to eq(
+          formatted_time(future_shipping)
+        )
 
         three = response_order["provider_profiles"].detect do |profile|
           profile["id"] == provider_three.id
