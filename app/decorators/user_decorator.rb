@@ -34,6 +34,20 @@ class UserDecorator < GenericResourceDecorator
     custom_image.small_padded.url if custom_image?
   end
 
+  ##
+  # i.e. from 3rd party
+  def image
+    case provider
+    when "facebook"
+      # force a square
+      width = 500
+      height = 500
+      "https://graph.facebook.com/#{object.uid}/picture?width=#{width}&height=#{height}"
+    else
+      object.image
+    end
+  end
+
   private
 
   def gravatar_image
