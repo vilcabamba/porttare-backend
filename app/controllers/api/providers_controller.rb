@@ -115,10 +115,28 @@ module Api
   }
 }}
     def show
-      @provider_profile = @provider_category.provider_profiles.find(params[:id])
+      @provider_profile = get_provider_profile
+      @grouped_provider_items = get_grouped_provider_items
     end
 
     private
+
+    def get_provider_profile
+      @provider_category.provider_profiles.find(params[:id])
+    end
+
+    def get_grouped_provider_items
+      @provider_profile.provider_items_by_categories(
+        provider_items_scope.includes(:provider_item_category)
+      )
+    end
+
+    def provider_items_scope
+      ProviderItemPolicy::PublicScope.new(
+        pundit_user,
+        @provider_profile.provider_items
+      ).resolve
+    end
 
     def pundit_authorize
       authorize ProviderCategory
