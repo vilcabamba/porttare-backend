@@ -14,4 +14,14 @@ class ImageVersionableUploader < ApplicationUploader
   # version :small_cropped do
   #   process resize_to_fill: [500, 500]
   # end
+
+  protected
+
+  def extension_white_list
+    %w(jpg jpeg png)
+  end
+
+  def content_type_whitelist
+    /image\//
+  end
 end
