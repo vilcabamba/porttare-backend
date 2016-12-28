@@ -11,6 +11,7 @@
 #  customer_order_id           :integer          not null
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
+#  status                      :string           default("draft"), not null
 #
 
 require 'rails_helper'

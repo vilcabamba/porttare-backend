@@ -5,7 +5,7 @@ module Api
         def resolve
           deliveries = CustomerOrderDelivery.where(
             provider_profile_id: user.provider_profile.id
-          )
+          ).with_status(:pending)
           scope.where(
             id: deliveries.pluck(:customer_order_id)
           )
@@ -20,6 +20,12 @@ module Api
         is_provider? && provider_profile_in_record?
       end
 
+      def accept?
+        is_provider? &&
+          provider_profile_in_record? &&
+          pending_delivery?
+      end
+
       private
 
       def is_provider?
@@ -30,6 +36,12 @@ module Api
         record.provider_profile_ids.include?(
           user.provider_profile.id
         )
+      end
+
+      def pending_delivery?
+        record.delivery_for_provider(
+          user.provider_profile
+        ).status.pending?
       end
     end
   end

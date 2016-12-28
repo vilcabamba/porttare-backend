@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161221193850) do
+ActiveRecord::Schema.define(version: 20161228180526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,18 +65,20 @@ ActiveRecord::Schema.define(version: 20161221193850) do
 
   create_table "customer_order_deliveries", force: :cascade do |t|
     t.datetime "deliver_at"
-    t.string   "delivery_method",             null: false
+    t.string   "delivery_method",                               null: false
     t.integer  "customer_address_id"
     t.json     "customer_address_attributes"
     t.integer  "provider_profile_id"
-    t.integer  "customer_order_id",           null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.integer  "customer_order_id",                             null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.string   "status",                      default: "draft", null: false
   end
 
   add_index "customer_order_deliveries", ["customer_address_id"], name: "index_customer_order_deliveries_on_customer_address_id", using: :btree
   add_index "customer_order_deliveries", ["customer_order_id"], name: "index_customer_order_deliveries_on_customer_order_id", using: :btree
   add_index "customer_order_deliveries", ["provider_profile_id"], name: "index_customer_order_deliveries_on_provider_profile_id", using: :btree
+  add_index "customer_order_deliveries", ["status"], name: "index_customer_order_deliveries_on_status", using: :btree
 
   create_table "customer_order_items", force: :cascade do |t|
     t.integer  "customer_order_id",                             null: false
@@ -223,6 +225,7 @@ ActiveRecord::Schema.define(version: 20161221193850) do
     t.integer  "provider_item_category_id"
   end
 
+  add_index "provider_items", ["cantidad"], name: "index_provider_items_on_cantidad", using: :btree
   add_index "provider_items", ["deleted_at"], name: "index_provider_items_on_deleted_at", using: :btree
   add_index "provider_items", ["en_stock"], name: "index_provider_items_on_en_stock", using: :btree
   add_index "provider_items", ["provider_item_category_id"], name: "index_provider_items_on_provider_item_category_id", using: :btree

@@ -31,7 +31,26 @@ module Api
         super
       end
 
+      api :POST,
+          "/provider/customer_orders/:id/accept",
+          "Accept a pending customer order"
+      see "customer-orders#index", "Customer::Orders#index for customer order serialization in response"
+      def accept
+        find_api_resource
+        pundit_authorize_resource
+        if accept_service.perform
+          render resource_template, status: :accepted
+        else
+          render "api/shared/resource_error",
+                 status: :unprocessable_entity
+        end
+      end
+
       private
+
+      def accept_service
+        CustomerOrder::AcceptService.new pundit_user, @api_resource
+      end
 
       def resource_scope
         skip_policy_scope

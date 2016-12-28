@@ -13,6 +13,7 @@ class CustomerOrder < ActiveRecord::Base
       def submit_order!
         @customer_order.transaction do
           cache_addresses!
+          mark_deliveries_as_pending!
           cache_billing_address!
           update_subtotal_items!
           assign_submitted_at!
@@ -26,6 +27,12 @@ class CustomerOrder < ActiveRecord::Base
       def cache_addresses!
         @customer_order.deliveries.each do |delivery|
           delivery.send :cache_address!
+        end
+      end
+
+      def mark_deliveries_as_pending!
+        @customer_order.deliveries.each do |delivery|
+          delivery.assign_attributes status: :pending
         end
       end
 

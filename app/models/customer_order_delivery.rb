@@ -11,6 +11,7 @@
 #  customer_order_id           :integer          not null
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
+#  status                      :string           default("draft"), not null
 #
 
 class CustomerOrderDelivery < ActiveRecord::Base
@@ -36,6 +37,10 @@ class CustomerOrderDelivery < ActiveRecord::Base
   belongs_to :provider_profile
 
   enumerize :delivery_method, in: DELIVERY_METHODS
+  enumerize :status,
+            in: %w(draft pending accepted rejected),
+            default: "draft",
+            scope: true
 
   def ready_for_submission?
     delivery_method.present? &&

@@ -45,7 +45,12 @@ Rails.application.routes.draw do
       resources :item_categories,
                 only: [:index]
       resources :customer_orders,
-                only: [:index, :show]
+                only: [:index, :show] do
+        member do
+          post :accept
+          post :reject
+        end
+      end
     end
 
     namespace :courier do
