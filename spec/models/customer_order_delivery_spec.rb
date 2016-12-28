@@ -12,6 +12,7 @@
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
 #  status                      :string           default("draft"), not null
+#  reason                      :text
 #
 
 require 'rails_helper'

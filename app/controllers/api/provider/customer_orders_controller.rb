@@ -26,6 +26,7 @@ module Api
       api :GET,
           "/provider/customer_orders/:id",
           "Show a provider's customer order"
+      param :id, Integer, required: true, desc: "unique id for customer order"
       see "customer-orders#index", "Customer::Orders#index for customer order serialization in response"
       def show
         super
@@ -46,10 +47,37 @@ module Api
         end
       end
 
+      api :POST,
+          "/provider/customer_orders/:id/reject",
+          "Reject a pending customer order"
+      param :reason, String, desc: "reason from the provider for rejection"
+      see "customer-orders#index", "Customer::Orders#index for customer order serialization in response"
+      def reject
+        find_api_resource
+        pundit_authorize_resource
+        if reject_service.perform
+          render resource_template, status: :accepted
+        else
+          render "api/shared/resource_error",
+                 status: :unprocessable_entity
+        end
+      end
+
       private
 
       def accept_service
-        CustomerOrder::AcceptService.new pundit_user, @api_resource
+        CustomerOrder::ProviderResponse::AcceptService.new(
+          pundit_user,
+          @api_resource
+        )
+      end
+
+      def reject_service
+        CustomerOrder::ProviderResponse::RejectService.new(
+          pundit_user,
+          @api_resource,
+          params
+        )
       end
 
       def resource_scope

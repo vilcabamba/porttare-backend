@@ -2,6 +2,7 @@ json.extract!(
   order_delivery,
   :id,
   :status,
+  :reason,
   :delivery_method,
   :customer_address_id,
 )

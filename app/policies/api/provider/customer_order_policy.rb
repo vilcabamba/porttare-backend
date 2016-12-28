@@ -26,6 +26,12 @@ module Api
           pending_delivery?
       end
 
+      def reject?
+        is_provider? &&
+          provider_profile_in_record? &&
+          pending_delivery?
+      end
+
       private
 
       def is_provider?

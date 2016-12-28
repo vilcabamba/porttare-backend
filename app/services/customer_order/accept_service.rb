@@ -33,12 +33,6 @@ class CustomerOrder < ActiveRecord::Base
       end
     end
 
-    def customer_order_delivery
-      @customer_order_delivery ||= @customer_order.delivery_for_provider(
-        @provider.provider_profile
-      )
-    end
-
     def address_attributes
       customer_order_delivery.customer_address.attributes.slice(
         "ciudad",

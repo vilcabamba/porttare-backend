@@ -14,9 +14,9 @@ class CustomerOrderDeliveryPolicy < ApplicationPolicy
   def permitted_attributes
     [
       :id,
-      :provider_profile_id,
       :delivery_method,
       :customer_address_id,
+      :provider_profile_id,
       :deliver_at
     ]
   end
