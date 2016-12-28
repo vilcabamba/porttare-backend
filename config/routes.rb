@@ -44,6 +44,8 @@ Rails.application.routes.draw do
                 only: [:index, :show, :create, :update, :destroy]
       resources :item_categories,
                 only: [:index]
+      resources :customer_orders,
+                only: [:index]
     end
 
     namespace :courier do

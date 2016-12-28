@@ -4,7 +4,7 @@ json.partial!(
 )
 
 json.provider_profiles do
-  json.array! customer_order.provider_profiles do |provider_profile|
+  json.array! [current_provider_profile] do |provider_profile|
     json.partial!(
       "api/customer/cart/provider_profiles",
       provider_profile: provider_profile,
