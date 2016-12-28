@@ -4,7 +4,7 @@ RSpec.describe Api::Customer::BillingAddressesController,
                type: :request do
   before { login_as user }
 
-  let(:response_billing_addresses) {
+  let(:response_billing_address) {
     JSON.parse(response.body).fetch("customer_billing_address")
   }
 
@@ -25,7 +25,7 @@ RSpec.describe Api::Customer::BillingAddressesController,
 
     it "includes my address" do
       expect(
-        response_billing_addresses["id"]
+        response_billing_address["id"]
       ).to eq(my_billing_address.id)
     end
   end

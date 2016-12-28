@@ -22,7 +22,7 @@ Rails.application.routes.draw do
       resources :wishlists,
                 only: [:index, :create, :update, :destroy]
       resources :addresses,
-                only: [:index, :create, :update]
+                only: [:index, :show, :create, :update]
       resources :billing_addresses,
                 only: [:index, :show, :create, :update]
       resources :orders,
