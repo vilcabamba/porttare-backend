@@ -9,7 +9,7 @@ class ProviderItemPolicy < ApplicationPolicy
 
   class PublicScope < Scope
     def resolve
-      scope.in_stock
+      scope.in_stock.available
     end
   end
 
