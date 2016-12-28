@@ -66,42 +66,7 @@ class CustomerOrder < ActiveRecord::Base
   serialize :customer_billing_address_attributes, JSON
 
   ##
-  # transitions to submitted state
-  # and caches:
-  #  - subtotal_items
-  #  - customer_billing_address
-  def submit!
-    transaction do
-      cache_addresses!
-      cache_billing_addresses!
-      update_subtotal_items!
-      update_submitted_at!
-      submitted!
-      save
-    end
-  end
-
-  ##
   # caches subtotal_items
-  # and caches each order_item's provider_item_precio
-  # @see #cache_subtotal_items!
-  def update_subtotal_items!
-    subtotal = order_items.collect do |order_item|
-      order_item.cache_provider_item_precio!
-      order_item.subtotal
-    end.sum
-    update_attribute(:subtotal_items, subtotal)
-  end
-
-  ##
-  # writes submitted_at with current time
-  def update_submitted_at!
-    update_attribute :submitted_at, Time.now
-  end
-
-  ##
-  # caches subtotal_items
-  # @see #update_subtotal_items!
   def cache_subtotal_items!
     # HACK: force reloading order_items so they're fresh
     # see spec/models/customer_order_spec
@@ -135,20 +100,6 @@ class CustomerOrder < ActiveRecord::Base
   def delivery_for_provider(provider_profile)
     deliveries.detect do |delivery|
       delivery.provider_profile_id == provider_profile.id
-    end
-  end
-
-  private
-
-  def cache_billing_addresses!
-    assign_attributes(
-      customer_billing_address_attributes: customer_billing_address.attributes
-    )
-  end
-
-  def cache_addresses!
-    deliveries.each do |delivery|
-      delivery.send :cache_address!
     end
   end
 end

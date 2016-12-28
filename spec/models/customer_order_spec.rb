@@ -63,7 +63,9 @@ RSpec.describe CustomerOrder,
     describe "caches #subtotal_items" do
       before do
         customer_order_item
-        customer_order.submit!
+        CustomerOrder::CheckoutService::Submitter.new(
+          customer_order
+        ).submit_order!
       end
 
       it {
@@ -87,7 +89,9 @@ RSpec.describe CustomerOrder,
 
       before do
         old_price
-        customer_order.submit!
+        CustomerOrder::CheckoutService::Submitter.new(
+          customer_order
+        ).submit_order!
         # update price
         provider_item.update!(
           precio: provider_item.precio + Money.from_amount(1.99, "USD")
