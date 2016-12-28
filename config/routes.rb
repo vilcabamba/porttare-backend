@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       resources :addresses,
                 only: [:index, :create, :update]
       resources :billing_addresses,
-                only: [:index, :create, :update]
+                only: [:index, :show, :create, :update]
       resources :orders,
                 only: [:index, :show]
     end

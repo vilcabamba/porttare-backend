@@ -36,6 +36,15 @@ module Api
         super
       end
 
+      api :GET,
+          "/customer/billing_addresses/:id",
+          "show a customer's billing address"
+      param :id, Integer, required: true, desc: "unique billing address id"
+      see "customer-billing_addresses#index", "Customer::BillingAddresses#index for response serialization"
+      def show
+        super
+      end
+
       def_param_group :customer_billing_address do
         param :ruc, String, required: true
         param :email, String
