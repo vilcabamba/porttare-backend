@@ -23,12 +23,7 @@ class CustomerOrderPolicy < ApplicationPolicy
       :forma_de_pago,
       :observaciones,
       :customer_billing_address_id,
-      deliveries_attributes: [
-        :provider_profile_id,
-        :delivery_method,
-        :customer_address_id,
-        :deliver_at
-      ]
+      deliveries_attributes: deliveries_attributes
     ]
   end
 
@@ -37,6 +32,10 @@ class CustomerOrderPolicy < ApplicationPolicy
   end
 
   private
+
+  def deliveries_attributes
+    CustomerOrderDeliveryPolicy.new(user,record).permitted_attributes
+  end
 
   def belongs_to_user?
     user.customer_profile == record.customer_profile

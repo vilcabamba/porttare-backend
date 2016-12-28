@@ -79,6 +79,13 @@ RSpec.describe Api::Customer::Cart::ItemsController,
         customer_order["subtotal_items_cents"]
       ).to eq(subtotal.cents)
     end
+
+    it "delivery gets automatically created" do
+      provider_profile = customer_order["provider_profiles"].first
+      expect(
+        provider_profile["customer_order_delivery"]["id"]
+      ).to be_present
+    end
   end
 
   describe "add an item which already is in the cart" do

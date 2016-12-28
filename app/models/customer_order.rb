@@ -63,14 +63,12 @@ class CustomerOrder < ActiveRecord::Base
     }
   end
 
-  serialize :customer_address_attributes, JSON
   serialize :customer_billing_address_attributes, JSON
 
   ##
   # transitions to submitted state
   # and caches:
   #  - subtotal_items
-  #  - customer_address
   #  - customer_billing_address
   def submit!
     transaction do

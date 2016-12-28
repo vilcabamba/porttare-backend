@@ -25,7 +25,9 @@ class CustomerOrderItem < ActiveRecord::Base
 
   begin :callbacks
     after_save :update_customer_order_subtotals!
+    after_save :create_customer_order_delivery_if_necessary!
     after_destroy :update_customer_order_subtotals!
+    after_destroy :destroy_customer_order_delivery_if_necessary!
   end
 
   begin :validations
@@ -85,6 +87,31 @@ class CustomerOrderItem < ActiveRecord::Base
 
     def update_customer_order_subtotals!
       customer_order.cache_subtotal_items!
+    end
+
+    def create_customer_order_delivery_if_necessary!
+      if customer_order_delivery.blank?
+        customer_order.deliveries.create!(
+          delivery_method: "shipping",
+          provider_profile: provider_item.provider_profile,
+          customer_address: customer_order.customer_profile.customer_addresses.first
+        )
+      end
+    end
+
+    def destroy_customer_order_delivery_if_necessary!
+      items_for_current_provider = customer_order.order_items_by_provider(
+        provider_item.provider_profile
+      )
+      if items_for_current_provider.none?
+        customer_order_delivery.destroy
+      end
+    end
+
+    def customer_order_delivery
+      customer_order.delivery_for_provider(
+        provider_item.provider_profile
+      )
     end
   end
 end

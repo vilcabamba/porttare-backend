@@ -18,6 +18,8 @@ Rails.application.routes.draw do
                   only: [:create, :update, :destroy]
         resource :checkout,
                  only: :create
+        resources :deliveries,
+                  only: [:update]
       end
       resources :wishlists,
                 only: [:index, :create, :update, :destroy]

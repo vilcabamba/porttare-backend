@@ -21,6 +21,7 @@ module Api
             "/customer/cart/checkout",
             "responds with full `customer_order`"
         see "customer-cart-items#index", "Customer::Cart::Items#index for customer order serialization in response"
+        see "customer-cart-deliveries#update", "Customer::Cart::Deliveries#update for deliveries attributes"
         param :observaciones,
               String,
               desc: "observaciones para el pedido. ej: timbre al llegar"
@@ -36,19 +37,6 @@ module Api
           param :id,
                 Integer,
                 desc: "unique for each delivery"
-          param :provider_profile_id,
-                Integer,
-                required: true,
-                desc: "the provider profile to whom this delivery will belong"
-          param :delivery_method,
-                CustomerOrderDelivery::DELIVERY_METHODS,
-                required: true
-          param :customer_address_id,
-                Integer,
-                desc: "the customer address for the delivery (**required if** method is `shipping`)"
-          param :deliver_at,
-                Time,
-                desc: "a delivery may be scheduled"
         end
         def create
           super
