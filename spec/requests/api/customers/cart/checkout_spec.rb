@@ -33,6 +33,7 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
         observaciones: "something",
         customer_billing_address_id: customer_billing_address.id,
         deliveries_attributes: [ {
+          id: current_order.deliveries.first.id,
           provider_profile_id: order_item.provider_item.provider_profile.id,
           delivery_method: "shipping",
           customer_address_id: customer_address.id,
@@ -51,6 +52,7 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
           forma_de_pago: "efectivo",
           customer_billing_address_id: customer_billing_address.id,
           deliveries_attributes: [ {
+            id: current_order.deliveries.first.id,
             provider_profile_id: order_item.provider_item.provider_profile.id,
             delivery_method: "shipping",
           } ]
@@ -94,6 +96,7 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
           forma_de_pago: "efectivo",
           customer_billing_address_id: customer_billing_address.id,
           deliveries_attributes: [ {
+            id: current_order.deliveries.first.id,
             provider_profile_id: order_item.provider_item.provider_profile.id,
             delivery_method: "pickup"
           } ]
@@ -125,6 +128,7 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
           observaciones: "something",
           customer_billing_address_id: customer_billing_address.id,
           deliveries_attributes: [ {
+            id: current_order.deliveries.first.id,
             provider_profile_id: order_item.provider_item.provider_profile.id,
             delivery_method: "shipping",
             deliver_at: (Time.now + 2.hours).strftime("%Y-%m-%d %H:%M %z"),
@@ -162,17 +166,20 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
           customer_billing_address_id: customer_billing_address.id,
           deliveries_attributes: [
             {
+              id: current_order.delivery_for_provider(provider_one).id,
               provider_profile_id: provider_one.id,
               delivery_method: "shipping",
               customer_address_id: customer_address.id
             },
             {
+              id: current_order.delivery_for_provider(provider_two).id,
               provider_profile_id: provider_two.id,
               delivery_method: "shipping",
               customer_address_id: second_customer_address.id,
               deliver_at: future_shipping
             },
             {
+              id: current_order.delivery_for_provider(provider_three).id,
               provider_profile_id: provider_three.id,
               delivery_method: "pickup",
               deliver_at: (Time.now + 3.hours).strftime("%Y-%m-%d %H:%M %z")

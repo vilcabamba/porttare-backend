@@ -99,6 +99,7 @@ describe CustomerOrder::CheckoutService,
           forma_de_pago: "free",
           customer_billing_address_id: 1,
           deliveries_attributes: [ {
+            id: customer_order.deliveries.first.id,
             provider_profile_id: customer_order.provider_profiles.first.id,
             delivery_method: "shipping",
             customer_address_id: 1,
@@ -121,6 +122,7 @@ describe CustomerOrder::CheckoutService,
           customer_billing_address_id: customer_billing_address.id,
           forma_de_pago: "efectivo",
           deliveries_attributes: [ {
+            id: customer_order.deliveries.first.id,
             provider_profile_id: customer_order.provider_profiles.first.id,
             delivery_method: "shipping",
             customer_address_id: customer_address.id
@@ -151,6 +153,7 @@ describe CustomerOrder::CheckoutService,
           customer_billing_address_id: customer_billing_address.id,
           observaciones: "some stuff",
           deliveries_attributes: [ {
+            id: customer_order.deliveries.first.id,
             provider_profile_id: customer_order.provider_profiles.first.id,
             delivery_method: "shipping",
             customer_address_id: customer_address.id,
@@ -213,6 +216,7 @@ describe CustomerOrder::CheckoutService,
           forma_de_pago: "efectivo",
           customer_billing_address_id: customer_billing_address.id,
           deliveries_attributes: [ {
+            id: customer_order.deliveries.first.id,
             provider_profile_id: customer_order.provider_profiles.first.id,
             delivery_method: "pickup"
           } ]
