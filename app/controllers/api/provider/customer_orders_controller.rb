@@ -2,11 +2,13 @@ module Api
   module Provider
     class CustomerOrdersController < Provider::BaseController
       include Api::BaseController::Scopable
+      include Api::BaseController::Resourceable
       include Api::Provider::BaseController::ResourceCollectionable
 
       resource_description do
         name "Provider::CustomerOrders"
         short "provider's customer orders"
+        description "customer orders will contain only current provider's profile"
       end
 
       self.resource_klass = CustomerOrder
@@ -21,6 +23,14 @@ module Api
         super
       end
 
+      api :GET,
+          "/provider/customer_orders/:id",
+          "Show a provider's customer order"
+      see "customer-orders#index", "Customer::Orders#index for customer order serialization in response"
+      def show
+        super
+      end
+
       private
 
       def resource_scope
@@ -32,12 +42,23 @@ module Api
       end
 
       def pundit_authorize
-        skip_authorization
-        policy = Api::Provider::CustomerOrderPolicy.new(
-          pundit_user,
-          resource_klass
-        )
-        raise Pundit::NotAuthorizedError unless policy.send("#{action_name}?")
+        if provider_policy(resource_klass).send("#{action_name}?")
+          skip_authorization
+        else
+          raise Pundit::NotAuthorizedError
+        end
+      end
+
+      def pundit_authorize_resource
+        if provider_policy(@api_resource).send("#{action_name}?")
+          skip_authorization
+        else
+          raise Pundit::NotAuthorizedError
+        end
+      end
+
+      def provider_policy(subject)
+        Api::Provider::CustomerOrderPolicy.new pundit_user, subject
       end
 
       def current_provider_profile

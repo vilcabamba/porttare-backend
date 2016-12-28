@@ -79,9 +79,11 @@ class CustomerOrder < ActiveRecord::Base
   end
 
   def provider_profiles
-    ProviderProfile.where(
-      id: provider_items.pluck(:provider_profile_id)
-    )
+    ProviderProfile.where(id: provider_profile_ids)
+  end
+
+  def provider_profile_ids
+    provider_items.pluck(:provider_profile_id)
   end
 
   def provider_items

@@ -16,10 +16,20 @@ module Api
         is_provider?
       end
 
+      def show?
+        is_provider? && provider_profile_in_record?
+      end
+
       private
 
       def is_provider?
         user.provider_profile.present?
+      end
+
+      def provider_profile_in_record?
+        record.provider_profile_ids.include?(
+          user.provider_profile.id
+        )
       end
     end
   end
