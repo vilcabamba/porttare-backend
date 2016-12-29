@@ -244,15 +244,6 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
           three["customer_order_delivery"]["delivery_method"]
         ).to eq("pickup")
       end
-
-      it "creates a shipping request for each shipping delivery" do
-        expect {
-          post_with_headers(
-            "/api/customer/cart/checkout",
-            submission_attributes
-          )
-        }.to change { ShippingRequest.count }.by(2)
-      end
     end
 
     describe "discounts" do
