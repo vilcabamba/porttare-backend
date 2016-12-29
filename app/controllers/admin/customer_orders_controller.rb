@@ -9,6 +9,10 @@ module Admin
       @statuses = CustomerOrder.status.values
     end
 
+    def show
+      super
+    end
+
     private
 
     def resources_with_status(status)

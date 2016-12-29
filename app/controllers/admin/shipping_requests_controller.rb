@@ -10,7 +10,6 @@ module Admin
 
     def show
       super
-      @resource_status = @current_resource.status
     end
 
     private

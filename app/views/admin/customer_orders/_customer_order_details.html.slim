@@ -4,14 +4,14 @@
       .col-xs-2.col-md-1
         .resource-state-icon
           span.glyphicon.glyphicon-unchecked
-        .text-center = shipping_request.status_text
+        .text-center = customer_order.status_text
 
       .col-xs-10.col-md-11
         .resource-title
-          = shipping_request.title
+          = customer_order
         .resource-subtitle
-          = shipping_request.kind_str
+          = customer_order.status_text
 
         = render "admin/shared/common_resource_collection_body",
-                 resource: shipping_request,
-                 display: :card_attributes
+                 resource: customer_order,
+                 display: :detail_attributes

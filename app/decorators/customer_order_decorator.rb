@@ -11,4 +11,8 @@ class CustomerOrderDecorator < GenericResourceDecorator
       :customer_profile
     ]
   end
+
+  def detail_attributes
+    card_attributes
+  end
 end

@@ -14,12 +14,9 @@
             = shipping_request.kind_str
 
       .resource-body
-        - shipping_request.card_attributes.each do |attribute|
-          .resource-row
-            span.resource-label
-              = shipping_request.label_for(attribute)
-            span.resource-value
-              = shipping_request.send(attribute)
+        = render "admin/shared/common_resource_collection_body",
+                 resource: shipping_request,
+                 display: :card_attributes
 
       .resource-footer
         = link_to t("ui.view_details"),
