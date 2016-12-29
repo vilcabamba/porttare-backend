@@ -55,7 +55,8 @@ Rails.application.routes.draw do
 
     namespace :courier do
       resource :profile, only: :create
-      resources :shipping_requests, only: :index
+      resources :shipping_requests,
+                only: [:index, :show]
     end
 
     namespace :users do
