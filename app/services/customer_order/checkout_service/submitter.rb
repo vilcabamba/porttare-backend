@@ -69,8 +69,9 @@ class CustomerOrder < ActiveRecord::Base
       def submitted!
         predicate = :submitted
         @customer_order.paper_trail_event = predicate
-        @customer_order.update! status: predicate
-        @customer_order.paper_trail_event = nil
+        @customer_order.update!(status: predicate).tap do |_|
+          @customer_order.paper_trail_event = nil
+        end
       end
     end
   end
