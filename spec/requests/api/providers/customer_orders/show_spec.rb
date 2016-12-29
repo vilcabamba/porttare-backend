@@ -28,6 +28,7 @@ RSpec.describe Api::Customer::OrdersController,
       login_as user
       customer_order
       customer_order_item
+      customer_order.delivery_for_provider(user.provider_profile).update!(status: :pending)
       get_with_headers "/api/provider/customer_orders/#{customer_order.id}"
     end
 

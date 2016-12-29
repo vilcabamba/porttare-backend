@@ -109,8 +109,8 @@ describe CustomerOrder::CheckoutService,
       it {
         is_expected.to_not be_valid
         expect(
-          subject.errors.messages[:base].join
-        ).to include("forma_de_pago")
+          subject.errors.messages[:forma_de_pago].join
+        ).to be_present
       }
     end
 
