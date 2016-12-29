@@ -168,7 +168,7 @@ describe CustomerOrder::CheckoutService,
 
         it "marks as submitted" do
           expect(
-            customer_order.reload
+            customer_order.reload.status
           ).to be_submitted
         end
 

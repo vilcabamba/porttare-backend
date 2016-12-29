@@ -28,7 +28,7 @@ class CustomerOrderPolicy < ApplicationPolicy
   end
 
   def checkout?
-    belongs_to_user? && record.in_progress?
+    belongs_to_user? && record.status.in_progress?
   end
 
   private

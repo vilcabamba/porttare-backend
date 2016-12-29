@@ -60,12 +60,6 @@ class CustomerOrder < ActiveRecord::Base
   accepts_nested_attributes_for :deliveries
 
   begin :scopes
-    scope :submitted, -> {
-      where status: statuses["submitted"]
-    }
-    scope :in_progress, -> {
-      where status: statuses["in_progress"]
-    }
     scope :latest, -> {
       order(created_at: :desc)
     }

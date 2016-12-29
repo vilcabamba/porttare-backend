@@ -24,7 +24,7 @@ RSpec.describe CustomerOrder,
     subject { build :customer_order }
     it { is_expected.to be_valid }
     it "default status" do
-      is_expected.to be_in_progress
+      expect(subject.status).to be_in_progress
     end
   end
 
@@ -42,7 +42,7 @@ RSpec.describe CustomerOrder,
       customer_order_in_progress
     end
 
-    subject { described_class.in_progress }
+    subject { described_class.with_status(:in_progress) }
 
     it {
       is_expected.to include(customer_order_in_progress)

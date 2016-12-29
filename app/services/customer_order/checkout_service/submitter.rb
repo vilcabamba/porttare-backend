@@ -18,7 +18,6 @@ class CustomerOrder < ActiveRecord::Base
           update_subtotal_items!
           assign_submitted_at!
           submitted!
-          persist!
         end
       end
 
@@ -68,11 +67,10 @@ class CustomerOrder < ActiveRecord::Base
       ##
       # updates state
       def submitted!
-        @customer_order.submitted!
-      end
-
-      def persist!
-        @customer_order.save!
+        predicate = :submitted
+        @customer_order.paper_trail_event = predicate
+        @customer_order.update! status: predicate
+        @customer_order.paper_trail_event = nil
       end
     end
   end

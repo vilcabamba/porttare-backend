@@ -48,6 +48,6 @@ class CustomerOrderItemPolicy < ApplicationPolicy
     # provided by the class or this
     # method should verify the order's
     # ownership otherwise
-    record.customer_order.in_progress?
+    record.customer_order.status.in_progress?
   end
 end

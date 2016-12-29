@@ -13,11 +13,11 @@ class CustomerProfile < ActiveRecord::Base
   has_many :customer_orders
   has_many :customer_wishlists
   has_many :customer_addresses
-  
+
   ##
   # returns an order in progress (if any)
   # @return CustomerOrder
   def current_order
-    customer_orders.in_progress.first
+    customer_orders.with_status(:in_progress).first
   end
 end
