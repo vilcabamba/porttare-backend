@@ -213,14 +213,14 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
         second_order_item
         third_order_item
         second_customer_address
+      end
 
+      it "creates three customer order deliveries" do
         post_with_headers(
           "/api/customer/cart/checkout",
           submission_attributes
         )
-      end
 
-      it "creates three deliveries" do
         one = response_order["provider_profiles"].detect do |profile|
           profile["id"] == provider_one.id
         end
@@ -243,6 +243,15 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
         expect(
           three["customer_order_delivery"]["delivery_method"]
         ).to eq("pickup")
+      end
+
+      it "creates a shipping request for each shipping delivery" do
+        expect {
+          post_with_headers(
+            "/api/customer/cart/checkout",
+            submission_attributes
+          )
+        }.to change { ShippingRequest.count }.by(2)
       end
     end
 
