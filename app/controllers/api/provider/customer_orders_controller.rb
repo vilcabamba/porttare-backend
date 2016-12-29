@@ -18,9 +18,15 @@ module Api
       api :GET,
           "/provider/customer_orders",
           "List provider's customer orders"
+      param :status,
+            CustomerOrder.status.values,
+            desc: "orders' status"
       see "customer-orders#index", "Customer::Orders#index for customer order serialization in response"
       def index
         super
+        @api_collection = @api_collection.with_status(
+          params[:status] || :submitted
+        )
       end
 
       api :GET,
