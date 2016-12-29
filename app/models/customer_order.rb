@@ -19,6 +19,8 @@
 class CustomerOrder < ActiveRecord::Base
   extend Enumerize
 
+  has_paper_trail
+
   STATUSES = [
     "in_progress",
     "submitted"
