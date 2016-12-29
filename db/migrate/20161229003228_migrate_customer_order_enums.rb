@@ -1,7 +1,8 @@
 class MigrateCustomerOrderEnums < ActiveRecord::Migration
   def up
     say_with_time "WARNING: wiping all customer orders" do
-      CustomerOrder.destroy_all
+      CustomerOrderItem.delete_all
+      CustomerOrder.delete_all
     end
 
     change_table :customer_orders do |t|
