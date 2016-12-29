@@ -1,7 +1,7 @@
 class MigrateCustomerOrdersToDeliverToMultipleAddresses < ActiveRecord::Migration
   def up
     say "WARNING: wiping all customer orders"
-    CustomerOrderItem.destroy_all
+    CustomerOrderItem.delete_all
     CustomerOrder.destroy_all
     change_table :customer_orders do |t|
       t.remove :deliver_at,
