@@ -10,6 +10,8 @@ module Api
         )
         render json: response
       else
+        skip_policy_scope
+        skip_authorization
         render text: 'Forbidden', status: '403'
       end
     end
