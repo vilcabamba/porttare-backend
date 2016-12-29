@@ -61,6 +61,7 @@ es:
       provider_categories: Áreas
       provider_item_categories: Categorías
       provider_items: Productos
+      customer_orders: Órdenes
     users:
       new: Nuevo usuario
     user:
@@ -70,7 +71,7 @@ es:
       privileges:
         all: Todos
     shipping_request:
-      title: Pedido
+      title: Envío
     provider_office:
       title: Oficina
     provider_item:
@@ -135,6 +136,7 @@ es:
       user: Usuario
       shipping_request: Solicitud de envío
       provider_item_image: Imagen de producto
+      customer_order: Orden
     attributes:
       user:
         name: Nombre

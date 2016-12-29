@@ -27,6 +27,12 @@
             span.glyphicon.glyphicon-th-list
             = t("admin.sidebar.provider_item_categories")
 
+      li class="#{'active' if controller_name == 'customer_orders'}"
+        = link_to admin_customer_orders_path do
+          .wrapper
+            span.glyphicon.glyphicon-shopping-cart
+            = t("admin.sidebar.customer_orders")
+
       li class="#{'active' if controller_name == 'shipping_requests'}"
         = link_to admin_shipping_requests_path do
           .wrapper

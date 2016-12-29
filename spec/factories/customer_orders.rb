@@ -3,13 +3,13 @@
 # Table name: customer_orders
 #
 #  id                                  :integer          not null, primary key
-#  status                              :integer          default(0), not null
+#  status                              :string           default("in_progress"), not null
 #  subtotal_items_cents                :integer          default(0), not null
 #  subtotal_items_currency             :string           default("USD"), not null
 #  customer_profile_id                 :integer          not null
 #  created_at                          :datetime         not null
 #  updated_at                          :datetime         not null
-#  forma_de_pago                       :integer
+#  forma_de_pago                       :string
 #  observaciones                       :text
 #  customer_billing_address_attributes :text
 #  customer_billing_address_id         :integer

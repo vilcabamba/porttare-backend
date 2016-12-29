@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161228230452) do
+ActiveRecord::Schema.define(version: 20161229003228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,13 +96,13 @@ ActiveRecord::Schema.define(version: 20161228230452) do
   add_index "customer_order_items", ["provider_item_id"], name: "index_customer_order_items_on_provider_item_id", using: :btree
 
   create_table "customer_orders", force: :cascade do |t|
-    t.integer  "status",                              default: 0,     null: false
-    t.integer  "subtotal_items_cents",                default: 0,     null: false
-    t.string   "subtotal_items_currency",             default: "USD", null: false
-    t.integer  "customer_profile_id",                                 null: false
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
-    t.integer  "forma_de_pago"
+    t.string   "status",                              default: "in_progress", null: false
+    t.integer  "subtotal_items_cents",                default: 0,             null: false
+    t.string   "subtotal_items_currency",             default: "USD",         null: false
+    t.integer  "customer_profile_id",                                         null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
+    t.string   "forma_de_pago"
     t.text     "observaciones"
     t.text     "customer_billing_address_attributes"
     t.integer  "customer_billing_address_id"

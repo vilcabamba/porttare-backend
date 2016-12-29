@@ -1,5 +1,4 @@
 class ShippingRequestDecorator < GenericResourceDecorator
-  delegate_all
   decorates_association :resource
 
   def to_s

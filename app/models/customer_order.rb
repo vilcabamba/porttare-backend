@@ -3,13 +3,13 @@
 # Table name: customer_orders
 #
 #  id                                  :integer          not null, primary key
-#  status                              :integer          default(0), not null
+#  status                              :string           default("in_progress"), not null
 #  subtotal_items_cents                :integer          default(0), not null
 #  subtotal_items_currency             :string           default("USD"), not null
 #  customer_profile_id                 :integer          not null
 #  created_at                          :datetime         not null
 #  updated_at                          :datetime         not null
-#  forma_de_pago                       :integer
+#  forma_de_pago                       :string
 #  observaciones                       :text
 #  customer_billing_address_attributes :text
 #  customer_billing_address_id         :integer
@@ -17,6 +17,8 @@
 #
 
 class CustomerOrder < ActiveRecord::Base
+  extend Enumerize
+
   STATUSES = [
     "in_progress",
     "submitted"
@@ -25,8 +27,12 @@ class CustomerOrder < ActiveRecord::Base
     "efectivo"
   ].freeze
 
-  enum status: STATUSES
-  enum forma_de_pago: FORMAS_DE_PAGO
+  enumerize :status,
+            in: STATUSES,
+            default: :in_progress,
+            scope: true
+  enumerize :forma_de_pago,
+            in: FORMAS_DE_PAGO
 
   monetize :subtotal_items_cents,
            numericality: false
