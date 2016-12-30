@@ -197,6 +197,8 @@ es:
           attributes:
             deliver_at:
               must_be_future: debe ser una fecha en el futuro
+        customer_address:
+          required_location: necesita tener una ubicación
   date:
     abbr_day_names:
     - dom

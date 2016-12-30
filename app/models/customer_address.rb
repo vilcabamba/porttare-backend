@@ -24,6 +24,11 @@ class CustomerAddress < ActiveRecord::Base
 
   before_save :set_default_nombre, unless: :nombre
 
+  validates :lat,
+            :lon,
+            presence: {
+              message: I18n.t("activerecord.errors.models.customer_address.required_location")
+            }
   validates :direccion_uno, presence: true
 
   private
