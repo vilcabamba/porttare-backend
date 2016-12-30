@@ -15,6 +15,8 @@
 #  updated_at          :datetime         not null
 #  customer_profile_id :integer          not null
 #  nombre              :string
+#  lat                 :string           not null
+#  lon                 :string           not null
 #
 
 FactoryGirl.define do

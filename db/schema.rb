@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161229003228) do
+ActiveRecord::Schema.define(version: 20161230175246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(version: 20161229003228) do
     t.datetime "updated_at",          null: false
     t.integer  "customer_profile_id", null: false
     t.string   "nombre"
+    t.string   "lat",                 null: false
+    t.string   "lon",                 null: false
   end
 
   add_index "customer_addresses", ["customer_profile_id"], name: "index_customer_addresses_on_customer_profile_id", using: :btree
@@ -148,6 +150,17 @@ ActiveRecord::Schema.define(version: 20161229003228) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "places", force: :cascade do |t|
+    t.string   "lat"
+    t.string   "lon"
+    t.string   "nombre",     null: false
+    t.string   "country",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "places", ["nombre", "country"], name: "index_places_on_nombre_and_country", unique: true, using: :btree
 
   create_table "provider_categories", force: :cascade do |t|
     t.string   "titulo",                          null: false
@@ -330,8 +343,10 @@ ActiveRecord::Schema.define(version: 20161229003228) do
     t.text     "privileges",             default: [],                   array: true
     t.string   "custom_image"
     t.boolean  "agreed_tos",             default: false
+    t.integer  "current_place_id"
   end
 
+  add_index "users", ["current_place_id"], name: "index_users_on_current_place_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
@@ -382,4 +397,5 @@ ActiveRecord::Schema.define(version: 20161229003228) do
   add_foreign_key "provider_profiles", "users"
   add_foreign_key "shipping_requests", "courier_profiles"
   add_foreign_key "user_locations", "users"
+  add_foreign_key "users", "places", column: "current_place_id"
 end

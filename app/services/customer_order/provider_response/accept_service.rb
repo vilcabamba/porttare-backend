@@ -29,13 +29,15 @@ class CustomerOrder < ActiveRecord::Base
           ShippingRequest.create!(
             kind: :customer_order_delivery,
             resource: customer_order_delivery,
-            address_attributes: address_attributes
+            address_attributes: customer_address_attributes
           )
         end
       end
 
-      def address_attributes
+      def customer_address_attributes
         customer_order_delivery.customer_address.attributes.slice(
+          "lat",
+          "lon",
           "ciudad",
           "barrio",
           "nombre",

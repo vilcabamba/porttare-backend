@@ -9,6 +9,8 @@ class CustomerAddressPolicy < ApplicationPolicy
 
   def permitted_attributes
     [
+      :lat,
+      :lon,
       :nombre,
       :ciudad,
       :parroquia,
