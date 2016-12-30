@@ -2,6 +2,8 @@ module Api
   class PusherAuthsController < BaseController
     respond_to :json
 
+    skip_after_action :update_auth_header
+
     def create
       if pundit_user && pundit_authorize
         response = Pusher.authenticate(
