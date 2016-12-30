@@ -22,6 +22,13 @@ es:
       delivered: Entregado
     kinds:
       ask_to_validate: Validar proveedor
+  customer_order_delivery:
+    status:
+      draft: Borrador
+      pending: Pendiente
+    delivery_method:
+      shipping: Envío
+      pickup: Recoger
   user:
     privileges:
       admin: Administrador
@@ -169,6 +176,11 @@ es:
         provider_category_id: Área
       provider_item_image:
         remove_imagen: Eliminar imagen
+      customer_order:
+        customer_profile: Cliente
+        submitted_at: Ordenado
+      customer_order_delivery:
+        full_resume_for_card: Despacho
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"

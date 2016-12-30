@@ -37,11 +37,14 @@ class CustomerOrderDelivery < ActiveRecord::Base
   belongs_to :customer_address
   belongs_to :provider_profile
 
-  enumerize :delivery_method, in: DELIVERY_METHODS
+  enumerize :delivery_method,
+            in: DELIVERY_METHODS,
+            i18n_scope: "customer_order_delivery.delivery_method"
   enumerize :status,
             in: %w(draft pending accepted rejected),
             default: "draft",
-            scope: true
+            scope: true,
+            i18n_scope: "customer_order_delivery.status"
 
   def ready_for_submission?
     delivery_method.present? &&

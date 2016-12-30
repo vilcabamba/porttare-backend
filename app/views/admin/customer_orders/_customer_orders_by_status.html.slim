@@ -19,6 +19,11 @@
                  resource: customer_order,
                  display: :card_attributes
 
+        - customer_order.deliveries.each do |delivery|
+          = render "admin/shared/common_resource_collection_body",
+                   resource: delivery,
+                   display: :card_attributes
+
       .resource-footer
         = link_to t("ui.view_details"),
                   admin_customer_order_path(customer_order),
