@@ -13,9 +13,9 @@
 
 FactoryGirl.define do
   factory :place do
-    lat "0"
-    lon "0"
-    nombre "Mitad del Mundo"
-    country "Ecuador"
+    lat     { Faker::Address.latitude }
+    lon     { Faker::Address.longitude }
+    nombre  { Faker::Address.city }
+    country { Faker::Address.country }
   end
 end

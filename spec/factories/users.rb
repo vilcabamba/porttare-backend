@@ -33,6 +33,8 @@
 
 FactoryGirl.define do
   factory :user do
+    association :current_place, factory: :place
+
     name                  { Faker::Name.name }
     nickname              { Faker::Internet.user_name }
     image                 { Faker::Avatar.image }
