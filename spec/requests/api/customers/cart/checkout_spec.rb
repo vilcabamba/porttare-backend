@@ -213,14 +213,14 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
         second_order_item
         third_order_item
         second_customer_address
+      end
 
+      it "creates three customer order deliveries" do
         post_with_headers(
           "/api/customer/cart/checkout",
           submission_attributes
         )
-      end
 
-      it "creates three deliveries" do
         one = response_order["provider_profiles"].detect do |profile|
           profile["id"] == provider_one.id
         end

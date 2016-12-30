@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :locations, only: :create
     resources :products, only: :index
+    resource :pusher_auth, only: :create
     resources :categories, only: :index do
       resources :providers, only: [:index, :show] do
         resources :items, only: :show
