@@ -23,6 +23,9 @@ FactoryGirl.define do
   factory :customer_address do
     customer_profile
 
+    # home is always going to be home
+    lat                 "-3.792134532423"
+    lon                 "72.43214254556"
     nombre              { Faker::Address.name }
     ciudad              { Faker::Address.city }
     parroquia           { Faker::Address.state }
