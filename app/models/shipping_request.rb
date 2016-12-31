@@ -23,7 +23,8 @@ class ShippingRequest < ActiveRecord::Base
     :delivered
   ].freeze
   KINDS = [
-    :ask_to_validate
+    :ask_to_validate,
+    :customer_order_delivery
   ].freeze
 
   belongs_to :resource, polymorphic: true

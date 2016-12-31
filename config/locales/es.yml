@@ -22,6 +22,13 @@ es:
       delivered: Entregado
     kinds:
       ask_to_validate: Validar proveedor
+  customer_order_delivery:
+    status:
+      draft: Borrador
+      pending: Pendiente
+    delivery_method:
+      shipping: Envío
+      pickup: Recoger
   user:
     privileges:
       admin: Administrador
@@ -61,6 +68,7 @@ es:
       provider_categories: Áreas
       provider_item_categories: Categorías
       provider_items: Productos
+      customer_orders: Órdenes
     users:
       new: Nuevo usuario
     user:
@@ -70,7 +78,7 @@ es:
       privileges:
         all: Todos
     shipping_request:
-      title: Pedido
+      title: Envío
     provider_office:
       title: Oficina
     provider_item:
@@ -135,6 +143,7 @@ es:
       user: Usuario
       shipping_request: Solicitud de envío
       provider_item_image: Imagen de producto
+      customer_order: Orden
     attributes:
       user:
         name: Nombre
@@ -167,6 +176,11 @@ es:
         provider_category_id: Área
       provider_item_image:
         remove_imagen: Eliminar imagen
+      customer_order:
+        customer_profile: Cliente
+        submitted_at: Ordenado
+      customer_order_delivery:
+        full_resume_for_card: Despacho
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"
@@ -178,8 +192,13 @@ es:
           attributes:
             order_items:
               at_least_one: debe tener al menos un ítem
+              missing_delivery_address: detallar direcciones de envío
+        customer_order_delivery:
+          attributes:
             deliver_at:
               must_be_future: debe ser una fecha en el futuro
+        customer_address:
+          required_location: necesita tener una ubicación
   date:
     abbr_day_names:
     - dom

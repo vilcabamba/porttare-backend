@@ -10,3 +10,13 @@ json.customer_order_items do
     as: :customer_order_item
   )
 end
+
+order_delivery = customer_order.delivery_for_provider(provider_profile)
+if order_delivery.present?
+  json.customer_order_delivery do
+    json.partial!(
+      "api/customer/cart/customer_order_delivery",
+      order_delivery: order_delivery
+    )
+  end
+end

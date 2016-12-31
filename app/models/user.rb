@@ -28,6 +28,7 @@
 #  privileges             :text             default([]), is an Array
 #  custom_image           :string
 #  agreed_tos             :boolean          default(FALSE)
+#  current_place_id       :integer
 #
 
 class User < ActiveRecord::Base
@@ -56,6 +57,8 @@ class User < ActiveRecord::Base
     has_one :customer_profile
     has_many :locations,
              class_name: "UserLocation"
+    belongs_to :current_place,
+               class_name: "Place"
   end
 
   begin :scopes
@@ -73,6 +76,10 @@ class User < ActiveRecord::Base
             multiple: true
 
   mount_uploader :custom_image, UserCustomImageUploader
+
+  def current_place_or_default
+    current_place.presence || Place.default
+  end
 
   private
 

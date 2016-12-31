@@ -20,20 +20,22 @@ class CustomerOrderPolicy < ApplicationPolicy
   # controllers access via #current_order
   def permitted_attributes
     [
-      :deliver_at,
       :forma_de_pago,
       :observaciones,
-      :delivery_method,
-      :customer_address_id,
-      :customer_billing_address_id
+      :customer_billing_address_id,
+      deliveries_attributes: deliveries_attributes
     ]
   end
 
   def checkout?
-    belongs_to_user? && record.in_progress?
+    belongs_to_user? && record.status.in_progress?
   end
 
   private
+
+  def deliveries_attributes
+    CustomerOrderDeliveryPolicy.new(user,record).permitted_attributes
+  end
 
   def belongs_to_user?
     user.customer_profile == record.customer_profile

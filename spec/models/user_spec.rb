@@ -28,6 +28,7 @@
 #  privileges             :text             default([]), is an Array
 #  custom_image           :string
 #  agreed_tos             :boolean          default(FALSE)
+#  current_place_id       :integer
 #
 
 require 'rails_helper'

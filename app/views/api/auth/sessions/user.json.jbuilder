@@ -16,6 +16,13 @@ json.data do
   json.auth_token @token
   json.expiry @expiry
 
+  json.current_place do
+    json.partial!(
+      "api/users/place",
+      place: @resource.current_place_or_default
+    )
+  end
+
   if @resource.provider_profile.present?
     json.provider_profile do
       json.partial!(

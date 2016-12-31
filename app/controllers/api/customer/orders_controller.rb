@@ -33,7 +33,7 @@ module Api
       private
 
       def collection_scope
-        resource_scope.submitted.latest
+        resource_scope.with_status(:submitted).latest
       end
     end
   end

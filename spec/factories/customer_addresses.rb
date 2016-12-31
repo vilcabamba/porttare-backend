@@ -15,12 +15,17 @@
 #  updated_at          :datetime         not null
 #  customer_profile_id :integer          not null
 #  nombre              :string
+#  lat                 :string           not null
+#  lon                 :string           not null
 #
 
 FactoryGirl.define do
   factory :customer_address do
     customer_profile
 
+    # home is always going to be home
+    lat                 "-3.792134532423"
+    lon                 "72.43214254556"
     nombre              { Faker::Address.name }
     ciudad              { Faker::Address.city }
     parroquia           { Faker::Address.state }

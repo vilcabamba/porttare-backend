@@ -3,19 +3,15 @@
 # Table name: customer_orders
 #
 #  id                                  :integer          not null, primary key
-#  status                              :integer          default(0), not null
+#  status                              :string           default("in_progress"), not null
 #  subtotal_items_cents                :integer          default(0), not null
 #  subtotal_items_currency             :string           default("USD"), not null
 #  customer_profile_id                 :integer          not null
 #  created_at                          :datetime         not null
 #  updated_at                          :datetime         not null
-#  deliver_at                          :datetime
-#  delivery_method                     :integer
-#  forma_de_pago                       :integer
+#  forma_de_pago                       :string
 #  observaciones                       :text
-#  customer_address_attributes         :text
 #  customer_billing_address_attributes :text
-#  customer_address_id                 :integer
 #  customer_billing_address_id         :integer
 #  submitted_at                        :datetime
 #
@@ -28,7 +24,7 @@ RSpec.describe CustomerOrder,
     subject { build :customer_order }
     it { is_expected.to be_valid }
     it "default status" do
-      is_expected.to be_in_progress
+      expect(subject.status).to be_in_progress
     end
   end
 
@@ -46,7 +42,7 @@ RSpec.describe CustomerOrder,
       customer_order_in_progress
     end
 
-    subject { described_class.in_progress }
+    subject { described_class.with_status(:in_progress) }
 
     it {
       is_expected.to include(customer_order_in_progress)
@@ -67,7 +63,9 @@ RSpec.describe CustomerOrder,
     describe "caches #subtotal_items" do
       before do
         customer_order_item
-        customer_order.submit!
+        CustomerOrder::CheckoutService::Submitter.new(
+          customer_order
+        ).submit_order!
       end
 
       it {
@@ -91,7 +89,9 @@ RSpec.describe CustomerOrder,
 
       before do
         old_price
-        customer_order.submit!
+        CustomerOrder::CheckoutService::Submitter.new(
+          customer_order
+        ).submit_order!
         # update price
         provider_item.update!(
           precio: provider_item.precio + Money.from_amount(1.99, "USD")
@@ -108,32 +108,5 @@ RSpec.describe CustomerOrder,
         ).to eq(old_price)
       }
     end
-  end
-
-  describe "validates own address" do
-    subject { build :customer_order }
-    let(:customer_address) { create :customer_address }
-    before {
-      subject.customer_address = customer_address
-    }
-    it {
-      is_expected.to_not be_valid
-      expect(subject.errors).to have_key(:customer_address_id)
-    }
-  end
-
-  describe "deliver_at must be in future" do
-    subject { build :customer_order }
-    it {
-      subject.deliver_at = 1.week.ago
-      is_expected.to_not be_valid
-      expect(
-        subject.errors
-      ).to have_key(:deliver_at)
-    }
-    it {
-      subject.deliver_at = 1.week.from_now
-      is_expected.to be_valid
-    }
   end
 end

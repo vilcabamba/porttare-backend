@@ -21,24 +21,23 @@ module Api
             "/customer/cart/checkout",
             "responds with full `customer_order`"
         see "customer-cart-items#index", "Customer::Cart::Items#index for customer order serialization in response"
-        param :deliver_at,
-              Time,
-              desc: "una orden puede ser entregada luego"
+        see "customer-cart-deliveries#update", "Customer::Cart::Deliveries#update for deliveries attributes"
         param :observaciones,
               String,
               desc: "observaciones para el pedido. ej: timbre al llegar"
         param :forma_de_pago,
               CustomerOrder::FORMAS_DE_PAGO,
               required: true
-        param :delivery_method,
-              CustomerOrder::DELIVERY_METHODS,
-              required: true
         param :customer_billing_address_id,
               Integer,
               required: true
-        param :customer_address_id,
-              Integer,
-              desc: "requerido si `delivery_method` es `shipping`"
+        param :deliveries_attributes,
+              Hash,
+              desc: "deliveries attributes - one required per provider profile" do
+          param :id,
+                Integer,
+                desc: "unique for each delivery"
+        end
         def create
           super
         end

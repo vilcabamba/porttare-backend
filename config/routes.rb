@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :locations, only: :create
     resources :products, only: :index
+    resource :pusher_auth, only: :create
     resources :categories, only: :index do
       resources :providers, only: [:index, :show] do
         resources :items, only: :show
@@ -18,6 +19,8 @@ Rails.application.routes.draw do
                   only: [:create, :update, :destroy]
         resource :checkout,
                  only: :create
+        resources :deliveries,
+                  only: [:update]
       end
       resources :wishlists,
                 only: [:index, :create, :update, :destroy]
@@ -42,11 +45,19 @@ Rails.application.routes.draw do
                 only: [:index, :show, :create, :update, :destroy]
       resources :item_categories,
                 only: [:index]
+      resources :customer_orders,
+                only: [:index, :show] do
+        member do
+          post :accept
+          post :reject
+        end
+      end
     end
 
     namespace :courier do
       resource :profile, only: :create
-      resources :shipping_requests, only: :index
+      resources :shipping_requests,
+                only: [:index, :show]
     end
 
     namespace :users do
@@ -84,6 +95,7 @@ Rails.application.routes.draw do
     resources :shipping_requests
     resources :provider_item_categories
     resources :provider_items
+    resources :customer_orders
     resources :users do
       collection do
         get "/by_status/:status",

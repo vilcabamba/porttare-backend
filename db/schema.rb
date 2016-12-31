@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161221145249) do
+ActiveRecord::Schema.define(version: 20161230175246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(version: 20161221145249) do
     t.datetime "updated_at",          null: false
     t.integer  "customer_profile_id", null: false
     t.string   "nombre"
+    t.string   "lat",                 null: false
+    t.string   "lon",                 null: false
   end
 
   add_index "customer_addresses", ["customer_profile_id"], name: "index_customer_addresses_on_customer_profile_id", using: :btree
@@ -63,6 +65,24 @@ ActiveRecord::Schema.define(version: 20161221145249) do
 
   add_index "customer_billing_addresses", ["customer_profile_id"], name: "index_customer_billing_addresses_on_customer_profile_id", using: :btree
 
+  create_table "customer_order_deliveries", force: :cascade do |t|
+    t.datetime "deliver_at"
+    t.string   "delivery_method",                               null: false
+    t.integer  "customer_address_id"
+    t.json     "customer_address_attributes"
+    t.integer  "provider_profile_id"
+    t.integer  "customer_order_id",                             null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.string   "status",                      default: "draft", null: false
+    t.text     "reason"
+  end
+
+  add_index "customer_order_deliveries", ["customer_address_id"], name: "index_customer_order_deliveries_on_customer_address_id", using: :btree
+  add_index "customer_order_deliveries", ["customer_order_id"], name: "index_customer_order_deliveries_on_customer_order_id", using: :btree
+  add_index "customer_order_deliveries", ["provider_profile_id"], name: "index_customer_order_deliveries_on_provider_profile_id", using: :btree
+  add_index "customer_order_deliveries", ["status"], name: "index_customer_order_deliveries_on_status", using: :btree
+
   create_table "customer_order_items", force: :cascade do |t|
     t.integer  "customer_order_id",                             null: false
     t.integer  "provider_item_id",                              null: false
@@ -78,24 +98,19 @@ ActiveRecord::Schema.define(version: 20161221145249) do
   add_index "customer_order_items", ["provider_item_id"], name: "index_customer_order_items_on_provider_item_id", using: :btree
 
   create_table "customer_orders", force: :cascade do |t|
-    t.integer  "status",                              default: 0,     null: false
-    t.integer  "subtotal_items_cents",                default: 0,     null: false
-    t.string   "subtotal_items_currency",             default: "USD", null: false
-    t.integer  "customer_profile_id",                                 null: false
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
-    t.datetime "deliver_at"
-    t.integer  "delivery_method"
-    t.integer  "forma_de_pago"
+    t.string   "status",                              default: "in_progress", null: false
+    t.integer  "subtotal_items_cents",                default: 0,             null: false
+    t.string   "subtotal_items_currency",             default: "USD",         null: false
+    t.integer  "customer_profile_id",                                         null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
+    t.string   "forma_de_pago"
     t.text     "observaciones"
-    t.text     "customer_address_attributes"
     t.text     "customer_billing_address_attributes"
-    t.integer  "customer_address_id"
     t.integer  "customer_billing_address_id"
     t.datetime "submitted_at"
   end
 
-  add_index "customer_orders", ["customer_address_id"], name: "index_customer_orders_on_customer_address_id", using: :btree
   add_index "customer_orders", ["customer_billing_address_id"], name: "index_customer_orders_on_customer_billing_address_id", using: :btree
   add_index "customer_orders", ["customer_profile_id"], name: "index_customer_orders_on_customer_profile_id", using: :btree
   add_index "customer_orders", ["status"], name: "index_customer_orders_on_status", using: :btree
@@ -135,6 +150,17 @@ ActiveRecord::Schema.define(version: 20161221145249) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "places", force: :cascade do |t|
+    t.string   "lat"
+    t.string   "lon"
+    t.string   "nombre",     null: false
+    t.string   "country",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "places", ["nombre", "country"], name: "index_places_on_nombre_and_country", unique: true, using: :btree
 
   create_table "provider_categories", force: :cascade do |t|
     t.string   "titulo",                          null: false
@@ -213,6 +239,7 @@ ActiveRecord::Schema.define(version: 20161221145249) do
     t.integer  "provider_item_category_id"
   end
 
+  add_index "provider_items", ["cantidad"], name: "index_provider_items_on_cantidad", using: :btree
   add_index "provider_items", ["deleted_at"], name: "index_provider_items_on_deleted_at", using: :btree
   add_index "provider_items", ["en_stock"], name: "index_provider_items_on_en_stock", using: :btree
   add_index "provider_items", ["provider_item_category_id"], name: "index_provider_items_on_provider_item_category_id", using: :btree
@@ -316,8 +343,10 @@ ActiveRecord::Schema.define(version: 20161221145249) do
     t.text     "privileges",             default: [],                   array: true
     t.string   "custom_image"
     t.boolean  "agreed_tos",             default: false
+    t.integer  "current_place_id"
   end
 
+  add_index "users", ["current_place_id"], name: "index_users_on_current_place_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
@@ -348,9 +377,11 @@ ActiveRecord::Schema.define(version: 20161221145249) do
   add_foreign_key "courier_profiles", "users"
   add_foreign_key "customer_addresses", "customer_profiles"
   add_foreign_key "customer_billing_addresses", "customer_profiles"
+  add_foreign_key "customer_order_deliveries", "customer_addresses"
+  add_foreign_key "customer_order_deliveries", "customer_orders"
+  add_foreign_key "customer_order_deliveries", "provider_profiles"
   add_foreign_key "customer_order_items", "customer_orders"
   add_foreign_key "customer_order_items", "provider_items"
-  add_foreign_key "customer_orders", "customer_addresses"
   add_foreign_key "customer_orders", "customer_billing_addresses"
   add_foreign_key "customer_orders", "customer_profiles"
   add_foreign_key "customer_profiles", "users"
@@ -366,4 +397,5 @@ ActiveRecord::Schema.define(version: 20161221145249) do
   add_foreign_key "provider_profiles", "users"
   add_foreign_key "shipping_requests", "courier_profiles"
   add_foreign_key "user_locations", "users"
+  add_foreign_key "users", "places", column: "current_place_id"
 end
