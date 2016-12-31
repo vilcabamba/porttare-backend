@@ -17,4 +17,4 @@ json.customer_billing_address do
     "api/customer/billing_addresses/billing_address",
     billing_address: customer_order.customer_billing_address
   )
-end if customer_order.status.submitted?
+end if customer_order.status.submitted? && customer_order.customer_billing_address.present?
