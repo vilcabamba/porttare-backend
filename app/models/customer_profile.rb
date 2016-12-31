@@ -20,4 +20,8 @@ class CustomerProfile < ActiveRecord::Base
   def current_order
     customer_orders.with_status(:in_progress).first
   end
+
+  def default_customer_address
+    customer_addresses.first
+  end
 end

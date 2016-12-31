@@ -51,6 +51,16 @@ class CustomerOrderDelivery < ActiveRecord::Base
       (delivery_method.pickup? || customer_address_id.present?)
   end
 
+  def customer_address_or_default
+    customer_address.presence || default_customer_address
+  end
+
+  def default_customer_address
+    if delivery_method.shipping?
+      customer_profile.default_customer_address
+    end
+  end
+
   private
 
   def cache_address!
