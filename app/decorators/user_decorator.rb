@@ -12,12 +12,13 @@ class UserDecorator < GenericResourceDecorator
   def card_attributes
     [
       :provider,
-      :email
+      :uid,
     ]
   end
 
   def detail_attributes
     card_attributes + [
+      :email,
       :nickname,
       :ciudad,
       :fecha_nacimiento
