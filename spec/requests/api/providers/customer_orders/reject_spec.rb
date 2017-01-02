@@ -40,6 +40,9 @@ RSpec.describe Api::Customer::OrdersController,
       customer_billing_address
       customer_order_item
       CustomerOrder::CheckoutService::Submitter.new(customer_order).submit_order!
+
+      expect(Pusher).to receive(:trigger)
+
       post_with_headers(
         "/api/provider/customer_orders/#{customer_order.id}/reject",
         reason: "some reason"
