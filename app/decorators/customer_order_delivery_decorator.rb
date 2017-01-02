@@ -1,7 +1,8 @@
 class CustomerOrderDeliveryDecorator < GenericResourceDecorator
   def card_attributes
     [
-      :full_resume_for_card
+      :full_resume_for_card,
+      :deliver_at
     ]
   end
 
