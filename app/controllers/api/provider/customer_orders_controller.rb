@@ -26,7 +26,7 @@ module Api
         super
         @api_collection = @api_collection.with_status(
           params[:status] || :submitted
-        )
+        ).latest
       end
 
       api :GET,

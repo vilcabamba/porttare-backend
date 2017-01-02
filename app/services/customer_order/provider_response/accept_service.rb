@@ -16,6 +16,7 @@ class CustomerOrder < ActiveRecord::Base
           mark_as_accepted!
           create_shipping_request_if_necessary!
         end
+        true
       end
 
       private

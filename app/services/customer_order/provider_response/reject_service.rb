@@ -13,9 +13,15 @@ class CustomerOrder < ActiveRecord::Base
       ##
       # @return Boolean
       def perform
+        return unless valid?
         customer_order_delivery.transaction do
           mark_as_rejected!
         end
+        true
+      end
+
+      def valid?
+        @rejection_params[:reason].present?
       end
 
       private
