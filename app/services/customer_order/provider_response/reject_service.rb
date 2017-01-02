@@ -16,6 +16,7 @@ class CustomerOrder < ActiveRecord::Base
         return unless valid?
         customer_order_delivery.transaction do
           mark_as_rejected!
+          notify_pusher!
         end
         true
       end

@@ -15,6 +15,7 @@ class CustomerOrder < ActiveRecord::Base
         customer_order_delivery.transaction do
           mark_as_accepted!
           create_shipping_request_if_necessary!
+          notify_pusher!
         end
         true
       end
