@@ -19,7 +19,9 @@
 class CustomerOrder < ActiveRecord::Base
   extend Enumerize
 
-  has_paper_trail
+  has_paper_trail unless: Proc.new { |customer_order|
+    customer_order.status.in_progress?
+  }
 
   STATUSES = [
     "in_progress",
