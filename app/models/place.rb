@@ -12,6 +12,8 @@
 #
 
 class Place < ActiveRecord::Base
+  has_paper_trail
+
   validates :nombre,
             :country,
             presence: true

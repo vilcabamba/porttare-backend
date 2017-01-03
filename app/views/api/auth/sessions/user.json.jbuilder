@@ -18,7 +18,7 @@ json.data do
 
   json.current_place do
     json.partial!(
-      "api/users/place",
+      "api/users/places/place",
       place: @resource.current_place_or_default
     )
   end

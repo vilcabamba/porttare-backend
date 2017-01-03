@@ -65,6 +65,8 @@ Rails.application.routes.draw do
                only: :create
       resource :account,
                only: [:show, :update]
+      resources :places,
+                only: :index
     end
 
     namespace :auth do
