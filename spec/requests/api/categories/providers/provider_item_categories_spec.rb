@@ -15,6 +15,7 @@ RSpec.describe Api::ProvidersController,
     }
     let(:provider_item) {
       create :provider_item,
+             :en_stock,
              provider_profile: provider_profile
     }
 
@@ -61,6 +62,7 @@ RSpec.describe Api::ProvidersController,
       }
       let(:provider_item) {
         create :provider_item,
+               :en_stock,
                provider_profile: provider_profile,
                provider_item_category: provider_item_category
       }

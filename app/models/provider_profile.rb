@@ -102,10 +102,8 @@ class ProviderProfile < ActiveRecord::Base
 
   ##
   # @note assigns default category to items without category
-  def provider_items_by_categories
-    @provider_items_by_categories ||=
-      provider_items.includes(:provider_item_category)
-                    .group_by do |provider_item|
+  def provider_items_by_categories(provider_items_scope)
+    provider_items_scope.group_by do |provider_item|
         provider_item.provider_item_category || ProviderItemCategory.default
       end.map do |provider_item_category, provider_items|
         {

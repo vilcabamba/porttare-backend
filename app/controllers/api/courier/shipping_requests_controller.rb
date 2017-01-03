@@ -29,6 +29,16 @@ module Api
         @api_collection = resource_scope.all
       end
 
+      api :GET,
+          "/courier/shipping_requests/:id",
+          "Show a shipping request"
+      see "courier-shipping_requests#index", "Courier::ShippingRequests#index for response serialization"
+      param :id, Integer, required: true
+      def show
+        authorize ShippingRequest
+        @api_resource = resource_scope.find params[:id]
+      end
+
       private
 
       def resource_scope

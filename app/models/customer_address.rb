@@ -15,6 +15,8 @@
 #  updated_at          :datetime         not null
 #  customer_profile_id :integer          not null
 #  nombre              :string
+#  lat                 :string           not null
+#  lon                 :string           not null
 #
 
 class CustomerAddress < ActiveRecord::Base
@@ -22,6 +24,11 @@ class CustomerAddress < ActiveRecord::Base
 
   before_save :set_default_nombre, unless: :nombre
 
+  validates :lat,
+            :lon,
+            presence: {
+              message: I18n.t("activerecord.errors.models.customer_address.required_location")
+            }
   validates :direccion_uno, presence: true
 
   private

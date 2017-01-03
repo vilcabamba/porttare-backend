@@ -22,6 +22,7 @@ gem 'dotenv-rails', '~> 2.1'
 gem 'koala', '~> 2.4'
 gem 'simple_form', '~> 3.3'
 gem 'nested_form', github: 'smoku/nested_form'
+gem 'pusher', '~> 1.3'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -70,6 +71,7 @@ group :development do
   gem 'letter_opener'
   gem 'annotate', '~> 2.7'
   gem 'simplecov', '~> 0.12'
+  gem 'rails-erd', '~> 1.5', require: false
 end
 
 group :deployment do

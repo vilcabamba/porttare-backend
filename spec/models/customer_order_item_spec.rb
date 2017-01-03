@@ -67,7 +67,9 @@ RSpec.describe CustomerOrderItem,
 
       before do
         order_item
-        customer_order.submit!
+        CustomerOrder::CheckoutService::Submitter.new(
+          customer_order
+        ).submit_order!
         # and then update item's precio so we
         # verify cached version doesn't change
         provider_item.update! precio: new_price

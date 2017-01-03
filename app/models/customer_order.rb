@@ -3,24 +3,26 @@
 # Table name: customer_orders
 #
 #  id                                  :integer          not null, primary key
-#  status                              :integer          default(0), not null
+#  status                              :string           default("in_progress"), not null
 #  subtotal_items_cents                :integer          default(0), not null
 #  subtotal_items_currency             :string           default("USD"), not null
 #  customer_profile_id                 :integer          not null
 #  created_at                          :datetime         not null
 #  updated_at                          :datetime         not null
-#  deliver_at                          :datetime
-#  delivery_method                     :integer
-#  forma_de_pago                       :integer
+#  forma_de_pago                       :string
 #  observaciones                       :text
-#  customer_address_attributes         :text
 #  customer_billing_address_attributes :text
-#  customer_address_id                 :integer
 #  customer_billing_address_id         :integer
 #  submitted_at                        :datetime
 #
 
 class CustomerOrder < ActiveRecord::Base
+  extend Enumerize
+
+  has_paper_trail unless: Proc.new { |customer_order|
+    customer_order.status.in_progress?
+  }
+
   STATUSES = [
     "in_progress",
     "submitted"
@@ -28,14 +30,13 @@ class CustomerOrder < ActiveRecord::Base
   FORMAS_DE_PAGO = [
     "efectivo"
   ].freeze
-  DELIVERY_METHODS = [
-    "shipping",
-    "pickup"
-  ].freeze
 
-  enum status: STATUSES
-  enum forma_de_pago: FORMAS_DE_PAGO
-  enum delivery_method: DELIVERY_METHODS
+  enumerize :status,
+            in: STATUSES,
+            default: :in_progress,
+            scope: true
+  enumerize :forma_de_pago,
+            in: FORMAS_DE_PAGO
 
   monetize :subtotal_items_cents,
            numericality: false
@@ -45,72 +46,31 @@ class CustomerOrder < ActiveRecord::Base
   validates :forma_de_pago,
             allow_nil: true,
             inclusion: { in: FORMAS_DE_PAGO }
-  validates :delivery_method,
-            allow_nil: true,
-            inclusion: { in: DELIVERY_METHODS }
-  validates :customer_address,
-            :customer_billing_address,
+  validates :customer_billing_address,
             own_address: true
-  validates :deliver_at, in_future: true
 
   belongs_to :customer_profile
   belongs_to :customer_address
   belongs_to :customer_billing_address
+  has_many :deliveries,
+           class_name: "CustomerOrderDelivery"
+  # TODO should this be through deliveries?
   has_many :order_items,
-           class_name: "CustomerOrderItem"
+           class_name: "CustomerOrderItem",
+           dependent: :destroy
+
+  accepts_nested_attributes_for :deliveries
 
   begin :scopes
-    scope :submitted, -> {
-      where status: statuses["submitted"]
-    }
-    scope :in_progress, -> {
-      where status: statuses["in_progress"]
-    }
     scope :latest, -> {
       order(created_at: :desc)
     }
   end
 
-  serialize :customer_address_attributes, JSON
   serialize :customer_billing_address_attributes, JSON
 
   ##
-  # transitions to submitted state
-  # and caches:
-  #  - subtotal_items
-  #  - customer_address
-  #  - customer_billing_address
-  def submit!
-    transaction do
-      cache_addresses!
-      update_subtotal_items!
-      update_submitted_at!
-      submitted!
-      save
-    end
-  end
-
-  ##
   # caches subtotal_items
-  # and caches each order_item's provider_item_precio
-  # @see #cache_subtotal_items!
-  def update_subtotal_items!
-    subtotal = order_items.collect do |order_item|
-      order_item.cache_provider_item_precio!
-      order_item.subtotal
-    end.sum
-    update_attribute(:subtotal_items, subtotal)
-  end
-
-  ##
-  # writes submitted_at with current time
-  def update_submitted_at!
-    update_attribute :submitted_at, Time.now
-  end
-
-  ##
-  # caches subtotal_items
-  # @see #update_subtotal_items!
   def cache_subtotal_items!
     # HACK: force reloading order_items so they're fresh
     # see spec/models/customer_order_spec
@@ -123,9 +83,11 @@ class CustomerOrder < ActiveRecord::Base
   end
 
   def provider_profiles
-    ProviderProfile.where(
-      id: provider_items.pluck(:provider_profile_id)
-    )
+    ProviderProfile.where(id: provider_profile_ids)
+  end
+
+  def provider_profile_ids
+    provider_items.pluck(:provider_profile_id)
   end
 
   def provider_items
@@ -141,16 +103,9 @@ class CustomerOrder < ActiveRecord::Base
     end
   end
 
-  private
-
-  ##
-  # assigns cached addresses
-  # customer_address is cached if present
-  # customer_billing_address is always cached
-  def cache_addresses!
-    assign_attributes(
-      customer_address_attributes: customer_address.try(:attributes),
-      customer_billing_address_attributes: customer_billing_address.attributes
-    )
+  def delivery_for_provider(provider_profile)
+    deliveries.detect do |delivery|
+      delivery.provider_profile_id == provider_profile.id
+    end
   end
 end

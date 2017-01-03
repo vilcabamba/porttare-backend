@@ -39,6 +39,15 @@ module Api
         super
       end
 
+      api :GET,
+          "/customer/addresses/:id",
+          "show a customer's delivery address"
+      param :id, Integer, required: true, desc: "unique address id"
+      see "customer-addresses#index", "Customer::Addresses#index for resource serialization in response"
+      def show
+        super
+      end
+
       def_param_group :customer_address do
         param :nombre, String
         param :ciudad, String

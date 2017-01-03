@@ -50,6 +50,12 @@ module Api
       "twitter_handle":"renee",
       "instagram_handle":"foster",
       "youtube_handle":"isac.metz",
+      "customer_order_delivery":{
+        "id":2,
+        "delivery_method":"shipping",
+        "customer_address_id":1,
+        "deliver_at":"2016-12-21 19:22 -0500"
+      },
       "customer_order_items":[{
         "id":1,
         "cantidad":7,

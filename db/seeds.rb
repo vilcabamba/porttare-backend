@@ -35,3 +35,13 @@ if ProviderItemCategory.where(predeterminada: true).count == 0
     predeterminada: true
   )
 end
+
+if Place.count == 0
+  puts "creating default place"
+  Place.create!(
+    lat: "-3.996704",
+    lon: "-79.201699",
+    nombre: "Loja",
+    country: "Ecuador"
+  )
+end

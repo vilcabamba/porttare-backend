@@ -6,6 +6,16 @@ class ShippingRequestPolicy < ApplicationPolicy
   end
 
   def index?
+    is_courier?
+  end
+
+  def show?
+    is_courier?
+  end
+
+  private
+
+  def is_courier?
     user.courier_profile.present?
   end
 end

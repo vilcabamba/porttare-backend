@@ -15,6 +15,7 @@ RSpec.describe Api::ProvidersController,
     let(:provider_item) {
       create :provider_item,
              :with_imagen,
+             :en_stock,
              provider_profile: provider_profile
     }
     let(:provider_office) {

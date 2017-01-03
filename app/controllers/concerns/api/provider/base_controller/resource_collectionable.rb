@@ -4,11 +4,8 @@ module Api
       module ResourceCollectionable
         extend ActiveSupport::Concern
 
-        included do
-          before_action :pundit_authorize
-        end
-
         def index
+          pundit_authorize
           @api_collection = resource_scope
         end
       end

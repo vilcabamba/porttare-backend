@@ -44,4 +44,10 @@ RSpec.describe Api::Customer::Cart::ItemsController,
       response_order["subtotal_items_cents"]
     ).to eq(order_item_1.subtotal.cents)
   end
+
+  it "delivery gets removed" do
+    expect(
+      customer_order.reload.deliveries.count
+    ).to eq(1)
+  end
 end

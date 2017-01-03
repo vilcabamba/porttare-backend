@@ -28,10 +28,13 @@
 #  privileges             :text             default([]), is an Array
 #  custom_image           :string
 #  agreed_tos             :boolean          default(FALSE)
+#  current_place_id       :integer
 #
 
 FactoryGirl.define do
   factory :user do
+    association :current_place, factory: :place
+
     name                  { Faker::Name.name }
     nickname              { Faker::Internet.user_name }
     image                 { Faker::Avatar.image }
