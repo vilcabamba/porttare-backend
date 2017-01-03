@@ -19,6 +19,6 @@ class Place < ActiveRecord::Base
             presence: true
 
   def self.default
-    all.first
+    all.first.presence || raise "missing default place. make sure you have run seeds with rake db:seed"
   end
 end
