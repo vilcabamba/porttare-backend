@@ -10,7 +10,7 @@ module Api
       before_action :pundit_authorize
 
       api :GET,
-          "/api/users/places",
+          "/users/places",
           "available places for users"
       example %q{{
   "places":[

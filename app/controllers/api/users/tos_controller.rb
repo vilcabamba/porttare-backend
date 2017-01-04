@@ -10,7 +10,7 @@ module Api
       before_action :authorize_user!
 
       api :POST,
-          "/api/users/tos",
+          "/users/tos",
           "user agress TOS"
       def create
         @api_resource.update! agreed_tos: true
