@@ -15,4 +15,8 @@ class GenericResourceDecorator < Draper::Decorator
     ].freeze
     @hidden_attrs.include?(key.to_sym)
   end
+
+  def link_to_resource(options=nil, &block)
+    h.content_tag :span, options, &block
+  end
 end

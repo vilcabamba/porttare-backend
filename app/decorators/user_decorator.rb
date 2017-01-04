@@ -1,6 +1,4 @@
 class UserDecorator < GenericResourceDecorator
-  delegate_all
-
   def to_s
     object.name.presence || object.nickname.presence || object.email
   end
