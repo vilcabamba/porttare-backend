@@ -80,9 +80,11 @@ es:
     shipping_request:
       title: Envío
       history:
+        canceled: canceló este envío
         association:
           provider_profile:
             ask_to_validate: Solicitar validación
+            active: Activar proveedor
     provider_office:
       title: Oficina
     provider_item:
@@ -115,10 +117,16 @@ es:
         apply: aplicó como proveedor
         ask_to_validate: verificó esta solicitud
         validated: validó este proveedor
+        active: activó este proveedor
         create: creó este proveedor
         update: actualizó este proveedor
+        association:
+          shipping_request:
+            canceled: Cancelado
       wont_transition:
-        ask_to_validate: Esta solicitud no puede ser validada
+        ask_to_validate: Esta solicitud no puede ser verificada
+        validated: Este proveedor no puede ser validado
+        active: Este proveedor no puede ser activado
       transition:
         ask_to_validate: Solicitar validación
         ask_to_validate_prompt: |
@@ -128,9 +136,14 @@ es:
         validated_prompt: |
           Existe una carta-compromiso firmada con el proveedor y tenemos apuntes y observaciones del proveedor por parte del mensajero.
           Si existiese una solicitud de envío, será cancelada
+        active: Activar proveedor
+        active_prompt: |
+          El proveedor será notificado de su activación y estará disponible para comprar sus productos.
+          Cualquier pedido de validación de proveedor nuevo o en progreso será inmediatamente cancelado
         to:
           ask_to_validate: Solicitud verificada. Se notificará a un mensajero para realizar la verificación física del proveedor
           validated: El proveedor fue validado. Se notificará a un administrador para que apruebe o rechace al proveedor
+          active: El proveedor fue activado
         error:
           office_required: Necesita tener una oficina con una dirección a donde enviaremos un mensajero para validar al proveedor
     provider_category:
@@ -169,6 +182,7 @@ es:
         address: Dirección
         provider: Proveedor
         telefono: Teléfono
+        reason: Razón
       provider_category:
         titulo: Título
         descripcion: Descripción

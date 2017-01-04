@@ -22,6 +22,12 @@ class ShippingRequestDecorator < GenericResourceDecorator
     ]
   end
 
+  def detail_attributes
+    card_attributes + [
+      :reason
+    ]
+  end
+
   def title
     I18n.t("admin.shipping_request.title") + " ##{object.id}"
   end

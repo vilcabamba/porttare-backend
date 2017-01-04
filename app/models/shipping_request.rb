@@ -11,6 +11,7 @@
 #  status             :string           default("new"), not null
 #  address_attributes :json
 #  courier_profile_id :integer
+#  reason             :string
 #
 
 class ShippingRequest < ActiveRecord::Base
@@ -34,6 +35,7 @@ class ShippingRequest < ActiveRecord::Base
 
   enumerize :kind,
             in: KINDS,
+            scope: true,
             i18n_scope: "shipping_request.kinds"
   enumerize :status,
             in: STATUSES,

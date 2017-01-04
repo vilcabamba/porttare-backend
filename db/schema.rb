@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161230175246) do
+ActiveRecord::Schema.define(version: 20170104050706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -302,6 +302,7 @@ ActiveRecord::Schema.define(version: 20161230175246) do
     t.string   "status",             default: "new", null: false
     t.json     "address_attributes"
     t.integer  "courier_profile_id"
+    t.string   "reason"
   end
 
   add_index "shipping_requests", ["courier_profile_id"], name: "index_shipping_requests_on_courier_profile_id", using: :btree

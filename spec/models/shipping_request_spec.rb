@@ -11,6 +11,7 @@
 #  status             :string           default("new"), not null
 #  address_attributes :json
 #  courier_profile_id :integer
+#  reason             :string
 #
 
 require 'rails_helper'

@@ -36,6 +36,8 @@ module Admin
         privileges.customer_service? || privileges.admin?
       when "validated"
         privileges.customer_service? || privileges.admin?
+      when "active"
+        privileges.admin?
       end
     end
 

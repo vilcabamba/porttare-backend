@@ -32,6 +32,18 @@ class ProviderProfile < ActiveRecord::Base
         @errors ||= []
       end
 
+      protected
+
+      def validate_provider_profile!
+        unless @provider_profile.valid?
+          errors << @provider_profile.errors.full_messages
+        end
+      end
+
+      def perform_validations!
+        validate_provider_profile!
+      end
+
       private
 
       def update_state!
