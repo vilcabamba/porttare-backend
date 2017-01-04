@@ -11,6 +11,7 @@ RSpec.describe Api::CategoriesController,
     before do
       provider_category
       provider_profile
+      invisible_profile
       get_with_headers "/api/categories"
     end
 
@@ -19,6 +20,11 @@ RSpec.describe Api::CategoriesController,
              titulo: "Alimentos preparados"
     }
     let(:provider_profile) {
+      create :provider_profile,
+             status: :active,
+             provider_category: provider_category
+    }
+    let(:invisible_profile) {
       create :provider_profile,
              provider_category: provider_category
     }
@@ -33,6 +39,12 @@ RSpec.describe Api::CategoriesController,
       expect(
         response.body
       ).to include(provider_profile.nombre_establecimiento)
+    end
+
+    it "excludes non-active provider profiles" do
+      expect(
+        response.body
+      ).to_not include(invisible_profile.nombre_establecimiento)
     end
 
     describe "response" do
