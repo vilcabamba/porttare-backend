@@ -2,7 +2,7 @@ class UserDecorator < GenericResourceDecorator
   decorates_association :provider_profile
 
   def provider_profile_with_link
-    provider_profile.str_with_link
+    provider_profile.str_with_link if provider_profile.present?
   end
 
   def to_s

@@ -1,5 +1,7 @@
 module Api
   class CategoriesController < BaseController
+    include Api::BaseController::ProviderProfileScopable
+
     before_action :authenticate_api_auth_user!
 
     respond_to :json
@@ -51,13 +53,5 @@ module Api
     def public_scope
       policy_scope(ProviderCategory)
     end
-
-    def visible_provider_profiles(scoped)
-      Api::ProviderProfilePolicy::PublicScope.new(
-        pundit_user,
-        scoped
-      ).resolve
-    end
-    helper_method :visible_provider_profiles
   end
 end

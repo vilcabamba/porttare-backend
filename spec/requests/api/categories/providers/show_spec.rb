@@ -10,6 +10,7 @@ RSpec.describe Api::ProvidersController,
     let(:other_provider_item) { create :provider_item }
     let(:provider_profile){
       create :provider_profile,
+             status: :active,
              provider_category: category
     }
     let(:provider_item) {

@@ -32,7 +32,6 @@
 FactoryGirl.define do
   factory :provider_profile do
     user
-    provider_category
 
     ruc                    { Faker::Code.npi }
     email                  { Faker::Internet.email }
@@ -62,6 +61,10 @@ FactoryGirl.define do
         create :provider_office,
                provider_profile: provider_profile
       end
+    end
+
+    trait :with_provider_category do
+      provider_category
     end
   end
 end

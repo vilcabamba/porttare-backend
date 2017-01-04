@@ -1,5 +1,7 @@
 module Api
   class ProvidersController < BaseController
+    include Api::BaseController::ProviderProfileScopable
+
     respond_to :json
 
     before_action :authenticate_api_auth_user!
@@ -121,8 +123,12 @@ module Api
 
     private
 
+    def provider_profiles_scope
+      visible_provider_profiles(@provider_category.provider_profiles)
+    end
+
     def get_provider_profile
-      @provider_category.provider_profiles.find(params[:id])
+      provider_profiles_scope.find(params[:id])
     end
 
     def get_grouped_provider_items

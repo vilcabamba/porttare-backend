@@ -14,6 +14,7 @@ describe %q{
     let(:provider_profile) {
       create :provider_profile,
              :with_office,
+             :with_provider_category,
              status: :applied
     }
 

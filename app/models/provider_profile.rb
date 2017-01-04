@@ -83,11 +83,13 @@ class ProviderProfile < ActiveRecord::Base
               :razon_social,
               :representante_legal,
               :nombre_establecimiento,
-              :provider_category_id,
               presence: true
     validates :ruc,
               :email,
               uniqueness: true
+    validates :provider_category_id,
+              presence: true,
+              unless: "status.applied?"
     validate :validate_formas_de_pago
   end
 
