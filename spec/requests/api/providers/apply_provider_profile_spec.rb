@@ -3,7 +3,11 @@ require "rails_helper"
 RSpec.describe Api::Provider::ProfilesController,
                type: :request do
   let(:user) { create :user }
-  before { login_as user }
+  let(:provider_category) { create :provider_category }
+  before do
+    login_as user
+    provider_category
+  end
 
   describe "doesn't create provider profile for user" do
     let(:invalid_attributes) {
@@ -20,6 +24,7 @@ RSpec.describe Api::Provider::ProfilesController,
     it {
       json_response = JSON.parse(response.body)
       expect(json_response["errors"]["ruc"]).to be_present
+      expect(json_response["errors"]["provider_category_id"]).to be_present
     }
   end
 
@@ -27,7 +32,9 @@ RSpec.describe Api::Provider::ProfilesController,
     before do
       post_with_headers(
         "/api/provider/profile",
-        attributes_for(:provider_profile)
+        attributes_for(:provider_profile).merge(
+          provider_category_id: provider_category.id
+        )
       )
     end
 
@@ -66,6 +73,7 @@ RSpec.describe Api::Provider::ProfilesController,
 
     let(:attributes) {
       attributes_for(:provider_profile).merge(
+        provider_category_id: provider_category.id,
         offices_attributes: [
           office_attributes
         ]
@@ -103,7 +111,9 @@ RSpec.describe Api::Provider::ProfilesController,
     it "logs custom event", versioning: true do
       post_with_headers(
         "/api/provider/profile",
-        attributes_for(:provider_profile)
+        attributes_for(:provider_profile).merge(
+          provider_category_id: provider_category.id
+        )
       )
 
       version = PaperTrail::Version.last
