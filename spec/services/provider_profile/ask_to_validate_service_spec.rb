@@ -8,7 +8,7 @@ describe ProviderProfile::TransitionTo::AskToValidateService,
 
   describe "valid" do
     let(:provider_profile) {
-      create :provider_profile, :with_office
+      create :provider_profile, :with_provider_category, :with_office
     }
     it { is_expected.to be_valid }
 

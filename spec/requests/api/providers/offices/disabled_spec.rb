@@ -6,6 +6,7 @@ RSpec.describe Api::Provider::OfficesController,
     let(:user) { create :user }
     let(:provider_profile) {
       create :provider_profile,
+             :with_provider_category,
              user: user,
              status: :disabled
     }
