@@ -22,7 +22,7 @@
 class CustomerAddress < ActiveRecord::Base
   belongs_to :customer_profile
 
-  before_save :set_default_nombre, unless: :nombre
+  before_save :set_default_nombre, if: "nombre.blank?"
 
   validates :lat,
             :lon,
