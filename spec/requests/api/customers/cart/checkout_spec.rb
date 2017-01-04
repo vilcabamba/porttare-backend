@@ -246,6 +246,69 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
       end
     end
 
+    describe "with both consumidor final & address" do
+      let(:submission_attributes) {
+        {
+          forma_de_pago: "efectivo",
+          anon_billing_address: true,
+          customer_billing_address_id: customer_billing_address.id,
+          deliveries_attributes: [ {
+            id: current_order.deliveries.first.id,
+            provider_profile_id: order_item.provider_item.provider_profile.id,
+            delivery_method: "pickup"
+          } ]
+        }
+      }
+
+      before do
+        post_with_headers(
+          "/api/customer/cart/checkout",
+          submission_attributes
+        )
+      end
+
+      it {
+        errors = JSON.parse(response.body).fetch("errors")
+        expect(
+          errors
+        ).to have_key("anon_billing_address")
+        expect(
+          errors
+        ).to have_key("customer_billing_address_id")
+      }
+    end
+
+    describe "consumidor final" do
+      let(:submission_attributes) {
+        {
+          forma_de_pago: "efectivo",
+          anon_billing_address: true,
+          deliveries_attributes: [ {
+            id: current_order.deliveries.first.id,
+            provider_profile_id: order_item.provider_item.provider_profile.id,
+            delivery_method: "pickup"
+          } ]
+        }
+      }
+
+      before do
+        post_with_headers(
+          "/api/customer/cart/checkout",
+          submission_attributes
+        )
+      end
+
+      it {
+        expect(
+          response_order["status"]
+        ).to eq("submitted")
+        response_provider = response_order["provider_profiles"].first
+        expect(
+          response_order["anon_billing_address"]
+        ).to eq(true)
+      }
+    end
+
     describe "discounts" do
       pending
     end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170104050706) do
+ActiveRecord::Schema.define(version: 20170104231826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 20170104050706) do
     t.text     "customer_billing_address_attributes"
     t.integer  "customer_billing_address_id"
     t.datetime "submitted_at"
+    t.boolean  "anon_billing_address",                default: false
   end
 
   add_index "customer_orders", ["customer_billing_address_id"], name: "index_customer_orders_on_customer_billing_address_id", using: :btree

@@ -14,7 +14,7 @@ class CustomerOrder < ActiveRecord::Base
         @customer_order.transaction do
           cache_addresses!
           mark_deliveries_as_pending!
-          cache_billing_address!
+          cache_billing_address! unless @customer_order.anon_billing_address?
           update_subtotal_items!
           assign_submitted_at!
           submitted!

@@ -14,6 +14,7 @@
 #  customer_billing_address_attributes :text
 #  customer_billing_address_id         :integer
 #  submitted_at                        :datetime
+#  anon_billing_address                :boolean          default(FALSE)
 #
 
 class CustomerOrder < ActiveRecord::Base
@@ -48,6 +49,7 @@ class CustomerOrder < ActiveRecord::Base
             inclusion: { in: FORMAS_DE_PAGO }
   validates :customer_billing_address,
             own_address: true
+  validate :validate_anon_without_billing_address
 
   belongs_to :customer_profile
   belongs_to :customer_address
@@ -106,6 +108,15 @@ class CustomerOrder < ActiveRecord::Base
   def delivery_for_provider(provider_profile)
     deliveries.detect do |delivery|
       delivery.provider_profile_id == provider_profile.id
+    end
+  end
+
+  private
+
+  def validate_anon_without_billing_address
+    if anon_billing_address? && customer_billing_address_id.present?
+      errors.add(:anon_billing_address, :includes_billing_address)
+      errors.add(:customer_billing_address_id, :is_anon_billing)
     end
   end
 end

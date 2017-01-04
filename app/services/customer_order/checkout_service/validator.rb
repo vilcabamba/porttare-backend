@@ -45,14 +45,11 @@ class CustomerOrder < ActiveRecord::Base
       end
 
       def required_attributes_present?
-        required_attributes = [
-          :forma_de_pago,
-          :customer_billing_address_id
-        ]
-        required_attributes.each do |required_attribute|
-          if @customer_order.send(required_attribute).blank?
-            errors.add(required_attribute, :blank)
-          end
+        if @customer_order.forma_de_pago.blank?
+          errors.add(:forma_de_pago, :blank)
+        end
+        if @customer_order.anon_billing_address.blank? && @customer_order.customer_billing_address_id.blank?
+          errors.add(:customer_billing_address_id, :blank)
         end
         errors.empty?
       end
