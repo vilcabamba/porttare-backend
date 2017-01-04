@@ -35,7 +35,7 @@ class ShippingRequestDecorator < GenericResourceDecorator
   end
 
   def provider
-    resource.nombre_establecimiento
+    resource.str_with_link
   end
 
   def telefono

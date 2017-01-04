@@ -32,6 +32,7 @@
 FactoryGirl.define do
   factory :provider_profile do
     user
+    provider_category
 
     ruc                    { Faker::Code.npi }
     email                  { Faker::Internet.email }

@@ -19,4 +19,8 @@ class GenericResourceDecorator < Draper::Decorator
   def link_to_resource(options=nil, &block)
     h.content_tag :span, options, &block
   end
+
+  def str_with_link
+    link_to_resource { to_s }
+  end
 end

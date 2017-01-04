@@ -79,6 +79,10 @@ es:
         all: Todos
     shipping_request:
       title: Envío
+      history:
+        association:
+          provider_profile:
+            ask_to_validate: Solicitar validación
     provider_office:
       title: Oficina
     provider_item:
@@ -110,6 +114,7 @@ es:
       history:
         apply: aplicó como proveedor
         ask_to_validate: verificó esta solicitud
+        validated: validó este proveedor
         create: creó este proveedor
         update: actualizó este proveedor
       wont_transition:
@@ -119,8 +124,13 @@ es:
         ask_to_validate_prompt: |
           He verificado que esta solicitud es válida.
           Un mensajero será notificado y hará una verificación física del proveedor
+        validated: Validar proveedor
+        validated_prompt: |
+          Existe una carta-compromiso firmada con el proveedor y tenemos apuntes y observaciones del proveedor por parte del mensajero.
+          Si existiese una solicitud de envío, será cancelada
         to:
           ask_to_validate: Solicitud verificada. Se notificará a un mensajero para realizar la verificación física del proveedor
+          validated: El proveedor fue validado. Se notificará a un administrador para que apruebe o rechace al proveedor
         error:
           office_required: Necesita tener una oficina con una dirección a donde enviaremos un mensajero para validar al proveedor
     provider_category:
@@ -153,6 +163,7 @@ es:
         password_confirmation: Confirmación de contraseña
         remember_me: Recordarme
         privileges: Privilegios
+        provider_profile_with_link: Perfil de Proveedor
       shipping_request:
         created_at: Generada
         address: Dirección
@@ -174,6 +185,7 @@ es:
         descripcion: Descripción
       provider_profile:
         provider_category_id: Área
+        user_with_link: Usuario
       provider_item_image:
         remove_imagen: Eliminar imagen
       customer_order:

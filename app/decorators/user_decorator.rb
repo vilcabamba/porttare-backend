@@ -1,4 +1,10 @@
 class UserDecorator < GenericResourceDecorator
+  decorates_association :provider_profile
+
+  def provider_profile_with_link
+    provider_profile.str_with_link
+  end
+
   def to_s
     object.name.presence || object.nickname.presence || object.email
   end
@@ -19,7 +25,8 @@ class UserDecorator < GenericResourceDecorator
       :email,
       :nickname,
       :ciudad,
-      :fecha_nacimiento
+      :fecha_nacimiento,
+      :provider_profile_with_link
     ]
   end
 
@@ -45,6 +52,14 @@ class UserDecorator < GenericResourceDecorator
     else
       object.image
     end
+  end
+
+  def link_to_resource(options=nil, &block)
+    h.link_to(
+      h.admin_user_path(object),
+      options,
+      &block
+    )
   end
 
   private

@@ -37,6 +37,7 @@ class ProviderProfilePolicy < ApplicationPolicy
       :actividad_economica,
       :representante_legal,
       :nombre_establecimiento,
+      :provider_category_id,
       formas_de_pago: [],
       offices_attributes: offices_attributes
     ]

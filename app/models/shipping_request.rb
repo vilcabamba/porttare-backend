@@ -20,7 +20,8 @@ class ShippingRequest < ActiveRecord::Base
     :new,
     :assigned,
     :in_progress, # or phase1 & phase2
-    :delivered
+    :delivered,
+    :canceled
   ].freeze
   KINDS = [
     :ask_to_validate,

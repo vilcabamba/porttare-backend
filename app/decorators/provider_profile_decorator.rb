@@ -3,6 +3,10 @@ class ProviderProfileDecorator < GenericResourceDecorator
   decorates_association :offices
   decorates_association :provider_category
 
+  def user_with_link
+    user.str_with_link
+  end
+
   def to_s
      nombre_establecimiento
   end
@@ -34,7 +38,7 @@ class ProviderProfileDecorator < GenericResourceDecorator
 
   def detail_attributes
     card_attributes + [
-      :user,
+      :user_with_link,
       :tipo_contribuyente,
       :telefono,
       :email,
