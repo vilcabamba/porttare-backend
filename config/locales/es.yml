@@ -200,6 +200,7 @@ es:
       provider_profile:
         provider_category_id: Área
         user_with_link: Usuario
+        generate_user: Generar usuario automáticamente
       provider_item_image:
         remove_imagen: Eliminar imagen
       customer_order:

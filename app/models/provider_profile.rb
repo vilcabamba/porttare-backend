@@ -52,6 +52,8 @@ class ProviderProfile < ActiveRecord::Base
 
   has_paper_trail
 
+  attr_accessor :generate_user
+
   enum banco_tipo_cuenta: BANCO_TIPOS_CUENTA
   enumerize :status,
             in: STATUSES,
@@ -100,6 +102,7 @@ class ProviderProfile < ActiveRecord::Base
   end
 
   begin :callbacks
+    before_create :generate_or_set_user_if_needed
     before_update :touch_if_associations_changed
   end
 
@@ -136,6 +139,20 @@ class ProviderProfile < ActiveRecord::Base
   def touch_if_associations_changed
     if offices.any?(&:changed?) || offices.any?(&:marked_for_destruction?)
       self.updated_at = Time.now
+    end
+  end
+
+  def generate_or_set_user_if_needed
+    if generate_user.present? && generate_user == "1"
+      if User.exists?(email: email)
+        self.user = User.find_by(email: email)
+      else
+        self.user = User.create!(
+          email: email,
+          name: representante_legal,
+          password: Devise.friendly_token[0,20]
+        )
+      end
     end
   end
 end

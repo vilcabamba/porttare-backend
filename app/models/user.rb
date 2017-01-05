@@ -44,6 +44,8 @@ class User < ActiveRecord::Base
   extend Enumerize
   include DeviseTokenAuth::Concerns::User # after devise
 
+  has_paper_trail skip: [:tokens]
+
   begin :validations
     validates :email,
               presence: true,

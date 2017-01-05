@@ -52,6 +52,7 @@ module Admin
         :remove_logotipo,
         :razon_social,
         :banco_nombre,
+        :generate_user,
         :twitter_handle,
         :youtube_handle,
         :facebook_handle,

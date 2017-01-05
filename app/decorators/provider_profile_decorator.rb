@@ -4,7 +4,7 @@ class ProviderProfileDecorator < GenericResourceDecorator
   decorates_association :provider_category
 
   def user_with_link
-    user.str_with_link
+    user.str_with_link if user.present?
   end
 
   def to_s

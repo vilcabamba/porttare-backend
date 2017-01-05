@@ -21,6 +21,10 @@
           = f.input :representante_legal
           = f.input :telefono, input_html: { type: :tel }
           = f.input :email
+          - if f.object.new_record?
+            = f.input :generate_user,
+                      as: :boolean,
+                      input_html: { checked: true }
 
           .form-group
             = f.label :fecha_inicio_actividad
