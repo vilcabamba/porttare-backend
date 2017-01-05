@@ -9,7 +9,8 @@ class ProviderProfilePolicy < ApplicationPolicy
 
   def create?
     # if the user doesn't have a provider profile already
-    user.provider_profile.nil?
+    # and if the user is not a courier already
+    user.provider_profile.nil? && user.courier_profile.nil?
   end
 
   def update?
