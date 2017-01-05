@@ -8,7 +8,9 @@ json.extract!(
   :volumen,
   :peso,
   :observaciones,
-  :provider_item_category_id
+  :cantidad,
+  :provider_item_category_id,
+  :provider_profile_id
 )
 
 json.imagenes do
