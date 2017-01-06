@@ -24,6 +24,7 @@ module Admin
     def new
       super
       build_one_office
+      build_offices_weekdays
     end
 
     def edit
@@ -47,6 +48,10 @@ module Admin
 
     def build_one_office
       @current_resource.offices.object.build if @current_resource.offices.length == 0
+    end
+
+    def build_offices_weekdays
+      @current_resource.object.offices.each &:build_weekdays
     end
 
     def transitor_service(predicate)

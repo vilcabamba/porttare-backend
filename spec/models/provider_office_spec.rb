@@ -9,10 +9,6 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  telefono            :string
-#  hora_de_apertura    :time
-#  hora_de_cierre      :time
-#  inicio_de_labores   :integer
-#  final_de_labores    :integer
 #  ciudad              :string
 #
 

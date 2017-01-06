@@ -74,7 +74,7 @@ class ProviderProfile < ActiveRecord::Base
 
     accepts_nested_attributes_for(
       :offices,
-      reject_if: proc { |attrs| attrs['direccion'].blank? }
+      reject_if: proc { |attrs| attrs['direccion'].blank? && attrs["weekdays_attributes"].blank? }
     )
   end
 

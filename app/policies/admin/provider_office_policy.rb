@@ -10,7 +10,14 @@ module Admin
         :hora_de_cierre,
         :final_de_labores,
         :inicio_de_labores,
-        :enabled
+        :enabled,
+        weekdays_attributes: [
+          :id,
+          :day,
+          :abierto,
+          :hora_de_cierre,
+          :hora_de_apertura
+        ]
       ]
     end
   end

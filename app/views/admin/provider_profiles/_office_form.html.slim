@@ -19,30 +19,37 @@ legend = t("admin.provider_office.title")
   = f.telephone_field :telefono,
                       class: "form-control"
 
-.form-group
-  = f.label :hora_de_apertura
-  = f.time_field :hora_de_apertura,
-                 required: true,
-                 class: "form-control",
-                 value: office_schedule(f.object.hora_de_apertura)
+legend = t("admin.provider_office_weekday.collection_title")
 
-.form-group
-  = f.label :hora_de_cierre
-  = f.time_field :hora_de_cierre,
-                 required: true,
-                 class: "form-control",
-                 value: office_schedule(f.object.hora_de_cierre)
+.container-fluid
+  = f.fields_for :weekdays do |weekday_form|
+    = render "weekday_form", f: weekday_form
 
-.form-group
-  = f.label :inicio_de_labores
-  = f.select :inicio_de_labores,
-             f.object.class.inicio_de_labores.options,
-             { include_blank: true },
-             class: "js-selectize"
+/
+  .form-group
+    = f.label :hora_de_apertura
+    = f.time_field :hora_de_apertura,
+                   required: true,
+                   class: "form-control",
+                   value: office_schedule(f.object.hora_de_apertura)
 
-.form-group
-  = f.label :final_de_labores
-  = f.select :final_de_labores,
-             f.object.class.final_de_labores.options,
-             { include_blank: true },
-             class: "js-selectize"
+  .form-group
+    = f.label :hora_de_cierre
+    = f.time_field :hora_de_cierre,
+                   required: true,
+                   class: "form-control",
+                   value: office_schedule(f.object.hora_de_cierre)
+
+  .form-group
+    = f.label :inicio_de_labores
+    = f.select :inicio_de_labores,
+               f.object.class.inicio_de_labores.options,
+               { include_blank: true },
+               class: "js-selectize"
+
+  .form-group
+    = f.label :final_de_labores
+    = f.select :final_de_labores,
+               f.object.class.final_de_labores.options,
+               { include_blank: true },
+               class: "js-selectize"

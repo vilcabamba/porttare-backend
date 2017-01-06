@@ -87,6 +87,8 @@ es:
             active: Activar proveedor
     provider_office:
       title: Oficina
+    provider_office_weekday:
+      collection_title: Días laborables
     provider_item:
       new: Nuevo producto
       updated: Producto actualizado
@@ -190,6 +192,10 @@ es:
         remove_imagen: Eliminar imagen
       provider_office:
         enabled: Habilitada
+      provider_office_weekday:
+        abierto: Abierto
+        hora_de_apertura: Hora de apertura
+        hora_de_cierre: Hora de cierre
       provider_item_categories:
         nombre: Nombre
       provider_item:
@@ -230,6 +236,10 @@ es:
               must_be_future: debe ser una fecha en el futuro
         customer_address:
           required_location: necesita tener una ubicación
+        provider_office:
+          attributes:
+            base:
+              wrong_weekdays: días laborables no es correcto
   date:
     abbr_day_names:
     - dom
