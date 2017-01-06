@@ -89,6 +89,7 @@ es:
       title: Oficina
     provider_office_weekday:
       collection_title: Días laborables
+      no_schedule_placeholder: "--:--"
     provider_item:
       new: Nuevo producto
       updated: Producto actualizado
