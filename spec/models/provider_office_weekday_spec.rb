@@ -20,4 +20,40 @@ RSpec.describe ProviderOfficeWeekday,
     subject { build :provider_office_weekday }
     it { is_expected.to be_valid }
   end
+
+  describe "allows setting schedule with timezone" do
+    let(:provider_office_weekday) {
+      create :provider_office_weekday,
+              hora_de_cierre: '23:00 -0500'
+    }
+    it {
+      expect(
+        provider_office_weekday.hora_de_cierre
+      ).to be_a(DateTime)
+
+      expect(
+        provider_office_weekday.hora_de_cierre.strftime("%H:%M %z")
+      ).to eq("23:00 -0500")
+    }
+  end
+
+  describe "validates labor days" do
+    subject { build :provider_office_weekday }
+    describe "valid" do
+      before {
+        subject.day = "tue"
+      }
+      it {
+        is_expected.to be_valid
+        expect(subject.day).to be_tue
+      }
+    end
+
+    describe "invalid" do
+      before {
+        subject.day = 'Enero'
+      }
+      it { is_expected.to_not be_valid }
+    end
+  end
 end

@@ -7,3 +7,6 @@
         = provider_office.label_for(attribute)
       span.resource-value
         = provider_office.send(attribute)
+
+  = render "provider_office_weekdays",
+           provider_office_weekdays: provider_office.weekdays

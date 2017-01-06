@@ -66,8 +66,9 @@ RSpec.describe Api::ProvidersController,
     end
 
     it "includes full provider profile" do
+      provider_office = provider_from_response["provider_offices"].first
       expect(
-        provider_from_response["provider_offices"].first
+        provider_office["weekdays"].first
       ).to have_key("hora_de_apertura")
     end
 

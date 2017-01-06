@@ -194,6 +194,7 @@ es:
         enabled: Habilitada
       provider_office_weekday:
         abierto: Abierto
+        cerrado: Cerrado
         hora_de_apertura: Hora de apertura
         hora_de_cierre: Hora de cierre
       provider_item_categories:

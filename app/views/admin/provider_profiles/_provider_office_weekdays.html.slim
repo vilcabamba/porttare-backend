@@ -1,0 +1,16 @@
+.resource-secondary-title
+  = t("admin.provider_office_weekday.collection_title")
+
+- provider_office_weekdays.each do |provider_office_weekday|
+  .resource-row
+    span.resource-label
+      = provider_office_weekday.day_text
+    span.resource-value
+      - if provider_office_weekday.abierto?
+        => l provider_office_weekday.hora_de_apertura.in_time_zone,
+            format: :office_schedule
+        ' -
+        = l provider_office_weekday.hora_de_cierre.in_time_zone,
+            format: :office_schedule
+      - else
+        = provider_office_weekday.abierto_str

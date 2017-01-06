@@ -22,12 +22,15 @@ FactoryGirl.define do
     ciudad    { PorttareBackend::Places.all.sample }
     telefono  { Faker::PhoneNumber.phone_number }
 
-    final_de_labores {
-      ProviderOffice.final_de_labores.values.sample
-    }
-    inicio_de_labores {
-      ProviderOffice.inicio_de_labores.values.sample
-    }
+    after(:build) do |provider_office|
+      ProviderOfficeWeekday::DAY_NAMES.each do |dayname|
+        provider_office.weekdays.build(
+          attributes_for(:provider_office_weekday).merge(
+            day: dayname
+          )
+        )
+      end
+    end
 
     trait :enabled do
       enabled true

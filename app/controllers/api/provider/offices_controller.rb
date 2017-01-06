@@ -39,6 +39,27 @@ module Api
         super
       end
 
+      def_param_group :provider_office_weekday do
+        param :id,
+              Integer,
+              desc: "required if editing"
+        param :day,
+              ProviderOfficeWeekday.day.values,
+              required: true,
+              desc: "one record per weekday"
+        param :abierto,
+              [true, false],
+              required: true
+        param :hora_de_apertura,
+              Time,
+              required: true,
+              desc: "format: `%H:%M %z`. Example: `13:00 -0500`"
+        param :hora_de_cierre,
+              Time,
+              required: true,
+              desc: "format: `%H:%M %z`. Example: `13:00 -0500`"
+      end
+
       def_param_group :provider_office do
         param :ciudad,
               PorttareBackend::Places.all,
@@ -51,18 +72,12 @@ module Api
               String,
               required: true,
               desc: "Branches without `direccion` will be ignored"
-        param :hora_de_apertura,
-              Time,
+        param :weekdays_attributes,
+              Hash,
               required: true,
-              desc: "format: `%H:%M %z`. Example: `13:00 -0500`"
-        param :hora_de_cierre,
-              Time,
-              required: true,
-              desc: "format: `%H:%M %z`. Example: `13:00 -0500`"
-        param :final_de_labores,
-              ProviderOffice.final_de_labores.values
-        param :inicio_de_labores,
-              ProviderOffice.final_de_labores.values
+              desc: "offices weekdays" do
+          param_group :provider_office_weekday
+        end
       end
 
       api :POST,

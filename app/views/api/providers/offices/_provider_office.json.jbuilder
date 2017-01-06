@@ -3,14 +3,13 @@ json.extract!(
   :id,
   :direccion,
   :ciudad,
-  :telefono,
-  :final_de_labores,
-  :inicio_de_labores
+  :telefono
 )
 
-json.hora_de_apertura(
-  l(provider_office.hora_de_apertura, format: :office_schedule)
-) if provider_office.hora_de_apertura.present?
-json.hora_de_cierre(
-  l(provider_office.hora_de_cierre, format: :office_schedule)
-) if provider_office.hora_de_cierre.present?
+json.weekdays do
+  json.array!(
+    provider_office.weekdays,
+    partial: "api/providers/offices/weekday",
+    as: :provider_office_weekday
+  )
+end

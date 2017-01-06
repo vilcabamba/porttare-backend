@@ -20,40 +20,4 @@ RSpec.describe ProviderOffice,
     subject { build :provider_office }
     it { is_expected.to be_valid }
   end
-
-  describe "allows setting schedule with timezone" do
-    let(:provider_office) {
-      create :provider_office,
-              hora_de_cierre: '23:00 -0500'
-    }
-    it {
-      expect(
-        provider_office.hora_de_cierre
-      ).to be_a(DateTime)
-
-      expect(
-        provider_office.hora_de_cierre.strftime("%H:%M %z")
-      ).to eq("23:00 -0500")
-    }
-  end
-
-  describe "validates labor days" do
-    subject { build :provider_office }
-    describe "valid" do
-      before {
-        subject.inicio_de_labores = "tue"
-      }
-      it {
-        is_expected.to be_valid
-        expect(subject.inicio_de_labores).to be_tue
-      }
-    end
-
-    describe "invalid" do
-      before {
-        subject.final_de_labores = 'Enero'
-      }
-      it { is_expected.to_not be_valid }
-    end
-  end
 end
