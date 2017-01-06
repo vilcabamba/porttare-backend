@@ -29,7 +29,7 @@ RSpec.describe ProviderOfficeWeekday,
     it {
       expect(
         provider_office_weekday.hora_de_cierre
-      ).to be_a(DateTime)
+      ).to be_a(Time)
 
       expect(
         provider_office_weekday.hora_de_cierre.strftime("%H:%M %z")
