@@ -34,10 +34,6 @@ class ProviderOfficeDecorator < GenericResourceDecorator
       :enabled,
       :direccion,
       :telefono,
-      :hora_de_apertura,
-      :hora_de_cierre,
-      :inicio_de_labores,
-      :final_de_labores,
       :ciudad
     ].freeze
   end

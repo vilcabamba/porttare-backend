@@ -5,11 +5,11 @@
 #  id                 :integer          not null, primary key
 #  provider_office_id :integer          not null
 #  day                :string           not null
-#  hora_de_apertura   :time
-#  hora_de_cierre     :time
 #  abierto            :boolean
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  hora_de_apertura   :datetime
+#  hora_de_cierre     :datetime
 #
 
 class ProviderOfficeWeekday < ActiveRecord::Base
