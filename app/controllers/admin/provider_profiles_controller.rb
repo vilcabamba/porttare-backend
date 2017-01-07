@@ -51,7 +51,7 @@ module Admin
     end
 
     def build_offices_weekdays
-      @current_resource.object.offices.each &:build_weekdays
+      @current_resource.object.offices.each(&:build_weekdays)
     end
 
     def transitor_service(predicate)

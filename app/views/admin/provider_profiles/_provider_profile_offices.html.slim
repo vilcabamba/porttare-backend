@@ -1,6 +1,10 @@
-.resource-title = t("admin.provider_profile.branches")
+.resource-title = t("admin.provider_profile.branch").pluralize
 
 - @current_resource.offices.each do |provider_office|
+  .resource-title
+    => t("admin.provider_profile.branch")
+    | #
+    = provider_office.id
   - provider_office.detail_attributes.each do |attribute|
     .resource-row
       span.resource-label

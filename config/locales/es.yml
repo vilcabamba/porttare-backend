@@ -110,7 +110,7 @@ es:
       updated: Categoría actualizada
     provider_profile:
       new: Nuevo proveedor
-      branches: Sucursales
+      branch: Sucursal
       updated: Proveedor actualizado
       created: Proveedor creado
       statuses:

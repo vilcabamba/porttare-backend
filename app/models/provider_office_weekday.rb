@@ -27,6 +27,12 @@ class ProviderOfficeWeekday < ActiveRecord::Base
     belongs_to :provider_office
   end
 
+  def self.sorted
+    all.sort_by do |wday|
+      DAY_NAMES.index(wday.day)
+    end
+  end
+
   [
     :hora_de_cierre,
     :hora_de_apertura
