@@ -33,14 +33,22 @@
 
 FactoryGirl.define do
   factory :user do
-    association :current_place, factory: :place
-
     name                  { Faker::Name.name }
     nickname              { Faker::Internet.user_name }
     image                 { Faker::Avatar.image }
     email                 { Faker::Internet.email }
     password              { Faker::Internet.password }
     password_confirmation { password }
+
+    after(:build) do |user|
+      if user.current_place.blank?
+        if Place.first.present?
+          user.current_place = Place.first
+        else
+          user.current_place = build(:place)
+        end
+      end
+    end
 
     ##
     # defines traits with privileges
