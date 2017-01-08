@@ -206,6 +206,7 @@ es:
         provider_item_category_id: Categoría
         provider_profile_id: Proveedor
         descripcion: Descripción
+        cantidad: Cantidad máxima
       provider_profile:
         provider_category_id: Área
         user_with_link: Usuario

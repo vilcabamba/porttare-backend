@@ -29,9 +29,12 @@
                     collection: ProviderItem::UNIDADES_MEDIDA,
                     required: true
           = f.input :precio
-          = f.input :volumen
-          = f.input :peso
+          = f.input :cantidad
           = f.input :en_stock
+
+          /
+            = f.input :volumen
+            = f.input :peso
 
           .attached-images-in-form
             = f.simple_fields_for :imagenes, "imagenes[]" do |imagenes_form|
