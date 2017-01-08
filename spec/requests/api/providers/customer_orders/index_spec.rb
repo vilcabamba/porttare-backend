@@ -7,7 +7,8 @@ RSpec.describe Api::Customer::OrdersController,
   }
 
   describe "as provider" do
-    let(:user) { create :user, :provider }
+    let(:place) { create :place, nombre: "loh" }
+    let(:user) { create :user, :provider, current_place: place }
 
     let(:customer_order) {
       create :customer_order,
