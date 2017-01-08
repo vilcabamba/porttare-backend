@@ -53,6 +53,7 @@ class ProviderItem < ActiveRecord::Base
 
   begin :scopes
     scope :in_stock, ->{ where(en_stock: true) }
+    scope :available, ->{ where("cantidad > 0") }
   end
 
   begin :callbacks

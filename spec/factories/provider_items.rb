@@ -47,5 +47,9 @@ FactoryGirl.define do
     trait :en_stock do
       en_stock true
     end
+
+    trait :available do
+      cantidad 1
+    end
   end
 end

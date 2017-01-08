@@ -42,76 +42,83 @@ class CustomerOrderItem < ActiveRecord::Base
               numericality: {
                 greater_than: 0
               }
+    validate :valid_provider_item_qty
   end
 
-  begin :methods
-    ##
-    # @return [Money]
-    def subtotal
-      cantidad * provider_item_precio
-    end
+  ##
+  # @return [Money]
+  def subtotal
+    cantidad * provider_item_precio
+  end
 
-    ##
-    # reads cached provider_item_precio if present
-    # or asks the provider_item otherwise
-    # @return [Money]
-    def provider_item_precio
-      cached_precio = read_attribute(:provider_item_precio_cents)
-      if cached_precio.present?
-        Money.new(
-          cached_precio,
-          provider_item_precio_currency # DB defaults it to USD
-        )
-      else
-        provider_item.precio
-      end
+  ##
+  # reads cached provider_item_precio if present
+  # or asks the provider_item otherwise
+  # @return [Money]
+  def provider_item_precio
+    cached_precio = read_attribute(:provider_item_precio_cents)
+    if cached_precio.present?
+      Money.new(
+        cached_precio,
+        provider_item_precio_currency # DB defaults it to USD
+      )
+    else
+      provider_item.precio
     end
+  end
 
-    ##
-    # re-adds this customer order item to the cart
-    # including new attributes
-    def readd_from_attributes(parameters)
-      self.cantidad += parameters[:cantidad].to_i
-      if parameters[:observaciones].present?
-        self.observaciones =
-          self.observaciones.to_s + "\n" + parameters[:observaciones]
-      end
+  ##
+  # re-adds this customer order item to the cart
+  # including new attributes
+  def readd_from_attributes(parameters)
+    self.cantidad += parameters[:cantidad].to_i
+    if parameters[:observaciones].present?
+      self.observaciones =
+        self.observaciones.to_s + "\n" + parameters[:observaciones]
     end
+  end
 
-    def cache_provider_item_precio!
-      update_attribute(
-        :provider_item_precio,
-        provider_item.precio
+  def cache_provider_item_precio!
+    update_attribute(
+      :provider_item_precio,
+      provider_item.precio
+    )
+  end
+
+  def update_customer_order_subtotals!
+    customer_order.cache_subtotal_items!
+  end
+
+  def create_customer_order_delivery_if_necessary!
+    if customer_order_delivery.blank?
+      customer_order.deliveries.create!(
+        delivery_method: "shipping",
+        provider_profile: provider_item.provider_profile,
+        customer_address: customer_order.customer_profile.customer_addresses.first
       )
     end
+  end
 
-    def update_customer_order_subtotals!
-      customer_order.cache_subtotal_items!
+  def destroy_customer_order_delivery_if_necessary!
+    items_for_current_provider = customer_order.order_items_by_provider(
+      provider_item.provider_profile
+    )
+    if items_for_current_provider.none?
+      customer_order_delivery.destroy
     end
+  end
 
-    def create_customer_order_delivery_if_necessary!
-      if customer_order_delivery.blank?
-        customer_order.deliveries.create!(
-          delivery_method: "shipping",
-          provider_profile: provider_item.provider_profile,
-          customer_address: customer_order.customer_profile.customer_addresses.first
-        )
-      end
-    end
+  def customer_order_delivery
+    customer_order.delivery_for_provider(
+      provider_item.provider_profile
+    )
+  end
 
-    def destroy_customer_order_delivery_if_necessary!
-      items_for_current_provider = customer_order.order_items_by_provider(
-        provider_item.provider_profile
-      )
-      if items_for_current_provider.none?
-        customer_order_delivery.destroy
-      end
-    end
+  private
 
-    def customer_order_delivery
-      customer_order.delivery_for_provider(
-        provider_item.provider_profile
-      )
+  def valid_provider_item_qty
+    if cantidad > provider_item.cantidad
+      errors.add(:cantidad, :less_than, count: provider_item.cantidad)
     end
   end
 end
