@@ -1,0 +1,22 @@
+.main-content-toolbox
+
+.resource-table-collection.places-collection
+  .resource-wrapper
+    .row.table-headers
+      .col-xs-4
+        strong = t("activerecord.attributes.place.nombre")
+      .col-xs-4
+        strong = t("activerecord.attributes.place.country")
+      .col-xs-4
+        strong = t("activerecord.attributes.place.location")
+
+    - @resource_collection.each do |place|
+      .row
+        .col-xs-4
+          = place.nombre
+        .col-xs-4.col--with-prefix
+          = place.flag_image_tag width: 35, class: "prefix"
+          = place.country
+        .col-xs-4
+          = place.link_to_google_map do
+            = place.static_map_image class: "place-static-image"

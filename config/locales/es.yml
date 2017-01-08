@@ -69,6 +69,7 @@ es:
       provider_item_categories: Categorías
       provider_items: Productos
       customer_orders: Órdenes
+      places: Lugares
     users:
       new: Nuevo usuario
     user:
@@ -216,6 +217,10 @@ es:
         submitted_at: Ordenado
       customer_order_delivery:
         full_resume_for_card: Despacho
+      place:
+        nombre: Ciudad
+        country: País
+        location: Ubicación
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"
