@@ -35,6 +35,16 @@ module Api
       def auth_hash
         request.env['omniauth.auth']
       end
+
+      def resource_json
+        views = ApplicationController.view_context_class.new(
+          "#{Rails.root}/app/views/"
+        )
+        JbuilderTemplate.new(views).encode do |json|
+          json.partial! 'api/auth/sessions/user', user: @resource
+        end
+      end
+      helper_method :resource_json
     end
   end
 end
