@@ -10,7 +10,7 @@ class ProviderProfileDecorator < GenericResourceDecorator
   def places_with_links
     offices.map do |office|
       office.place.str_with_link if office.place.present?
-    end.compact.join
+    end.compact.join(", ").html_safe
   end
 
   def to_s

@@ -32,7 +32,7 @@ class ProviderOffice < ActiveRecord::Base
   begin :validations
     validates :direccion,
               presence: true
-    validates :place, presence: true
+    validates :place_id, presence: true
     validate :validate_right_weekdays
   end
 
