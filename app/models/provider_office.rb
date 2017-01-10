@@ -37,6 +37,7 @@ class ProviderOffice < ActiveRecord::Base
   end
 
   scope :enabled, -> { where(enabled: true) }
+  scope :for_place, ->(place) { where(place: place) }
 
   accepts_nested_attributes_for(
     :weekdays

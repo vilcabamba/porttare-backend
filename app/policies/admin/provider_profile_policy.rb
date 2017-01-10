@@ -74,7 +74,7 @@ module Admin
     private
 
     def offices_attributes
-      ProviderOfficePolicy.new(user,record).permitted_attributes
+      Admin::ProviderOfficePolicy.new(user,record).permitted_attributes
     end
   end
 end

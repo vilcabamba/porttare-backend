@@ -25,4 +25,8 @@ class Place < ActiveRecord::Base
   scope :sorted, ->{
     order(:country, :nombre)
   }
+
+  def to_s
+    "#{nombre}, #{country}"
+  end
 end

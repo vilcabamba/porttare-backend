@@ -1,8 +1,4 @@
 class PlaceDecorator < GenericResourceDecorator
-  def to_s
-    "#{nombre}, #{country}"
-  end
-
   def link_to_google_map(options = {}, &block)
     uri = "https://maps.google.com?q=#{lat},#{lon}"
     defaults = { target: "_blank" }
