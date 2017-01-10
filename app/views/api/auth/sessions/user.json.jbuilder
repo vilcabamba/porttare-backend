@@ -3,7 +3,7 @@ if @success.present?
 end
 
 json.data do
-  json.partial!("user", user: @resource)
+  json.partial!("api/auth/sessions/user", user: @resource)
 
   ##
   # bearer token protocol
