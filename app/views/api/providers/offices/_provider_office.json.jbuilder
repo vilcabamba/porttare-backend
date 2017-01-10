@@ -2,7 +2,7 @@ json.extract!(
   provider_office,
   :id,
   :direccion,
-  :ciudad,
+  :place_id,
   :telefono
 )
 

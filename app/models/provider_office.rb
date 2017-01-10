@@ -21,6 +21,7 @@ class ProviderOffice < ActiveRecord::Base
 
   begin :relationships
     belongs_to :provider_profile
+    belongs_to :place
     has_many :provider_dispatchers,
              dependent: :destroy
     has_many :weekdays,

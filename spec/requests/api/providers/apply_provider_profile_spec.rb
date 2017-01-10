@@ -42,7 +42,6 @@ RSpec.describe Api::Provider::ProfilesController,
     it {
       provider_profile = ProviderProfile.last
       expect(provider_profile.user).to eq(user)
-      expect(provider_profile.place).to eq(user.current_place)
     }
     it {
       expect(response.status).to eq(201)

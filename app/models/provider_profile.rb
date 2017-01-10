@@ -65,7 +65,6 @@ class ProviderProfile < ActiveRecord::Base
   begin :relationships
     belongs_to :user
     belongs_to :provider_category
-    belongs_to :place
     has_many :provider_items
     has_many :provider_clients
     has_many :provider_item_categories

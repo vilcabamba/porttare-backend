@@ -35,7 +35,7 @@ class ProviderOfficeDecorator < GenericResourceDecorator
       :enabled,
       :direccion,
       :telefono,
-      :ciudad
+      :place
     ].freeze
   end
 

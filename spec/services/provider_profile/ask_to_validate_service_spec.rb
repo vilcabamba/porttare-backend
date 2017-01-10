@@ -16,8 +16,8 @@ describe ProviderProfile::TransitionTo::AskToValidateService,
       before { expect(subject.perform).to be_truthy }
       it {
         expect(
-          ShippingRequest.last.address_attributes["ciudad"]
-        ).to eq(provider_profile.offices.first.ciudad)
+          ShippingRequest.last.address_attributes["place_id"]
+        ).to eq(provider_profile.offices.first.place_id)
       }
     end
   end

@@ -3,7 +3,7 @@ module Admin
     def permitted_attributes
       [
         :id,
-        :ciudad,
+        :place_id,
         :telefono,
         :direccion,
         :hora_de_apertura,
