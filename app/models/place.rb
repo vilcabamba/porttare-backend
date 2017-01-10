@@ -17,4 +17,8 @@ class Place < ActiveRecord::Base
   validates :nombre,
             :country,
             presence: true
+
+  # here only to honour relationships
+  has_many :users
+  has_many :provider_profiles
 end

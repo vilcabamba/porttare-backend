@@ -2,7 +2,8 @@ require "rails_helper"
 
 RSpec.describe Api::Provider::ProfilesController,
                type: :request do
-  let(:user) { create :user }
+  let(:place) { create :place, nombre: "loh" }
+  let(:user) { create :user, current_place: place }
   let(:provider_category) { create :provider_category }
   before do
     login_as user
@@ -41,6 +42,7 @@ RSpec.describe Api::Provider::ProfilesController,
     it {
       provider_profile = ProviderProfile.last
       expect(provider_profile.user).to eq(user)
+      expect(provider_profile.place).to eq(user.current_place)
     }
     it {
       expect(response.status).to eq(201)

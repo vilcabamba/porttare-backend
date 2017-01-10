@@ -104,6 +104,7 @@ module Api
       def new_api_resource
         super
         @api_resource.paper_trail_event = "apply"
+        @api_resource.place = pundit_user.current_place
       end
     end
   end

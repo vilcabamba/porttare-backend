@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170106042909) do
+ActiveRecord::Schema.define(version: 20170110025902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -296,8 +296,10 @@ ActiveRecord::Schema.define(version: 20170106042909) do
     t.string   "logotipo"
     t.integer  "banco_tipo_cuenta"
     t.integer  "status",                 default: 0
+    t.integer  "place_id"
   end
 
+  add_index "provider_profiles", ["place_id"], name: "index_provider_profiles_on_place_id", using: :btree
   add_index "provider_profiles", ["provider_category_id"], name: "index_provider_profiles_on_provider_category_id", using: :btree
   add_index "provider_profiles", ["status"], name: "index_provider_profiles_on_status", using: :btree
   add_index "provider_profiles", ["user_id"], name: "index_provider_profiles_on_user_id", using: :btree
@@ -404,6 +406,7 @@ ActiveRecord::Schema.define(version: 20170106042909) do
   add_foreign_key "provider_items", "provider_profiles"
   add_foreign_key "provider_office_weekdays", "provider_offices"
   add_foreign_key "provider_offices", "provider_profiles"
+  add_foreign_key "provider_profiles", "places"
   add_foreign_key "provider_profiles", "provider_categories"
   add_foreign_key "provider_profiles", "users"
   add_foreign_key "shipping_requests", "courier_profiles"
