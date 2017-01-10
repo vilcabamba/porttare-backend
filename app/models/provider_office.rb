@@ -9,15 +9,13 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  telefono            :string
-#  ciudad              :string
+#  place_id            :integer
 #
 
 require "porttare_backend/places"
 
 class ProviderOffice < ActiveRecord::Base
   extend Enumerize
-
-  CIUDADES = PorttareBackend::Places.all
 
   has_paper_trail
 
@@ -33,13 +31,9 @@ class ProviderOffice < ActiveRecord::Base
   begin :validations
     validates :direccion,
               presence: true
-    validates :ciudad,
-              allow_blank: true,
-              inclusion: { in: CIUDADES }
+    validates :place, presence: true
     validate :validate_right_weekdays
   end
-
-  enumerize :ciudad, in: CIUDADES
 
   scope :enabled, -> { where(enabled: true) }
 

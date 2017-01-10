@@ -1,4 +1,5 @@
 class ProviderOfficeDecorator < GenericResourceDecorator
+  decorates_association :place
   decorates_association :weekdays
 
   def to_s

@@ -70,5 +70,12 @@ module Admin
       end
     end
     helper_method :provider_categories_for_select
+
+    def provider_office_places_for_select
+      Place.sorted.decorate.map do |place|
+        [ place.to_s, place.id ]
+      end
+    end
+    helper_method :provider_office_places_for_select
   end
 end

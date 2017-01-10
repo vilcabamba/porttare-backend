@@ -211,6 +211,9 @@ es:
         provider_category_id: Área
         user_with_link: Usuario
         generate_user: Generar usuario automáticamente
+        place: Localidad
+        place_id: Localidad
+        place_with_link: Localidad
       provider_item_image:
         remove_imagen: Eliminar imagen
       customer_order:

@@ -1,4 +1,8 @@
 class PlaceDecorator < GenericResourceDecorator
+  def to_s
+    "#{nombre}, #{country}"
+  end
+
   def link_to_google_map(options = {}, &block)
     uri = "https://maps.google.com?q=#{lat},#{lon}"
     defaults = { target: "_blank" }
@@ -30,5 +34,9 @@ class PlaceDecorator < GenericResourceDecorator
     @country_code ||= ISO3166::Country.find_country_by_name(
       country
     ).alpha2.downcase
+  end
+
+  def admin_link_to_resource(options=nil, &block)
+    h.link_to h.admin_places_path, options, &block
   end
 end

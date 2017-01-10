@@ -9,7 +9,7 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  telefono            :string
-#  ciudad              :string
+#  place_id            :integer
 #
 
 require "porttare_backend/places"

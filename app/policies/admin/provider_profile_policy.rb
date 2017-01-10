@@ -65,6 +65,7 @@ module Admin
         :provider_category_id,
         :nombre_establecimiento,
         :fecha_inicio_actividad,
+        :place_id,
         formas_de_pago: [],
         offices_attributes: offices_attributes
       ]

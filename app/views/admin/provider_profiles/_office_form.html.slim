@@ -3,6 +3,13 @@ legend = t("admin.provider_office.title")
 = f.hidden_field :id
 
 .form-group
+  = f.label :place_id
+  = f.select :place_id,
+             provider_office_places_for_select,
+             { include_blank: true },
+             class: "js-selectize"
+
+.form-group
   .checkbox
     = f.label :enabled do
       = f.check_box :enabled

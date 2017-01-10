@@ -55,6 +55,13 @@ FactoryGirl.define do
         "Personal natural"
       ].sample
     }
+    place {
+      if user.present?
+        user.current_place
+      else
+        build :place
+      end
+    }
 
     trait :with_office do
       after(:create) do |provider_profile|

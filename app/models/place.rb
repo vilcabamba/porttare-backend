@@ -21,4 +21,8 @@ class Place < ActiveRecord::Base
   # here only to honour relationships
   has_many :users
   has_many :provider_profiles
+
+  scope :sorted, ->{
+    order(:country, :nombre)
+  }
 end

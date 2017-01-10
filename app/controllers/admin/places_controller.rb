@@ -6,7 +6,7 @@ module Admin
 
     def index
       pundit_authorize
-      @resource_collection = resource_scope.order(:country).decorate
+      @resource_collection = resource_scope.sorted.decorate
     end
   end
 end
