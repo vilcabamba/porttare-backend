@@ -93,6 +93,7 @@ class CustomerOrderItem < ActiveRecord::Base
     if customer_order_delivery.blank?
       customer_order.deliveries.create!(
         delivery_method: "shipping",
+        customer_order: customer_order,
         provider_profile: provider_item.provider_profile,
         customer_address: customer_order.customer_profile.customer_addresses.first
       )
