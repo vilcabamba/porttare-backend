@@ -130,6 +130,10 @@ class ProviderProfile < ActiveRecord::Base
     provider_category.imagen_url if provider_category.present?
   end
 
+  def allowed_currency_iso_codes
+    offices.map(&:place).compact.map(&:currency_iso_code)
+  end
+
   private
 
   ##
