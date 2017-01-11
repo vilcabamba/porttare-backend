@@ -84,8 +84,20 @@ class CustomerOrder < ActiveRecord::Base
     )
   end
 
+  ##
+  # @note if order is in progress providers are
+  #   filtered by user location. submitted orders
+  #   should not need filtering
   def provider_profiles
-    ProviderProfile.where(id: provider_profile_ids)
+    provider_profiles_scope = ProviderProfile.where(
+      id: provider_profile_ids
+    )
+    if status.in_progress?
+      provider_profiles_scope = provider_profiles_scope.for_place(
+        customer_profile.user.current_place
+      )
+    end
+    provider_profiles_scope
   end
 
   def provider_profile_ids
