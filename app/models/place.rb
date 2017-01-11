@@ -30,4 +30,8 @@ class Place < ActiveRecord::Base
   def to_s
     "#{nombre}, #{country}"
   end
+
+  def currency_iso_code
+    ISO3166::Country.find_country_by_name(country).currency.iso_code
+  end
 end

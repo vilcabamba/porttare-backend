@@ -88,5 +88,5 @@ MoneyRails.configure do |config|
   # The default value is false
   #
   # Example:
-  # config.raise_error_on_money_parsing = false
+  config.raise_error_on_money_parsing = true
 end

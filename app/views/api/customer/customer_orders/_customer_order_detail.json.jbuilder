@@ -6,6 +6,7 @@ json.extract!(
   :forma_de_pago,
   :anon_billing_address,
   :subtotal_items_cents,
+  :subtotal_items_currency,
   :customer_billing_address_id
 )
 

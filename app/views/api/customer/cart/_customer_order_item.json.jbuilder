@@ -6,6 +6,7 @@ json.extract!(
 )
 
 json.provider_item_precio_cents customer_order_item.provider_item_precio.cents
+json.provider_item_precio_currency customer_order_item.provider_item_precio.currency.iso_code
 
 json.provider_item do
   json.partial!(
