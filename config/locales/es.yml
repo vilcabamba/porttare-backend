@@ -220,6 +220,7 @@ es:
       customer_order:
         customer_profile: Cliente
         submitted_at: Ordenado
+        place: Localidad
       customer_order_delivery:
         full_resume_for_card: Despacho
       place:

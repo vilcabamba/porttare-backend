@@ -8,6 +8,7 @@ class CustomerOrderDecorator < GenericResourceDecorator
 
   def card_attributes
     [
+      :place,
       :submitted_at,
       :customer_profile
     ]
