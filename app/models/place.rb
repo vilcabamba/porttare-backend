@@ -20,6 +20,7 @@ class Place < ActiveRecord::Base
 
   # here only to honour relationships
   has_many :users
+  has_many :customer_orders
   has_many :provider_profiles
 
   scope :sorted, ->{

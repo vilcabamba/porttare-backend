@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170110115550) do
+ActiveRecord::Schema.define(version: 20170111033300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,10 +110,12 @@ ActiveRecord::Schema.define(version: 20170110115550) do
     t.integer  "customer_billing_address_id"
     t.datetime "submitted_at"
     t.boolean  "anon_billing_address",                default: false
+    t.integer  "place_id"
   end
 
   add_index "customer_orders", ["customer_billing_address_id"], name: "index_customer_orders_on_customer_billing_address_id", using: :btree
   add_index "customer_orders", ["customer_profile_id"], name: "index_customer_orders_on_customer_profile_id", using: :btree
+  add_index "customer_orders", ["place_id"], name: "index_customer_orders_on_place_id", using: :btree
   add_index "customer_orders", ["status"], name: "index_customer_orders_on_status", using: :btree
   add_index "customer_orders", ["submitted_at"], name: "index_customer_orders_on_submitted_at", using: :btree
 
@@ -395,6 +397,7 @@ ActiveRecord::Schema.define(version: 20170110115550) do
   add_foreign_key "customer_order_items", "provider_items"
   add_foreign_key "customer_orders", "customer_billing_addresses"
   add_foreign_key "customer_orders", "customer_profiles"
+  add_foreign_key "customer_orders", "places"
   add_foreign_key "customer_profiles", "users"
   add_foreign_key "customer_wishlists", "customer_profiles"
   add_foreign_key "provider_clients", "provider_profiles"

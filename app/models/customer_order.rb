@@ -15,6 +15,7 @@
 #  customer_billing_address_id         :integer
 #  submitted_at                        :datetime
 #  anon_billing_address                :boolean          default(FALSE)
+#  place_id                            :integer
 #
 
 class CustomerOrder < ActiveRecord::Base
@@ -51,6 +52,7 @@ class CustomerOrder < ActiveRecord::Base
             own_address: true
   validate :validate_anon_without_billing_address
 
+  belongs_to :place
   belongs_to :customer_profile
   belongs_to :customer_address
   belongs_to :customer_billing_address
@@ -66,6 +68,9 @@ class CustomerOrder < ActiveRecord::Base
   begin :scopes
     scope :latest, -> {
       order(created_at: :desc)
+    }
+    scope :for_place, ->(place) {
+      where(place: place)
     }
   end
 
@@ -89,15 +94,9 @@ class CustomerOrder < ActiveRecord::Base
   #   filtered by user location. submitted orders
   #   should not need filtering
   def provider_profiles
-    provider_profiles_scope = ProviderProfile.where(
+    ProviderProfile.where(
       id: provider_profile_ids
     )
-    if status.in_progress?
-      provider_profiles_scope = provider_profiles_scope.for_place(
-        customer_profile.user.current_place
-      )
-    end
-    provider_profiles_scope
   end
 
   def provider_profile_ids

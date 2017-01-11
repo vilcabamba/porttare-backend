@@ -135,6 +135,31 @@ describe CustomerOrder::CheckoutService,
         expect(subject.errors).to have_key(:"deliveries.customer_address_id")
       }
     end
+
+    describe "trying to deliver to another place" do
+      let(:customer_address) {
+        create :customer_address,
+               place: create(:place, nombre: "loh")
+      }
+      let(:checkout_attributes) {
+        {
+          customer_billing_address_id: customer_billing_address.id,
+          forma_de_pago: "efectivo",
+          deliveries_attributes: [ {
+            id: customer_order.deliveries.first.id,
+            provider_profile_id: customer_order.provider_profiles.first.id,
+            delivery_method: "shipping",
+            customer_address_id: customer_address.id
+          } ]
+        }
+      }
+      pending {
+        is_expected.to_not be_valid
+        expect(
+          subject.errors
+        ).to have_key(:"deliveries.customer_address_id")
+      }
+    end
   end
 
   describe "delivery_method" do

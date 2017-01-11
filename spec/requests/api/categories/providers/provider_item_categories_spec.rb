@@ -11,6 +11,7 @@ RSpec.describe Api::ProvidersController,
     let(:category) { create :provider_category }
     let(:provider_profile){
       create :provider_profile,
+             :with_office,
              status: :active,
              provider_category: category
     }
