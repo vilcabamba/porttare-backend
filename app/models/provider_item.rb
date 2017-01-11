@@ -49,7 +49,8 @@ class ProviderItem < ActiveRecord::Base
               inclusion: { in: UNIDADES_MEDIDA }
     validates :provider_profile_id,
               presence: true
-    validate :validate_currency_is_allowed
+    validate :validate_currency_is_allowed,
+             if: "provider_profile.status.active?"
   end
 
   begin :scopes
