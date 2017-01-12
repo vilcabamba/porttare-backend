@@ -3,7 +3,7 @@ module Api
     class PublicScope < Scope
       def resolve
         scope.with_status(:active)
-             .for_place(user.current_place_or_default)
+             .for_place(user.current_place)
       end
     end
   end

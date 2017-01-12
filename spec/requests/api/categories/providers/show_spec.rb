@@ -19,7 +19,8 @@ RSpec.describe Api::ProvidersController,
              :with_imagen,
              :en_stock,
              :available,
-             provider_profile: provider_profile
+             provider_profile: provider_profile,
+             precio_currency: provider_office.place.currency_iso_code
     }
     let(:provider_office) {
       create :provider_office,
