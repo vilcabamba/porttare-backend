@@ -5,6 +5,7 @@ json.extract!(
   :descripcion,
   :unidad_medida,
   :precio_cents,
+  :precio_currency,
   :volumen,
   :peso,
   :observaciones,

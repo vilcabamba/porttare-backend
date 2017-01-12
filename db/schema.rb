@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170106042909) do
+ActiveRecord::Schema.define(version: 20170111055826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,10 +110,12 @@ ActiveRecord::Schema.define(version: 20170106042909) do
     t.integer  "customer_billing_address_id"
     t.datetime "submitted_at"
     t.boolean  "anon_billing_address",                default: false
+    t.integer  "place_id"
   end
 
   add_index "customer_orders", ["customer_billing_address_id"], name: "index_customer_orders_on_customer_billing_address_id", using: :btree
   add_index "customer_orders", ["customer_profile_id"], name: "index_customer_orders_on_customer_profile_id", using: :btree
+  add_index "customer_orders", ["place_id"], name: "index_customer_orders_on_place_id", using: :btree
   add_index "customer_orders", ["status"], name: "index_customer_orders_on_status", using: :btree
   add_index "customer_orders", ["submitted_at"], name: "index_customer_orders_on_submitted_at", using: :btree
 
@@ -265,10 +267,11 @@ ActiveRecord::Schema.define(version: 20170106042909) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "telefono"
-    t.string   "ciudad"
+    t.integer  "place_id"
   end
 
   add_index "provider_offices", ["enabled"], name: "index_provider_offices_on_enabled", using: :btree
+  add_index "provider_offices", ["place_id"], name: "index_provider_offices_on_place_id", using: :btree
   add_index "provider_offices", ["provider_profile_id"], name: "index_provider_offices_on_provider_profile_id", using: :btree
 
   create_table "provider_profiles", force: :cascade do |t|
@@ -394,6 +397,7 @@ ActiveRecord::Schema.define(version: 20170106042909) do
   add_foreign_key "customer_order_items", "provider_items"
   add_foreign_key "customer_orders", "customer_billing_addresses"
   add_foreign_key "customer_orders", "customer_profiles"
+  add_foreign_key "customer_orders", "places"
   add_foreign_key "customer_profiles", "users"
   add_foreign_key "customer_wishlists", "customer_profiles"
   add_foreign_key "provider_clients", "provider_profiles"
@@ -403,6 +407,7 @@ ActiveRecord::Schema.define(version: 20170106042909) do
   add_foreign_key "provider_items", "provider_item_categories"
   add_foreign_key "provider_items", "provider_profiles"
   add_foreign_key "provider_office_weekdays", "provider_offices"
+  add_foreign_key "provider_offices", "places"
   add_foreign_key "provider_offices", "provider_profiles"
   add_foreign_key "provider_profiles", "provider_categories"
   add_foreign_key "provider_profiles", "users"

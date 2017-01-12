@@ -16,11 +16,11 @@ class GenericResourceDecorator < Draper::Decorator
     @hidden_attrs.include?(key.to_sym)
   end
 
-  def link_to_resource(options=nil, &block)
+  def admin_link_to_resource(options=nil, &block)
     h.content_tag :span, options, &block
   end
 
   def str_with_link
-    link_to_resource { to_s }
+    admin_link_to_resource { to_s }
   end
 end

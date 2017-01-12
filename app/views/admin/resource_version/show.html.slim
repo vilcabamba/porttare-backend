@@ -10,7 +10,7 @@
           div = @version.whodunnit_link_with_name
           .text-muted.small = @version.action
         - if @version.item.present?
-          = @version.decorated_resource.link_to_resource class: "resource-subtitle" do
+          = @version.decorated_resource.admin_link_to_resource class: "resource-subtitle" do
             = @version.decorated_resource
         - else
           .resource-subtitle = @version.item_type
@@ -34,7 +34,7 @@
             => t("admin.#{klass_name}.history.association.#{suffix}.#{event}",
               default: :"admin.history.default.association.#{event}")
             - if association.decorated_resource.present?
-              = association.decorated_resource.link_to_resource do
+              = association.decorated_resource.admin_link_to_resource do
                 = association.decorated_resource.to_s
             - else
               = t("activerecord.models.#{association.item_type.underscore}")

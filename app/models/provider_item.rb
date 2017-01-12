@@ -49,6 +49,8 @@ class ProviderItem < ActiveRecord::Base
               inclusion: { in: UNIDADES_MEDIDA }
     validates :provider_profile_id,
               presence: true
+    validate :validate_currency_is_allowed,
+             if: "provider_profile.status.active?"
   end
 
   begin :scopes
@@ -82,6 +84,12 @@ class ProviderItem < ActiveRecord::Base
   end
 
   private
+
+  def validate_currency_is_allowed
+    unless provider_profile.allowed_currency_iso_codes.include?(precio_currency)
+      errors.add(:precio_currency, :invalid)
+    end
+  end
 
   def touch_if_associations_changed
     if imagenes.any?(&:changed?) || imagenes.any?(&:marked_for_destruction?)

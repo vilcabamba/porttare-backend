@@ -43,6 +43,7 @@ class ProviderItemPolicy < ApplicationPolicy
       :descripcion,
       :unidad_medida,
       :precio,
+      :precio_currency,
       :volumen,
       :peso,
       :observaciones,

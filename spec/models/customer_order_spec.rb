@@ -15,6 +15,7 @@
 #  customer_billing_address_id         :integer
 #  submitted_at                        :datetime
 #  anon_billing_address                :boolean          default(FALSE)
+#  place_id                            :integer
 #
 
 require 'rails_helper'

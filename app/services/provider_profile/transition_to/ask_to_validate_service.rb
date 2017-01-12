@@ -38,7 +38,7 @@ class ProviderProfile < ActiveRecord::Base
 
       def address_attributes
         main_office.attributes.slice(
-          "ciudad",
+          "place_id",
           "telefono",
           "direccion"
         )

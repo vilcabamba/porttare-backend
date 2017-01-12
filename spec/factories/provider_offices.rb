@@ -9,7 +9,7 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  telefono            :string
-#  ciudad              :string
+#  place_id            :integer
 #
 
 require "porttare_backend/places"
@@ -19,8 +19,14 @@ FactoryGirl.define do
     provider_profile
 
     direccion { Faker::Address.street_address }
-    ciudad    { PorttareBackend::Places.all.sample }
     telefono  { Faker::PhoneNumber.phone_number }
+    place {
+      if provider_profile.present? && provider_profile.user.present?
+        provider_profile.user.current_place
+      else
+        build :place
+      end
+    }
 
     after(:build) do |provider_office|
       ProviderOfficeWeekday::DAY_NAMES.each do |dayname|

@@ -31,4 +31,8 @@ class PlaceDecorator < GenericResourceDecorator
       country
     ).alpha2.downcase
   end
+
+  def admin_link_to_resource(options=nil, &block)
+    h.link_to h.admin_places_path, options, &block
+  end
 end

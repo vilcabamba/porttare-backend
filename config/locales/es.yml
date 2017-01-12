@@ -194,6 +194,9 @@ es:
         remove_imagen: Eliminar imagen
       provider_office:
         enabled: Habilitada
+        place: Localidad
+        place_id: Localidad
+        place_with_link: Localidad
       provider_office_weekday:
         abierto: Abierto
         cerrado: Cerrado
@@ -210,12 +213,14 @@ es:
       provider_profile:
         provider_category_id: Área
         user_with_link: Usuario
+        places_with_links: Localidades
         generate_user: Generar usuario automáticamente
       provider_item_image:
         remove_imagen: Eliminar imagen
       customer_order:
         customer_profile: Cliente
         submitted_at: Ordenado
+        place: Localidad
       customer_order_delivery:
         full_resume_for_card: Despacho
       place:

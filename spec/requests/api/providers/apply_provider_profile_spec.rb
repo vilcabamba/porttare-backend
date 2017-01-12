@@ -2,7 +2,8 @@ require "rails_helper"
 
 RSpec.describe Api::Provider::ProfilesController,
                type: :request do
-  let(:user) { create :user }
+  let(:place) { create :place, nombre: "loh" }
+  let(:user) { create :user, current_place: place }
   let(:provider_category) { create :provider_category }
   before do
     login_as user

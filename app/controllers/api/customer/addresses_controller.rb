@@ -37,6 +37,9 @@ module Api
 }
       def index
         super
+        if @api_collection.present?
+          @api_collection = @api_collection.decorate
+        end
       end
 
       api :GET,

@@ -310,6 +310,71 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
       }
     end
 
+    describe "checkout local items" do
+      let(:non_local_place) {
+        create(:place, nombre: "foreign")
+      }
+      let(:non_local_user) {
+        create :user,
+               current_place: non_local_place
+      }
+      let(:non_local_provider_profile) {
+        create :provider_profile,
+               :with_office,
+               user: non_local_user
+      }
+      let(:non_local_provider_item) {
+        create :provider_item,
+               provider_profile: non_local_provider_profile
+      }
+      let(:non_local_order_item) {
+        create :customer_order_item,
+               customer_order: non_local_order,
+               provider_item: non_local_provider_item
+      }
+      let(:non_local_order) {
+        create :customer_order,
+               customer_profile: user.customer_profile,
+               place: non_local_place
+      }
+      let(:submission_attributes) {
+        {
+          forma_de_pago: "efectivo",
+          anon_billing_address: true,
+          deliveries_attributes: [ {
+            id: current_order.deliveries.first.id,
+            provider_profile_id: order_item.provider_item.provider_profile.id,
+            delivery_method: "shipping",
+            customer_address_id: customer_address.id
+          } ]
+        }
+      }
+
+      before do
+        non_local_order_item
+        post_with_headers(
+          "/api/customer/cart/checkout",
+          submission_attributes
+        )
+      end
+
+      it {
+        response_providers = response_order["provider_profiles"]
+
+        expect(
+          response_providers.find do |response_provider|
+            response_provider["id"] == non_local_provider_profile.id
+          end
+        ).to_not be_present
+
+        # but is in cart for other place
+        user.update!(current_place: non_local_place)
+        expect(
+          user.customer_profile.current_order.provider_profiles
+        ).to include(non_local_provider_profile)
+      }
+    end
+
     describe "discounts" do
       pending
     end

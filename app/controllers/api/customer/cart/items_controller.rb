@@ -175,8 +175,9 @@ module Api
 
         def find_or_create_current_order
           skip_policy_scope # because we access through #current_order
-          @customer_order =
-            @customer_profile.current_order || @customer_profile.customer_orders.create
+          @customer_order = @customer_profile.current_order_or_create_for(
+            pundit_user.current_place
+          )
         end
       end
     end

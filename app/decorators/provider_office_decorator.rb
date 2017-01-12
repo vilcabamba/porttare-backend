@@ -1,4 +1,5 @@
 class ProviderOfficeDecorator < GenericResourceDecorator
+  decorates_association :place
   decorates_association :weekdays
 
   def to_s
@@ -34,7 +35,7 @@ class ProviderOfficeDecorator < GenericResourceDecorator
       :enabled,
       :direccion,
       :telefono,
-      :ciudad
+      :place
     ].freeze
   end
 

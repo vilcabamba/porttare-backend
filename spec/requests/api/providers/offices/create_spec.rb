@@ -36,10 +36,12 @@ RSpec.describe Api::Provider::OfficesController,
       let(:attributes) {
         # only required ones
         attributes_for(:provider_office).slice(
-          :ciudad,
           :telefono,
           :direccion
-        ).merge(weekdays_attributes: weekdays_attributes)
+        ).merge(
+          place_id: provider.current_place.id,
+          weekdays_attributes: weekdays_attributes
+        )
       }
 
       before do

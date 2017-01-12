@@ -9,7 +9,7 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  telefono            :string
-#  ciudad              :string
+#  place_id            :integer
 #
 
 require "porttare_backend/places"
@@ -17,12 +17,11 @@ require "porttare_backend/places"
 class ProviderOffice < ActiveRecord::Base
   extend Enumerize
 
-  CIUDADES = PorttareBackend::Places.all
-
   has_paper_trail
 
   begin :relationships
     belongs_to :provider_profile
+    belongs_to :place
     has_many :provider_dispatchers,
              dependent: :destroy
     has_many :weekdays,
@@ -33,15 +32,12 @@ class ProviderOffice < ActiveRecord::Base
   begin :validations
     validates :direccion,
               presence: true
-    validates :ciudad,
-              allow_blank: true,
-              inclusion: { in: CIUDADES }
+    validates :place_id, presence: true
     validate :validate_right_weekdays
   end
 
-  enumerize :ciudad, in: CIUDADES
-
   scope :enabled, -> { where(enabled: true) }
+  scope :for_place, ->(place) { where(place: place) }
 
   accepts_nested_attributes_for(
     :weekdays

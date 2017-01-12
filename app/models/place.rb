@@ -17,4 +17,21 @@ class Place < ActiveRecord::Base
   validates :nombre,
             :country,
             presence: true
+
+  # here only to honour relationships
+  has_many :users
+  has_many :customer_orders
+  has_many :provider_profiles
+
+  scope :sorted, ->{
+    order(:country, :nombre)
+  }
+
+  def to_s
+    "#{nombre}, #{country}"
+  end
+
+  def currency_iso_code
+    ISO3166::Country.find_country_by_name(country).currency.iso_code
+  end
 end

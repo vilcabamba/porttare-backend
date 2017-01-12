@@ -54,7 +54,7 @@ class UserDecorator < GenericResourceDecorator
     end
   end
 
-  def link_to_resource(options=nil, &block)
+  def admin_link_to_resource(options=nil, &block)
     h.link_to(
       h.admin_user_path(object),
       options,

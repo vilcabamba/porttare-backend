@@ -25,7 +25,7 @@ class ProviderOfficePolicy < ApplicationPolicy
 
   def permitted_attributes
     [
-      :ciudad,
+      :place_id,
       :telefono,
       :direccion,
       :enabled,
