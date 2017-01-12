@@ -79,10 +79,6 @@ class User < ActiveRecord::Base
 
   mount_uploader :custom_image, UserCustomImageUploader
 
-  def current_place_or_default
-    current_place.presence || Place.default
-  end
-
   private
 
   ##

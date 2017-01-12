@@ -5,15 +5,6 @@ json.partial!(
   user: user
 )
 
-if user.current_place.present?
-  json.current_place do
-    json.partial!(
-      "api/users/places/place",
-      place: user.current_place.decorate
-    )
-  end
-end
-
 if user.provider_profile.present?
   json.provider_profile do
     json.partial!(
