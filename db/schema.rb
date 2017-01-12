@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170104231826) do
+ActiveRecord::Schema.define(version: 20170106042909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -246,6 +246,18 @@ ActiveRecord::Schema.define(version: 20170104231826) do
   add_index "provider_items", ["provider_item_category_id"], name: "index_provider_items_on_provider_item_category_id", using: :btree
   add_index "provider_items", ["provider_profile_id"], name: "index_provider_items_on_provider_profile_id", using: :btree
 
+  create_table "provider_office_weekdays", force: :cascade do |t|
+    t.integer  "provider_office_id", null: false
+    t.string   "day",                null: false
+    t.boolean  "abierto"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.datetime "hora_de_apertura"
+    t.datetime "hora_de_cierre"
+  end
+
+  add_index "provider_office_weekdays", ["provider_office_id"], name: "index_provider_office_weekdays_on_provider_office_id", using: :btree
+
   create_table "provider_offices", force: :cascade do |t|
     t.integer  "provider_profile_id",                 null: false
     t.boolean  "enabled",             default: false
@@ -253,10 +265,6 @@ ActiveRecord::Schema.define(version: 20170104231826) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "telefono"
-    t.time     "hora_de_apertura"
-    t.time     "hora_de_cierre"
-    t.integer  "inicio_de_labores"
-    t.integer  "final_de_labores"
     t.string   "ciudad"
   end
 
@@ -394,6 +402,7 @@ ActiveRecord::Schema.define(version: 20170104231826) do
   add_foreign_key "provider_item_images", "provider_items"
   add_foreign_key "provider_items", "provider_item_categories"
   add_foreign_key "provider_items", "provider_profiles"
+  add_foreign_key "provider_office_weekdays", "provider_offices"
   add_foreign_key "provider_offices", "provider_profiles"
   add_foreign_key "provider_profiles", "provider_categories"
   add_foreign_key "provider_profiles", "users"

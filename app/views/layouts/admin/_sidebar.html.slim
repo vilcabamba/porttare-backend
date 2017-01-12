@@ -44,3 +44,9 @@
           .wrapper
             span.glyphicon.glyphicon-user
             = t("admin.sidebar.users")
+
+      li class="#{'active' if controller_name == 'places'}"
+        = link_to admin_places_path do
+          .wrapper
+            span.glyphicon.glyphicon-tent
+            = t("admin.sidebar.places")

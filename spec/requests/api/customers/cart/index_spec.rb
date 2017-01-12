@@ -51,7 +51,8 @@ RSpec.describe Api::Customer::Cart::ItemsController,
   end
 
   describe "customer with order" do
-    let(:user) { create :user, :customer }
+    let(:place) { create :place, nombre: "loh" }
+    let(:user) { create :user, :customer, current_place: place }
     let(:customer_order) {
       create :customer_order,
              customer_profile: user.customer_profile

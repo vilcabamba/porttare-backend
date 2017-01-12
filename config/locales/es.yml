@@ -69,6 +69,7 @@ es:
       provider_item_categories: Categorías
       provider_items: Productos
       customer_orders: Órdenes
+      places: Lugares
     users:
       new: Nuevo usuario
     user:
@@ -87,6 +88,9 @@ es:
             active: Activar proveedor
     provider_office:
       title: Oficina
+    provider_office_weekday:
+      collection_title: Días laborables
+      no_schedule_placeholder: "--:--"
     provider_item:
       new: Nuevo producto
       updated: Producto actualizado
@@ -107,7 +111,7 @@ es:
       updated: Categoría actualizada
     provider_profile:
       new: Nuevo proveedor
-      branches: Sucursales
+      branch: Sucursal
       updated: Proveedor actualizado
       created: Proveedor creado
       statuses:
@@ -190,6 +194,11 @@ es:
         remove_imagen: Eliminar imagen
       provider_office:
         enabled: Habilitada
+      provider_office_weekday:
+        abierto: Abierto
+        cerrado: Cerrado
+        hora_de_apertura: Hora de apertura
+        hora_de_cierre: Hora de cierre
       provider_item_categories:
         nombre: Nombre
       provider_item:
@@ -197,6 +206,7 @@ es:
         provider_item_category_id: Categoría
         provider_profile_id: Proveedor
         descripcion: Descripción
+        cantidad: Cantidad máxima
       provider_profile:
         provider_category_id: Área
         user_with_link: Usuario
@@ -208,6 +218,10 @@ es:
         submitted_at: Ordenado
       customer_order_delivery:
         full_resume_for_card: Despacho
+      place:
+        nombre: Ciudad
+        country: País
+        location: Ubicación
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"
@@ -230,6 +244,10 @@ es:
               must_be_future: debe ser una fecha en el futuro
         customer_address:
           required_location: necesita tener una ubicación
+        provider_office:
+          attributes:
+            base:
+              wrong_weekdays: días laborables no es correcto
   date:
     abbr_day_names:
     - dom

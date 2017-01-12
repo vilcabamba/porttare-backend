@@ -2,7 +2,8 @@ require "rails_helper"
 
 RSpec.describe Api::ProvidersController,
                type: :request do
-  let(:user) { create :user }
+  let(:place) { create :place, nombre: "loh" }
+  let(:user) { create :user, current_place: place }
   before { login_as user }
 
   describe "show a provider's public profile including their items for offer" do
@@ -67,8 +68,9 @@ RSpec.describe Api::ProvidersController,
     end
 
     it "includes full provider profile" do
+      provider_office = provider_from_response["provider_offices"].first
       expect(
-        provider_from_response["provider_offices"].first
+        provider_office["weekdays"].first
       ).to have_key("hora_de_apertura")
     end
 

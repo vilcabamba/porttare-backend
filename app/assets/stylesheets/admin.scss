@@ -9,6 +9,8 @@
 @import "devise/login";
 @import "admin/fonts";
 @import "admin/alerts";
+@import "admin/forms";
+@import "admin/provider-profile-form";
 @import "admin/main-navbar";
 @import "admin/main-sidebar";
 @import "admin/main-content";
@@ -20,4 +22,5 @@
 @import "admin/resource-history";
 @import "admin/resource-collection";
 @import "admin/resource-table-collection";
-@import "admin/components/provider-categories"
+@import "admin/components/provider-categories";
+@import "admin/components/places-collection";

@@ -17,8 +17,9 @@ RSpec.describe Api::Provider::DispatchersController,
   end
 
   describe "as provider" do
+    let(:place) { create :place, nombre: "loh" }
     let(:provider) {
-      create :user, :provider
+      create :user, :provider, current_place: place
     }
     let(:provider_office) {
       create :provider_office,

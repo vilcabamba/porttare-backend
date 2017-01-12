@@ -20,15 +20,26 @@ RSpec.describe Api::Provider::OfficesController,
     before { login_as provider }
 
     describe "can create offices" do
+      let(:provider_office) {
+        build :provider_office
+      }
+      let(:weekdays_attributes) {
+        provider_office.weekdays.map do |weekday|
+          weekday.attributes.slice(
+            "day",
+            "hora_de_cierre",
+            "hora_de_apertura",
+            "abierto"
+          )
+        end
+      }
       let(:attributes) {
         # only required ones
         attributes_for(:provider_office).slice(
           :ciudad,
           :telefono,
-          :direccion,
-          :hora_de_cierre,
-          :hora_de_apertura
-        )
+          :direccion
+        ).merge(weekdays_attributes: weekdays_attributes)
       }
 
       before do
@@ -54,11 +65,12 @@ RSpec.describe Api::Provider::OfficesController,
           response_provider_office["direccion"]
         ).to eq(attributes[:direccion])
 
+        provider_office_weekday = response_provider_office["weekdays"].first
         expect(
-          response_provider_office["hora_de_apertura"]
+          provider_office_weekday["hora_de_apertura"]
         ).to eq(
           I18n.l(
-            attributes[:hora_de_apertura].in_time_zone(
+            weekdays_attributes.first["hora_de_apertura"].in_time_zone(
               Rails.application.config.time_zone
             ),
             format: :office_schedule

@@ -67,10 +67,19 @@ RSpec.describe Api::Provider::ProfilesController,
   end
 
   describe "persists provider branches" do
-    let(:office_attributes) {
-      attributes_for :provider_office
+    let(:provider_office) {
+      build(:provider_office)
     }
-
+    let(:weekdays_attributes) {
+      provider_office.weekdays.map do |weekday|
+        weekday.attributes
+      end
+    }
+    let(:office_attributes) {
+      provider_office.attributes.merge(
+        weekdays_attributes: weekdays_attributes
+      )
+    }
     let(:attributes) {
       attributes_for(:provider_profile).merge(
         provider_category_id: provider_category.id,
@@ -93,7 +102,7 @@ RSpec.describe Api::Provider::ProfilesController,
       provider_office = ProviderOffice.last
       expect(
         provider_office.direccion
-      ).to eq(office_attributes[:direccion])
+      ).to eq(office_attributes["direccion"])
       expect(
         provider_office.provider_profile
       ).to eq(user.provider_profile)

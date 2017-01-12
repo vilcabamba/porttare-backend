@@ -4,5 +4,6 @@ json.extract!(
   :lat,
   :lon,
   :nombre,
-  :country
+  :country,
+  :flag_image_url
 )

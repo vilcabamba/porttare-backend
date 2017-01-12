@@ -31,7 +31,7 @@ module Api
   ]
 }}
       def index
-        @api_collection = resource_scope.all
+        @api_collection = resource_scope.order(:country).decorate
       end
 
       private

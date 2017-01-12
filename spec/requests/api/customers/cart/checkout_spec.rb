@@ -4,7 +4,8 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
                type: :request do
   include TimeZoneHelpers
 
-  let(:user) { create :user, :customer }
+  let(:place) { create :place, nombre: "loh" }
+  let(:user) { create :user, :customer, current_place: place }
   before { login_as user }
 
   describe "submits my order" do
