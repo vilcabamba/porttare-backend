@@ -3,7 +3,7 @@ class GenerateDefaultOfficeWeekdays < ActiveRecord::Migration
     ProviderOffice.find_each do |provider_office|
       if provider_office.weekdays.empty?
         provider_office.build_weekdays
-        provider_office.save!
+        provider_office.save(validate: false)
       end
     end
   end
