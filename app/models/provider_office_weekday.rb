@@ -51,7 +51,7 @@ class ProviderOfficeWeekday < ActiveRecord::Base
         # fallback to write as is
       end
       old_time = send(attribute_name)
-      if old_time.present?
+      if old_time.present? && new_time.present?
         old_time_str = old_time.in_time_zone.strftime(schedule_format)
         new_time_str = new_time.in_time_zone.strftime(schedule_format)
         return if old_time_str == new_time_str
