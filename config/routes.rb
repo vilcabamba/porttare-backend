@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :locations, only: :create
     resources :products, only: :index
     resource :pusher_auth, only: :create
+    resource :tos, only: :show
     resources :categories, only: :index do
       resources :providers, only: [:index, :show] do
         resources :items, only: :show

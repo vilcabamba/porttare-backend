@@ -7,8 +7,8 @@ module Api
       protected
 
       def verify_provider_is_active
-        provider_profile = pundit_user.provider_profile
-        if pundit_user.blank? || !provider_profile.present? || provider_profile.status.disabled?
+        provider_profile = pundit_user.try :provider_profile
+        if pundit_user.blank? || provider_profile.blank? || provider_profile.status.disabled?
           raise Pundit::NotAuthorizedError.new(
             t("provider_profile.errors.disabled")
           )

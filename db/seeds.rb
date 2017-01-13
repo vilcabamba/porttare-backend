@@ -12,20 +12,22 @@ if User.admin.count == 0
   User.create!(attributes)
 end
 
-[
-  "Agua bidón/Gas",
-  "Alimentos no preparados",
-  "Alimentos preparados",
-  "Bebidas alcohólicas",
-  "Encomiendas",
-  "Medicinas",
-  "Panadería y pastelería",
-  "Floristería",
-  "Boletería"
-].each do |category_name|
-  ProviderCategory.where(
-    titulo: category_name
-  ).first_or_create
+if ProviderCategory.count == 0
+  [
+    "Agua bidón/Gas",
+    "Alimentos no preparados",
+    "Alimentos preparados",
+    "Bebidas alcohólicas",
+    "Encomiendas",
+    "Medicinas",
+    "Panadería y pastelería",
+    "Floristería",
+    "Boletería"
+  ].each do |category_name|
+    ProviderCategory.where(
+      titulo: category_name
+    ).first_or_create
+  end
 end
 
 if ProviderItemCategory.where(predeterminada: true).count == 0
@@ -43,5 +45,14 @@ if Place.count == 0
     lon: "-79.201699",
     nombre: "Loja",
     country: "Ecuador"
+  )
+end
+
+unless SitePreference.exists?(name: "tos")
+  puts "creating TOS"
+  tos = File.read(Rails.root.join("config/default-tos.md"))
+  SitePreference.create!(
+    name: "tos",
+    content: tos
   )
 end
