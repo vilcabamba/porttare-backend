@@ -1,1 +1,1 @@
-json.tos api_resource.content
+json.tos tos_content

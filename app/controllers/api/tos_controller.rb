@@ -20,6 +20,15 @@ module Api
     def api_resource
       SitePreference.by_key("tos")
     end
-    helper_method :api_resource
+
+    def tos_content
+      Redcarpet::Markdown.new(
+        Redcarpet::Render::HTML,
+        autolink: true
+      ).render(
+        api_resource.content
+      )
+    end
+    helper_method :tos_content
   end
 end

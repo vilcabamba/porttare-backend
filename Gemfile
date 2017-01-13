@@ -25,6 +25,7 @@ gem 'nested_form', github: 'smoku/nested_form'
 gem 'pusher', '~> 1.3'
 gem 'svg-flags-rails', '1.0.0.pre.beta2'
 gem 'countries', '~> 2.0'
+gem 'redcarpet', '~> 3.4'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
