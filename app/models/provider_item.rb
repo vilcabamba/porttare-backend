@@ -87,7 +87,7 @@ class ProviderItem < ActiveRecord::Base
 
   def validate_currency_is_allowed
     unless provider_profile.allowed_currency_iso_codes.include?(precio_currency)
-      errors.add(:precio_currency, :invalid)
+      errors.add(:precio_currency, :invalid_currency)
     end
   end
 

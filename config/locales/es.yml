@@ -253,6 +253,10 @@ es:
           attributes:
             base:
               wrong_weekdays: días laborables no es correcto
+        provider_item:
+          attributes:
+            precio_currency:
+              invalid_currency: moneda no es válida
   date:
     abbr_day_names:
     - dom
