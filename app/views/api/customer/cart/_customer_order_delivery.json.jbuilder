@@ -3,7 +3,8 @@ json.extract!(
   :id,
   :status,
   :reason,
-  :delivery_method
+  :delivery_method,
+  :customer_address_attributes
 )
 
 json.deliver_at(
