@@ -10,6 +10,8 @@
 #  updated_at          :datetime         not null
 #  telefono            :string
 #  place_id            :integer
+#  lat                 :string           not null
+#  lon                 :string           not null
 #
 
 require "porttare_backend/places"
@@ -18,6 +20,8 @@ FactoryGirl.define do
   factory :provider_office do
     provider_profile
 
+    lat       "-3.792134532423"
+    lon       "72.43214254556"
     direccion { Faker::Address.street_address }
     telefono  { Faker::PhoneNumber.phone_number }
     place {

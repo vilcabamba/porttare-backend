@@ -10,6 +10,8 @@
 #  updated_at          :datetime         not null
 #  telefono            :string
 #  place_id            :integer
+#  lat                 :string           not null
+#  lon                 :string           not null
 #
 
 require 'rails_helper'

@@ -10,6 +10,8 @@
 #  updated_at          :datetime         not null
 #  telefono            :string
 #  place_id            :integer
+#  lat                 :string           not null
+#  lon                 :string           not null
 #
 
 require "porttare_backend/places"
@@ -31,6 +33,8 @@ class ProviderOffice < ActiveRecord::Base
 
   begin :validations
     validates :direccion,
+              :lat,
+              :lon,
               presence: true
     validates :place_id, presence: true
     validate :validate_right_weekdays
