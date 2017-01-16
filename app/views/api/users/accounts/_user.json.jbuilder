@@ -10,7 +10,8 @@ json.extract!(
   :nickname,
   :provider,
   :custom_image_url,
-  :agreed_tos
+  :agreed_tos,
+  :current_place_id
 )
 json.fecha_nacimiento(
   l(user.fecha_nacimiento, format: :api)

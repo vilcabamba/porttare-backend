@@ -37,7 +37,9 @@ RSpec.describe Api::Provider::OfficesController,
         # only required ones
         attributes_for(:provider_office).slice(
           :telefono,
-          :direccion
+          :direccion,
+          :lat,
+          :lon
         ).merge(
           place_id: provider.current_place.id,
           weekdays_attributes: weekdays_attributes

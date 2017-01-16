@@ -29,6 +29,8 @@ class ProviderOfficePolicy < ApplicationPolicy
       :telefono,
       :direccion,
       :enabled,
+      :lat,
+      :lon,
       weekdays_attributes: [
         :id,
         :day,
