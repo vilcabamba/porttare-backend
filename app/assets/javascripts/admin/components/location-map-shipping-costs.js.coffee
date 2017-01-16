@@ -56,7 +56,7 @@ class LocationMapShippingCosts
     )
     @calculatingUi()
 
-  shippingCalculated: (results) =>
+  shippingCalculated: (results) ->
     $(".calculating").addClass "hidden"
     $results = $(".shipping-costs-results")
     $results.removeClass "hidden"
