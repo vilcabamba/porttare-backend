@@ -1,11 +1,15 @@
 class GenericResourceDecorator < Draper::Decorator
   delegate_all
 
-  def static_map_image
+  def static_map_image(size = :default)
+    map_size = {
+      default: "600x300",
+      xs: "300x150"
+    }.fetch(size)
     GoogleStaticMap.new(
       zoom: 16,
       scale: 2,
-      size: "600x300",
+      size: map_size,
       markers: "#{lat},#{lon}"
     ).to_s
   end

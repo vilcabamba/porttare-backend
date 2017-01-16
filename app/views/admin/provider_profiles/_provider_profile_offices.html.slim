@@ -5,6 +5,10 @@
     => t("admin.provider_profile.branch")
     | #
     = provider_office.id
+
+  = image_tag provider_office.static_map_image(:xs),
+              class: "xs-static-map-preview"
+
   - provider_office.detail_attributes.each do |attribute|
     .resource-row
       span.resource-label
