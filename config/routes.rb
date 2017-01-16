@@ -99,7 +99,13 @@ Rails.application.routes.draw do
     resources :provider_item_categories
     resources :provider_items
     resources :customer_orders
-    resources :places
+    resources :places do
+      resource :shipping_costs do
+        collection do
+          post :calculate
+        end
+      end
+    end
     resources :users do
       collection do
         get "/by_status/:status",

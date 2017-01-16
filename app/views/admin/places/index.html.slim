@@ -5,18 +5,31 @@
     .row.table-headers
       .col-xs-4
         strong = t("activerecord.attributes.place.nombre")
-      .col-xs-4
+      .col-xs-3
         strong = t("activerecord.attributes.place.country")
-      .col-xs-4
+      .col-xs-2
         strong = t("activerecord.attributes.place.location")
+      .col-xs-3
+        strong = t("activerecord.attributes.place.price_per_km_cents")
 
     - @resource_collection.each do |place|
       .row
         .col-xs-4
           = place.nombre
-        .col-xs-4.col--with-prefix
+        .col-xs-3.col--with-prefix
           = place.flag_image_tag width: 35, class: "prefix"
           = place.country
-        .col-xs-4
+        .col-xs-2
           = place.link_to_google_map do
             = place.static_map_image class: "place-static-image"
+        .col-xs-2
+          p
+            => place.price_per_km_cents
+            = place.currency_iso_code
+          p
+            = t("activerecord.attributes.place.factor_per_distance")
+            ' :
+            = place.factor_per_distance
+          p
+            = link_to t("admin.shipping_cost.title"),
+                      admin_place_shipping_costs_path(place)

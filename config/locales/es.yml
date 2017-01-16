@@ -45,6 +45,7 @@ es:
     logout: Cerrar sesión
     positive: sí
     negative: "no"
+    calculating: Calculando..
   admin:
     provider: Proveedor
     something_went_wrong: Ups, algo salió mal
@@ -78,6 +79,9 @@ es:
       self_privileges: No puedes editar tus propios privilegios - Es probable que quedes fuera del sistema
       privileges:
         all: Todos
+    place:
+      updated: Lugar actualizado
+      shipping_costs_calculation_intro: Da click en el mapa para calcular costos de envío
     shipping_request:
       title: Envío
       history:
@@ -152,6 +156,12 @@ es:
           office_required: Necesita tener una oficina con una dirección a donde enviaremos un mensajero para validar al proveedor
     provider_category:
       updated: Categoría actualizada
+    shipping_cost:
+      title: Costos de envío
+      distance: Distancia
+      distance_price: Costo por distancia
+      final_price: Precio final
+      price_per_km: Precio por KM
   devise:
     sessions:
       submit: Iniciar sesión
@@ -171,6 +181,7 @@ es:
       shipping_request: Solicitud de envío
       provider_item_image: Imagen de producto
       customer_order: Orden
+      place: Lugar
     attributes:
       user:
         name: Nombre
@@ -227,6 +238,8 @@ es:
         nombre: Ciudad
         country: País
         location: Ubicación
+        price_per_km_cents: Precio por km (ctvs)
+        factor_per_distance: Factor por distancia
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"

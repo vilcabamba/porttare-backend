@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170115233727) do
+ActiveRecord::Schema.define(version: 20170116105757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -157,10 +157,12 @@ ActiveRecord::Schema.define(version: 20170115233727) do
   create_table "places", force: :cascade do |t|
     t.string   "lat"
     t.string   "lon"
-    t.string   "nombre",     null: false
-    t.string   "country",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "nombre",                            null: false
+    t.string   "country",                           null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "price_per_km_cents",  default: 1
+    t.float    "factor_per_distance", default: 0.1
   end
 
   add_index "places", ["nombre", "country"], name: "index_places_on_nombre_and_country", unique: true, using: :btree
