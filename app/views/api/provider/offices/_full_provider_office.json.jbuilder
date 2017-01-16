@@ -1,6 +1,6 @@
 json.partial!(
   "api/providers/offices/provider_office",
-  provider_office: provider_office
+  provider_office: provider_office.decorate
 )
 
 json.partial!(

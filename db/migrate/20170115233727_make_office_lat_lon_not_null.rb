@@ -6,8 +6,8 @@ class MakeOfficeLatLonNotNull < ActiveRecord::Migration
           provider_office.place = Place.first
         end
         provider_office.update!(
-          lat: "-3.792134532423",
-          lon: "72.43214254556"
+          lat: "-4.00#{(rand*10000000).round}",
+          lon: "-79.20#{(rand*10000000).round}"
         )
       end
     end

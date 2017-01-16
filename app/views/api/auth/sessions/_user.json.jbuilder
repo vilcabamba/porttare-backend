@@ -20,7 +20,7 @@ if user.provider_profile.present?
     # all enabled & disabled offices
     json.provider_offices do
       json.array!(
-        user.provider_profile.offices,
+        user.provider_profile.offices.decorate,
         partial: "api/providers/offices/provider_office",
         as: :provider_office
       )
