@@ -13,6 +13,11 @@ class LocationMapShippingCosts
   mapsLoaded: =>
     @drawMap()
     @clickListener()
+    @formListener()
+
+  formListener: ->
+    wrapper = ".shipping-costs-observing-inputs"
+    $("#{wrapper} input").on "change", @performCalc
 
   drawMap: ->
     @map = new google.maps.Map(@el,
@@ -22,8 +27,8 @@ class LocationMapShippingCosts
 
   clickListener: ->
     google.maps.event.addListener @map, 'click', (event) =>
-      @calculateWith(event.latLng)
       @drawMarker(event.latLng)
+      @performCalc()
       @addPolyline(event.latLng)
 
   addPolyline: (latLng) ->
@@ -48,10 +53,10 @@ class LocationMapShippingCosts
   clearCurrentMarker: ->
     @marker.setMap(null) if @marker
 
-  calculateWith: (latLng) ->
+  performCalc: =>
     $(document).trigger(
       "porttare:calculate-shipping-costs",
-      latLng: latLng
+      latLng: @marker.getPosition()
       callback: @shippingCalculated
     )
     @calculatingUi()

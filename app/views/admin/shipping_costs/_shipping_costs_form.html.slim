@@ -1,7 +1,8 @@
 = simple_form_for [:admin, @place.object] do |f|
 
-  = f.input :price_per_km_cents
-  = f.input :factor_per_distance
+  .shipping-costs-observing-inputs
+    = f.input :price_per_km_cents
+    = f.input :factor_per_distance
 
   = content_tag :div,
                 nil,
