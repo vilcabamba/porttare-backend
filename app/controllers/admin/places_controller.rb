@@ -8,5 +8,15 @@ module Admin
       pundit_authorize
       @resource_collection = resource_scope.sorted.decorate
     end
+
+    def update
+      super
+    end
+
+    private
+
+    def resource_path
+      { action: :index }
+    end
   end
 end
