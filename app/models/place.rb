@@ -20,6 +20,7 @@ class Place < ActiveRecord::Base
             :country,
             presence: true
 
+  has_many :shipping_fares
   # here only to honour relationships
   has_many :users
   has_many :customer_orders

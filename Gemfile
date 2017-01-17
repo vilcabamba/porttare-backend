@@ -60,7 +60,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.4'
   gem 'factory_girl_rails', '~> 4.7'
   gem 'database_cleaner'
-  gem 'faker', '~> 1.6'
+  gem 'faker', '~> 1.7'
   gem 'rspec_junit_formatter', '~> 0.2'
   gem 'capybara', '~> 2.8'
   gem 'bullet', '~> 5.4'
