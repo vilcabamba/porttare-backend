@@ -15,14 +15,14 @@
         span.text-info = t("admin.shipping_cost.distance")
       span.value
       span  kms
+    .extra_price_per_km
+      .label
+        span.text-info = t("admin.shipping_cost.extra_price_per_km")
+      span.value
+      span =< @place.currency_iso_code
     .price_per_km
       .label
         span.text-info = t("admin.shipping_cost.price_per_km")
-      span.value
-      span =< @place.currency_iso_code
-    .distance_price
-      .label
-        span.text-info = t("admin.shipping_cost.distance_price")
       span.value
       span =< @place.currency_iso_code
     .price
@@ -30,7 +30,13 @@
         span.text-info = t("admin.shipping_cost.final_price")
       span.value
       span =< @place.currency_iso_code
+    .shipping_fare
+      .label
+        span.text-info = t("admin.shipping_cost.shipping_fare")
+      span.value
+      span =< @place.currency_iso_code
     p
+
   p.calculating.hidden = t("ui.calculating")
   p.calulculations-intro = t("admin.place.shipping_costs_calculation_intro")
 

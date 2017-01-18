@@ -71,11 +71,14 @@ class LocationMapShippingCosts
     $results.find(".price .value").html(
       results.price.toFixed(3)
     )
-    $results.find(".distance_price .value").html(
-      results.distance_price.toFixed(3)
-    )
     $results.find(".price_per_km .value").html(
       results.price_per_km.toFixed(3)
+    )
+    $results.find(".extra_price_per_km .value").html(
+      results.extra_price_per_km.toFixed(3)
+    )
+    $results.find(".shipping_fare .value").html(
+      results.shipping_fare.toFixed(2)
     )
 
   calculatingUi: ->

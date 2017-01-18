@@ -26,7 +26,10 @@ class ShippingFare < ActiveRecord::Base
   before_validation :set_place_currency!
 
   scope :sorted, ->{
-    order(:price_cents)
+    order(price_cents: :asc)
+  }
+  scope :bigger, ->{
+    order(price_cents: :desc)
   }
 
   def set_place_currency!

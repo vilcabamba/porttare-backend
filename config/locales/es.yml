@@ -160,9 +160,10 @@ es:
     shipping_cost:
       title: Costos de envío
       distance: Distancia
-      distance_price: Costo por distancia (por KM)
       final_price: Precio final
+      extra_price_per_km: Precio (extra) por KM
       price_per_km: Precio por KM
+      shipping_fare: Tarifa aplicada
     shipping_fare:
       title: Tarifas de envío
       new: Nueva tarifa
