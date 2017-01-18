@@ -48,12 +48,14 @@ if Place.count == 0
   )
 end
 
-if ShippingFare.count == 0
-  puts "creating default shipping fare"
-  ShippingFare.create!(
-    place: Place.first,
-    price_cents: 150
-  )
+Place.find_each do |place|
+  if place.shipping_fares.count == 0
+    puts "creating default shipping fares"
+    ShippingFare.create!(
+      place: place,
+      price_cents: 150
+    )
+  end
 end
 
 unless SitePreference.exists?(name: "tos")
