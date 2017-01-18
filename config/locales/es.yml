@@ -162,6 +162,12 @@ es:
       distance_price: Costo por distancia (por KM)
       final_price: Precio final
       price_per_km: Precio por KM
+    shipping_fare:
+      title: Tarifas de envío
+      new: Nueva tarifa
+      edit: Editar tarifa
+      created: Tarifa creada
+      updated: Tarifa actualizada
   devise:
     sessions:
       submit: Iniciar sesión
@@ -182,6 +188,7 @@ es:
       provider_item_image: Imagen de producto
       customer_order: Orden
       place: Lugar
+      shipping_fare: Tarifa de envío
     attributes:
       user:
         name: Nombre
@@ -240,6 +247,10 @@ es:
         location: Ubicación
         price_per_km_cents: Precio por km (ctvs)
         factor_per_distance: Factor por distancia
+      shipping_fare:
+        place: Lugar
+        price_cents: Precio (ctvs)
+        price_currency: Moneda
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"

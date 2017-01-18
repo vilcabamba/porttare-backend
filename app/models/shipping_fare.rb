@@ -16,4 +16,18 @@ class ShippingFare < ActiveRecord::Base
   validates :place_id,
             :price_cents,
             presence: true
+  validates :price_cents,
+            numericality: { greater_than: 0 }
+
+  monetize :price_cents
+
+  before_validation :set_place_currency!
+
+  scope :sorted, ->{
+    order(:price_cents)
+  }
+
+  def set_place_currency!
+    self.price_currency = place.currency_iso_code
+  end
 end
