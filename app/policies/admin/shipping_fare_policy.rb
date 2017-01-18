@@ -22,6 +22,10 @@ module Admin
       edit?
     end
 
+    def destroy?
+      update?
+    end
+
     def permitted_attributes
       [
         :price_cents

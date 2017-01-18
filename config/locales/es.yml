@@ -46,6 +46,7 @@ es:
     positive: sí
     negative: "no"
     calculating: Calculando..
+    confirm: Estás seguro?
   admin:
     provider: Proveedor
     something_went_wrong: Ups, algo salió mal
@@ -168,6 +169,8 @@ es:
       edit: Editar tarifa
       created: Tarifa creada
       updated: Tarifa actualizada
+      destroy: Eliminar tarifa
+      destroyed: Tarifa eliminada
   devise:
     sessions:
       submit: Iniciar sesión

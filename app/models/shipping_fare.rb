@@ -11,6 +11,8 @@
 #
 
 class ShippingFare < ActiveRecord::Base
+  has_paper_trail
+
   belongs_to :place
 
   validates :place_id,

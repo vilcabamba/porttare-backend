@@ -23,6 +23,16 @@ module Admin
       super
     end
 
+    def destroy
+      find_current_resource
+      pundit_authorize
+      @current_resource.destroy
+      redirect_to(
+        resource_path,
+        notice: t("admin.#{resource_type.underscore}.destroyed")
+      )
+    end
+
     private
 
     def resource_scope
