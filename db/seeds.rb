@@ -38,8 +38,8 @@ if ProviderItemCategory.where(predeterminada: true).count == 0
   )
 end
 
-if Place.count == 0
-  puts "creating default place"
+unless Place.where(nombre: "Loja").exists?
+  puts "creating Loja"
   Place.create!(
     lat: "-3.996704",
     lon: "-79.201699",
@@ -47,6 +47,17 @@ if Place.count == 0
     country: "Ecuador"
   )
 end
+
+unless Place.where(nombre: "Piura").exists?
+  puts "creating Piura"
+  Place.create!(
+    lat: "-5.1930858",
+    lon: "-80.6668063",
+    nombre: "Piura",
+    country: "Perú"
+  )
+end
+
 
 Place.find_each do |place|
   if place.shipping_fares.count == 0
