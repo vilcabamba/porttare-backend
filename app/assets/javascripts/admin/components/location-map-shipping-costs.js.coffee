@@ -21,7 +21,7 @@ class LocationMapShippingCosts
 
   drawMap: ->
     @map = new google.maps.Map(@el,
-      zoom: 15,
+      zoom: 13,
       center: @initialCenter
     )
 
