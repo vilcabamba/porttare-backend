@@ -20,6 +20,7 @@ class Place < ActiveRecord::Base
             :country,
             presence: true
 
+  has_many :shipping_fares
   # here only to honour relationships
   has_many :users
   has_many :customer_orders
@@ -37,11 +38,12 @@ class Place < ActiveRecord::Base
     ISO3166::Country.find_country_by_name(country).currency.iso_code
   end
 
-  def price_per_km
-    price_per_km_cents / 100.0
+  def extra_price_cents_per_km_with_distance(distance)
+    (factor_per_distance * price_per_km_cents) * (distance)
   end
 
-  def price_per_km_with_distance(distance)
-    price_per_km + (price_per_km * distance * factor_per_distance)
+  def total_price_cents_per_km_with_distance(distance)
+    extra_per_km = extra_price_cents_per_km_with_distance(distance)
+    (extra_per_km + price_per_km_cents) * distance
   end
 end

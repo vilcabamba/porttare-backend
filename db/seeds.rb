@@ -48,6 +48,16 @@ if Place.count == 0
   )
 end
 
+Place.find_each do |place|
+  if place.shipping_fares.count == 0
+    puts "creating default shipping fares"
+    ShippingFare.create!(
+      place: place,
+      price_cents: 150
+    )
+  end
+end
+
 unless SitePreference.exists?(name: "tos")
   puts "creating TOS"
   tos = File.read(Rails.root.join("config/default-tos.md"))

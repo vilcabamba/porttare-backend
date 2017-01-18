@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170116105757) do
+ActiveRecord::Schema.define(version: 20170117121226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -309,6 +309,16 @@ ActiveRecord::Schema.define(version: 20170116105757) do
   add_index "provider_profiles", ["status"], name: "index_provider_profiles_on_status", using: :btree
   add_index "provider_profiles", ["user_id"], name: "index_provider_profiles_on_user_id", using: :btree
 
+  create_table "shipping_fares", force: :cascade do |t|
+    t.integer  "place_id",                       null: false
+    t.integer  "price_cents",    default: 0,     null: false
+    t.string   "price_currency", default: "USD", null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "shipping_fares", ["place_id"], name: "index_shipping_fares_on_place_id", using: :btree
+
   create_table "shipping_requests", force: :cascade do |t|
     t.integer  "resource_id",                        null: false
     t.string   "resource_type",                      null: false
@@ -424,6 +434,7 @@ ActiveRecord::Schema.define(version: 20170116105757) do
   add_foreign_key "provider_offices", "provider_profiles"
   add_foreign_key "provider_profiles", "provider_categories"
   add_foreign_key "provider_profiles", "users"
+  add_foreign_key "shipping_fares", "places"
   add_foreign_key "shipping_requests", "courier_profiles"
   add_foreign_key "user_locations", "users"
   add_foreign_key "users", "places", column: "current_place_id"

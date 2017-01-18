@@ -15,9 +15,9 @@
 
 FactoryGirl.define do
   factory :place do
+    sequence(:nombre) { |n| "ciudad #{n}" }
     lat     { Faker::Address.latitude }
     lon     { Faker::Address.longitude }
-    nombre  { Faker::Address.city }
     country "Ecuador"
   end
 end

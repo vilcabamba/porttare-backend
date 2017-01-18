@@ -100,6 +100,7 @@ Rails.application.routes.draw do
     resources :provider_items
     resources :customer_orders
     resources :places do
+      resources :shipping_fares
       resource :shipping_costs do
         collection do
           post :calculate

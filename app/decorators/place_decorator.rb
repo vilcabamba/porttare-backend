@@ -35,4 +35,8 @@ class PlaceDecorator < GenericResourceDecorator
   def admin_link_to_resource(options=nil, &block)
     h.link_to h.admin_places_path, options, &block
   end
+
+  def shipping_fares
+    object.shipping_fares.sorted.decorate
+  end
 end
