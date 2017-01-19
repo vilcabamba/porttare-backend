@@ -63,7 +63,6 @@ RSpec.describe Api::Customer::Cart::ItemsController,
     resp_provider = resp_order["provider_profiles"].first
     resp_delivery = resp_provider["customer_order_delivery"]
 
-    puts resp_delivery
     expect(
       resp_delivery["shipping_fare_price_cents"]
     ).to eq(shipping_fares[1].price_cents)

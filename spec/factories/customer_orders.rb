@@ -34,6 +34,7 @@ FactoryGirl.define do
     trait :with_order_item do
       after(:create) do |customer_order|
         create :customer_order_item,
+               :ready_for_checkout,
                customer_order: customer_order
       end
     end
