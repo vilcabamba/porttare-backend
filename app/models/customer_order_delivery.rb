@@ -70,7 +70,7 @@ class CustomerOrderDelivery < ActiveRecord::Base
   private
 
   def shipping_cost_calculator
-    if delivery_method.shipping?
+    if delivery_method.shipping? && customer_address.present?
       ShippingCostCalculatorService.for_customer_order_delivery(self)
     end
   end
@@ -78,6 +78,12 @@ class CustomerOrderDelivery < ActiveRecord::Base
   def cache_address!
     assign_attributes(
       customer_address_attributes: customer_address.try(:attributes)
+    )
+  end
+
+  def cache_shipping_fare_price_cents!
+    assign_attributes(
+      shipping_fare_price_cents: shipping_cost_calculator.try(:shipping_fare_price_cents)
     )
   end
 end

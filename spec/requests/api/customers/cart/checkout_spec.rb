@@ -17,6 +17,14 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
       create :customer_order_item,
              customer_order: current_order
     }
+    let(:provider_office) {
+      create :provider_office,
+             provider_profile: order_item.provider_item.provider_profile
+    }
+    let(:shipping_fare) {
+      create :shipping_fare,
+             place: provider_office.place
+    }
     let(:customer_address) {
       create :customer_address,
              customer_profile: user.customer_profile
@@ -44,6 +52,8 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
 
     before do
       current_order
+      provider_office
+      shipping_fare
       order_item
     end
 
@@ -88,6 +98,13 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
         expect(
           response_order["observaciones"]
         ).to eq(submission_attributes[:observaciones])
+      end
+
+      it "shipping fare gets cached" do
+        delivery = current_order.deliveries.first.reload
+        expect(
+          delivery.read_attribute(:shipping_fare_price_cents)
+        ).to be_present
       end
     end
 
@@ -190,6 +207,7 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
       }
       let(:second_order_item) {
         create :customer_order_item,
+               :ready_for_checkout,
                customer_order: current_order
       }
       let(:third_order_item) {

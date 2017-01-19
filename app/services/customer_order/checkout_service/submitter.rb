@@ -26,6 +26,7 @@ class CustomerOrder < ActiveRecord::Base
       def cache_addresses!
         @customer_order.deliveries.each do |delivery|
           delivery.send :cache_address!
+          delivery.send :cache_shipping_fare_price_cents!
         end
       end
 
