@@ -20,5 +20,21 @@ FactoryGirl.define do
 
     cantidad      { 1.upto(10).to_a.sample }
     observaciones { Faker::Hipster.paragraphs.join "\n" }
+
+    trait :ready_for_checkout do
+      provider_item {
+        create(:provider_item)
+      }
+      after(:create) do |customer_order_item|
+        provider_profile = customer_order_item.provider_item.provider_profile
+        if provider_profile.offices.count == 0
+          create :provider_office, provider_profile: provider_profile
+        end
+        place = provider_profile.offices.first.place
+        if place.shipping_fares.count == 0
+          create :shipping_fare, place: place
+        end
+      end
+    end
   end
 end

@@ -37,6 +37,6 @@ class PlaceDecorator < GenericResourceDecorator
   end
 
   def shipping_fares
-    object.shipping_fares.sorted.decorate
+    object.shipping_fares.smaller.decorate
   end
 end

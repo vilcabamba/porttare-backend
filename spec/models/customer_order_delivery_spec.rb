@@ -13,6 +13,7 @@
 #  updated_at                  :datetime         not null
 #  status                      :string           default("draft"), not null
 #  reason                      :text
+#  shipping_fare_price_cents   :integer
 #
 
 require 'rails_helper'
