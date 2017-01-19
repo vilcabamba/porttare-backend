@@ -37,13 +37,4 @@ class Place < ActiveRecord::Base
   def currency_iso_code
     ISO3166::Country.find_country_by_name(country).currency.iso_code
   end
-
-  def extra_price_cents_per_km_with_distance(distance)
-    (factor_per_distance * price_per_km_cents) * (distance)
-  end
-
-  def total_price_cents_per_km_with_distance(distance)
-    extra_per_km = extra_price_cents_per_km_with_distance(distance)
-    (extra_per_km + price_per_km_cents) * distance
-  end
 end

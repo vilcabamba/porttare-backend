@@ -13,6 +13,7 @@
 #  updated_at                  :datetime         not null
 #  status                      :string           default("draft"), not null
 #  reason                      :text
+#  shipping_fare_price_cents   :integer
 #
 
 class CustomerOrderDelivery < ActiveRecord::Base
@@ -61,7 +62,18 @@ class CustomerOrderDelivery < ActiveRecord::Base
     end
   end
 
+  def shipping_fare_price_cents
+    cached_price = read_attribute(:shipping_fare_price_cents)
+    cached_price.presence || shipping_cost_calculator.try(:shipping_fare_price_cents)
+  end
+
   private
+
+  def shipping_cost_calculator
+    if delivery_method.shipping?
+      ShippingCostCalculatorService.for_customer_order_delivery(self)
+    end
+  end
 
   def cache_address!
     assign_attributes(
