@@ -67,6 +67,19 @@ class CustomerOrderDelivery < ActiveRecord::Base
     cached_price.presence || shipping_cost_calculator.try(:shipping_fare_price_cents)
   end
 
+  def closest_provider_office
+    return if customer_address.blank?
+    provider_profile
+      .offices
+      .for_place(customer_order.place)
+      .enabled
+      .closest(origin: [
+        customer_address.lat,
+        customer_address.lon
+      ])
+      .first
+  end
+
   private
 
   def shipping_cost_calculator

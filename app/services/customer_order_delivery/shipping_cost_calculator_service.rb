@@ -1,14 +1,16 @@
 class CustomerOrderDelivery < ActiveRecord::Base
   class ShippingCostCalculatorService
-    def self.for_customer_order_delivery(customer_order_delivery)
-      place = customer_order_delivery.customer_order.place
-      origin = customer_order_delivery.provider_profile.offices.first
-      target = customer_order_delivery.customer_address
-      new(
-        place: place,
-        origin: origin,
-        target: target
-      )
+    class << self
+      def for_customer_order_delivery(customer_order_delivery)
+        place = customer_order_delivery.customer_order.place
+        target = customer_order_delivery.customer_address
+        origin = customer_order_delivery.closest_provider_office
+        new(
+          place: place,
+          origin: origin,
+          target: target
+        )
+      end
     end
 
     attr_reader :place, :origin, :target

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170120045725) do
+ActiveRecord::Schema.define(version: 20170120231147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -271,11 +271,12 @@ ActiveRecord::Schema.define(version: 20170120045725) do
     t.datetime "updated_at",                          null: false
     t.string   "telefono"
     t.integer  "place_id"
-    t.string   "lat",                                 null: false
-    t.string   "lon",                                 null: false
+    t.float    "lat",                                 null: false
+    t.float    "lon",                                 null: false
   end
 
   add_index "provider_offices", ["enabled"], name: "index_provider_offices_on_enabled", using: :btree
+  add_index "provider_offices", ["lat", "lon"], name: "index_provider_offices_on_lat_and_lon", using: :btree
   add_index "provider_offices", ["place_id"], name: "index_provider_offices_on_place_id", using: :btree
   add_index "provider_offices", ["provider_profile_id"], name: "index_provider_offices_on_provider_profile_id", using: :btree
 
@@ -331,6 +332,7 @@ ActiveRecord::Schema.define(version: 20170120045725) do
     t.integer  "courier_profile_id"
     t.string   "reason"
     t.integer  "place_id",                           null: false
+    t.json     "waypoints"
   end
 
   add_index "shipping_requests", ["courier_profile_id"], name: "index_shipping_requests_on_courier_profile_id", using: :btree

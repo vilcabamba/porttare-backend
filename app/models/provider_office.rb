@@ -20,6 +20,9 @@ class ProviderOffice < ActiveRecord::Base
   extend Enumerize
 
   has_paper_trail
+  acts_as_mappable(
+    lng_column_name: :lon
+  )
 
   begin :relationships
     belongs_to :provider_profile

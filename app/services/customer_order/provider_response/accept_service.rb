@@ -36,25 +36,36 @@ class CustomerOrder < ActiveRecord::Base
             place: @customer_order.place,
             kind: :customer_order_delivery,
             resource: customer_order_delivery,
+            waypoints: [ provider_office_waypoint ],
             address_attributes: customer_address_attributes
           )
         end
       end
 
+      def provider_office_waypoint
+        customer_order_delivery
+          .closest_provider_office
+          .attributes
+          .slice("lat", "lon")
+      end
+
       def customer_address_attributes
-        customer_order_delivery.customer_address.attributes.slice(
-          "lat",
-          "lon",
-          "ciudad",
-          "barrio",
-          "nombre",
-          "parroquia",
-          "referencia",
-          "direccion_uno",
-          "direccion_dos",
-          "codigo_postal",
-          "numero_convencional"
-        )
+        customer_order_delivery
+          .customer_address
+          .attributes
+          .slice(
+            "lat",
+            "lon",
+            "ciudad",
+            "barrio",
+            "nombre",
+            "parroquia",
+            "referencia",
+            "direccion_uno",
+            "direccion_dos",
+            "codigo_postal",
+            "numero_convencional"
+          )
       end
     end
   end
