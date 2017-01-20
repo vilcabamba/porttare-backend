@@ -22,10 +22,12 @@ es:
       delivered: Entregado
     kinds:
       ask_to_validate: Validar proveedor
+      customer_order_delivery: Envío a domicilio
   customer_order_delivery:
     status:
       draft: Borrador
       pending: Pendiente
+      accepted: Aceptado
     delivery_method:
       shipping: Envío
       pickup: Recoger
@@ -83,11 +85,18 @@ es:
     place:
       updated: Lugar actualizado
       shipping_costs_calculation_intro: Da click en el mapa para calcular costos de envío
+    customer_order:
+      history:
+        submitted: envió esta orden
+        provider_accept_delivery: aceptó su solicitud
+        provider_reject_delivery: rechazó su solicitud
     shipping_request:
       title: Envío
       history:
         canceled: canceló este envío
         association:
+          customer_order:
+            provider_accept_delivery: Aceptó esta solicitud de envío a través de
           provider_profile:
             ask_to_validate: Solicitar validación
             active: Activar proveedor
@@ -209,6 +218,7 @@ es:
         provider: Proveedor
         telefono: Teléfono
         reason: Razón
+        customer_order_delivery: Despacho
       provider_category:
         titulo: Título
         descripcion: Descripción

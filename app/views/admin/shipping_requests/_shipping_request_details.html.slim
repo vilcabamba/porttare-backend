@@ -10,7 +10,7 @@
         .resource-title
           = shipping_request.title
         .resource-subtitle
-          = shipping_request.kind_str
+          = shipping_request.kind_text
 
         = render "admin/shared/common_resource_collection_body",
                  resource: shipping_request,

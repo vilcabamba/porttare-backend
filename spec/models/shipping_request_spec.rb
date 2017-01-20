@@ -12,6 +12,7 @@
 #  address_attributes :json
 #  courier_profile_id :integer
 #  reason             :string
+#  place_id           :integer          not null
 #
 
 require 'rails_helper'

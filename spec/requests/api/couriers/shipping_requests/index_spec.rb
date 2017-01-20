@@ -7,11 +7,14 @@ RSpec.describe Api::Courier::ShippingRequestsController,
 
     let(:shipping_request) {
       create :shipping_request,
+             kind: :ask_to_validate,
              address_attributes: { direccion: "something" }
     }
 
     let(:others_shipping_request) {
-      create :shipping_request, status: :delivered
+      create :shipping_request,
+             kind: :ask_to_validate,
+             status: :delivered
     }
 
     before do
@@ -27,7 +30,7 @@ RSpec.describe Api::Courier::ShippingRequestsController,
       expect(
         response_request["provider_profile"]["nombre_establecimiento"]
       ).to eq(
-        shipping_request.provider_profile.nombre_establecimiento
+        shipping_request.resource.nombre_establecimiento
       )
 
       expect(

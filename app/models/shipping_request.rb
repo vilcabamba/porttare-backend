@@ -12,6 +12,7 @@
 #  address_attributes :json
 #  courier_profile_id :integer
 #  reason             :string
+#  place_id           :integer          not null
 #
 
 class ShippingRequest < ActiveRecord::Base
@@ -29,6 +30,7 @@ class ShippingRequest < ActiveRecord::Base
     :customer_order_delivery
   ].freeze
 
+  belongs_to :place
   belongs_to :resource, polymorphic: true
 
   has_paper_trail
@@ -48,10 +50,10 @@ class ShippingRequest < ActiveRecord::Base
   validates :resource,
             :kind,
             :status,
+            :place_id,
             presence: true
 
-  def provider_profile
-    # TODO this should be perhaps another relationship
-    resource
-  end
+  scope :latest, ->{
+    order(created_at: :desc)
+  }
 end

@@ -12,11 +12,15 @@
 #  address_attributes :json
 #  courier_profile_id :integer
 #  reason             :string
+#  place_id           :integer          not null
 #
 
 FactoryGirl.define do
   factory :shipping_request do
     resource { build :provider_profile }
     kind     { ShippingRequest.kind.values.sample }
+    place {
+      Place.first.presence || build(:place)
+    }
   end
 end

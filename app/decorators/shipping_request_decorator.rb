@@ -1,6 +1,13 @@
 class ShippingRequestDecorator < GenericResourceDecorator
   decorates_association :resource
 
+  delegate :address,
+           :telefono,
+           :provider,
+           :card_attributes,
+           :customer_order_delivery,
+           to: :resource_delegate
+
   def to_s
     title
   end
@@ -11,15 +18,6 @@ class ShippingRequestDecorator < GenericResourceDecorator
       options,
       &block
     )
-  end
-
-  def card_attributes
-    [
-      :created_at,
-      :address,
-      :provider,
-      :telefono
-    ]
   end
 
   def detail_attributes
@@ -36,19 +34,11 @@ class ShippingRequestDecorator < GenericResourceDecorator
     I18n.l(object.created_at, format: :admin_full)
   end
 
-  def address
-    address_attributes["direccion"] if address_attributes.present?
-  end
+  private
 
-  def provider
-    resource.str_with_link
-  end
-
-  def telefono
-    address_attributes["telefono"] if address_attributes.present?
-  end
-
-  def kind_str
-    I18n.t("shipping_request.kinds.#{kind}")
+  def resource_delegate
+    suffix = "#{kind}_delegate".classify
+    klass = "#{self.class}::#{suffix}".constantize
+    @resource_delegate ||= klass.new(self)
   end
 end

@@ -15,9 +15,8 @@ order_delivery = customer_order.delivery_for_provider(provider_profile)
 if order_delivery.present?
   json.customer_order_delivery do
     json.partial!(
-      "api/customer/cart/customer_order_delivery",
-      order_delivery: order_delivery,
-      customer_order: customer_order
+      "api/customer/customer_order_deliveries/customer_order_delivery",
+      order_delivery: order_delivery
     )
   end
 end
