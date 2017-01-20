@@ -13,7 +13,7 @@ class ProviderProfile < ActiveRecord::Base
 
       def create_shipping_request!
         ShippingRequest.create!(
-          place: @provider_profile.place,
+          place: main_office.place,
           kind: predicate,
           resource: @provider_profile,
           address_attributes: address_attributes
