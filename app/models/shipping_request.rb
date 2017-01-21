@@ -46,7 +46,7 @@ class ShippingRequest < ActiveRecord::Base
 
   ##
   # resource may be the provider we need to validate
-  # resource may be what we're delivering (customer_order)
+  # resource may be what we're delivering (customer_order_delivery)
   validates :resource,
             :kind,
             :status,

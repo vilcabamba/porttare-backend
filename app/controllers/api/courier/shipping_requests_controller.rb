@@ -26,7 +26,7 @@ module Api
 }}
       def index
         authorize ShippingRequest
-        @api_collection = resource_scope.all
+        @api_collection = resource_scope.latest
       end
 
       api :GET,

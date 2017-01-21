@@ -22,7 +22,7 @@ RSpec.describe Api::Courier::ShippingRequestsController,
       expect(
         response_request["provider_profile"]["nombre_establecimiento"]
       ).to eq(
-        shipping_request.provider_profile.nombre_establecimiento
+        shipping_request.resource.nombre_establecimiento
       )
 
       expect(

@@ -27,8 +27,10 @@ FactoryGirl.define do
       }
       after(:create) do |customer_order_item|
         provider_profile = customer_order_item.provider_item.provider_profile
-        if provider_profile.offices.count == 0
-          create :provider_office, provider_profile: provider_profile
+        if provider_profile.offices.enabled.count == 0
+          create :provider_office,
+                 :enabled,
+                 provider_profile: provider_profile
         end
         place = provider_profile.offices.first.place
         if place.shipping_fares.count == 0

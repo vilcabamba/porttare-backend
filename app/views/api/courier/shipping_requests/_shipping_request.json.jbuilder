@@ -15,6 +15,13 @@ if shipping_request.kind.ask_to_validate?
       provider_profile: shipping_request.resource
     )
   end
+elsif shipping_request.kind.customer_order_delivery?
+  json.provider_profile do
+    json.partial!(
+      "api/providers/provider_profile",
+      provider_profile: shipping_request.resource.provider_profile
+    )
+  end
 end
 
 if shipping_request.kind.customer_order_delivery?
