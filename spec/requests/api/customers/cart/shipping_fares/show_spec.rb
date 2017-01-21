@@ -29,6 +29,7 @@ RSpec.describe Api::Customer::Cart::ItemsController,
   }
   let(:provider_office) {
     create :provider_office,
+           :enabled,
            lat: "-4.014831197482724",
            lon: "-79.20104093849659",
            place: place
