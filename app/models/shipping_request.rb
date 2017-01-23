@@ -2,17 +2,19 @@
 #
 # Table name: shipping_requests
 #
-#  id                 :integer          not null, primary key
-#  resource_id        :integer          not null
-#  resource_type      :string           not null
-#  kind               :string           not null
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  status             :string           default("new"), not null
-#  address_attributes :json
-#  courier_profile_id :integer
-#  reason             :string
-#  place_id           :integer          not null
+#  id                  :integer          not null, primary key
+#  resource_id         :integer          not null
+#  resource_type       :string           not null
+#  kind                :string           not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  status              :string           default("new"), not null
+#  address_attributes  :json
+#  courier_profile_id  :integer
+#  reason              :string
+#  place_id            :integer          not null
+#  waypoints           :json
+#  estimated_time_mins :integer
 #
 
 class ShippingRequest < ActiveRecord::Base
@@ -31,6 +33,7 @@ class ShippingRequest < ActiveRecord::Base
   ].freeze
 
   belongs_to :place
+  belongs_to :courier_profile
   belongs_to :resource, polymorphic: true
 
   has_paper_trail

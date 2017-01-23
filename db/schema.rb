@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170120231147) do
+ActiveRecord::Schema.define(version: 20170121175300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -322,17 +322,18 @@ ActiveRecord::Schema.define(version: 20170120231147) do
   add_index "shipping_fares", ["place_id"], name: "index_shipping_fares_on_place_id", using: :btree
 
   create_table "shipping_requests", force: :cascade do |t|
-    t.integer  "resource_id",                        null: false
-    t.string   "resource_type",                      null: false
-    t.string   "kind",                               null: false
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.string   "status",             default: "new", null: false
+    t.integer  "resource_id",                         null: false
+    t.string   "resource_type",                       null: false
+    t.string   "kind",                                null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "status",              default: "new", null: false
     t.json     "address_attributes"
     t.integer  "courier_profile_id"
     t.string   "reason"
-    t.integer  "place_id",                           null: false
+    t.integer  "place_id",                            null: false
     t.json     "waypoints"
+    t.integer  "estimated_time_mins"
   end
 
   add_index "shipping_requests", ["courier_profile_id"], name: "index_shipping_requests_on_courier_profile_id", using: :btree
