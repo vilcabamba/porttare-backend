@@ -21,7 +21,7 @@ RSpec.describe Api::Courier::ShippingRequestsController,
       login_as user
       shipping_request
       others_shipping_request
-      get_with_headers "/api/courier/shipping_requests"
+      get_with_headers "/api/courier/shipping_requests?status=new"
     end
 
     it "includes shipping request" do
