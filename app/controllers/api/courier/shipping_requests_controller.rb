@@ -68,6 +68,21 @@ module Api
         render :show
       end
 
+      api :POST,
+          "/courier/shipping_requests/:id/in_store",
+          "A courier says he is in the store. updates status"
+      see "courier-shipping_requests#index", "Courier::ShippingRequests#index for response serialization"
+      param :id, Integer, required: true
+      def in_store
+        @api_resource = resource_scope.find params[:id]
+        authorize @api_resource
+        ShippingRequest::InStoreService.new(
+          shipping_request: @api_resource,
+          courier_profile: pundit_user.courier_profile
+        ).perform!
+        render :show
+      end
+
       private
 
       def resource_scope

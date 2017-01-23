@@ -1,17 +1,13 @@
 class ShippingRequest < ActiveRecord::Base
-  class TakeService
+  class TakeService < InStoreService
     def initialize(options)
-      @courier_profile = options.fetch(:courier_profile)
-      @shipping_request = options.fetch(:shipping_request)
+      super
       @estimated_time_mins = options.fetch(:estimated_time_mins)
     end
 
     def perform!
-      @shipping_request.transaction do
-        @shipping_request.paper_trail_event = :take_by_courier
+      in_transaction do
         assign_attributes
-        @shipping_request.status = :assigned
-        @shipping_request.save!
       end
     end
 
@@ -22,6 +18,14 @@ class ShippingRequest < ActiveRecord::Base
         courier_profile: @courier_profile,
         estimated_time_mins: @estimated_time_mins
       )
+    end
+
+    def paper_trail_event
+      :take_by_courier
+    end
+
+    def resource_status
+      :assigned
     end
   end
 end
