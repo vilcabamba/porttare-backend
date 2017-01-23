@@ -83,6 +83,21 @@ module Api
         render :show
       end
 
+      api :POST,
+          "/courier/shipping_requests/:id/delivered",
+          "the shipping request has been delivered"
+      see "courier-shipping_requests#index", "Courier::ShippingRequests#index for response serialization"
+      param :id, Integer, required: true
+      def delivered
+        @api_resource = resource_scope.find params[:id]
+        authorize @api_resource
+        ShippingRequest::DeliveredService.new(
+          shipping_request: @api_resource,
+          courier_profile: pundit_user.courier_profile
+        ).perform!
+        render :show
+      end
+
       private
 
       def resource_scope

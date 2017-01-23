@@ -1,5 +1,5 @@
 class ShippingRequest < ActiveRecord::Base
-  class InStoreService < TransitionService
+  class DeliveredService < TransitionService
     def perform!
       in_transaction do
         # TODO notify or something
@@ -9,11 +9,11 @@ class ShippingRequest < ActiveRecord::Base
     private
 
     def paper_trail_event
-      :courier_in_store
+      :delivered
     end
 
     def resource_status
-      :in_progress
+      :delivered
     end
   end
 end

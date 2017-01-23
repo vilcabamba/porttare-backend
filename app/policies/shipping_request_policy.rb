@@ -18,7 +18,11 @@ class ShippingRequestPolicy < ApplicationPolicy
   end
 
   def in_store?
-    is_courier? && assigned_and_belongs_to_courier?
+    is_courier? && record.status.assigned? && belongs_to_courier?
+  end
+
+  def delivered?
+    is_courier? && record.status.in_progress? && belongs_to_courier?
   end
 
   private
@@ -27,7 +31,7 @@ class ShippingRequestPolicy < ApplicationPolicy
     user.courier_profile.present?
   end
 
-  def assigned_and_belongs_to_courier?
-    record.status.assigned? && record.courier_profile == user.courier_profile
+  def belongs_to_courier?
+     record.courier_profile == user.courier_profile
   end
 end

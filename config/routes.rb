@@ -62,6 +62,7 @@ Rails.application.routes.draw do
         member do
           post :take
           post :in_store
+          post :delivered
         end
       end
     end
