@@ -47,6 +47,8 @@ class CustomerOrderDelivery < ActiveRecord::Base
             scope: true,
             i18n_scope: "customer_order_delivery.status"
 
+  monetize :shipping_fare_price_cents
+
   def ready_for_submission?
     delivery_method.present? &&
       (delivery_method.pickup? || customer_address_id.present?)

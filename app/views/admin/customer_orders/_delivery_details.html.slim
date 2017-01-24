@@ -1,0 +1,35 @@
+.col-lg-8.col-md-10.col-xs-12.col-narrow
+  .text-center
+    h3 = delivery.provider_profile
+
+  h4
+    => "##{delivery.id}"
+    = delivery.status_text
+  .text-muted = delivery.status_explanation
+  .text-muted = delivery.reason
+
+  = render "admin/customer_orders/order_items_table",
+           delivery: delivery
+
+  h4
+    => delivery.delivery_method_text
+    - if delivery.delivery_method.shipping?
+      = t("admin.customer_order_delivery.to_home")
+    - elsif delivery.delivery_method.pickup?
+      = t("admin.customer_order_delivery.from_store")
+
+  .clearfix
+  - if delivery.deliver_at.present?
+    .resource-row
+      span.resource-label
+        = t("activerecord.attributes.customer_order_delivery.deliver_at")
+        | :
+      span.resource-value
+        = delivery.deliver_at
+
+
+  - if delivery.delivery_method.shipping?
+    = render "admin/customer_orders/delivery/shipping_details",
+      delivery: delivery
+
+  hr

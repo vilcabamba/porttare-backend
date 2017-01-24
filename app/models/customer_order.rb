@@ -36,7 +36,8 @@ class CustomerOrder < ActiveRecord::Base
   enumerize :status,
             in: STATUSES,
             default: :in_progress,
-            scope: true
+            scope: true,
+            i18n_scope: "customer_order.status"
   enumerize :forma_de_pago,
             in: FORMAS_DE_PAGO
 

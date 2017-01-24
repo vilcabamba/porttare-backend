@@ -1,5 +1,9 @@
 ---
 es:
+  customer_order:
+    status:
+      in_progress: En progreso
+      submitted: Enviada
   provider_profile:
     statuses:
       applied: Aplicado
@@ -28,6 +32,12 @@ es:
       draft: Borrador
       pending: Pendiente
       accepted: Aceptado
+      rejected: Rechazado
+    status_explanation:
+      draft: Este pedido es un borrador del cliente
+      pending: Esperando confirmación del proveedor
+      accepted: Aceptado por el proveedor
+      rejected: Rechazado por el proveedor
     delivery_method:
       shipping: Envío
       pickup: Recoger
@@ -86,10 +96,14 @@ es:
       updated: Lugar actualizado
       shipping_costs_calculation_intro: Da click en el mapa para calcular costos de envío
     customer_order:
+      order_items_details: Detalles del pedido
       history:
         submitted: envió esta orden
-        provider_accept_delivery: aceptó su solicitud
-        provider_reject_delivery: rechazó su solicitud
+        provider_accept_delivery: (proveedor) aceptó la solicitud
+        provider_reject_delivery: (proveedor) rechazó la solicitud
+    customer_order_delivery:
+      from_store: de la tienda
+      to_home: a domicilio
     shipping_request:
       title: Envío
       history:
@@ -253,8 +267,18 @@ es:
         customer_profile: Cliente
         submitted_at: Ordenado
         place: Localidad
+        subtotal_items: Subtotal
+      customer_order_item:
+        cantidad: Cantidad
+        provider_item: Producto
+        provider_item_precio_unitario: Unidad
+        provider_item_precio_total: Total
       customer_order_delivery:
         full_resume_for_card: Despacho
+        customer_address: Dirección
+        deliver_at: Fecha de entrega
+        numero_convencional: Teléfono convencional
+        shipping_fare_price: Costo de envío
       place:
         nombre: Ciudad
         country: País
