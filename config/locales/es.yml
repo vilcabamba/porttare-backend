@@ -233,6 +233,9 @@ es:
         telefono: Teléfono
         reason: Razón
         customer_order_delivery: Despacho
+        desc_label: Orden de envío
+        courier_profile: Mensajero
+        estimated_time_for_delivery: Tiempo estimado para la entrega
       provider_category:
         titulo: Título
         descripcion: Descripción
@@ -279,6 +282,8 @@ es:
         deliver_at: Fecha de entrega
         numero_convencional: Teléfono convencional
         shipping_fare_price: Costo de envío
+        estimated_time_for_preparation: Tiempo estimado para la preparación
+        shipping_request_desc: Orden de envío
       place:
         nombre: Ciudad
         country: País

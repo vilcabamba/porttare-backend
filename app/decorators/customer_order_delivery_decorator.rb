@@ -4,8 +4,21 @@ class CustomerOrderDeliveryDecorator < GenericResourceDecorator
   def card_attributes
     [
       :full_resume_for_card,
-      :deliver_at
+      :deliver_at,
+      :shipping_request_desc
     ]
+  end
+
+  def detail_after_table_attributes
+    [
+      :deliver_at,
+      :estimated_time_for_preparation
+    ]
+  end
+
+  def estimated_time_for_preparation
+    # TODO
+    "15 minutos" if object.status.accepted?
   end
 
   def full_resume_for_card
@@ -51,6 +64,10 @@ class CustomerOrderDeliveryDecorator < GenericResourceDecorator
       object.shipping_fare_price_cents,
       object.customer_order.place.currency_iso_code
     )
+  end
+
+  def shipping_request_desc
+    shipping_request.try :desc_label
   end
 
   def shipping_request

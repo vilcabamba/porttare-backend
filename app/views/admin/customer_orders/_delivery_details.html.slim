@@ -19,14 +19,10 @@
       = t("admin.customer_order_delivery.from_store")
 
   .clearfix
-  - if delivery.deliver_at.present?
-    .resource-row
-      span.resource-label
-        = t("activerecord.attributes.customer_order_delivery.deliver_at")
-        | :
-      span.resource-value
-        = delivery.deliver_at
 
+  = render "admin/shared/common_resource_collection_body",
+           resource: delivery,
+           display: :detail_after_table_attributes
 
   - if delivery.delivery_method.shipping?
     = render "admin/customer_orders/delivery/shipping_details",

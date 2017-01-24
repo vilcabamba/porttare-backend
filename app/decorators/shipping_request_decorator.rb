@@ -1,5 +1,6 @@
 class ShippingRequestDecorator < GenericResourceDecorator
   decorates_association :resource
+  decorates_association :courier_profile
 
   delegate :address,
            :telefono,
@@ -32,6 +33,27 @@ class ShippingRequestDecorator < GenericResourceDecorator
 
   def created_at
     I18n.l(object.created_at, format: :admin_full)
+  end
+
+  def in_customer_order_attributes
+    [
+      :desc_label,
+      :courier_profile,
+      :estimated_time_for_delivery
+    ]
+  end
+
+  def desc_label
+    admin_link_to_resource do
+      to_s + " (" + status_text + ")"
+    end
+  end
+
+  def estimated_time_for_delivery
+    h.t(
+      "datetime.distance_in_words.x_minutes.other",
+      count: estimated_time_mins
+    )
   end
 
   private

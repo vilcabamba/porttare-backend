@@ -24,4 +24,5 @@
     = humanized_money_with_symbol delivery.local_shipping_fare_price
 
 - if delivery.shipping_request.present?
-  = delivery.shipping_request.object.inspect
+  = render "admin/customer_orders/delivery/shipping_request_details",
+           delivery: delivery
