@@ -108,6 +108,9 @@ es:
       title: Envío
       history:
         canceled: canceló este envío
+        take_by_courier: (mensajero) tomó este pedido
+        courier_in_store: (mensajero) en la tienda para recoger el pedido
+        delivered: (mensajero) entregó el pedido al cliente
         association:
           customer_order:
             provider_accept_delivery: Aceptó esta solicitud de envío a través de
@@ -236,6 +239,7 @@ es:
         desc_label: Orden de envío
         courier_profile: Mensajero
         estimated_time_for_delivery: Tiempo estimado para la entrega
+        delivery_location: Entregar en
       provider_category:
         titulo: Título
         descripcion: Descripción

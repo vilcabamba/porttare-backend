@@ -6,6 +6,7 @@ class ShippingRequestDecorator < GenericResourceDecorator
            :telefono,
            :provider,
            :card_attributes,
+           :detail_attributes,
            :customer_order_delivery,
            to: :resource_delegate
 
@@ -19,12 +20,6 @@ class ShippingRequestDecorator < GenericResourceDecorator
       options,
       &block
     )
-  end
-
-  def detail_attributes
-    card_attributes + [
-      :reason
-    ]
   end
 
   def title
@@ -54,6 +49,24 @@ class ShippingRequestDecorator < GenericResourceDecorator
       "datetime.distance_in_words.x_minutes.other",
       count: estimated_time_mins
     )
+  end
+
+  def delivery_location
+    if address_attributes.present?
+      latitude = address_attributes["lat"]
+      longitude = address_attributes["lon"]
+      h.content_tag :div do
+        link_to_google_map(
+          latitude: latitude,
+          longitude: longitude
+        ) do
+          h.image_tag(
+            static_map_image(:xs, "#{latitude},#{longitude}"),
+            class: "xs-static-map-preview"
+          )
+        end
+      end
+    end
   end
 
   private

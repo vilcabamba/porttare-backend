@@ -1,10 +1,4 @@
 class PlaceDecorator < GenericResourceDecorator
-  def link_to_google_map(options = {}, &block)
-    uri = "https://maps.google.com?q=#{lat},#{lon}"
-    defaults = { target: "_blank" }
-    h.link_to uri, defaults.merge(options), &block
-  end
-
   def static_map_image(options = {})
     defaults = { alt: nombre }
     static_map = GoogleStaticMap.new(

@@ -22,5 +22,11 @@ class ShippingRequestDecorator < GenericResourceDecorator
         :telefono
       ]
     end
+
+    def detail_attributes
+      card_attributes + [
+        :reason
+      ]
+    end
   end
 end
