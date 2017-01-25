@@ -14,11 +14,20 @@ json.submitted_at(
   l(customer_order.submitted_at, format: :api)
 ) if customer_order.submitted_at.present?
 
-if customer_order.status.submitted? && customer_order.customer_billing_address.present?
-  json.customer_billing_address do
+if customer_order.status.submitted?
+  json.customer_profile do
     json.partial!(
-      "api/customer/billing_addresses/billing_address",
-      billing_address: customer_order.customer_billing_address
+      "api/customer/customer_orders/customer_profile",
+      customer_profile: customer_order.customer_profile
     )
+  end
+
+  if customer_order.customer_billing_address.present?
+    json.customer_billing_address do
+      json.partial!(
+        "api/customer/billing_addresses/billing_address",
+        billing_address: customer_order.customer_billing_address
+      )
+    end
   end
 end
