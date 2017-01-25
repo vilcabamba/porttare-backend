@@ -9,8 +9,5 @@
 # )
 
 # we're only using a part of this
-json.extract!(
-  customer_profile.user,
-  :name,
-  :nickname
-)
+json.name customer_profile.user.name.presence
+json.nickname customer_profile.user.nickname.presence
