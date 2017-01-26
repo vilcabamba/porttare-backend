@@ -24,12 +24,14 @@ module Admin
     def new
       super
       build_one_office
+      office_belongs_to_place
       build_offices_weekdays
     end
 
     def edit
       super
       build_one_office
+      office_belongs_to_place
       build_offices_weekdays
     end
 
@@ -46,6 +48,13 @@ module Admin
     end
 
     private
+
+    def office_belongs_to_place
+      office = @current_resource.offices.object.first
+      if office.place.blank?
+        office.place = Place.first
+      end
+    end
 
     def build_one_office
       @current_resource.offices.object.build if @current_resource.offices.length == 0

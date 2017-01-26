@@ -247,6 +247,7 @@ es:
         remove_imagen: Eliminar imagen
       provider_office:
         enabled: Habilitada
+        enabled_str: Habilitada
         place: Localidad
         place_id: Localidad
         place_with_link: Localidad
