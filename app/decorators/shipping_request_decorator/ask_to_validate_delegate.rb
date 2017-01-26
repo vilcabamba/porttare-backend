@@ -19,13 +19,16 @@ class ShippingRequestDecorator < GenericResourceDecorator
         :created_at,
         :address,
         :provider,
+        :courier_profile,
+        :estimated_time_for_delivery,
         :telefono
       ]
     end
 
     def detail_attributes
       card_attributes + [
-        :reason
+        :reason,
+        :delivery_location
       ]
     end
   end
