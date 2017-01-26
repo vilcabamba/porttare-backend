@@ -27,9 +27,6 @@ class CustomerOrderDelivery < ActiveRecord::Base
     "pickup"
   ].freeze
 
-  validates :delivery_method,
-            allow_nil: true,
-            inclusion: { in: DELIVERY_METHODS }
   validates :customer_address,
             own_address: true
   validates :deliver_at, in_future: true
@@ -46,6 +43,10 @@ class CustomerOrderDelivery < ActiveRecord::Base
             default: "draft",
             scope: true,
             i18n_scope: "customer_order_delivery.status"
+
+  monetize :shipping_fare_price_cents,
+           allow_nil: true,
+           numericality: false
 
   def ready_for_submission?
     delivery_method.present? &&
@@ -67,10 +68,23 @@ class CustomerOrderDelivery < ActiveRecord::Base
     cached_price.presence || shipping_cost_calculator.try(:shipping_fare_price_cents)
   end
 
+  def closest_provider_office
+    return if customer_address.blank?
+    provider_profile
+      .offices
+      .for_place(customer_order.place)
+      .enabled
+      .closest(origin: [
+        customer_address.lat,
+        customer_address.lon
+      ])
+      .first
+  end
+
   private
 
   def shipping_cost_calculator
-    if delivery_method.shipping? && customer_address.present?
+    if delivery_method && delivery_method.shipping? && customer_address.present?
       ShippingCostCalculatorService.for_customer_order_delivery(self)
     end
   end

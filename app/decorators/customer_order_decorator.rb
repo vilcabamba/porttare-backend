@@ -10,7 +10,8 @@ class CustomerOrderDecorator < GenericResourceDecorator
     [
       :place,
       :submitted_at,
-      :customer_profile
+      :customer_profile,
+      :subtotal_items
     ]
   end
 
@@ -24,5 +25,15 @@ class CustomerOrderDecorator < GenericResourceDecorator
       options,
       &block
     )
+  end
+
+  def submitted_at
+    if object.submitted_at.present?
+      h.l(object.submitted_at, format: :admin_full)
+    end
+  end
+
+  def subtotal_items
+    h.humanized_money_with_symbol object.subtotal_items
   end
 end

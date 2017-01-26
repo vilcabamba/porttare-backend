@@ -1,7 +1,7 @@
 class GenericResourceDecorator < Draper::Decorator
   delegate_all
 
-  def static_map_image(size = :default)
+  def static_map_image(size = :default, markers = nil)
     map_size = {
       default: "600x300",
       xs: "300x150"
@@ -10,8 +10,16 @@ class GenericResourceDecorator < Draper::Decorator
       zoom: 16,
       scale: 2,
       size: map_size,
-      markers: "#{lat},#{lon}"
+      markers: markers.presence || "#{lat},#{lon}"
     ).to_s
+  end
+
+  def link_to_google_map(options = {}, &block)
+    latitude = options.fetch(:latitude){ lat }
+    longitude = options.fetch(:longitude) { lon }
+    uri = "https://maps.google.com?q=#{latitude},#{longitude}"
+    defaults = { target: "_blank" }
+    h.link_to uri, defaults.merge(options), &block
   end
 
   def label_for(attribute)

@@ -2,16 +2,19 @@
 #
 # Table name: shipping_requests
 #
-#  id                 :integer          not null, primary key
-#  resource_id        :integer          not null
-#  resource_type      :string           not null
-#  kind               :string           not null
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  status             :string           default("new"), not null
-#  address_attributes :json
-#  courier_profile_id :integer
-#  reason             :string
+#  id                  :integer          not null, primary key
+#  resource_id         :integer          not null
+#  resource_type       :string           not null
+#  kind                :string           not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  status              :string           default("new"), not null
+#  address_attributes  :json
+#  courier_profile_id  :integer
+#  reason              :string
+#  place_id            :integer          not null
+#  waypoints           :json
+#  estimated_time_mins :integer
 #
 
 class ShippingRequest < ActiveRecord::Base
@@ -29,6 +32,8 @@ class ShippingRequest < ActiveRecord::Base
     :customer_order_delivery
   ].freeze
 
+  belongs_to :place
+  belongs_to :courier_profile
   belongs_to :resource, polymorphic: true
 
   has_paper_trail
@@ -44,14 +49,14 @@ class ShippingRequest < ActiveRecord::Base
 
   ##
   # resource may be the provider we need to validate
-  # resource may be what we're delivering (customer_order)
+  # resource may be what we're delivering (customer_order_delivery)
   validates :resource,
             :kind,
             :status,
+            :place_id,
             presence: true
 
-  def provider_profile
-    # TODO this should be perhaps another relationship
-    resource
-  end
+  scope :latest, ->{
+    order(created_at: :desc)
+  }
 end

@@ -10,8 +10,8 @@
 #  updated_at          :datetime         not null
 #  telefono            :string
 #  place_id            :integer
-#  lat                 :string           not null
-#  lon                 :string           not null
+#  lat                 :float            not null
+#  lon                 :float            not null
 #
 
 require "porttare_backend/places"
@@ -20,6 +20,9 @@ class ProviderOffice < ActiveRecord::Base
   extend Enumerize
 
   has_paper_trail
+  acts_as_mappable(
+    lng_column_name: :lon
+  )
 
   begin :relationships
     belongs_to :provider_profile

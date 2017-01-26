@@ -2,6 +2,16 @@ legend = t("admin.provider_office.title")
 
 = f.hidden_field :id
 
+= content_tag :div,
+              class: "resource-map-in-form",
+              data: { default_lat: f.object.place.lat,
+                      default_lon: f.object.place.lon } do
+  = content_tag :div,
+                nil,
+                class: "map-placeholder"
+  = f.hidden_field :lat
+  = f.hidden_field :lon
+
 .form-group
   = f.label :place_id
   = f.select :place_id,

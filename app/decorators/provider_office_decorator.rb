@@ -10,13 +10,13 @@ class ProviderOfficeDecorator < GenericResourceDecorator
     I18n.t("admin.provider_office.title") + " #{object.direccion}"
   end
 
-  def enabled
+  def enabled_str
     h.t("views.boolean.#{object.enabled.to_s}")
   end
 
   def detail_attributes
     [
-      :enabled,
+      :enabled_str,
       :direccion,
       :telefono,
       :place

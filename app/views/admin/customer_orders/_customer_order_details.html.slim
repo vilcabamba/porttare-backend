@@ -15,3 +15,9 @@
         = render "admin/shared/common_resource_collection_body",
                  resource: customer_order,
                  display: :detail_attributes
+
+        h4 = t("admin.customer_order.order_items_details")
+
+        - customer_order.deliveries.each do |delivery|
+          = render "admin/customer_orders/delivery_details",
+                   delivery: delivery

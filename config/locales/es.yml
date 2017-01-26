@@ -1,5 +1,9 @@
 ---
 es:
+  customer_order:
+    status:
+      in_progress: En progreso
+      submitted: Enviada
   provider_profile:
     statuses:
       applied: Aplicado
@@ -22,10 +26,18 @@ es:
       delivered: Entregado
     kinds:
       ask_to_validate: Validar proveedor
+      customer_order_delivery: Envío a domicilio
   customer_order_delivery:
     status:
       draft: Borrador
       pending: Pendiente
+      accepted: Aceptado
+      rejected: Rechazado
+    status_explanation:
+      draft: Este pedido es un borrador del cliente
+      pending: Esperando confirmación del proveedor
+      accepted: Aceptado por el proveedor
+      rejected: Rechazado por el proveedor
     delivery_method:
       shipping: Envío
       pickup: Recoger
@@ -83,11 +95,25 @@ es:
     place:
       updated: Lugar actualizado
       shipping_costs_calculation_intro: Da click en el mapa para calcular costos de envío
+    customer_order:
+      order_items_details: Detalles del pedido
+      history:
+        submitted: envió esta orden
+        provider_accept_delivery: (proveedor) aceptó la solicitud
+        provider_reject_delivery: (proveedor) rechazó la solicitud
+    customer_order_delivery:
+      from_store: de la tienda
+      to_home: a domicilio
     shipping_request:
       title: Envío
       history:
         canceled: canceló este envío
+        take_by_courier: (mensajero) tomó este pedido
+        courier_in_store: (mensajero) en la tienda para recoger el pedido
+        delivered: (mensajero) entregó el pedido al cliente
         association:
+          customer_order:
+            provider_accept_delivery: Aceptó esta solicitud de envío a través de
           provider_profile:
             ask_to_validate: Solicitar validación
             active: Activar proveedor
@@ -209,6 +235,11 @@ es:
         provider: Proveedor
         telefono: Teléfono
         reason: Razón
+        customer_order_delivery: Despacho
+        desc_label: Orden de envío
+        courier_profile: Mensajero
+        estimated_time_for_delivery: Tiempo estimado para la entrega
+        delivery_location: Entregar en
       provider_category:
         titulo: Título
         descripcion: Descripción
@@ -216,6 +247,7 @@ es:
         remove_imagen: Eliminar imagen
       provider_office:
         enabled: Habilitada
+        enabled_str: Habilitada
         place: Localidad
         place_id: Localidad
         place_with_link: Localidad
@@ -243,8 +275,20 @@ es:
         customer_profile: Cliente
         submitted_at: Ordenado
         place: Localidad
+        subtotal_items: Subtotal
+      customer_order_item:
+        cantidad: Cantidad
+        provider_item: Producto
+        provider_item_precio_unitario: Unidad
+        provider_item_precio_total: Total
       customer_order_delivery:
         full_resume_for_card: Despacho
+        customer_address: Dirección
+        deliver_at: Fecha de entrega
+        numero_convencional: Teléfono convencional
+        shipping_fare_price: Costo de envío
+        estimated_time_for_preparation: Tiempo estimado para la preparación
+        shipping_request_desc: Orden de envío
       place:
         nombre: Ciudad
         country: País

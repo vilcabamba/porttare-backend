@@ -19,6 +19,7 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
     }
     let(:provider_office) {
       create :provider_office,
+             :enabled,
              provider_profile: order_item.provider_item.provider_profile
     }
     let(:shipping_fare) {

@@ -14,7 +14,7 @@ class CustomerOrder < ActiveRecord::Base
       # @return Boolean
       def perform
         return unless valid?
-        customer_order_delivery.transaction do
+        in_transaction do
           mark_as_rejected!
           notify_pusher!
         end
@@ -26,6 +26,10 @@ class CustomerOrder < ActiveRecord::Base
       end
 
       private
+
+      def paper_trail_event
+        :provider_reject_delivery
+      end
 
       def mark_as_rejected!
         customer_order_delivery.update!(

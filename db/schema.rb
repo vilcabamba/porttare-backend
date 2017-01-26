@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170118175509) do
+ActiveRecord::Schema.define(version: 20170121175300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -271,11 +271,12 @@ ActiveRecord::Schema.define(version: 20170118175509) do
     t.datetime "updated_at",                          null: false
     t.string   "telefono"
     t.integer  "place_id"
-    t.string   "lat",                                 null: false
-    t.string   "lon",                                 null: false
+    t.float    "lat",                                 null: false
+    t.float    "lon",                                 null: false
   end
 
   add_index "provider_offices", ["enabled"], name: "index_provider_offices_on_enabled", using: :btree
+  add_index "provider_offices", ["lat", "lon"], name: "index_provider_offices_on_lat_and_lon", using: :btree
   add_index "provider_offices", ["place_id"], name: "index_provider_offices_on_place_id", using: :btree
   add_index "provider_offices", ["provider_profile_id"], name: "index_provider_offices_on_provider_profile_id", using: :btree
 
@@ -321,18 +322,22 @@ ActiveRecord::Schema.define(version: 20170118175509) do
   add_index "shipping_fares", ["place_id"], name: "index_shipping_fares_on_place_id", using: :btree
 
   create_table "shipping_requests", force: :cascade do |t|
-    t.integer  "resource_id",                        null: false
-    t.string   "resource_type",                      null: false
-    t.string   "kind",                               null: false
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.string   "status",             default: "new", null: false
+    t.integer  "resource_id",                         null: false
+    t.string   "resource_type",                       null: false
+    t.string   "kind",                                null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "status",              default: "new", null: false
     t.json     "address_attributes"
     t.integer  "courier_profile_id"
     t.string   "reason"
+    t.integer  "place_id",                            null: false
+    t.json     "waypoints"
+    t.integer  "estimated_time_mins"
   end
 
   add_index "shipping_requests", ["courier_profile_id"], name: "index_shipping_requests_on_courier_profile_id", using: :btree
+  add_index "shipping_requests", ["place_id"], name: "index_shipping_requests_on_place_id", using: :btree
   add_index "shipping_requests", ["resource_id", "resource_type"], name: "index_shipping_requests_on_resource_id_and_resource_type", using: :btree
   add_index "shipping_requests", ["status"], name: "index_shipping_requests_on_status", using: :btree
 
@@ -437,6 +442,7 @@ ActiveRecord::Schema.define(version: 20170118175509) do
   add_foreign_key "provider_profiles", "users"
   add_foreign_key "shipping_fares", "places"
   add_foreign_key "shipping_requests", "courier_profiles"
+  add_foreign_key "shipping_requests", "places"
   add_foreign_key "user_locations", "users"
   add_foreign_key "users", "places", column: "current_place_id"
 end

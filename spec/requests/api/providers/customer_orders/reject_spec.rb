@@ -13,6 +13,11 @@ RSpec.describe Api::Customer::OrdersController,
              :submitted,
              :with_order_item
     }
+    let(:provider_office) {
+      create :provider_office,
+             :enabled,
+             provider_profile: user.provider_profile
+    }
     let(:customer_order_item) {
       create :customer_order_item,
              :ready_for_checkout,
@@ -35,6 +40,7 @@ RSpec.describe Api::Customer::OrdersController,
     }
 
     before do
+      provider_office
       login_as user
       customer_order
       customer_address
