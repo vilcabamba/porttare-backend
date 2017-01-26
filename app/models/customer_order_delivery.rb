@@ -27,9 +27,6 @@ class CustomerOrderDelivery < ActiveRecord::Base
     "pickup"
   ].freeze
 
-  validates :delivery_method,
-            allow_nil: true,
-            inclusion: { in: DELIVERY_METHODS }
   validates :customer_address,
             own_address: true
   validates :deliver_at, in_future: true
@@ -87,7 +84,7 @@ class CustomerOrderDelivery < ActiveRecord::Base
   private
 
   def shipping_cost_calculator
-    if delivery_method.shipping? && customer_address.present?
+    if delivery_method && delivery_method.shipping? && customer_address.present?
       ShippingCostCalculatorService.for_customer_order_delivery(self)
     end
   end
