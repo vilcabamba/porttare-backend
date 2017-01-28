@@ -15,6 +15,7 @@
 #  place_id            :integer          not null
 #  waypoints           :json
 #  estimated_time_mins :integer
+#  assigned_at         :datetime
 #
 
 FactoryGirl.define do

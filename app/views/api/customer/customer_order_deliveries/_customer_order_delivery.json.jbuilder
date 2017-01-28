@@ -5,7 +5,8 @@ json.extract!(
   :reason,
   :delivery_method,
   :customer_address_attributes,
-  :shipping_fare_price_cents
+  :shipping_fare_price_cents,
+  :delivery_at
 )
 
 json.deliver_at(

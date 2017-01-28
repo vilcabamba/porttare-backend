@@ -81,6 +81,12 @@ class CustomerOrderDelivery < ActiveRecord::Base
       .first
   end
 
+  def delivery_at
+    if status.accepted?
+      DeliveryAtCalculatorService.new(self).delivery_at
+    end
+  end
+
   private
 
   def shipping_cost_calculator

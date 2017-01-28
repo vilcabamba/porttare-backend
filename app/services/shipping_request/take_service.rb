@@ -15,6 +15,7 @@ class ShippingRequest < ActiveRecord::Base
 
     def assign_attributes
       @shipping_request.assign_attributes(
+        assigned_at: Time.now,
         courier_profile: @courier_profile,
         estimated_time_mins: @estimated_time_mins
       )
