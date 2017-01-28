@@ -119,7 +119,7 @@ class CustomerOrderItem < ActiveRecord::Base
 
   def valid_provider_item_qty
     if cantidad > provider_item.cantidad
-      errors.add(:cantidad, :less_than, count: provider_item.cantidad)
+      errors.add(:cantidad, :less_than_or_equal_to_is, count: provider_item.cantidad, num: cantidad)
     end
   end
 end
