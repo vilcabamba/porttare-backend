@@ -19,7 +19,7 @@ class CourierProfilePolicy < ApplicationPolicy
       :email,
       :nombres,
       :telefono,
-      :ubicacion,
+      :place_id,
       :tipo_licencia,
       :fecha_nacimiento,
       :tipo_medio_movilizacion

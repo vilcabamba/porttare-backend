@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170126221955) do
+ActiveRecord::Schema.define(version: 20170128040716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,14 +22,15 @@ ActiveRecord::Schema.define(version: 20170126221955) do
     t.string   "ruc"
     t.string   "telefono"
     t.string   "email"
-    t.integer  "ubicacion"
-    t.integer  "tipo_medio_movilizacion"
+    t.string   "tipo_medio_movilizacion"
     t.date     "fecha_nacimiento"
-    t.integer  "tipo_licencia"
+    t.string   "tipo_licencia"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "place_id",                null: false
   end
 
+  add_index "courier_profiles", ["place_id"], name: "index_courier_profiles_on_place_id", using: :btree
   add_index "courier_profiles", ["user_id"], name: "index_courier_profiles_on_user_id", using: :btree
 
   create_table "customer_addresses", force: :cascade do |t|
@@ -416,6 +417,7 @@ ActiveRecord::Schema.define(version: 20170126221955) do
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   add_index "versions", ["transaction_id"], name: "index_versions_on_transaction_id", using: :btree
 
+  add_foreign_key "courier_profiles", "places"
   add_foreign_key "courier_profiles", "users"
   add_foreign_key "customer_addresses", "customer_profiles"
   add_foreign_key "customer_billing_addresses", "customer_profiles"

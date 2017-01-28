@@ -8,12 +8,12 @@
 #  ruc                     :string
 #  telefono                :string
 #  email                   :string
-#  ubicacion               :integer
-#  tipo_medio_movilizacion :integer
+#  tipo_medio_movilizacion :string
 #  fecha_nacimiento        :date
-#  tipo_licencia           :integer
+#  tipo_licencia           :string
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  place_id                :integer          not null
 #
 
 require 'rails_helper'

@@ -1,5 +1,3 @@
-require "porttare_backend/places"
-
 module Api
   module Provider
     class ProfilesController < Provider::BaseController

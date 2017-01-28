@@ -14,8 +14,6 @@
 #  lon                 :float            not null
 #
 
-require "porttare_backend/places"
-
 class ProviderOffice < ActiveRecord::Base
   extend Enumerize
 
