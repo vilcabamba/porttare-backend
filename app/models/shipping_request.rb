@@ -60,4 +60,12 @@ class ShippingRequest < ActiveRecord::Base
   scope :latest, ->{
     order(created_at: :desc)
   }
+
+  def estimated_delivery_at
+    if assigned_at.present? && estimated_time_mins.present?
+      # TODO
+      # consider provider's preparation time
+      assigned_at + estimated_time_mins.minutes
+    end
+  end
 end

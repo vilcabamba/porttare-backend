@@ -6,9 +6,7 @@ class CustomerOrderDelivery < ActiveRecord::Base
 
     def delivery_at
       if calculate_eta?
-        # TODO
-        # consider provider's preparation time
-        shipping_request.assigned_at + shipping_request.estimated_time_mins.minutes
+        shipping_request.estimated_delivery_at
       end
     end
 
