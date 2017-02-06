@@ -35,6 +35,7 @@ module Api
         @api_collection =
           resource_scope
             .with_status(params[:status])
+            .for_place(pundit_user.courier_profile.place)
             .latest
       end
 
