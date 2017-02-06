@@ -1,23 +1,24 @@
 class CustomerOrder < ActiveRecord::Base
   module ProviderResponse
+    ##
+    # a provider will accept a customer order
+    # he's been requested providing an estimated
+    # time for preparation
     class AcceptService < GenericResponseService
-      ##
-      # a provider will accept a customer order
-      # he's been requested
-      def initialize(provider, customer_order)
-        @provider = provider
-        @customer_order = customer_order
-      end
-
       ##
       # @return Boolean
       def perform
+        return unless valid?
         in_transaction do
           mark_as_accepted!
           create_shipping_request_if_necessary!
           notify_pusher!
         end
         true
+      end
+
+      def valid?
+        @request_params[:preparation_time_mins].present?
       end
 
       private
@@ -27,7 +28,11 @@ class CustomerOrder < ActiveRecord::Base
       end
 
       def mark_as_accepted!
-        customer_order_delivery.update! status: :accepted
+        customer_order_delivery.update!(
+          status: :accepted,
+          preparation_time_mins: @request_params[:preparation_time_mins],
+          provider_responded_at: Time.now
+        )
       end
 
       def create_shipping_request_if_necessary!

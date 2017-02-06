@@ -64,6 +64,12 @@ RSpec.describe Api::Customer::OrdersController,
       expect(
         delivery["status"]
       ).to eq("accepted")
+      expect(
+        delivery["preparation_time_mins"]
+      ).to eq(29)
+      expect(
+        delivery["provider_responded_at"]
+      ).to be_present
 
       shipping_request = ShippingRequest.last
       expect(

@@ -16,6 +16,8 @@
 #  waypoints           :json
 #  estimated_time_mins :integer
 #  assigned_at         :datetime
+#  ref_lat             :float            not null
+#  ref_lon             :float            not null
 #
 
 require 'rails_helper'

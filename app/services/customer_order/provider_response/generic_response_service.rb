@@ -1,6 +1,12 @@
 class CustomerOrder < ActiveRecord::Base
   module ProviderResponse
     class GenericResponseService
+      def initialize(provider, customer_order, request_params)
+        @provider = provider
+        @customer_order = customer_order
+        @request_params = request_params
+      end
+
       protected
 
       def in_transaction(&block)
