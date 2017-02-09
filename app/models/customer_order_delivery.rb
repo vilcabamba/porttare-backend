@@ -16,6 +16,7 @@
 #  shipping_fare_price_cents   :integer
 #  preparation_time_mins       :integer
 #  provider_responded_at       :datetime
+#  dispatch_at                 :datetime
 #
 
 class CustomerOrderDelivery < ActiveRecord::Base
@@ -31,7 +32,9 @@ class CustomerOrderDelivery < ActiveRecord::Base
 
   validates :customer_address,
             own_address: true
-  validates :deliver_at, in_future: true
+  validates :deliver_at,
+            in_future: true,
+            if: "deliver_at_changed?"
 
   belongs_to :customer_order
   belongs_to :customer_address
@@ -55,16 +58,6 @@ class CustomerOrderDelivery < ActiveRecord::Base
       (delivery_method.pickup? || customer_address_id.present?)
   end
 
-  def customer_address_or_default
-    customer_address.presence || default_customer_address
-  end
-
-  def default_customer_address
-    if delivery_method.shipping?
-      customer_profile.default_customer_address
-    end
-  end
-
   def shipping_fare_price_cents
     cached_price = read_attribute(:shipping_fare_price_cents)
     cached_price.presence || shipping_cost_calculator.try(:shipping_fare_price_cents)
@@ -83,9 +76,9 @@ class CustomerOrderDelivery < ActiveRecord::Base
       .first
   end
 
-  def delivery_at
+  def courier_delivery_at
     if status.accepted?
-      DeliveryAtCalculatorService.new(self).delivery_at
+      DeliveryAtCalculatorService.new(self).courier_delivery_at
     end
   end
 

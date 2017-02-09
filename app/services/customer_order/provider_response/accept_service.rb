@@ -10,7 +10,7 @@ class CustomerOrder < ActiveRecord::Base
       def perform
         return unless valid?
         in_transaction do
-          mark_as_accepted!
+          update_delivery!
           create_shipping_request_if_necessary!
           notify_pusher!
         end
@@ -27,12 +27,22 @@ class CustomerOrder < ActiveRecord::Base
         :provider_accept_delivery
       end
 
-      def mark_as_accepted!
-        customer_order_delivery.update!(
+      def update_delivery!
+        customer_order_delivery.assign_attributes(
           status: :accepted,
-          preparation_time_mins: @request_params[:preparation_time_mins],
-          provider_responded_at: Time.now
+          provider_responded_at: Time.now,
+          preparation_time_mins: @request_params[:preparation_time_mins]
         )
+        customer_order_delivery.assign_attributes(
+          dispatch_at: delivery_dispatch_at
+        )
+        customer_order_delivery.save!
+      end
+
+      def delivery_dispatch_at
+        CustomerOrderDelivery::DispatchAtCalculatorService.new(
+          customer_order_delivery
+        ).dispatch_at
       end
 
       def create_shipping_request_if_necessary!

@@ -16,6 +16,7 @@
 #  shipping_fare_price_cents   :integer
 #  preparation_time_mins       :integer
 #  provider_responded_at       :datetime
+#  dispatch_at                 :datetime
 #
 
 require 'rails_helper'

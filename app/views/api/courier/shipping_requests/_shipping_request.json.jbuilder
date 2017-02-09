@@ -9,6 +9,7 @@ json.extract!(
   :estimated_time_mins,
   :assigned_at,
   :estimated_delivery_at,
+  :estimated_dispatch_at,
   :ref_lat,
   :ref_lon
 )

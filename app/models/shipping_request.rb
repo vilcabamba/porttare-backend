@@ -93,6 +93,15 @@ class ShippingRequest < ActiveRecord::Base
     end
   end
 
+  def estimated_dispatch_at
+    case kind
+    when "ask_to_validate"
+      created_at
+    when "customer_order_delivery"
+      resource.dispatch_at
+    end
+  end
+
   private
 
   def set_ref_coordinates

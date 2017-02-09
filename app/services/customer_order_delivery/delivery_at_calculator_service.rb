@@ -4,7 +4,7 @@ class CustomerOrderDelivery < ActiveRecord::Base
       @customer_order_delivery = customer_order_delivery
     end
 
-    def delivery_at
+    def courier_delivery_at
       if calculate_eta?
         shipping_request.estimated_delivery_at
       end
