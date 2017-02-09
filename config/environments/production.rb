@@ -68,6 +68,16 @@ Rails.application.configure do
     host: Rails.application.secrets.host
   }
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    port: 587,
+    authentication: :plain,
+    address: "smtp.mailgun.org",
+    domain: Rails.application.secrets.smtp_domain,
+    password: Rails.application.secrets.smtp_password,
+    user_name: Rails.application.secrets.smtp_username
+  }
+
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
