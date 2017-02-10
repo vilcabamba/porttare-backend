@@ -70,9 +70,9 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    port: 587,
+    port: 2525,
     authentication: :plain,
-    address: "smtp-relay.sendinblue.com",
+    address: "smtp.elasticemail.com",
     domain: Rails.application.secrets.smtp_domain,
     password: Rails.application.secrets.smtp_password,
     user_name: Rails.application.secrets.smtp_username
