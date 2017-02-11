@@ -8,7 +8,7 @@ RSpec.describe Api::Courier::ShippingRequestsController,
     let(:shipping_request) {
       create :shipping_request,
              :for_customer_order_delivery,
-             address_attributes: { direccion: "something" }
+             :with_address_attributes
     }
 
     before do

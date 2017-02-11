@@ -32,5 +32,15 @@ FactoryGirl.define do
       kind :customer_order_delivery
       resource { create :customer_order_delivery }
     end
+
+    trait :with_address_attributes do
+      address_attributes {
+        {
+          lat: Faker::Address.latitude,
+          lon: Faker::Address.longitude,
+          direccion: Faker::Address.street_address
+        }
+      }
+    end
   end
 end

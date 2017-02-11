@@ -105,7 +105,8 @@ class ShippingRequest < ActiveRecord::Base
   private
 
   def set_ref_coordinates
-    self.ref_lat = address_attributes["lat"]
-    self.ref_lon = address_attributes["lon"]
+    return if address_attributes.blank?
+    self.ref_lat = address_attributes["lat"] if ref_lat.blank?
+    self.ref_lon = address_attributes["lon"] if ref_lon.blank?
   end
 end

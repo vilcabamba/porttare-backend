@@ -28,6 +28,7 @@ RSpec.describe ShippingRequest,
     let(:provider_profile) { create :provider_profile }
     subject {
       build :shipping_request,
+            :with_address_attributes,
             resource: provider_profile
     }
     it { is_expected.to be_valid }
@@ -44,7 +45,7 @@ RSpec.describe ShippingRequest,
 
   describe "serializes address attributes" do
     subject { build :shipping_request }
-    let(:attributes) { { some: :address } }
+    let(:attributes) { { some: :address, lat: "0", lon: "0" } }
     before { subject.update! address_attributes: attributes }
     it {
       expect(
