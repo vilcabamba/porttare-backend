@@ -51,7 +51,8 @@ RSpec.describe Api::Customer::OrdersController,
       expect(Pusher).to receive(:trigger)
 
       post_with_headers(
-        "/api/provider/customer_orders/#{customer_order.id}/accept"
+        "/api/provider/customer_orders/#{customer_order.id}/accept",
+        { preparation_time_mins: 29 }
       )
     end
 
