@@ -16,9 +16,9 @@ class UserDevice < ActiveRecord::Base
 
   belongs_to :user
 
-  validates :platform,
-            :uuid,
-            presence: true
-
   enumerize :platform, in: [:android, :ios]
+
+  validates :uuid,
+            :platform,
+            presence: true
 end
