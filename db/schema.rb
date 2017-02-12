@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170209031559) do
+ActiveRecord::Schema.define(version: 20170211224054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -358,6 +358,17 @@ ActiveRecord::Schema.define(version: 20170209031559) do
 
   add_index "site_preferences", ["name"], name: "index_site_preferences_on_name", unique: true, using: :btree
 
+  create_table "user_devices", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.string   "platform",   null: false
+    t.string   "uuid",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_devices", ["platform", "uuid"], name: "index_user_devices_on_platform_and_uuid", using: :btree
+  add_index "user_devices", ["user_id"], name: "index_user_devices_on_user_id", using: :btree
+
   create_table "user_locations", force: :cascade do |t|
     t.string   "lat",        null: false
     t.string   "lon",        null: false
@@ -452,6 +463,7 @@ ActiveRecord::Schema.define(version: 20170209031559) do
   add_foreign_key "shipping_fares", "places"
   add_foreign_key "shipping_requests", "courier_profiles"
   add_foreign_key "shipping_requests", "places"
+  add_foreign_key "user_devices", "users"
   add_foreign_key "user_locations", "users"
   add_foreign_key "users", "places", column: "current_place_id"
 end

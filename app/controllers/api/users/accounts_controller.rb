@@ -2,7 +2,7 @@ module Api
   module Users
     class AccountsController < BaseController
       resource_description do
-        name "User::Accounts"
+        name "Users::Accounts"
         short "user's account"
       end
 

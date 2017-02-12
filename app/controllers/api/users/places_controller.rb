@@ -2,7 +2,7 @@ module Api
   module Users
     class PlacesController < BaseController
       resource_description do
-        name "User::Places"
+        name "Users::Places"
         short "available places"
       end
 
