@@ -317,6 +317,8 @@ es:
               missing_delivery_address: detallar direcciones de envío
         customer_order_delivery:
           attributes:
+            base:
+              cant_cancel_old_delivery: No podemos cancelar ese pedido
             deliver_at:
               must_be_future: debe ser una fecha en el futuro
         customer_address:
