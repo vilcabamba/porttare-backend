@@ -33,6 +33,7 @@ es:
       pending: Pendiente
       accepted: Aceptado
       rejected: Rechazado
+      canceled: Cancelado
     status_explanation:
       draft: Este pedido es un borrador del cliente
       pending: Esperando confirmación del proveedor
