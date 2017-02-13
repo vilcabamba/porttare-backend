@@ -44,7 +44,7 @@ class CustomerOrderDelivery < ActiveRecord::Base
             in: DELIVERY_METHODS,
             i18n_scope: "customer_order_delivery.delivery_method"
   enumerize :status,
-            in: %w(draft pending accepted rejected),
+            in: %w(draft pending accepted rejected canceled),
             default: "draft",
             scope: true,
             i18n_scope: "customer_order_delivery.status"
