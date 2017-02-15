@@ -394,6 +394,28 @@ RSpec.describe Api::Customer::Cart::CheckoutsController,
       }
     end
 
+    describe "notifies provider" do
+      let(:provider_device) {
+        create :user_device,
+               platform: :android,
+               user: order_item.provider_item.provider_profile.user
+      }
+
+      before do
+        provider_device
+        expect_any_instance_of(
+          PushService::AndroidNotifier
+        ).to receive(:notify!)
+      end
+
+      it {
+        post_with_headers(
+          "/api/customer/cart/checkout",
+          submission_attributes
+        )
+      }
+    end
+
     describe "discounts" do
       pending
     end

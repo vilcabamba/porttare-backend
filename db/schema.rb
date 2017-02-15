@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170126221955) do
+ActiveRecord::Schema.define(version: 20170211224054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,14 +22,15 @@ ActiveRecord::Schema.define(version: 20170126221955) do
     t.string   "ruc"
     t.string   "telefono"
     t.string   "email"
-    t.integer  "ubicacion"
-    t.integer  "tipo_medio_movilizacion"
+    t.string   "tipo_medio_movilizacion"
     t.date     "fecha_nacimiento"
-    t.integer  "tipo_licencia"
+    t.string   "tipo_licencia"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "place_id",                null: false
   end
 
+  add_index "courier_profiles", ["place_id"], name: "index_courier_profiles_on_place_id", using: :btree
   add_index "courier_profiles", ["user_id"], name: "index_courier_profiles_on_user_id", using: :btree
 
   create_table "customer_addresses", force: :cascade do |t|
@@ -77,6 +78,9 @@ ActiveRecord::Schema.define(version: 20170126221955) do
     t.string   "status",                      default: "draft", null: false
     t.text     "reason"
     t.integer  "shipping_fare_price_cents"
+    t.integer  "preparation_time_mins"
+    t.datetime "provider_responded_at"
+    t.datetime "dispatch_at"
   end
 
   add_index "customer_order_deliveries", ["customer_address_id"], name: "index_customer_order_deliveries_on_customer_address_id", using: :btree
@@ -334,10 +338,14 @@ ActiveRecord::Schema.define(version: 20170126221955) do
     t.integer  "place_id",                            null: false
     t.json     "waypoints"
     t.integer  "estimated_time_mins"
+    t.datetime "assigned_at"
+    t.float    "ref_lat",                             null: false
+    t.float    "ref_lon",                             null: false
   end
 
   add_index "shipping_requests", ["courier_profile_id"], name: "index_shipping_requests_on_courier_profile_id", using: :btree
   add_index "shipping_requests", ["place_id"], name: "index_shipping_requests_on_place_id", using: :btree
+  add_index "shipping_requests", ["ref_lat", "ref_lon"], name: "index_shipping_requests_on_ref_lat_and_ref_lon", using: :btree
   add_index "shipping_requests", ["resource_id", "resource_type"], name: "index_shipping_requests_on_resource_id_and_resource_type", using: :btree
   add_index "shipping_requests", ["status"], name: "index_shipping_requests_on_status", using: :btree
 
@@ -349,6 +357,17 @@ ActiveRecord::Schema.define(version: 20170126221955) do
   end
 
   add_index "site_preferences", ["name"], name: "index_site_preferences_on_name", unique: true, using: :btree
+
+  create_table "user_devices", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.string   "platform",   null: false
+    t.string   "uuid",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_devices", ["platform", "uuid"], name: "index_user_devices_on_platform_and_uuid", using: :btree
+  add_index "user_devices", ["user_id"], name: "index_user_devices_on_user_id", using: :btree
 
   create_table "user_locations", force: :cascade do |t|
     t.string   "lat",        null: false
@@ -416,6 +435,7 @@ ActiveRecord::Schema.define(version: 20170126221955) do
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   add_index "versions", ["transaction_id"], name: "index_versions_on_transaction_id", using: :btree
 
+  add_foreign_key "courier_profiles", "places"
   add_foreign_key "courier_profiles", "users"
   add_foreign_key "customer_addresses", "customer_profiles"
   add_foreign_key "customer_billing_addresses", "customer_profiles"
@@ -443,6 +463,7 @@ ActiveRecord::Schema.define(version: 20170126221955) do
   add_foreign_key "shipping_fares", "places"
   add_foreign_key "shipping_requests", "courier_profiles"
   add_foreign_key "shipping_requests", "places"
+  add_foreign_key "user_devices", "users"
   add_foreign_key "user_locations", "users"
   add_foreign_key "users", "places", column: "current_place_id"
 end

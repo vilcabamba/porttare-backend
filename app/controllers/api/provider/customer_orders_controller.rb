@@ -41,6 +41,7 @@ module Api
       api :POST,
           "/provider/customer_orders/:id/accept",
           "Accept a pending customer order"
+      param :preparation_time_mins, Integer, required: true, desc: "Estimated time for preparation (in minutes)"
       see "customer-orders#index", "Customer::Orders#index for customer order serialization in response"
       def accept
         find_api_resource
@@ -74,7 +75,8 @@ module Api
       def accept_service
         CustomerOrder::ProviderResponse::AcceptService.new(
           pundit_user,
-          @api_resource
+          @api_resource,
+          params
         )
       end
 

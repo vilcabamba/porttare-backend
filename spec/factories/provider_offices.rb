@@ -14,8 +14,6 @@
 #  lon                 :float            not null
 #
 
-require "porttare_backend/places"
-
 FactoryGirl.define do
   factory :provider_office do
     provider_profile

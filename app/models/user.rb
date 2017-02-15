@@ -57,6 +57,7 @@ class User < ActiveRecord::Base
     has_one :provider_profile
     has_one :courier_profile
     has_one :customer_profile
+    has_many :user_devices
     has_many :locations,
              class_name: "UserLocation"
     belongs_to :current_place,

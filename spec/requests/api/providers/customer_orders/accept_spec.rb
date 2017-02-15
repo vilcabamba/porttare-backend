@@ -51,7 +51,8 @@ RSpec.describe Api::Customer::OrdersController,
       expect(Pusher).to receive(:trigger)
 
       post_with_headers(
-        "/api/provider/customer_orders/#{customer_order.id}/accept"
+        "/api/provider/customer_orders/#{customer_order.id}/accept",
+        { preparation_time_mins: 29 }
       )
     end
 
@@ -64,6 +65,12 @@ RSpec.describe Api::Customer::OrdersController,
       expect(
         delivery["status"]
       ).to eq("accepted")
+      expect(
+        delivery["preparation_time_mins"]
+      ).to eq(29)
+      expect(
+        delivery["provider_responded_at"]
+      ).to be_present
 
       shipping_request = ShippingRequest.last
       expect(

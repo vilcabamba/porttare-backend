@@ -61,9 +61,10 @@ module Api
       end
 
       def_param_group :provider_office do
-        param :ciudad,
-              PorttareBackend::Places.all,
-              required: true
+        param :place_id,
+              Integer,
+              required: true,
+              desc: "a place id from the api"
         param :telefono,
               String,
               required: true,
@@ -83,6 +84,7 @@ module Api
       api :POST,
           "/provider/offices",
           "create a provider office"
+      see "users-places#index", "User::Places#index for available places"
       param_group :provider_office
       def create
         super
@@ -91,6 +93,7 @@ module Api
       api :PUT,
           "/provider/offices/:id",
           "update a provider's office"
+      see "users-places#index", "User::Places#index for available places"
       param :id, Integer, required: true, desc: "provider office id"
       param_group :provider_office
       def update

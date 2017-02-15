@@ -14,8 +14,7 @@ module Api
           after_create_api_resource
           render resource_template, status: :created
         else
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
+          render_resource_error
         end
       end
 
@@ -26,8 +25,7 @@ module Api
           after_update_api_resource
           render resource_template, status: :accepted
         else
-          render "api/shared/resource_error",
-                 status: :unprocessable_entity
+          render_resource_error
         end
       end
 
@@ -39,6 +37,11 @@ module Api
       end
 
       protected
+
+      def render_resource_error
+        render "api/shared/resource_error",
+               status: :unprocessable_entity
+      end
 
       def resource_destruction_response
         head :no_content

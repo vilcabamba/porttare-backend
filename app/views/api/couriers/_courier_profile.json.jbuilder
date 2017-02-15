@@ -8,7 +8,7 @@ json.extract!(
   :nombres,
   :telefono,
   :fecha_nacimiento,
-  :ubicacion,
+  :place_id,
   :tipo_licencia,
   :tipo_medio_movilizacion
 )

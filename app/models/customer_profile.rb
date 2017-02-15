@@ -32,8 +32,4 @@ class CustomerProfile < ActiveRecord::Base
                    .for_place(place)
                    .first
   end
-
-  def default_customer_address
-    customer_addresses.first
-  end
 end

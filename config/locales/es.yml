@@ -33,6 +33,7 @@ es:
       pending: Pendiente
       accepted: Aceptado
       rejected: Rechazado
+      canceled: Cancelado
     status_explanation:
       draft: Este pedido es un borrador del cliente
       pending: Esperando confirmación del proveedor
@@ -317,6 +318,8 @@ es:
               missing_delivery_address: detallar direcciones de envío
         customer_order_delivery:
           attributes:
+            base:
+              cant_cancel_old_delivery: No podemos cancelar ese pedido
             deliver_at:
               must_be_future: debe ser una fecha en el futuro
         customer_address:
@@ -443,6 +446,7 @@ es:
       invalid: no es válido
       less_than: debe ser menor que %{count}
       less_than_or_equal_to: debe ser menor que o igual a %{count}
+      less_than_or_equal_to_is: debe ser menor que o igual a %{count}, es %{num}
       model_invalid: "La validación falló: %{errors}"
       not_a_number: no es un número
       not_an_integer: debe ser un entero

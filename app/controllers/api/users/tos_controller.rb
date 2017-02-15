@@ -2,7 +2,7 @@ module Api
   module Users
     class TosController < BaseController
       resource_description do
-        name "User::TOS"
+        name "Users::TOS"
         short "agree to terms & conditions"
       end
 

@@ -5,7 +5,13 @@ json.extract!(
   :kind_text,
   :status,
   :address_attributes,
-  :waypoints
+  :waypoints,
+  :estimated_time_mins,
+  :assigned_at,
+  :estimated_delivery_at,
+  :estimated_dispatch_at,
+  :ref_lat,
+  :ref_lon
 )
 
 if shipping_request.kind.ask_to_validate?

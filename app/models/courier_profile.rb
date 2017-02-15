@@ -8,18 +8,16 @@
 #  ruc                     :string
 #  telefono                :string
 #  email                   :string
-#  ubicacion               :integer
-#  tipo_medio_movilizacion :integer
+#  tipo_medio_movilizacion :string
 #  fecha_nacimiento        :date
-#  tipo_licencia           :integer
+#  tipo_licencia           :string
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  place_id                :integer          not null
 #
 
-require "porttare_backend/places"
-
 class CourierProfile < ActiveRecord::Base
-  UBICACIONES = PorttareBackend::Places.all
+  extend Enumerize
 
   TIPOS_LICENCIA = [
     "A",
@@ -36,25 +34,25 @@ class CourierProfile < ActiveRecord::Base
   ].freeze
 
   TIPOS_MEDIO_MOVILIZACION = [
-    "Motocicleta particular", # (A)
-    "Motocicleta comercial",  # (A1)
-    "Automóvil particular",   # (B)
-    "Automóvil estatal",      # (C1)
-    "Automóvil comercial",    # (C)
-    "Bus escolar / turismo",  # (D1)
-    "Bus pasajeros",          # (D)
-    "Pesado",                 # (E)
-    "Especiales"              # (E1)
+    "motocicleta-particular", # "Motocicleta particular", # (A)
+    "motocicleta-comercial", # "Motocicleta comercial",   # (A1)
+    "automovil-particular", # "Automóvil particular",     # (B)
+    "automovil-estatal", # "Automóvil estatal",           # (C1)
+    "automovil-comercial", # "Automóvil comercial",       # (C)
+    "bus-escolar-turismo", # "Bus escolar / turismo",     # (D1)
+    "bus-pasajeros", # "Bus pasajeros",                   # (D)
+    "pesado", # "Pesado",                                 # (E)
+    "especiales", # "Especiales"                          # (E1)
   ].freeze
 
   begin :relationships
     belongs_to :user
+    belongs_to :place
   end
 
   begin :enumerables
-    enum ubicacion: UBICACIONES
-    enum tipo_licencia: TIPOS_LICENCIA
-    enum tipo_medio_movilizacion: TIPOS_MEDIO_MOVILIZACION
+    enumerize :tipo_licencia, in: TIPOS_LICENCIA
+    enumerize :tipo_medio_movilizacion, in: TIPOS_MEDIO_MOVILIZACION
   end
 
   begin :validations
@@ -62,16 +60,11 @@ class CourierProfile < ActiveRecord::Base
               :nombres,
               :email,
               :telefono,
+              :place_id,
               presence: true
     validates :ruc,
               :email,
               :telefono,
               uniqueness: true
-    validates :ubicacion,
-              inclusion: { in: UBICACIONES }
-    validates :tipo_licencia,
-              inclusion: { in: TIPOS_LICENCIA }
-    validates :tipo_medio_movilizacion,
-              inclusion: { in: TIPOS_MEDIO_MOVILIZACION }
   end
 end

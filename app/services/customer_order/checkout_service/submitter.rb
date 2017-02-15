@@ -10,6 +10,8 @@ class CustomerOrder < ActiveRecord::Base
       # and caches:
       #  - subtotal_items
       #  - customer_billing_address
+      # @return [Boolean] wether it was
+      #   submitted or not
       def submit_order!
         @customer_order.transaction do
           cache_addresses!

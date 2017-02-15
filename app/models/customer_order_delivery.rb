@@ -14,6 +14,9 @@
 #  status                      :string           default("draft"), not null
 #  reason                      :text
 #  shipping_fare_price_cents   :integer
+#  preparation_time_mins       :integer
+#  provider_responded_at       :datetime
+#  dispatch_at                 :datetime
 #
 
 class CustomerOrderDelivery < ActiveRecord::Base
@@ -29,7 +32,9 @@ class CustomerOrderDelivery < ActiveRecord::Base
 
   validates :customer_address,
             own_address: true
-  validates :deliver_at, in_future: true
+  validates :deliver_at,
+            in_future: true,
+            if: "deliver_at_changed?"
 
   belongs_to :customer_order
   belongs_to :customer_address
@@ -39,7 +44,7 @@ class CustomerOrderDelivery < ActiveRecord::Base
             in: DELIVERY_METHODS,
             i18n_scope: "customer_order_delivery.delivery_method"
   enumerize :status,
-            in: %w(draft pending accepted rejected),
+            in: %w(draft pending accepted rejected canceled),
             default: "draft",
             scope: true,
             i18n_scope: "customer_order_delivery.status"
@@ -51,16 +56,6 @@ class CustomerOrderDelivery < ActiveRecord::Base
   def ready_for_submission?
     delivery_method.present? &&
       (delivery_method.pickup? || customer_address_id.present?)
-  end
-
-  def customer_address_or_default
-    customer_address.presence || default_customer_address
-  end
-
-  def default_customer_address
-    if delivery_method.shipping?
-      customer_profile.default_customer_address
-    end
   end
 
   def shipping_fare_price_cents
@@ -79,6 +74,12 @@ class CustomerOrderDelivery < ActiveRecord::Base
         customer_address.lon
       ])
       .first
+  end
+
+  def courier_delivery_at
+    if status.accepted?
+      DeliveryAtCalculatorService.new(self).courier_delivery_at
+    end
   end
 
   private

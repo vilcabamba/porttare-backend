@@ -30,7 +30,13 @@ Rails.application.routes.draw do
       resources :billing_addresses,
                 only: [:index, :show, :create, :update]
       resources :orders,
-                only: [:index, :show]
+                only: [:index, :show] do
+        resources :deliveries, only: [] do
+          member do
+            post :cancel
+          end
+        end
+      end
     end
 
     namespace :provider do
@@ -74,6 +80,8 @@ Rails.application.routes.draw do
                only: [:show, :update]
       resources :places,
                 only: :index
+      resources :devices,
+                only: :create
     end
 
     namespace :auth do

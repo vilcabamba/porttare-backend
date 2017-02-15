@@ -8,12 +8,12 @@
 #  ruc                     :string
 #  telefono                :string
 #  email                   :string
-#  ubicacion               :integer
-#  tipo_medio_movilizacion :integer
+#  tipo_medio_movilizacion :string
 #  fecha_nacimiento        :date
-#  tipo_licencia           :integer
+#  tipo_licencia           :string
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  place_id                :integer          not null
 #
 
 FactoryGirl.define do
@@ -25,8 +25,12 @@ FactoryGirl.define do
     nombres          { Faker::Name.name }
     telefono         { Faker::PhoneNumber.phone_number }
     fecha_nacimiento { Faker::Date.birthday }
-    ubicacion        {
-      CourierProfile::UBICACIONES.sample
+    place            {
+      if user.present?
+        user.current_place.presence
+      else
+        build(:place)
+      end
     }
     tipo_licencia    {
       CourierProfile::TIPOS_LICENCIA.sample

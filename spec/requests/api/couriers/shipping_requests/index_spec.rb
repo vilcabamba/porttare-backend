@@ -7,12 +7,13 @@ RSpec.describe Api::Courier::ShippingRequestsController,
 
     let(:shipping_request) {
       create :shipping_request,
-             kind: :ask_to_validate,
-             address_attributes: { direccion: "something" }
+             :with_address_attributes,
+             kind: :ask_to_validate
     }
 
     let(:others_shipping_request) {
       create :shipping_request,
+             :with_address_attributes,
              kind: :ask_to_validate,
              status: :delivered
     }

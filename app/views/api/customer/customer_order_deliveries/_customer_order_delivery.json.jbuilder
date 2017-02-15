@@ -5,7 +5,11 @@ json.extract!(
   :reason,
   :delivery_method,
   :customer_address_attributes,
-  :shipping_fare_price_cents
+  :shipping_fare_price_cents,
+  :dispatch_at,
+  :courier_delivery_at,
+  :preparation_time_mins,
+  :provider_responded_at
 )
 
 json.deliver_at(
@@ -13,5 +17,5 @@ json.deliver_at(
 ) if order_delivery.deliver_at.present?
 
 json.customer_address_id(
-  order_delivery.customer_address_or_default.try :id
+  order_delivery.customer_address.try :id
 )

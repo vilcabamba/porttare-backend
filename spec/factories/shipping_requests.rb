@@ -15,6 +15,9 @@
 #  place_id            :integer          not null
 #  waypoints           :json
 #  estimated_time_mins :integer
+#  assigned_at         :datetime
+#  ref_lat             :float            not null
+#  ref_lon             :float            not null
 #
 
 FactoryGirl.define do
@@ -28,6 +31,16 @@ FactoryGirl.define do
     trait :for_customer_order_delivery do
       kind :customer_order_delivery
       resource { create :customer_order_delivery }
+    end
+
+    trait :with_address_attributes do
+      address_attributes {
+        {
+          lat: Faker::Address.latitude,
+          lon: Faker::Address.longitude,
+          direccion: Faker::Address.street_address
+        }
+      }
     end
   end
 end
