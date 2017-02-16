@@ -26,7 +26,8 @@ class UserDecorator < GenericResourceDecorator
       :nickname,
       :ciudad,
       :fecha_nacimiento,
-      :provider_profile_with_link
+      :provider_profile_with_link,
+      :devices_count
     ]
   end
 
@@ -60,6 +61,10 @@ class UserDecorator < GenericResourceDecorator
       options,
       &block
     )
+  end
+
+  def devices_count
+    user_devices.count
   end
 
   private
