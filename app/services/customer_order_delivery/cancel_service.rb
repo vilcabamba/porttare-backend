@@ -30,7 +30,7 @@ class CustomerOrderDelivery < ActiveRecord::Base
 
     def can_cancel?
       responded_at = @customer_order_delivery.provider_responded_at
-      responded_at.present? && inside_range?(responded_at)
+      responded_at.blank? || inside_range?(responded_at)
     end
 
     def inside_range?(responded_at)
