@@ -41,10 +41,10 @@ class CustomerOrder < ActiveRecord::Base
           collapse_key: "provider_new_order",
           data: {
             visibility: 1,
-            title: "Tienes un pedido nuevo",
-            body: "Orden Nº56",
+            title: I18n.t("customer_order.notification.provider_new_order.title"),
+            body: @customer_order.decorate.to_s,
             handler: "provider_new_order",
-            order_id: 56
+            order_id: @customer_order.id
           }
         }
       end
