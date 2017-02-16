@@ -11,5 +11,6 @@ json.extract!(
   :direccion_dos,
   :codigo_postal,
   :referencia,
-  :numero_convencional
+  :numero_convencional,
+  :static_map_image
 )

@@ -52,6 +52,8 @@ class ProviderProfile < ActiveRecord::Base
 
   has_paper_trail
 
+  attr_accessor :generate_user
+
   enum banco_tipo_cuenta: BANCO_TIPOS_CUENTA
   enumerize :status,
             in: STATUSES,
@@ -72,7 +74,7 @@ class ProviderProfile < ActiveRecord::Base
 
     accepts_nested_attributes_for(
       :offices,
-      reject_if: proc { |attrs| attrs['direccion'].blank? }
+      reject_if: proc { |attrs| attrs['direccion'].blank? && attrs["weekdays_attributes"].blank? }
     )
   end
 
@@ -87,6 +89,9 @@ class ProviderProfile < ActiveRecord::Base
     validates :ruc,
               :email,
               uniqueness: true
+    validates :provider_category_id,
+              presence: true,
+              unless: "status.applied? && paper_trail_event != 'apply'"
     validate :validate_formas_de_pago
   end
 
@@ -94,9 +99,17 @@ class ProviderProfile < ActiveRecord::Base
     scope :by_nombre, -> {
       order(:nombre_establecimiento)
     }
+    scope :for_place, ->(place) {
+      where(
+        id: ProviderOffice.where(provider_profile_id: all.pluck(:id))
+                          .for_place(place)
+                          .pluck(:provider_profile_id)
+      )
+    }
   end
 
   begin :callbacks
+    before_create :generate_or_set_user_if_needed
     before_update :touch_if_associations_changed
   end
 
@@ -117,6 +130,10 @@ class ProviderProfile < ActiveRecord::Base
     provider_category.imagen_url if provider_category.present?
   end
 
+  def allowed_currency_iso_codes
+    offices.map(&:place).compact.map(&:currency_iso_code)
+  end
+
   private
 
   ##
@@ -133,6 +150,20 @@ class ProviderProfile < ActiveRecord::Base
   def touch_if_associations_changed
     if offices.any?(&:changed?) || offices.any?(&:marked_for_destruction?)
       self.updated_at = Time.now
+    end
+  end
+
+  def generate_or_set_user_if_needed
+    if generate_user.present? && generate_user == "1"
+      if User.exists?(email: email)
+        self.user = User.find_by(email: email)
+      else
+        self.user = User.create!(
+          email: email,
+          name: representante_legal,
+          password: Devise.friendly_token[0,20]
+        )
+      end
     end
   end
 end

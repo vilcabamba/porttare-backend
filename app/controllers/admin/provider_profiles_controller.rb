@@ -24,11 +24,15 @@ module Admin
     def new
       super
       build_one_office
+      office_belongs_to_place
+      build_offices_weekdays
     end
 
     def edit
       super
       build_one_office
+      office_belongs_to_place
+      build_offices_weekdays
     end
 
     def update
@@ -45,8 +49,23 @@ module Admin
 
     private
 
+    def office_belongs_to_place
+      office = @current_resource.offices.object.first
+      if office.place.blank?
+        office.place = Place.first
+      end
+    end
+
     def build_one_office
       @current_resource.offices.object.build if @current_resource.offices.length == 0
+    end
+
+    def build_offices_weekdays
+      @current_resource.object.offices.each do |office|
+        if office.weekdays.length == 0
+          office.build_weekdays
+        end
+      end
     end
 
     def transitor_service(predicate)
@@ -65,5 +84,12 @@ module Admin
       end
     end
     helper_method :provider_categories_for_select
+
+    def provider_office_places_for_select
+      Place.sorted.decorate.map do |place|
+        [ place.to_s, place.id ]
+      end
+    end
+    helper_method :provider_office_places_for_select
   end
 end

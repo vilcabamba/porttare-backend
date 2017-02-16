@@ -11,11 +11,14 @@ RSpec.describe Api::ProvidersController,
     let(:category) { create :provider_category }
     let(:provider_profile){
       create :provider_profile,
+             :with_office,
+             status: :active,
              provider_category: category
     }
     let(:provider_item) {
       create :provider_item,
              :en_stock,
+             :available,
              provider_profile: provider_profile
     }
 
@@ -63,6 +66,7 @@ RSpec.describe Api::ProvidersController,
       let(:provider_item) {
         create :provider_item,
                :en_stock,
+               :available,
                provider_profile: provider_profile,
                provider_item_category: provider_item_category
       }

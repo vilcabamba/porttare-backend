@@ -22,7 +22,15 @@ module Api
         api :GET,
             "/customer/cart",
             "Get current cart"
-        desc "Returns current customer order or empty if there's no customer order. Each order item has a cached price which should be used as provider's item may change it's price. Customer order items are grouped by the provider who offers them."
+        desc %q{
+Returns current customer order or empty if there's no customer order.
+
+Each order item has a cached price which should be used as provider's item may change it's price.
+
+Customer order items are grouped by the provider who offers them.
+
+`shipping_fare_price_cents` from `customer_order_delivery` is calculated if delivery method is shipping
+}
         example %q{{
   "customer_order":{
     "id":1,
@@ -54,6 +62,7 @@ module Api
         "id":2,
         "delivery_method":"shipping",
         "customer_address_id":1,
+        "shipping_fare_price_cents":150,
         "deliver_at":"2016-12-21 19:22 -0500"
       },
       "customer_order_items":[{
@@ -175,8 +184,9 @@ module Api
 
         def find_or_create_current_order
           skip_policy_scope # because we access through #current_order
-          @customer_order =
-            @customer_profile.current_order || @customer_profile.customer_orders.create
+          @customer_order = @customer_profile.current_order_or_create_for(
+            pundit_user.current_place
+          )
         end
       end
     end

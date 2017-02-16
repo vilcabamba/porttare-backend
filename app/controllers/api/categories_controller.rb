@@ -1,5 +1,7 @@
 module Api
   class CategoriesController < BaseController
+    include Api::BaseController::ProviderProfileScopable
+
     before_action :authenticate_api_auth_user!
 
     respond_to :json

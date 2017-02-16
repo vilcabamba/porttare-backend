@@ -34,7 +34,9 @@ RSpec.describe Api::Courier::ProfilesController,
       expect {
         post_with_headers(
           "/api/courier/profile",
-          attributes_for(:courier_profile)
+          attributes_for(:courier_profile).merge(
+            place_id: user.current_place.id
+          )
         )
       }.to change{ CourierProfile.count }.by(1)
     end

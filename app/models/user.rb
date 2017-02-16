@@ -44,6 +44,8 @@ class User < ActiveRecord::Base
   extend Enumerize
   include DeviseTokenAuth::Concerns::User # after devise
 
+  has_paper_trail skip: [:tokens]
+
   begin :validations
     validates :email,
               presence: true,
@@ -55,6 +57,7 @@ class User < ActiveRecord::Base
     has_one :provider_profile
     has_one :courier_profile
     has_one :customer_profile
+    has_many :user_devices
     has_many :locations,
              class_name: "UserLocation"
     belongs_to :current_place,
@@ -76,10 +79,6 @@ class User < ActiveRecord::Base
             multiple: true
 
   mount_uploader :custom_image, UserCustomImageUploader
-
-  def current_place_or_default
-    current_place.presence || Place.default
-  end
 
   private
 

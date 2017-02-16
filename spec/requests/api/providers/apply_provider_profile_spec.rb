@@ -2,8 +2,13 @@ require "rails_helper"
 
 RSpec.describe Api::Provider::ProfilesController,
                type: :request do
-  let(:user) { create :user }
-  before { login_as user }
+  let(:place) { create :place, nombre: "loh" }
+  let(:user) { create :user, current_place: place }
+  let(:provider_category) { create :provider_category }
+  before do
+    login_as user
+    provider_category
+  end
 
   describe "doesn't create provider profile for user" do
     let(:invalid_attributes) {
@@ -20,6 +25,7 @@ RSpec.describe Api::Provider::ProfilesController,
     it {
       json_response = JSON.parse(response.body)
       expect(json_response["errors"]["ruc"]).to be_present
+      expect(json_response["errors"]["provider_category_id"]).to be_present
     }
   end
 
@@ -27,7 +33,9 @@ RSpec.describe Api::Provider::ProfilesController,
     before do
       post_with_headers(
         "/api/provider/profile",
-        attributes_for(:provider_profile)
+        attributes_for(:provider_profile).merge(
+          provider_category_id: provider_category.id
+        )
       )
     end
 
@@ -60,12 +68,22 @@ RSpec.describe Api::Provider::ProfilesController,
   end
 
   describe "persists provider branches" do
-    let(:office_attributes) {
-      attributes_for :provider_office
+    let(:provider_office) {
+      build(:provider_office)
     }
-
+    let(:weekdays_attributes) {
+      provider_office.weekdays.map do |weekday|
+        weekday.attributes
+      end
+    }
+    let(:office_attributes) {
+      provider_office.attributes.merge(
+        weekdays_attributes: weekdays_attributes
+      )
+    }
     let(:attributes) {
       attributes_for(:provider_profile).merge(
+        provider_category_id: provider_category.id,
         offices_attributes: [
           office_attributes
         ]
@@ -85,7 +103,7 @@ RSpec.describe Api::Provider::ProfilesController,
       provider_office = ProviderOffice.last
       expect(
         provider_office.direccion
-      ).to eq(office_attributes[:direccion])
+      ).to eq(office_attributes["direccion"])
       expect(
         provider_office.provider_profile
       ).to eq(user.provider_profile)
@@ -103,7 +121,9 @@ RSpec.describe Api::Provider::ProfilesController,
     it "logs custom event", versioning: true do
       post_with_headers(
         "/api/provider/profile",
-        attributes_for(:provider_profile)
+        attributes_for(:provider_profile).merge(
+          provider_category_id: provider_category.id
+        )
       )
 
       version = PaperTrail::Version.last

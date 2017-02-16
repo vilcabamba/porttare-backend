@@ -1,6 +1,7 @@
 - if pundit_policy.send(:transition?, to_status)
   - transitor = transitor_service(to_status)
   - if transitor.valid?
+    h4 = t("admin.provider_profile.transition.#{to_status}")
     p.resource-action-prompt
       = t("admin.provider_profile.transition.#{to_status}_prompt")
   - else

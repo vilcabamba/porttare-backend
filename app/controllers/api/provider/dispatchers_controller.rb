@@ -45,6 +45,7 @@ module Api
           "Get a provider's dispatcher"
       description "Includes provider office in response. Includes user in response if exists"
       param :id, Integer, required: true
+      see "provider-offices#index", "Provider::Offices#index for provider_office serialization in response"
       example %q{
   "provider_dispatcher": {
     "id":5,
@@ -55,16 +56,7 @@ module Api
       "to_s":"Beatriz Soto Valles",
       "image":"https://robohash.org/architectoanimiquos.png?size=300x300&set=set1"
     },
-    "provider_office":{
-      "id":5,
-      "direccion":"Bajada Lucia s/n.",
-      "ciudad":"Quito",
-      "telefono":"912968346",
-      "final_de_labores":"mon",
-      "inicio_de_labores":"thu",
-      "hora_de_apertura":"15:00 +0000",
-      "hora_de_cierre":"00:00 +0000"
-    }
+    "provider_office":{}
   }
 }
       def show

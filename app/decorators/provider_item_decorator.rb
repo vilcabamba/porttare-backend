@@ -38,7 +38,7 @@ class ProviderItemDecorator < GenericResourceDecorator
     ]
   end
 
-  def link_to_resource(options=nil, &block)
+  def admin_link_to_resource(options=nil, &block)
     h.link_to(
       h.admin_provider_item_path(object),
       options,

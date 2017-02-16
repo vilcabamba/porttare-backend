@@ -11,7 +11,7 @@ class CustomerOrder < ActiveRecord::Base
     end
 
     ##
-    # @return Boolean
+    # @return [Boolean]
     def save
       valid? && submit_order!
     end
@@ -22,8 +22,10 @@ class CustomerOrder < ActiveRecord::Base
 
     private
 
+    ##
+    # @return [Boolean]
     def submit_order!
-      submitter.submit_order!
+      submitter.submit_order! && notify_providers!
     end
 
     def submitter
@@ -36,6 +38,10 @@ class CustomerOrder < ActiveRecord::Base
         @customer_order,
         @submission_attributes
       )
+    end
+
+    def notify_providers!
+      NotifyProviders.delay.run(@customer_order.id)
     end
   end
 end

@@ -13,6 +13,7 @@ class ProviderProfile < ActiveRecord::Base
 
       def create_shipping_request!
         ShippingRequest.create!(
+          place: main_office.place,
           kind: predicate,
           resource: @provider_profile,
           address_attributes: address_attributes
@@ -24,9 +25,7 @@ class ProviderProfile < ActiveRecord::Base
       end
 
       def perform_validations!
-        unless @provider_profile.valid?
-          errors << @provider_profile.errors.full_messages
-        end
+        validate_provider_profile!
         unless main_office.present?
           errors << I18n.t(
             "admin.provider_profile.transition.error.office_required"
@@ -40,7 +39,9 @@ class ProviderProfile < ActiveRecord::Base
 
       def address_attributes
         main_office.attributes.slice(
-          "ciudad",
+          "lat",
+          "lon",
+          "place_id",
           "telefono",
           "direccion"
         )

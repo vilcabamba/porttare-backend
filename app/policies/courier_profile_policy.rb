@@ -9,7 +9,8 @@ class CourierProfilePolicy < ApplicationPolicy
 
   def create?
     # if the user doesn't have a courier profile already
-    user.courier_profile.nil?
+    # and if the user is not a provider already
+    user.courier_profile.nil? && user.provider_profile.nil?
   end
 
   def permitted_attributes
@@ -18,7 +19,7 @@ class CourierProfilePolicy < ApplicationPolicy
       :email,
       :nombres,
       :telefono,
-      :ubicacion,
+      :place_id,
       :tipo_licencia,
       :fecha_nacimiento,
       :tipo_medio_movilizacion

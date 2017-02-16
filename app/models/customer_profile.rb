@@ -18,10 +18,18 @@ class CustomerProfile < ActiveRecord::Base
   # returns an order in progress (if any)
   # @return CustomerOrder
   def current_order
-    customer_orders.with_status(:in_progress).first
+    order_for_place(user.current_place)
   end
 
-  def default_customer_address
-    customer_addresses.first
+  def current_order_or_create_for(place)
+    order_for_place(place).presence || customer_orders.create(
+      place: place
+    )
+  end
+
+  def order_for_place(place)
+    customer_orders.with_status(:in_progress)
+                   .for_place(place)
+                   .first
   end
 end

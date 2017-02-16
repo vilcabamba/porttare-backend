@@ -13,6 +13,7 @@ describe %q{
   feature "shipping requests list" do
     let(:shipping_request) {
       create :shipping_request,
+             :with_address_attributes,
              resource: build(:provider_profile)
     }
     before {

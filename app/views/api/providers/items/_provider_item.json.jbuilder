@@ -5,10 +5,13 @@ json.extract!(
   :descripcion,
   :unidad_medida,
   :precio_cents,
+  :precio_currency,
   :volumen,
   :peso,
   :observaciones,
-  :provider_item_category_id
+  :cantidad,
+  :provider_item_category_id,
+  :provider_profile_id
 )
 
 json.imagenes do

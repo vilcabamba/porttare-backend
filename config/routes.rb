@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :locations, only: :create
     resources :products, only: :index
     resource :pusher_auth, only: :create
+    resource :tos, only: :show
     resources :categories, only: :index do
       resources :providers, only: [:index, :show] do
         resources :items, only: :show
@@ -29,7 +30,13 @@ Rails.application.routes.draw do
       resources :billing_addresses,
                 only: [:index, :show, :create, :update]
       resources :orders,
-                only: [:index, :show]
+                only: [:index, :show] do
+        resources :deliveries, only: [] do
+          member do
+            post :cancel
+          end
+        end
+      end
     end
 
     namespace :provider do
@@ -57,7 +64,13 @@ Rails.application.routes.draw do
     namespace :courier do
       resource :profile, only: :create
       resources :shipping_requests,
-                only: [:index, :show]
+                only: [:index, :show] do
+        member do
+          post :take
+          post :in_store
+          post :delivered
+        end
+      end
     end
 
     namespace :users do
@@ -65,6 +78,10 @@ Rails.application.routes.draw do
                only: :create
       resource :account,
                only: [:show, :update]
+      resources :places,
+                only: :index
+      resources :devices,
+                only: :create
     end
 
     namespace :auth do
@@ -96,6 +113,14 @@ Rails.application.routes.draw do
     resources :provider_item_categories
     resources :provider_items
     resources :customer_orders
+    resources :places do
+      resources :shipping_fares
+      resource :shipping_costs do
+        collection do
+          post :calculate
+        end
+      end
+    end
     resources :users do
       collection do
         get "/by_status/:status",

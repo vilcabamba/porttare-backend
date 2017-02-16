@@ -2,7 +2,7 @@ module Api
   module Users
     class AccountsController < BaseController
       resource_description do
-        name "User::Accounts"
+        name "Users::Accounts"
         short "user's account"
       end
 
@@ -28,11 +28,13 @@ module Api
       api :PUT,
           "/users/account",
           "Update user account"
+      see "users-places#index", "User::Places#index for available places"
       param :name, String
       param :email, String
       param :ciudad, String
       param :custom_image, File
       param :fecha_nacimiento, Date
+      param :current_place_id, Integer
       param :password, String, "if you want to update your account's password"
       def update
         if @api_resource.update(user_params)

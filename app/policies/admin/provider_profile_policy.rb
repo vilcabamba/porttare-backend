@@ -36,6 +36,8 @@ module Admin
         privileges.customer_service? || privileges.admin?
       when "validated"
         privileges.customer_service? || privileges.admin?
+      when "active"
+        privileges.admin?
       end
     end
 
@@ -50,6 +52,7 @@ module Admin
         :remove_logotipo,
         :razon_social,
         :banco_nombre,
+        :generate_user,
         :twitter_handle,
         :youtube_handle,
         :facebook_handle,
@@ -62,6 +65,7 @@ module Admin
         :provider_category_id,
         :nombre_establecimiento,
         :fecha_inicio_actividad,
+        :place_id,
         formas_de_pago: [],
         offices_attributes: offices_attributes
       ]
@@ -70,7 +74,7 @@ module Admin
     private
 
     def offices_attributes
-      ProviderOfficePolicy.new(user,record).permitted_attributes
+      Admin::ProviderOfficePolicy.new(user,record).permitted_attributes
     end
   end
 end

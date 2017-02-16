@@ -10,11 +10,13 @@ class CustomerOrder < ActiveRecord::Base
       # and caches:
       #  - subtotal_items
       #  - customer_billing_address
+      # @return [Boolean] wether it was
+      #   submitted or not
       def submit_order!
         @customer_order.transaction do
           cache_addresses!
           mark_deliveries_as_pending!
-          cache_billing_address!
+          cache_billing_address! unless @customer_order.anon_billing_address?
           update_subtotal_items!
           assign_submitted_at!
           submitted!
@@ -26,6 +28,7 @@ class CustomerOrder < ActiveRecord::Base
       def cache_addresses!
         @customer_order.deliveries.each do |delivery|
           delivery.send :cache_address!
+          delivery.send :cache_shipping_fare_price_cents!
         end
       end
 

@@ -3,4 +3,5 @@ json.extract!(
   :banco_nombre,
   :banco_numero_cuenta,
   :banco_tipo_cuenta,
+  :allowed_currency_iso_codes
 )

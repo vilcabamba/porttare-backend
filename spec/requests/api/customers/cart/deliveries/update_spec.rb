@@ -11,6 +11,7 @@ RSpec.describe Api::Customer::Cart::ItemsController,
   }
   let(:order_item_1) {
     create :customer_order_item,
+           :ready_for_checkout,
            customer_order: customer_order
   }
   let(:customer_address) {

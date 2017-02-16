@@ -6,7 +6,7 @@ RSpec.describe Api::ProductsController,
   before { login_as user }
 
   describe "lists products" do
-    let!(:product) { create :provider_item, :en_stock }
+    let!(:product) { create :provider_item, :en_stock, :available }
     before { get_with_headers "/api/products" }
     subject { JSON.parse response.body }
 

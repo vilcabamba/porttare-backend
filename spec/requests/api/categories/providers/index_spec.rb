@@ -9,6 +9,7 @@ RSpec.describe Api::ProvidersController,
     let(:category) { create :provider_category }
     let(:provider_profile){
       create :provider_profile,
+             status: :active,
              provider_category: category
     }
     let(:provider_office) {
@@ -52,7 +53,7 @@ RSpec.describe Api::ProvidersController,
 
     it "includes complete info for provider profile" do
       expect(
-        office_from_response
+        office_from_response["weekdays"].first
       ).to have_key("hora_de_apertura")
     end
 

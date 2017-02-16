@@ -9,7 +9,8 @@ class ProviderProfilePolicy < ApplicationPolicy
 
   def create?
     # if the user doesn't have a provider profile already
-    user.provider_profile.nil?
+    # and if the user is not a courier already
+    user.provider_profile.nil? && user.courier_profile.nil?
   end
 
   def update?
@@ -37,6 +38,7 @@ class ProviderProfilePolicy < ApplicationPolicy
       :actividad_economica,
       :representante_legal,
       :nombre_establecimiento,
+      :provider_category_id,
       formas_de_pago: [],
       offices_attributes: offices_attributes
     ]

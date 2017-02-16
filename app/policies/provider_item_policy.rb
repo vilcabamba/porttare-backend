@@ -9,7 +9,7 @@ class ProviderItemPolicy < ApplicationPolicy
 
   class PublicScope < Scope
     def resolve
-      scope.in_stock
+      scope.in_stock.available
     end
   end
 
@@ -43,6 +43,7 @@ class ProviderItemPolicy < ApplicationPolicy
       :descripcion,
       :unidad_medida,
       :precio,
+      :precio_currency,
       :volumen,
       :peso,
       :observaciones,

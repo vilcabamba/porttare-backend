@@ -60,4 +60,23 @@ RSpec.describe ProviderProfile,
       it { is_expected.to_not be_valid }
     end
   end
+
+  describe "generate_user" do
+    subject {
+      ProviderProfile.new(
+        attributes_for(:provider_profile).merge(
+          generate_user: "1"
+        )
+      )
+    }
+    it {
+      expect {
+        subject.save
+      }.to change { User.count }.by(1)
+
+      expect(
+        User.last.email
+      ).to eq(subject.email)
+    }
+  end
 end

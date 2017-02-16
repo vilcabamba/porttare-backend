@@ -20,7 +20,7 @@
               => t("admin.#{klass_name}.history.association.#{suffix}.#{event}",
                 default: :"admin.history.default.association.#{event}")
               - if association.decorated_resource.present?
-                = association.decorated_resource.link_to_resource do
+                = association.decorated_resource.admin_link_to_resource do
                   = association.decorated_resource.to_s
               - else
                 = t("activerecord.models.#{association.item_type.underscore}")

@@ -14,6 +14,7 @@ RSpec.describe Api::ItemsController,
     let(:provider_item) {
       create :provider_item,
              :en_stock,
+             :available,
              provider_profile: provider_profile
     }
 

@@ -13,8 +13,14 @@ RSpec.describe Api::Customer::OrdersController,
              :submitted,
              :with_order_item
     }
+    let(:provider_office) {
+      create :provider_office,
+             :enabled,
+             provider_profile: user.provider_profile
+    }
     let(:customer_order_item) {
       create :customer_order_item,
+             :ready_for_checkout,
              customer_order: customer_order,
              provider_item: provider_item
     }
@@ -34,6 +40,7 @@ RSpec.describe Api::Customer::OrdersController,
     }
 
     before do
+      provider_office
       login_as user
       customer_order
       customer_address
@@ -44,7 +51,8 @@ RSpec.describe Api::Customer::OrdersController,
       expect(Pusher).to receive(:trigger)
 
       post_with_headers(
-        "/api/provider/customer_orders/#{customer_order.id}/accept"
+        "/api/provider/customer_orders/#{customer_order.id}/accept",
+        { preparation_time_mins: 29 }
       )
     end
 
@@ -57,6 +65,12 @@ RSpec.describe Api::Customer::OrdersController,
       expect(
         delivery["status"]
       ).to eq("accepted")
+      expect(
+        delivery["preparation_time_mins"]
+      ).to eq(29)
+      expect(
+        delivery["provider_responded_at"]
+      ).to be_present
 
       shipping_request = ShippingRequest.last
       expect(

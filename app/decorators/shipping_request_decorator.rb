@@ -1,25 +1,25 @@
 class ShippingRequestDecorator < GenericResourceDecorator
   decorates_association :resource
+  decorates_association :courier_profile
+
+  delegate :address,
+           :telefono,
+           :provider,
+           :card_attributes,
+           :detail_attributes,
+           :customer_order_delivery,
+           to: :resource_delegate
 
   def to_s
     title
   end
 
-  def link_to_resource(options=nil, &block)
+  def admin_link_to_resource(options=nil, &block)
     h.link_to(
       h.admin_shipping_request_path(object.id),
       options,
       &block
     )
-  end
-
-  def card_attributes
-    [
-      :created_at,
-      :address,
-      :provider,
-      :telefono
-    ]
   end
 
   def title
@@ -30,19 +30,50 @@ class ShippingRequestDecorator < GenericResourceDecorator
     I18n.l(object.created_at, format: :admin_full)
   end
 
-  def address
-    address_attributes["direccion"] if address_attributes.present?
+  def in_customer_order_attributes
+    [
+      :desc_label,
+      :courier_profile,
+      :estimated_time_for_delivery
+    ]
   end
 
-  def provider
-    resource.nombre_establecimiento
+  def desc_label
+    admin_link_to_resource do
+      to_s + " (" + status_text + ")"
+    end
   end
 
-  def telefono
-    address_attributes["telefono"] if address_attributes.present?
+  def estimated_time_for_delivery
+    h.t(
+      "datetime.distance_in_words.x_minutes.other",
+      count: estimated_time_mins
+    )
   end
 
-  def kind_str
-    I18n.t("shipping_request.kinds.#{kind}")
+  def delivery_location
+    if address_attributes.present?
+      latitude = address_attributes["lat"]
+      longitude = address_attributes["lon"]
+      h.content_tag :div do
+        link_to_google_map(
+          latitude: latitude,
+          longitude: longitude
+        ) do
+          h.image_tag(
+            static_map_image(:xs, "#{latitude},#{longitude}"),
+            class: "xs-static-map-preview"
+          )
+        end
+      end
+    end
+  end
+
+  private
+
+  def resource_delegate
+    suffix = "#{kind}_delegate".classify
+    klass = "#{self.class}::#{suffix}".constantize
+    @resource_delegate ||= klass.new(self)
   end
 end

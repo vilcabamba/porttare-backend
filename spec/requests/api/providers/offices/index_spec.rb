@@ -31,8 +31,10 @@ RSpec.describe Api::Provider::OfficesController,
         end
 
         expect(resp_office).to be_present
-        expect(resp_office).to have_key("inicio_de_labores")
         expect(resp_office).to have_key("enabled") # private attr
+
+        resp_office_weekday = resp_office["weekdays"].first
+        expect(resp_office_weekday).to have_key("hora_de_cierre")
       end
 
       it "response doesn't include other's office" do

@@ -14,6 +14,8 @@
 #  customer_billing_address_attributes :text
 #  customer_billing_address_id         :integer
 #  submitted_at                        :datetime
+#  anon_billing_address                :boolean          default(FALSE)
+#  place_id                            :integer
 #
 
 FactoryGirl.define do
@@ -21,10 +23,18 @@ FactoryGirl.define do
     customer_profile
 
     status :in_progress # default
+    place {
+      if customer_profile && customer_profile.user
+        customer_profile.user.current_place
+      else
+        build :place
+      end
+    }
 
     trait :with_order_item do
       after(:create) do |customer_order|
         create :customer_order_item,
+               :ready_for_checkout,
                customer_order: customer_order
       end
     end

@@ -21,6 +21,10 @@ class CustomerOrderDeliveryPolicy < ApplicationPolicy
     ]
   end
 
+  def cancel?
+    record.status.pending? || record.status.accepted?
+  end
+
   private
 
   def order_in_progress?

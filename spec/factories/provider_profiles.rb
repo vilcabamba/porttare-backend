@@ -62,5 +62,9 @@ FactoryGirl.define do
                provider_profile: provider_profile
       end
     end
+
+    trait :with_provider_category do
+      provider_category
+    end
   end
 end

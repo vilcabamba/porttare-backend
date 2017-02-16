@@ -22,6 +22,7 @@ class CustomerOrderPolicy < ApplicationPolicy
     [
       :forma_de_pago,
       :observaciones,
+      :anon_billing_address,
       :customer_billing_address_id,
       deliveries_attributes: deliveries_attributes
     ]

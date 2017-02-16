@@ -9,7 +9,7 @@ json.provider_category do
 
   json.provider_profiles do
     json.array!(
-      @provider_category.provider_profiles,
+      visible_provider_profiles(@provider_category.provider_profiles),
       partial: "provider_profiles",
       as: :provider_profile
     )

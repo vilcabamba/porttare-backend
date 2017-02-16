@@ -7,18 +7,22 @@ RSpec.describe Api::Courier::ShippingRequestsController,
 
     let(:shipping_request) {
       create :shipping_request,
-             address_attributes: { direccion: "something" }
+             :with_address_attributes,
+             kind: :ask_to_validate
     }
 
     let(:others_shipping_request) {
-      create :shipping_request, status: :delivered
+      create :shipping_request,
+             :with_address_attributes,
+             kind: :ask_to_validate,
+             status: :delivered
     }
 
     before do
       login_as user
       shipping_request
       others_shipping_request
-      get_with_headers "/api/courier/shipping_requests"
+      get_with_headers "/api/courier/shipping_requests?status=new"
     end
 
     it "includes shipping request" do
@@ -27,7 +31,7 @@ RSpec.describe Api::Courier::ShippingRequestsController,
       expect(
         response_request["provider_profile"]["nombre_establecimiento"]
       ).to eq(
-        shipping_request.provider_profile.nombre_establecimiento
+        shipping_request.resource.nombre_establecimiento
       )
 
       expect(

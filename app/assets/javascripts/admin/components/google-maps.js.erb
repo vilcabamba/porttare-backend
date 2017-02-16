@@ -1,0 +1,32 @@
+(function () {
+  'use strict';
+
+  var APIKEY = '<%= Rails.application.secrets.google_maps_key %>',
+      GMAPSURL = '//maps.googleapis.com/maps/api/js?callback=gMapsCallback&key=';
+
+  var PorttareMap = (function () {
+    function PorttareMap(callback) {
+      this.callback = callback;
+      this.loadMap();
+    };
+
+    PorttareMap.prototype.loadMap = function(){
+      window.gMapsCallback = $.proxy(this.mapLoaded, this);
+      var script = document.createElement('script');
+      script.src = GMAPSURL + APIKEY;
+      script.type = 'text/javascript';
+      document.getElementsByTagName('head')[0].appendChild(script);
+    };
+
+    PorttareMap.prototype.mapLoaded = function(){
+      window.gMapsCallback = null;
+      this.callback();
+    };
+
+    return PorttareMap;
+  })();
+
+  $(document).on('porttare:load-maps', function (e, cb) {
+    new PorttareMap(cb);
+  })
+})();

@@ -16,13 +16,16 @@ module Api
       api :POST,
           "/courier/profile",
           "Submit a courier profile application. Response includes errors if any."
+      see "users-places#index", "User::Places#index for available places"
       param :ruc, String, required: true
       param :email, String, required: true
       param :nombres, String, required: true
       param :telefono, String, required: true
       param :fecha_nacimiento, Date
-      param :ubicacion,
-            CourierProfile::UBICACIONES
+      param :place_id,
+            Integer,
+            required: true,
+            desc: "place id from the api"
       param :tipo_licencia,
             CourierProfile::TIPOS_LICENCIA
       param :tipo_medio_movilizacion, CourierProfile::TIPOS_MEDIO_MOVILIZACION

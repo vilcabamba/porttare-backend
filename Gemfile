@@ -23,6 +23,12 @@ gem 'koala', '~> 2.4'
 gem 'simple_form', '~> 3.3'
 gem 'nested_form', github: 'smoku/nested_form'
 gem 'pusher', '~> 1.3'
+gem 'svg-flags-rails', '1.0.0.pre.beta2'
+gem 'countries', '~> 2.0'
+gem 'redcarpet', '~> 3.4'
+gem 'geokit', '~> 1.10'
+gem 'geokit-rails', '~> 2.2'
+gem 'gcm', '~> 0.1'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -56,7 +62,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.4'
   gem 'factory_girl_rails', '~> 4.7'
   gem 'database_cleaner'
-  gem 'faker', '~> 1.6'
+  gem 'faker', '~> 1.7'
   gem 'rspec_junit_formatter', '~> 0.2'
   gem 'capybara', '~> 2.8'
   gem 'bullet', '~> 5.4'

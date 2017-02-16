@@ -37,6 +37,7 @@ module Admin
         :observaciones,
         :unidad_medida,
         :precio,
+        :cantidad,
         :volumen,
         :peso,
         :en_stock,

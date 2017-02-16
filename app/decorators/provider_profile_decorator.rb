@@ -3,6 +3,16 @@ class ProviderProfileDecorator < GenericResourceDecorator
   decorates_association :offices
   decorates_association :provider_category
 
+  def user_with_link
+    user.str_with_link if user.present?
+  end
+
+  def places_with_links
+    offices.map do |office|
+      office.place.str_with_link if office.place.present?
+    end.compact.uniq.join(", ").html_safe
+  end
+
   def to_s
      nombre_establecimiento
   end
@@ -19,7 +29,7 @@ class ProviderProfileDecorator < GenericResourceDecorator
     object.formas_de_pago.join(", ")
   end
 
-  def link_to_resource(options=nil, &block)
+  def admin_link_to_resource(options=nil, &block)
     h.link_to h.admin_provider_profile_path(object), options, &block
   end
 
@@ -28,13 +38,14 @@ class ProviderProfileDecorator < GenericResourceDecorator
       :ruc,
       :razon_social,
       :actividad_economica,
-      :representante_legal
+      :user_with_link,
+      :places_with_links
     ].freeze
   end
 
   def detail_attributes
     card_attributes + [
-      :user,
+      :representante_legal,
       :tipo_contribuyente,
       :telefono,
       :email,

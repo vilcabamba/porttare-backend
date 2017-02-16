@@ -28,9 +28,12 @@ module Api
         param :forma_de_pago,
               CustomerOrder::FORMAS_DE_PAGO,
               required: true
+        param :anon_billing_address,
+              TrueClass,
+              desc: "para consumidor final. No incluir dirección de facturación"
         param :customer_billing_address_id,
               Integer,
-              required: true
+              desc: "dirección de facturación. requerida si no es para consumidor final"
         param :deliveries_attributes,
               Hash,
               desc: "deliveries attributes - one required per provider profile" do

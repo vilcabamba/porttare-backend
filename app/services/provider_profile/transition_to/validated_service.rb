@@ -13,10 +13,6 @@ class ProviderProfile < ActiveRecord::Base
       def predicate
         :validated
       end
-
-      def perform_validations!
-        # TODO
-      end
     end
   end
 end

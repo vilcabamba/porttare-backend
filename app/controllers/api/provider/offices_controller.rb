@@ -39,18 +39,17 @@ module Api
         super
       end
 
-      def_param_group :provider_office do
-        param :ciudad,
-              PorttareBackend::Places.all,
+      def_param_group :provider_office_weekday do
+        param :id,
+              Integer,
+              desc: "required if editing"
+        param :day,
+              ProviderOfficeWeekday.day.values,
+              required: true,
+              desc: "one record per weekday"
+        param :abierto,
+              [true, false],
               required: true
-        param :telefono,
-              String,
-              required: true,
-              desc: "un teléfono por sucursal"
-        param :direccion,
-              String,
-              required: true,
-              desc: "Branches without `direccion` will be ignored"
         param :hora_de_apertura,
               Time,
               required: true,
@@ -59,15 +58,33 @@ module Api
               Time,
               required: true,
               desc: "format: `%H:%M %z`. Example: `13:00 -0500`"
-        param :final_de_labores,
-              ProviderOffice.final_de_labores.values
-        param :inicio_de_labores,
-              ProviderOffice.final_de_labores.values
+      end
+
+      def_param_group :provider_office do
+        param :place_id,
+              Integer,
+              required: true,
+              desc: "a place id from the api"
+        param :telefono,
+              String,
+              required: true,
+              desc: "un teléfono por sucursal"
+        param :direccion,
+              String,
+              required: true,
+              desc: "Branches without `direccion` will be ignored"
+        param :weekdays_attributes,
+              Hash,
+              required: true,
+              desc: "offices weekdays" do
+          param_group :provider_office_weekday
+        end
       end
 
       api :POST,
           "/provider/offices",
           "create a provider office"
+      see "users-places#index", "User::Places#index for available places"
       param_group :provider_office
       def create
         super
@@ -76,6 +93,7 @@ module Api
       api :PUT,
           "/provider/offices/:id",
           "update a provider's office"
+      see "users-places#index", "User::Places#index for available places"
       param :id, Integer, required: true, desc: "provider office id"
       param_group :provider_office
       def update

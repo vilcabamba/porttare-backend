@@ -11,7 +11,7 @@ json.partial!(
 # instead (?)
 json.provider_profiles do
   json.array!(
-    provider_category.provider_profiles,
+    visible_provider_profiles(provider_category.provider_profiles),
     partial: "api/providers/provider_profile",
     as: :provider_profile
   )

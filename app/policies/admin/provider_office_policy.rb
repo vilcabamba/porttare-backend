@@ -3,14 +3,19 @@ module Admin
     def permitted_attributes
       [
         :id,
-        :ciudad,
+        :place_id,
         :telefono,
         :direccion,
-        :hora_de_apertura,
-        :hora_de_cierre,
-        :final_de_labores,
-        :inicio_de_labores,
-        :enabled
+        :enabled,
+        :lat,
+        :lon,
+        weekdays_attributes: [
+          :id,
+          :day,
+          :abierto,
+          :hora_de_cierre,
+          :hora_de_apertura
+        ]
       ]
     end
   end
