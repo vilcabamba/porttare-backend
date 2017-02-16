@@ -4,6 +4,9 @@ es:
     status:
       in_progress: En progreso
       submitted: Enviada
+    notification:
+      provider_new_order:
+        title: "Tienes un pedido nuevo"
   provider_profile:
     statuses:
       applied: Aplicado
