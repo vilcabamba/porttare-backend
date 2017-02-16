@@ -15,7 +15,7 @@ module PushService
     end
 
     def mock_gcm_client?
-      !ENV["FORCE_PUSH_NOTIFICATIONS"] && (api_key.blank? || Rails.env.development? || Rails.env.test?)
+      (api_key.blank? || Rails.env.development? || Rails.env.test?) && !ENV["FORCE_PUSH_NOTIFICATIONS"]
     end
 
     def mocked_gcm_client
