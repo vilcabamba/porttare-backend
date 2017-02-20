@@ -6,4 +6,8 @@ class ProviderCategoryDecorator < GenericResourceDecorator
   def card_attributes
     [:titulo, :descripcion]
   end
+
+  def imagen_url
+    imagen.file.nil? ? object.imagen_url : imagen.big.url
+  end
 end
