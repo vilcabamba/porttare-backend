@@ -1,5 +1,5 @@
 json.extract!(
-  provider_category,
+  provider_category.decorate,
   :id,
   :titulo,
   :imagen_url,

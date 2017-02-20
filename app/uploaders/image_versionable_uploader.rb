@@ -3,6 +3,10 @@ class ImageVersionableUploader < ApplicationUploader
     include CarrierWave::MiniMagick
   end
 
+  version :big do
+    process resize_to_limit: [1000, 1000]
+  end
+
   version :small do
     process resize_to_limit: [500, 500]
   end
