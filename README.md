@@ -1,8 +1,8 @@
 # porttare-backend
 
-[![CircleCI](https://circleci.com/gh/noggalito/porttare-backend.svg?style=svg)](https://circleci.com/gh/noggalito/porttare-backend)
-[![Code Climate](https://codeclimate.com/github/noggalito/porttare-backend/badges/gpa.svg)](https://codeclimate.com/github/noggalito/porttare-backend)
-[![security](https://hakiri.io/github/noggalito/porttare-backend/master.svg)](https://hakiri.io/github/noggalito/porttare-backend/master)
+[![CircleCI](https://circleci.com/gh/vilcabamba/porttare-backend.svg?style=svg)](https://circleci.com/gh/vilcabamba/porttare-backend)
+[![Code Climate](https://codeclimate.com/github/vilcabamba/porttare-backend/badges/gpa.svg)](https://codeclimate.com/github/vilcabamba/porttare-backend)
+[![security](https://hakiri.io/github/vilcabamba/porttare-backend/master.svg)](https://hakiri.io/github/vilcabamba/porttare-backend/master)
 
 ## resources
 

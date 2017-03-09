@@ -10,7 +10,7 @@ Apipie.configure do |config|
 
     resources:
 
-    - [github repo](https://github.com/noggalito/porttare-backend)
+    - [github repo](https://github.com/vilcabamba/porttare-backend)
   EOS
 
   # where is your API defined?
