@@ -1,5 +1,6 @@
 server 'demo-porttare-api.cuxibamba.com', user: 'cx-demo-porttare', roles: %w{app db web}
 
+set :tmp_dir, '/home/cx-demo-porttare/tmp'
 set :deploy_to, '/home/cx-demo-porttare/cx-demo-porttare-backend'
 set :rbenv_path, '/home/cx-demo-porttare/.rbenv'
 
