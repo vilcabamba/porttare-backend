@@ -12,7 +12,7 @@
         strong = t("activerecord.attributes.provider_item_category.nombre")
       .col-xs-4
         strong = t("admin.provider")
-      .col-xs-2
+      .col-xs-2.hidden-xs
         strong = t("admin.provider_item_category.provider_items_count")
       .col-xs-1
 
@@ -28,7 +28,7 @@
                       admin_provider_profile_path(provider_profile)
           - else
             i.glyphicon.glyphicon-globe.bs-tooltip data-placement="right" title="#{t("admin.provider_item_category.global")}"
-        .col-xs-2
+        .col-xs-2.hidden-xs
           = provider_item_category.provider_items.count
         .col-xs-1
           = link_to t("ui.edit"),

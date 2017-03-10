@@ -52,4 +52,13 @@
       }
     }
   }
+
+  @media (max-width: $screen-sm-min) {
+    z-index: 2;
+    display: none;
+
+    .affix {
+      position: relative;
+    }
+  }
 }
