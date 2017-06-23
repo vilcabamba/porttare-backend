@@ -46,5 +46,3 @@ set :rbenv_ruby, '2.3.0'
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
-
-after 'deploy:finished', 'airbrake:deploy'
