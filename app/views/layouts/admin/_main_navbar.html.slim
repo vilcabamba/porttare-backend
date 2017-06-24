@@ -1,6 +1,11 @@
 - if current_admin
   nav#main-navbar.navbar.navbar-default.navbar-fixed-top
     .navbar-header
+      button.navbar-toggle.porttare-collapse type="button" data-toggle="collapse" data-target="#main-sidebar"
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+
       = link_to admin_root_path,
                 class: "navbar-brand" do
         = image_tag "/images/brand/porttare-white.png"

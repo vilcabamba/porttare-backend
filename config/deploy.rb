@@ -2,11 +2,11 @@
 lock '3.6.1'
 
 set :application, 'porttare-backend'
-set :repo_url, 'git@github.com:noggalito/porttare-backend.git'
+set :repo_url, 'git@github.com:vilcabamba/porttare-backend.git'
 
 set :slackistrano, {
   channel: '#porttare',
-  webhook: 'https://hooks.slack.com/services/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'
+  webhook: 'https://hooks.slack.com/services/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'
 }
 
 set :delayed_job_prefix, 'porttare-backend'
@@ -16,6 +16,7 @@ set :delayed_job_monitor, true
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 set :branch, ENV['BRANCH'] || 'production'
 
+set :bundle_without, %w{development test deployment}.join(' ')
 # Default deploy_to directory is /var/www/my_app_name
 # set :deploy_to, '/home/macool/porttare-backend'
 
@@ -37,14 +38,13 @@ set :branch, ENV['BRANCH'] || 'production'
 append :linked_files, '.env'
 
 # Default value for linked_dirs is []
-append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads'
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads', 'public/.well-known'
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
 set :rbenv_ruby, '2.3.0'
+set :passenger_restart_with_touch, true
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
-
-after 'deploy:finished', 'airbrake:deploy'

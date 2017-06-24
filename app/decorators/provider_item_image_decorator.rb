@@ -12,6 +12,6 @@ class ProviderItemImageDecorator < GenericResourceDecorator
   end
 
   def imagen_url
-    imagen.small_padded.url
+    imagen.small_cropped.url
   end
 end

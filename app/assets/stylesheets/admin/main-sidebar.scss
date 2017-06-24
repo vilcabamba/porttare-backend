@@ -1,4 +1,5 @@
 @import "admin/colors";
+@import "bootstrap/variables";
 
 #main-sidebar {
   padding-top: 60px; //main navbar
@@ -50,6 +51,15 @@
           margin-right: 10px;
         }
       }
+    }
+  }
+
+  @media (max-width: $screen-sm-min) {
+    z-index: 2;
+    display: none;
+
+    .affix {
+      position: relative;
     }
   }
 }
