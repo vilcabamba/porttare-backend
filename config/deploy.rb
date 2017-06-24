@@ -44,6 +44,7 @@ append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bund
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
 set :rbenv_ruby, '2.3.0'
+set :passenger_restart_with_touch, true
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
