@@ -58,7 +58,6 @@ unless Place.where(nombre: "Piura").exists?
   )
 end
 
-
 Place.find_each do |place|
   if place.shipping_fares.count == 0
     puts "creating default shipping fares"

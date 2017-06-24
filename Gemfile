@@ -87,7 +87,6 @@ group :deployment do
   gem 'capistrano-rails', '~> 1.2'
   gem 'capistrano-passenger', '~> 0.2'
   gem 'capistrano3-delayed-job', '~> 1.7'
-  gem 'daemons', '~> 1.2' # to deploy delayed_job
   gem 'slackistrano', '~> 3.1', require: false
 end
 
@@ -98,4 +97,8 @@ end
 group :staging do
   gem 'rails_12factor'
   gem 'cloudinary', '~> 1.2'
+end
+
+group :production do
+  gem 'daemons', '~> 1.2' # to deploy delayed_job
 end

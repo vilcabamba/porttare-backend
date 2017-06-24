@@ -16,8 +16,8 @@ html lang="#{I18n.locale}"
 
     #main-wrapper.container-fluid
       .row
-        .col-sm-2#main-sidebar
+        #main-sidebar.col-sm-2
           = render "layouts/admin/sidebar"
 
-        .col-sm-10#main-content
+        .col-sm-10.col-xs-12#main-content
           = yield

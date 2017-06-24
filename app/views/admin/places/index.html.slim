@@ -3,27 +3,27 @@
 .resource-table-collection.places-collection
   .resource-wrapper
     .row.table-headers
-      .col-xs-2
+      .col-xs-4.col-sm-2
         strong = t("activerecord.attributes.place.nombre")
-      .col-xs-1
+      .col-xs-1.hidden-xs
         strong = t("activerecord.attributes.place.country")
-      .col-xs-3
+      .col-xs-3.hidden-xs
         strong = t("activerecord.attributes.place.location")
-      .col-xs-3
+      .col-xs-4.col-sm-3
         strong = t("activerecord.attributes.place.price_per_km_cents")
-      .col-xs-3
+      .col-xs-4.col-sm-3
         strong = t("admin.shipping_fare.title")
 
     - @resource_collection.each do |place|
       .row
-        .col-xs-2
+        .col-xs-4.col-sm-2
           = place.nombre
-        .col-xs-1
+        .col-xs-1.hidden-xs
           = place.flag_image_tag width: 35, class: "prefix"
-        .col-xs-3
+        .col-xs-3.hidden-xs
           = place.link_to_google_map do
             = place.static_map_image class: "place-static-image"
-        .col-xs-3
+        .col-xs-4.col-sm-2
           p
             => place.price_per_km_cents
             = place.currency_iso_code
@@ -34,7 +34,7 @@
           p
             = link_to t("admin.shipping_cost.title"),
                       admin_place_shipping_costs_path(place)
-        .col-xs-3
+        .col-xs-4.col-sm-2
           ul
             - place.shipping_fares.each do |shipping_fare|
               = render "shipping_fare",
