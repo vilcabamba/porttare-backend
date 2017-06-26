@@ -4,6 +4,11 @@ module Admin
 
     self.resource_type = "Place"
 
+    def new
+      super
+      @current_resource.country = "Ecuador"
+    end
+
     def index
       pundit_authorize
       @resource_collection = resource_scope.sorted.decorate

@@ -4,6 +4,11 @@
     = f.input :price_per_km_cents
     = f.input :factor_per_distance
 
+  .actions
+    = f.submit class: "btn btn-default"
+
+  hr
+
   = content_tag :div,
                 nil,
                 class: "initialize-location-map-placeholder",
@@ -39,6 +44,3 @@
 
   p.calculating.hidden = t("ui.calculating")
   p.calulculations-intro = t("admin.place.shipping_costs_calculation_intro")
-
-  .actions
-    = f.submit class: "btn btn-default"
