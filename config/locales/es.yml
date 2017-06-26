@@ -97,6 +97,9 @@ es:
       privileges:
         all: Todos
     place:
+      new: Nuevo lugar
+      edit: Editar lugar
+      created: Lugar creado
       updated: Lugar actualizado
       shipping_costs_calculation_intro: Da click en el mapa para calcular costos de envío
     customer_order:

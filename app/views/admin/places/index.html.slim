@@ -1,4 +1,10 @@
 .main-content-toolbox
+  - if pundit_policy.new?
+    .text-right
+      = link_to new_admin_place_path,
+                class: "btn btn-link" do
+        span.glyphicon.glyphicon-plus-sign
+        =< t("admin.place.new")
 
 .resource-table-collection.places-collection
   .resource-wrapper
@@ -17,7 +23,13 @@
     - @resource_collection.each do |place|
       .row
         .col-xs-4.col-sm-2
-          = place.nombre
+          h4 = place.nombre
+          - if pundit_policy.edit?
+            div
+              = link_to edit_admin_place_path(place),
+                        class: "" do
+                span.glyphicon.glyphicon-edit
+                =< t("ui.edit")
         .col-xs-1.hidden-xs
           = place.flag_image_tag width: 35, class: "prefix"
         .col-xs-3.hidden-xs
