@@ -28,6 +28,16 @@ module Api
         User
       end
 
+      def assign_provider_attrs(user, auth_hash)
+        user.assign_attributes({
+          nickname: auth_hash['info']['nickname'],
+          name:     auth_hash['info']['name'],
+          image:    auth_hash['info']['image'],
+          email:    auth_hash['info']['email']
+        })
+        user.will_cache_facebook_image!
+      end
+
       def devise_mapping
         request.env['devise.mapping']
       end
