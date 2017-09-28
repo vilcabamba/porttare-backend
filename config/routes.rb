@@ -23,6 +23,7 @@ Rails.application.routes.draw do
         resources :deliveries,
                   only: [:update]
       end
+      resource :service_providers, only: [:show]
       resources :wishlists,
                 only: [:index, :create, :update, :destroy]
       resources :addresses,
