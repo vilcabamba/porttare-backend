@@ -37,7 +37,7 @@
             = place.static_map_image class: "place-static-image"
         .col-xs-4.col-sm-2
           p
-            => place.price_per_km_cents
+            => place.price_per_km_cents / 100.0
             = place.currency_iso_code
           p
             = t("activerecord.attributes.place.factor_per_distance")
