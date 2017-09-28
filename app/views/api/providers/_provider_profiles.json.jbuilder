@@ -1,5 +1,6 @@
 ##
 # provider_profile's public template
+
 json.partial!(
   "provider_profile",
   provider_profile: provider_profile

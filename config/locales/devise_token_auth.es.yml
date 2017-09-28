@@ -29,6 +29,17 @@ es:
       validate_account_update_params: "Los datos introducidos en la solicitud de actualización no son válidos."
       not_email: "no es un correo electrónico"
   devise:
+    sessions:
+      submit: Iniciar sesión
+      admin:
+        signed_in: Bienvenido!
+    failure:
+      already_authenticated: Ya iniciaste sesión
+      unauthenticated: Por favor inicia sesión
+      admin:
+        not_found_in_database: Usuario no encontrado
+        invalid: Usuario o contraseña incorrectos
+        unauthenticated: Por favor inicia sesión
     mailer:
       confirmation_instructions:
         subject: "Instrucciones de confirmación"

@@ -6,5 +6,9 @@ module Api
              .for_place(user.current_place)
       end
     end
+
+    def customer_show?
+      user.current_place.present?
+    end
   end
 end
