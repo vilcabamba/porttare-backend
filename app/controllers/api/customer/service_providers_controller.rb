@@ -15,6 +15,7 @@ module Api
       api :GET,
           "/customer/service_providers",
           "service providers sorted by opening time"
+      description "**NB** this endpoint returns a simplified version of the provider public profile"
       see "providers#index", "Categories::Providers#index for provider profile serialization"
       def show
         pundit_authorize :customer_show
