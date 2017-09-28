@@ -24,6 +24,11 @@
       .row
         .col-xs-4.col-sm-2
           h4 = place.nombre
+
+          - if place.enabled?
+            span.label.label-success
+              = t("activerecord.attributes.place.enabled")
+
           - if pundit_policy.edit?
             div
               = link_to edit_admin_place_path(place),

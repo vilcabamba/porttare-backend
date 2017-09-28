@@ -1,7 +1,7 @@
 class PlacePolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope
+      scope.enabled
     end
   end
 

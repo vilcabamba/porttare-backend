@@ -6,7 +6,7 @@ RSpec.describe Api::Users::PlacesController,
   before { login_as user }
 
   it "I see available places" do
-    place = create :place
+    place = create :place, :enabled
     get_with_headers "/api/users/places"
     places = JSON.parse(response.body).fetch("places")
     response_place = places.detect { |p| p["id"] == place.id }

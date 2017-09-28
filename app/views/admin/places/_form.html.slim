@@ -16,6 +16,13 @@
                    {},
                    class: "js-selectize"
 
+      - if current_admin.privileges.admin?
+        .form-group
+          .checkbox
+            = f.label :enabled do
+              = f.check_box :enabled
+              = t("activerecord.attributes.place.enabled")
+
       = content_tag :div,
                     class: "form-group resource-map-in-form",
                     data: { default_lat: "-3.996704",

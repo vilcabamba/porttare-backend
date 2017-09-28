@@ -291,6 +291,7 @@ es:
         location: Ubicación
         price_per_km_cents: Precio por km (ctvs)
         factor_per_distance: Factor por distancia
+        enabled: Activo
       shipping_fare:
         place: Lugar
         price_cents: Precio (ctvs)

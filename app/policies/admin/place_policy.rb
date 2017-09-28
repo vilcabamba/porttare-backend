@@ -36,7 +36,8 @@ module Admin
           :nombre,
           :country,
           :lat,
-          :lon
+          :lon,
+          :enabled
         ]
       end
       allowed_attributes

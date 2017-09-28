@@ -11,6 +11,7 @@
 #  updated_at          :datetime         not null
 #  price_per_km_cents  :integer          default(1)
 #  factor_per_distance :float            default(0.1)
+#  enabled             :boolean          default(FALSE)
 #
 
 class Place < ActiveRecord::Base
@@ -27,6 +28,7 @@ class Place < ActiveRecord::Base
   has_many :courier_profiles
   has_many :provider_profiles
 
+  scope :enabled, ->{ where(enabled: true) }
   scope :sorted, ->{
     order(:country, :nombre)
   }

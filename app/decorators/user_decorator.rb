@@ -38,7 +38,7 @@ class UserDecorator < GenericResourceDecorator
   end
 
   def custom_image_url
-    custom_image.small_padded.url if custom_image?
+    custom_image.small_cropped.url if custom_image?
   end
 
   ##
