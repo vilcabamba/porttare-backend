@@ -26,7 +26,7 @@ module Api
 
       def resource_scope
         skip_policy_scope
-        pundit_policy_class::Scope.new(pundit_user, resource_klass).resolve
+        pundit_policy_class::PublicScope.new(pundit_user, resource_klass).resolve
       end
 
       def pundit_authorize(action = nil)
