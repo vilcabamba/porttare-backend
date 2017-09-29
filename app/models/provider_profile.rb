@@ -99,10 +99,11 @@ class ProviderProfile < ActiveRecord::Base
     scope :by_nombre, -> {
       order(:nombre_establecimiento)
     }
-    scope :for_place, ->(place) {
+    scope :with_enabled_offices_in, ->(place) {
       where(
         id: ProviderOffice.where(provider_profile_id: all.pluck(:id))
                           .for_place(place)
+                          .enabled
                           .pluck(:provider_profile_id)
       )
     }

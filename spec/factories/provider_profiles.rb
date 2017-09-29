@@ -59,6 +59,7 @@ FactoryGirl.define do
     trait :with_office do
       after(:create) do |provider_profile|
         create :provider_office,
+               :enabled,
                provider_profile: provider_profile
       end
     end

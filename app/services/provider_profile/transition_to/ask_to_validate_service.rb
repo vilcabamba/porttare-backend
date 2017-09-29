@@ -31,6 +31,11 @@ class ProviderProfile < ActiveRecord::Base
             "admin.provider_profile.transition.error.office_required"
           )
         end
+        unless main_office.enabled?
+          errors << I18n.t(
+            "admin.provider_profile.transition.error.office_enabled_required"
+          )
+        end
       end
 
       def main_office
