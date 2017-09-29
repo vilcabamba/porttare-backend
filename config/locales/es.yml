@@ -188,12 +188,14 @@ es:
           active: El proveedor fue activado
         error:
           office_required: Necesita tener una oficina con una dirección a donde enviaremos un mensajero para validar al proveedor
+          office_enabled_required: "La oficina necesita estar habilitada para aparecer visible a los clientes"
+          provider_category_required: Necesita estar asignado a un área
     provider_category:
       updated: Categoría actualizada
     shipping_cost:
       title: Costos de envío
       distance: Distancia
-      final_price: Precio final
+      final_price: Costo final
       extra_price_per_km: Precio (extra) por KM
       price_per_km: Precio por KM
       shipping_fare: Tarifa aplicada

@@ -35,6 +35,11 @@ class ProviderProfile < ActiveRecord::Base
       protected
 
       def validate_provider_profile!
+        unless @provider_profile.provider_category.present?
+          errors << I18n.t(
+            "admin.provider_profile.transition.error.provider_category_required"
+          )
+        end
         unless @provider_profile.valid?
           errors << @provider_profile.errors.full_messages
         end
