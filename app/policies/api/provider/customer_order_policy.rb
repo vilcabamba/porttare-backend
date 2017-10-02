@@ -2,13 +2,16 @@ module Api
   module Provider
     class CustomerOrderPolicy < ::ApplicationPolicy
       class Scope < Scope
-        def resolve
+        def resolve(status = nil)
           deliveries = CustomerOrderDelivery.where(
             provider_profile_id: user.provider_profile.id
           )
+          if status.present?
+            deliveries = deliveries.with_status(*status)
+          end
           scope.where(
             id: deliveries.pluck(:customer_order_id)
-          )
+          ).with_status(:submitted)
         end
       end
 
