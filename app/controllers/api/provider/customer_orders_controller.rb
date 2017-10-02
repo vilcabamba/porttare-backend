@@ -23,10 +23,19 @@ module Api
             desc: "orders' status"
       see "customer-orders#index", "Customer::Orders#index for customer order serialization in response"
       def index
-        super
-        @api_collection = @api_collection.with_status(
-          params[:status] || :submitted
-        ).latest
+        pundit_authorize
+        skip_policy_scope
+        # TODO write some specs for this shit
+        api_status = if params[:status] == "completed"
+          [:accepted, :rejected]
+        elsif params[:status] == "submitted"
+          :pending
+        end
+        @api_collection = Api::Provider::CustomerOrderPolicy::Scope.new(
+          pundit_user,
+          resource_klass
+        ).resolve(api_status)
+        @api_collection = @api_collection.latest
       end
 
       api :GET,

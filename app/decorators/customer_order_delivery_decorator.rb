@@ -18,7 +18,7 @@ class CustomerOrderDeliveryDecorator < GenericResourceDecorator
 
   def estimated_time_for_preparation
     # TODO
-    "15 minutos" if object.status.accepted?
+    "#{preparation_time_mins} minutos" if object.status.accepted?
   end
 
   def full_resume_for_card
