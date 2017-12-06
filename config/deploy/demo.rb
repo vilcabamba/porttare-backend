@@ -1,9 +1,9 @@
-server 'porttare-api.shiriculapo.com', user: 'porttare', roles: %w{app db web}
+server 'demo.comidomi.com.ec', user: 'porttare', roles: %w{app db web}
 
-set :deploy_to, '/home/porttare/demo-porttare-backend'
+set :deploy_to, '/home/porttare/demo-porttare-backend-comidomi'
 set :rbenv_path, '/home/porttare/.rbenv'
 
-set :delayed_job_prefix, 'porttare-backend-demo'
+set :delayed_job_prefix, 'porttback-demo-comidomi'
 
 # role-based syntax
 # ==================

@@ -14,13 +14,13 @@
 }
 
 .btn-default {
-  color: $brandYellowColor;
-  border-color: $brandYellowColor;
+  color: $baseOrange;
+  border-color: $baseOrange;
 
   &:hover, &:active, &:hover:active, &:focus {
     color: white;
-    border-color: $brandYellowColor;
-    background-color: $brandYellowColor;
+    border-color: $baseOrange;
+    background-color: $baseOrange;
   }
 }
 
@@ -34,8 +34,8 @@
   box-shadow: 0 0 5px #dcdcdc;
 
   & > .panel-heading {
-    border-color: $brandYellowColor;
-    background-color: $brandYellowColor;
+    border-color: $baseTeal;
+    background-color: $baseTeal;
     text-align: center;
     color: white;
   }

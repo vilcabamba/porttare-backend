@@ -1,7 +1,10 @@
 $brandYellowColor: #EEC230;
-$sidebarInactiveColor: #BFBFBF;
+$baseOrange: #E65B2E;
+$baseTeal: #0DAA97;
+$baseDarkteal: #00324E;
+$sidebarInactiveColor: white;
 $sidebarBGColor: #525273;
-$sidebarActiveBGColor: #4A4B67;
+$sidebarActiveBGColor: $baseOrange;
 $mainContentBGColor: #F2F2F3;
 $resourceOuterBorderColor: #E2E4E8;
 $resourceInnerBordercolor: #EFEFEF;
