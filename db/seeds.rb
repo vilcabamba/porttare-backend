@@ -44,7 +44,8 @@ unless Place.where(nombre: "Loja").exists?
     lat: "-3.996704",
     lon: "-79.201699",
     nombre: "Loja",
-    country: "Ecuador"
+    country: "Ecuador",
+    enabled: true
   )
 end
 
