@@ -15,7 +15,7 @@ describe %q{
 
     before {
       provider_profile
-      visit admin_provider_profiles_path
+      visit admin_provider_profiles_path(status: :applied)
     }
 
     it {
