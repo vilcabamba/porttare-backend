@@ -64,6 +64,8 @@ es:
     calculating: Calculando..
     confirm: Estás seguro?
   admin:
+    filter: Filtrar
+    remove_filter: Quitar filtro
     provider: Proveedor
     something_went_wrong: Ups, algo salió mal
     history:
@@ -134,6 +136,7 @@ es:
       updated: Producto actualizado
       created: Producto creado
       add_image: Agregar imagen
+      provider_item_category: Categoría
       history:
         create: creó este producto
         update: actualizó este producto
@@ -257,6 +260,7 @@ es:
       provider_item_categories:
         nombre: Nombre
       provider_item:
+        titulo: Título
         provider_item_category: Categoría
         provider_item_category_id: Categoría
         provider_profile_id: Proveedor

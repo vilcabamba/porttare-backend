@@ -29,6 +29,7 @@ gem 'redcarpet', '~> 3.4'
 gem 'geokit', '~> 1.10'
 gem 'geokit-rails', '~> 2.2'
 gem 'gcm', '~> 0.1'
+gem 'searchlight', '~> 4.1'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

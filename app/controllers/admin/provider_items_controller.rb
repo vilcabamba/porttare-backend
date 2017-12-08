@@ -16,6 +16,17 @@ module Admin
 
     private
 
+    def provider_item_search
+      @provider_item_search ||= ProviderItemSearch.new(
+        params[:provider_item_search] || {}
+      )
+    end
+    helper_method :provider_item_search
+
+    def resource_collection_for_scope
+      provider_item_search.results
+    end
+
     def provider_item_categories_for_select
       ProviderItemCategory.by_nombre
                           .decorate
