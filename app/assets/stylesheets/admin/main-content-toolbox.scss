@@ -16,5 +16,18 @@
         margin-right: 3px;
       }
     }
+
+    .toolbox-filters {
+      padding: 10px;
+
+      .form-group {
+        max-width: 300px;
+        margin-right: 10px;
+      }
+
+      input, .form-group {
+        vertical-align: top;
+      }
+    }
   }
 }

@@ -14,13 +14,13 @@
 }
 
 .btn-default {
-  color: $baseOrange;
-  border-color: $baseOrange;
+  color: $baseTeal;
+  border-color: $baseTeal;
 
   &:hover, &:active, &:hover:active, &:focus {
     color: white;
-    border-color: $baseOrange;
-    background-color: $baseOrange;
+    border-color: $baseTeal;
+    background-color: $baseTeal;
   }
 }
 

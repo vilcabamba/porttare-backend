@@ -9,7 +9,7 @@ module Admin
 
     def index
       pundit_authorize
-      @resource_status = params[:status] || ProviderProfile.status.values.first
+      @resource_status = params[:status] || :active
       @resource_collection =
         resource_scope.with_status(@resource_status)
                       .includes(:provider_category)

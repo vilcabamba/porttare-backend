@@ -49,7 +49,7 @@ module Admin
         end
       end
 
-      private
+      protected
 
       def find_current_resource
         @current_resource = resource_scope.find(params[:id]).decorate
@@ -63,8 +63,12 @@ module Admin
         skip_policy_scope
         pundit_policy_class::Scope.new(
           pundit_user,
-          resource_klass
+          resource_collection_for_scope
         ).resolve
+      end
+
+      def resource_collection_for_scope
+        resource_klass
       end
 
       def resource_params
