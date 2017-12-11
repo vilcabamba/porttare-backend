@@ -14,7 +14,7 @@ module Api
     end
 
     def customer_show?
-      user.current_place.present?
+      user.current_place.present? if user else true
     end
   end
 end

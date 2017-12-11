@@ -8,8 +8,6 @@ module Api
         short "service providers. for a customer. ie. sorted by opening time"
       end
 
-      before_action :authenticate_api_auth_user!
-
       self.resource_klass = ProviderProfile
 
       api :GET,
