@@ -2,8 +2,14 @@ module Api
   class ProviderProfilePolicy < ::ApplicationPolicy
     class PublicScope < Scope
       def resolve
-        scope.with_status(:active)
-             .with_enabled_offices_in(user.current_place)
+        if user
+          scope.with_status(:active)
+          .with_enabled_offices_in(user.current_place)
+        else
+          scope.with_status(:active)
+          .with_enabled_offices_in(Place.default)
+        end
+
       end
     end
 
