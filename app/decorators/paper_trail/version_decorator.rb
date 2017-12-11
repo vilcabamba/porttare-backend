@@ -18,7 +18,7 @@ module PaperTrail
       if whodunnit.present?
         whodunnit.image_url
       else
-        default_email = "hola@moviggo.com"
+        default_email = "hola@" + Rails.application.secrets.default_email_domain
         h.gravatar_image_url(default_email)
       end
     end
