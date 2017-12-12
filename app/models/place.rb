@@ -40,4 +40,9 @@ class Place < ActiveRecord::Base
   def currency_iso_code
     ISO3166::Country.find_country_by_name(country).currency.iso_code
   end
+
+  def self.default
+    where(nombre: 'Loja').first
+  end
+
 end

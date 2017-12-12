@@ -4,7 +4,6 @@ module Api
 
     respond_to :json
 
-    before_action :authenticate_api_auth_user!
     before_action :find_provider_category,
                   only: [:index, :show]
     before_action :pundit_authorize
