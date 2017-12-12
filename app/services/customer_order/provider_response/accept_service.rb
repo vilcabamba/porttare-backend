@@ -18,7 +18,8 @@ class CustomerOrder < ActiveRecord::Base
       end
 
       def valid?
-        @request_params[:preparation_time_mins].present?
+        preparation_time_mins = @request_params[:preparation_time_mins]
+        preparation_time_mins.present? && preparation_time_mins.to_i > 0
       end
 
       private

@@ -105,11 +105,14 @@ es:
       updated: Lugar actualizado
       shipping_costs_calculation_intro: Da click en el mapa para calcular costos de envío
     customer_order:
+      respond: Responder este pedido
+      accept: Aceptar orden
+      reject: Rechazar orden
       order_items_details: Detalles del pedido
       history:
         submitted: envió esta orden
-        provider_accept_delivery: (proveedor) aceptó la solicitud
-        provider_reject_delivery: (proveedor) rechazó la solicitud
+        provider_accept_delivery: aceptó la solicitud al proveedor
+        provider_reject_delivery: rechazó la solicitud al proveedor
     customer_order_delivery:
       from_store: de la tienda
       to_home: a domicilio
@@ -289,7 +292,10 @@ es:
         deliver_at: Fecha de entrega
         numero_convencional: Teléfono convencional
         shipping_fare_price: Costo de envío
-        estimated_time_for_preparation: Tiempo estimado para la preparación
+        preparation_time_mins: 'Tiempo estimado para la preparación (mins)'
+        preparation_time_mins_placeholder: 'ej: 10mins'
+        reason: 'Razón de rechazo'
+        reason_placeholder: 'Razón por la que se rechaza. Ej: No poseemos stock'
         shipping_request_desc: Orden de envío
       place:
         nombre: Ciudad
