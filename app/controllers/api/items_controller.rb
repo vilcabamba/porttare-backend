@@ -1,6 +1,5 @@
 module Api
   class ItemsController < BaseController
-    before_action :authenticate_api_auth_user!
     before_action :find_provider_category
     before_action :find_provider_profile
     before_action :find_provider_item
