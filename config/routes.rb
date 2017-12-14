@@ -120,6 +120,11 @@ Rails.application.routes.draw do
           patch :reject
         end
       end
+      resources :shipping_requests, only: [] do
+        member do
+          patch :assign
+        end
+      end
     end
     resources :places do
       resources :shipping_fares

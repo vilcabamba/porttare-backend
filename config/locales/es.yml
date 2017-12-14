@@ -118,8 +118,11 @@ es:
       to_home: a domicilio
     shipping_request:
       title: Envío
+      respond: Asignar este envío
+      confirm_shipping: Confirmar envío
       history:
         canceled: canceló este envío
+        customer_service_assign: asignó este pedido a un mensajero
         take_by_courier: (mensajero) tomó este pedido
         courier_in_store: (mensajero) en la tienda para recoger el pedido
         delivered: (mensajero) entregó el pedido al cliente
@@ -242,8 +245,10 @@ es:
         customer_order_delivery: Despacho
         desc_label: Orden de envío
         courier_profile: Mensajero
-        estimated_time_for_delivery: Tiempo estimado para la entrega
+        courier_profile_id: Asignar mensajero
+        estimated_time_mins: 'Tiempo estimado para la entrega (mins)'
         delivery_location: Entregar en
+        estimated_time_mins_placeholder: 'ej: 20mins'
       provider_category:
         titulo: Título
         descripcion: Descripción

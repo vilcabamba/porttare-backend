@@ -24,7 +24,7 @@ class CustomerOrder < ActiveRecord::Base
 
       private
 
-      def paper_trail_event
+      def default_paper_trail_event
         :provider_accept_delivery
       end
 

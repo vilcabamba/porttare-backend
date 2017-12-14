@@ -16,7 +16,7 @@
       .modal-body
         h4 = t("admin.customer_order.accept")
 
-        = form_for [:accept, :admin, customer_order_delivery.customer_order, customer_order_delivery],
+        = form_for [:accept, :admin, customer_order_delivery.customer_order, customer_order_delivery.object],
                    html: { class: "form-inline respond-customer-order-delivery-form" } do |f|
           .form-group
             = f.label :preparation_time_mins

@@ -13,5 +13,9 @@ module Admin
     def show?
       index?
     end
+
+    def assign?
+      index?
+    end
   end
 end
