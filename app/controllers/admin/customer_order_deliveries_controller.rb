@@ -8,9 +8,10 @@ module Admin
       find_current_resource
       pundit_authorize
       service = CustomerOrder::ProviderResponse::AcceptService.new(
-        @current_resource.object.provider_profile.user,
-        @current_resource.object.customer_order,
-        params[:customer_order_delivery]
+        provider: @current_resource.object.provider_profile.user,
+        customer_order: @current_resource.object.customer_order,
+        request_params: params[:customer_order_delivery],
+        event_name: customer_service_accept_delivery:
       )
       if service.perform
         #continue with modals
@@ -31,9 +32,10 @@ module Admin
       find_current_resource
       pundit_authorize
       service = CustomerOrder::ProviderResponse::RejectService.new(
-        @current_resource.object.provider_profile.user,
-        @current_resource.object.customer_order,
-        params[:customer_order_delivery]
+        provider: @current_resource.object.provider_profile.user,
+        customer_order: @current_resource.object.customer_order,
+        request_params: [:customer_order_delivery],
+        event_name: :customer_service_reject_delivery
       )
       if service.perform
         #continue with modals

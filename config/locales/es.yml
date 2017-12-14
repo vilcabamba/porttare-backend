@@ -111,8 +111,10 @@ es:
       order_items_details: Detalles del pedido
       history:
         submitted: envió esta orden
-        provider_accept_delivery: aceptó la solicitud al proveedor
-        provider_reject_delivery: rechazó la solicitud al proveedor
+        provider_accept_delivery: (proveedor) aceptó la solicitud
+        provider_reject_delivery: (proveedor) rechazó la solicitud
+        customer_service_accept_delivery: aceptó esta orden
+        customer_service_reject_delivery: rechazó esta orden
     customer_order_delivery:
       from_store: de la tienda
       to_home: a domicilio
