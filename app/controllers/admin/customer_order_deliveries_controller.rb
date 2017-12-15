@@ -11,7 +11,7 @@ module Admin
         provider: @current_resource.object.provider_profile.user,
         customer_order: @current_resource.object.customer_order,
         request_params: params[:customer_order_delivery],
-        event_name: customer_service_accept_delivery:
+        event_name: :customer_service_accept_delivery
       )
       if service.perform
         #continue with modals
@@ -34,7 +34,7 @@ module Admin
       service = CustomerOrder::ProviderResponse::RejectService.new(
         provider: @current_resource.object.provider_profile.user,
         customer_order: @current_resource.object.customer_order,
-        request_params: [:customer_order_delivery],
+        request_params: params[:customer_order_delivery],
         event_name: :customer_service_reject_delivery
       )
       if service.perform
