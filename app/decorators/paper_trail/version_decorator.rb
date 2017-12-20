@@ -18,7 +18,7 @@ module PaperTrail
       if whodunnit.present?
         whodunnit.image_url
       else
-        default_email = "hola@" + Rails.application.secrets.default_email_domain
+        default_email = "hola@" + secrets.default_email_domain
         h.gravatar_image_url(default_email)
       end
     end
@@ -54,6 +54,10 @@ module PaperTrail
     end
 
     private
+
+    def secrets
+      ::Rails.application.secrets
+    end
 
     def associations
       object.class.where(
